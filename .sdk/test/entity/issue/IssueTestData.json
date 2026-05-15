@@ -1,0 +1,87 @@
+{
+  "existing": {
+    "issue": {
+      "ISSUE00": {
+        "assignee": "sa0",
+        "body": "sa1",
+        "closed_at": "sa2",
+        "comment": "sa3",
+        "created_at": "sa4",
+        "html_url": "sa5",
+        "id": "ISSUE00",
+        "label": [],
+        "milestone": {},
+        "node_id": "NODE01",
+        "number": "saa",
+        "state": "sab",
+        "title": "sac",
+        "updated_at": "sad",
+        "url": "sae",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "ISSUE01": {
+        "assignee": "s140",
+        "body": "s141",
+        "closed_at": "s142",
+        "comment": "s143",
+        "created_at": "s144",
+        "html_url": "s145",
+        "id": "ISSUE01",
+        "label": [],
+        "milestone": {},
+        "node_id": "NODE01",
+        "number": "s14a",
+        "state": "s14b",
+        "title": "s14c",
+        "updated_at": "s14d",
+        "url": "s14e",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "ISSUE02": {
+        "assignee": "s1e0",
+        "body": "s1e1",
+        "closed_at": "s1e2",
+        "comment": "s1e3",
+        "created_at": "s1e4",
+        "html_url": "s1e5",
+        "id": "ISSUE02",
+        "label": [],
+        "milestone": {},
+        "node_id": "NODE01",
+        "number": "s1ea",
+        "state": "s1eb",
+        "title": "s1ec",
+        "updated_at": "s1ed",
+        "url": "s1ee",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      }
+    }
+  },
+  "new": {
+    "issue": {
+      "issue_ref01": {
+        "assignee": "s280",
+        "body": "s281",
+        "closed_at": "s282",
+        "comment": "s283",
+        "created_at": "s284",
+        "html_url": "s285",
+        "label": [],
+        "milestone": {},
+        "node_id": "NODE01",
+        "number": "s28a",
+        "state": "s28b",
+        "title": "s28c",
+        "updated_at": "s28d",
+        "url": "s28e",
+        "user": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+# Entity: branch
+
+main: kit: entity: branch: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "commit"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "protected"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+  ]
+
+  name: "branch"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/repos/{owner}/{repo}/branches"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "branches"
+          ]
+          select: {
+            exist: [
+              "owner"
+              "page"
+              "per_page"
+              "repo"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "repo"
+      ]
+    ]
+  }
+
+
+
+}

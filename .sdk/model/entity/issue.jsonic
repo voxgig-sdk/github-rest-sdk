@@ -1,0 +1,370 @@
+# Entity: issue
+
+main: kit: entity: issue: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "assignee"
+      req: false
+      type: "`$ANY`"
+    }
+    {
+      name: "body"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "closed_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "comment"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "html_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "label"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "milestone"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "node_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "number"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "state"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "updated_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "user"
+      req: false
+      type: "`$OBJECT`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "issue"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/repos/{owner}/{repo}/issues"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "issues"
+          ]
+          select: {
+            exist: [
+              "owner"
+              "repo"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "desc"
+                kind: "query"
+                name: "direction"
+                orig: "direction"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "label"
+                orig: "label"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "created"
+                kind: "query"
+                name: "sort"
+                orig: "sort"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "open"
+                kind: "query"
+                name: "state"
+                orig: "state"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/repos/{owner}/{repo}/issues"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "issues"
+          ]
+          select: {
+            exist: [
+              "direction"
+              "label"
+              "owner"
+              "page"
+              "per_page"
+              "repo"
+              "sort"
+              "state"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "issue_number"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/repos/{owner}/{repo}/issues/{issue_number}"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "issues"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              issue_number: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "owner"
+              "repo"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "issue_number"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PATCH"
+          orig: "/repos/{owner}/{repo}/issues/{issue_number}"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "issues"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              issue_number: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+              "owner"
+              "repo"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "repo"
+      ]
+    ]
+  }
+
+
+
+}

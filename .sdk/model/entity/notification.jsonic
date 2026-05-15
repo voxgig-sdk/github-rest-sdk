@@ -1,0 +1,121 @@
+# Entity: notification
+
+main: kit: entity: notification: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "last_read_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "reason"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "repository"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "subject"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "unread"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "updated_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "url"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "notification"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: false
+                kind: "query"
+                name: "all"
+                orig: "all"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: false
+                kind: "query"
+                name: "participating"
+                orig: "participating"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/notifications"
+          parts: [
+            "notifications"
+          ]
+          select: {
+            exist: [
+              "all"
+              "page"
+              "participating"
+              "per_page"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

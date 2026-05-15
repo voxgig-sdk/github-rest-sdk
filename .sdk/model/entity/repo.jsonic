@@ -1,0 +1,326 @@
+# Entity: repo
+
+main: kit: entity: repo: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "default_branch"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "fork"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "forks_count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "full_name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "html_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "language"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "node_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "open_issues_count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "owner"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "private"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "pushed_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "size"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "stargazers_count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "updated_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "visibility"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "watchers_count"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "repo"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "asc"
+                kind: "query"
+                name: "direction"
+                orig: "direction"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "full_name"
+                kind: "query"
+                name: "sort"
+                orig: "sort"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "owner"
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/users/{username}/repos"
+          parts: [
+            "users"
+            "{username}"
+            "repos"
+          ]
+          select: {
+            exist: [
+              "direction"
+              "page"
+              "per_page"
+              "sort"
+              "type"
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "org_id"
+                orig: "org"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "all"
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/orgs/{org}/repos"
+          parts: [
+            "orgs"
+            "{org_id}"
+            "repos"
+          ]
+          rename: {
+            param: {
+              org: "org_id"
+            }
+          }
+          select: {
+            exist: [
+              "org_id"
+              "page"
+              "per_page"
+              "type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/repos/{owner}/{repo}"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+          ]
+          select: {
+            exist: [
+              "owner"
+              "repo"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "org"
+      ]
+      [
+        "repo"
+      ]
+      [
+        "user"
+      ]
+    ]
+  }
+
+
+
+}

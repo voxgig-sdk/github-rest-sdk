@@ -1,0 +1,85 @@
+{
+  "existing": {
+    "org": {
+      "ORG00": {
+        "avatar_url": "saa",
+        "blog": "sab",
+        "created_at": "sac",
+        "description": "sad",
+        "email": "sae",
+        "follower": "saf",
+        "following": "sb0",
+        "html_url": "sb1",
+        "id": "ORG00",
+        "location": "sb3",
+        "login": "sb4",
+        "name": "sb5",
+        "node_id": "NODE01",
+        "public_gist": "sb7",
+        "public_repo": "sb8",
+        "updated_at": "sb9",
+        "url": "sba"
+      },
+      "ORG01": {
+        "avatar_url": "s154",
+        "blog": "s155",
+        "created_at": "s156",
+        "description": "s157",
+        "email": "s158",
+        "follower": "s159",
+        "following": "s15a",
+        "html_url": "s15b",
+        "id": "ORG01",
+        "location": "s15d",
+        "login": "s15e",
+        "name": "s15f",
+        "node_id": "NODE01",
+        "public_gist": "s161",
+        "public_repo": "s162",
+        "updated_at": "s163",
+        "url": "s164"
+      },
+      "ORG02": {
+        "avatar_url": "s1fe",
+        "blog": "s1ff",
+        "created_at": "s200",
+        "description": "s201",
+        "email": "s202",
+        "follower": "s203",
+        "following": "s204",
+        "html_url": "s205",
+        "id": "ORG02",
+        "location": "s207",
+        "login": "s208",
+        "name": "s209",
+        "node_id": "NODE01",
+        "public_gist": "s20b",
+        "public_repo": "s20c",
+        "updated_at": "s20d",
+        "url": "s20e"
+      }
+    }
+  },
+  "new": {
+    "org": {
+      "org_ref01": {
+        "avatar_url": "s2a8",
+        "blog": "s2a9",
+        "created_at": "s2aa",
+        "description": "s2ab",
+        "email": "s2ac",
+        "follower": "s2ad",
+        "following": "s2ae",
+        "html_url": "s2af",
+        "location": "s2b1",
+        "login": "s2b2",
+        "name": "s2b3",
+        "node_id": "NODE01",
+        "public_gist": "s2b5",
+        "public_repo": "s2b6",
+        "updated_at": "s2b7",
+        "url": "s2b8"
+      }
+    }
+  }
+}

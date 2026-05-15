@@ -1,0 +1,88 @@
+# BasicIssueFlow
+
+main: kit: flow: BasicIssueFlow:
+{
+  entity: "issue",
+  kind: "basic",
+  name: "BasicIssueFlow",
+  step: [
+    {
+      input: {
+        ref: "issue_ref01"
+      }
+
+      match: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "issue_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      input: {
+        ref: "issue_ref01",
+        srcdatavar: "issue_ref01_data",
+        suffix: "_up0",
+        textfield: "body"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-issue_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "issue_ref01",
+        srcdatavar: "issue_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "issue01",
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-issue_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicIssueFlow"
+}

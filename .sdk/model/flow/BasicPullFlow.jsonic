@@ -1,0 +1,64 @@
+# BasicPullFlow
+
+main: kit: flow: BasicPullFlow:
+{
+  entity: "pull",
+  kind: "basic",
+  name: "BasicPullFlow",
+  step: [
+    {
+      input: {
+        ref: "pull_ref01"
+      }
+
+      match: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "pull_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "pull_ref01",
+        srcdatavar: "pull_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "pull01",
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-pull_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPullFlow"
+}

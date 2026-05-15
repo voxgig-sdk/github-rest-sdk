@@ -1,0 +1,28 @@
+# BasicRateLimitFlow
+
+main: kit: flow: BasicRateLimitFlow:
+{
+  entity: "rate_limit",
+  kind: "basic",
+  name: "BasicRateLimitFlow",
+  step: [
+    {
+      input: {
+        ref: "rate_limit_ref01",
+        srcdatavar: "rate_limit_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-rate_limit_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRateLimitFlow"
+}

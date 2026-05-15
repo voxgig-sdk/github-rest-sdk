@@ -1,0 +1,52 @@
+{
+  "existing": {
+    "commit": {
+      "COMMIT00": {
+        "author": {},
+        "commit": {},
+        "committer": {},
+        "html_url": "s49",
+        "node_id": "NODE01",
+        "sha": "s4b",
+        "url": "s4c",
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "COMMIT01": {
+        "author": {},
+        "commit": {},
+        "committer": {},
+        "html_url": "s8f",
+        "node_id": "NODE01",
+        "sha": "s91",
+        "url": "s92",
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "COMMIT02": {
+        "author": {},
+        "commit": {},
+        "committer": {},
+        "html_url": "sd5",
+        "node_id": "NODE01",
+        "sha": "sd7",
+        "url": "sd8",
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      }
+    }
+  },
+  "new": {
+    "commit": {
+      "commit_ref01": {
+        "author": {},
+        "commit": {},
+        "committer": {},
+        "html_url": "s11b",
+        "node_id": "NODE01",
+        "sha": "s11d",
+        "url": "s11e"
+      }
+    }
+  }
+}

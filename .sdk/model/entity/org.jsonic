@@ -1,0 +1,144 @@
+# Entity: org
+
+main: kit: entity: org: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "avatar_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "blog"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "follower"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "following"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "html_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "location"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "login"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "node_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "public_gist"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "public_repo"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "updated_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "url"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "org"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "org"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/orgs/{org}"
+          parts: [
+            "orgs"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              org: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

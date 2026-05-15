@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "rate_limit": {
+      "RATE_LIMIT00": {
+        "rate": {},
+        "resource": {}
+      },
+      "RATE_LIMIT01": {
+        "rate": {},
+        "resource": {}
+      },
+      "RATE_LIMIT02": {
+        "rate": {},
+        "resource": {}
+      }
+    }
+  },
+  "new": {
+    "rate_limit": {
+      "rate_limit_ref01": {
+        "rate": {},
+        "resource": {}
+      }
+    }
+  }
+}

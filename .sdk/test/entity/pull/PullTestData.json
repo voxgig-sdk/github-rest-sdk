@@ -1,0 +1,87 @@
+{
+  "existing": {
+    "pull": {
+      "PULL00": {
+        "base": {},
+        "body": "sa1",
+        "closed_at": "sa2",
+        "created_at": "sa3",
+        "draft": true,
+        "head": {},
+        "html_url": "sa6",
+        "id": "PULL00",
+        "merged_at": "sa8",
+        "node_id": "NODE01",
+        "number": "saa",
+        "state": "sab",
+        "title": "sac",
+        "updated_at": "sad",
+        "url": "sae",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "PULL01": {
+        "base": {},
+        "body": "s141",
+        "closed_at": "s142",
+        "created_at": "s143",
+        "draft": true,
+        "head": {},
+        "html_url": "s146",
+        "id": "PULL01",
+        "merged_at": "s148",
+        "node_id": "NODE01",
+        "number": "s14a",
+        "state": "s14b",
+        "title": "s14c",
+        "updated_at": "s14d",
+        "url": "s14e",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "PULL02": {
+        "base": {},
+        "body": "s1e1",
+        "closed_at": "s1e2",
+        "created_at": "s1e3",
+        "draft": true,
+        "head": {},
+        "html_url": "s1e6",
+        "id": "PULL02",
+        "merged_at": "s1e8",
+        "node_id": "NODE01",
+        "number": "s1ea",
+        "state": "s1eb",
+        "title": "s1ec",
+        "updated_at": "s1ed",
+        "url": "s1ee",
+        "user": {},
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      }
+    }
+  },
+  "new": {
+    "pull": {
+      "pull_ref01": {
+        "base": {},
+        "body": "s281",
+        "closed_at": "s282",
+        "created_at": "s283",
+        "draft": true,
+        "head": {},
+        "html_url": "s286",
+        "merged_at": "s288",
+        "node_id": "NODE01",
+        "number": "s28a",
+        "state": "s28b",
+        "title": "s28c",
+        "updated_at": "s28d",
+        "url": "s28e",
+        "user": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "existing": {
+    "branch": {
+      "BRANCH00": {
+        "commit": {},
+        "name": "s1f",
+        "protected": true,
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "BRANCH01": {
+        "commit": {},
+        "name": "s3d",
+        "protected": true,
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      },
+      "BRANCH02": {
+        "commit": {},
+        "name": "s5b",
+        "protected": true,
+        "owner": "OWNER01",
+        "repo": "REPO01"
+      }
+    }
+  },
+  "new": {
+    "branch": {
+      "branch_ref01": {
+        "commit": {},
+        "name": "s79",
+        "protected": true
+      }
+    }
+  }
+}

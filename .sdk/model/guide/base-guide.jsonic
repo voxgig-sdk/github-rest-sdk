@@ -1,0 +1,103 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 11
+  metrics: count: path: 17
+  metrics: count: method: 21
+
+  entity: branch: {
+    path: "/repos/{owner}/{repo}/branches": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: commit: {
+    path: "/repos/{owner}/{repo}/commits": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: gist: {
+    path: "/gists": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+  }
+
+  entity: issue: {
+    path: "/repos/{owner}/{repo}/issues": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/repos/{owner}/{repo}/issues/{issue_number}": {
+      rename: param: "issue_number": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+    }
+  }
+
+  entity: notification: {
+    path: "/notifications": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: org: {
+    path: "/orgs/{org}": {
+      rename: param: "org": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: pull: {
+    path: "/repos/{owner}/{repo}/pulls": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/repos/{owner}/{repo}/pulls/{pull_number}": {
+      rename: param: "pull_number": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: rate_limit: {
+    path: "/rate_limit": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: repo: {
+    path: "/orgs/{org}/repos": {
+      rename: param: "org": *"org_id"
+      op: list: method: *GET
+    }
+    path: "/repos/{owner}/{repo}": {
+      op: load: method: *GET
+    }
+    path: "/users/{username}/repos": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: search: {
+    path: "/search/issues": {
+      action: "issue": {}
+      op: list: method: *GET
+    }
+    path: "/search/repositories": {
+      action: "repository": {}
+      op: list: method: *GET
+    }
+  }
+
+  entity: user: {
+    path: "/user": {
+      op: load: method: *GET
+    }
+    path: "/users/{username}": {
+      rename: param: "username": *"id"
+      op: load: method: *GET
+    }
+  }
+
+}

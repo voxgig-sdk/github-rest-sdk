@@ -1,0 +1,30 @@
+# BasicGistFlow
+
+main: kit: flow: BasicGistFlow:
+{
+  entity: "gist",
+  kind: "basic",
+  name: "BasicGistFlow",
+  step: [
+    {
+      input: {
+        ref: "gist_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "gist_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicGistFlow"
+}

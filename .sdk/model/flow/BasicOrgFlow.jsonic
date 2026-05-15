@@ -1,0 +1,32 @@
+# BasicOrgFlow
+
+main: kit: flow: BasicOrgFlow:
+{
+  entity: "org",
+  kind: "basic",
+  name: "BasicOrgFlow",
+  step: [
+    {
+      input: {
+        ref: "org_ref01",
+        srcdatavar: "org_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "org01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-org_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicOrgFlow"
+}

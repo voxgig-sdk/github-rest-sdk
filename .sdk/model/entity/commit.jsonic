@@ -1,0 +1,138 @@
+# Entity: commit
+
+main: kit: entity: commit: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "author"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "commit"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "committer"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "html_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "node_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sha"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "url"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "commit"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "owner"
+                orig: "owner"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "repo"
+                orig: "repo"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: 1
+                kind: "query"
+                name: "page"
+                orig: "page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "path"
+                orig: "path"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 30
+                kind: "query"
+                name: "per_page"
+                orig: "per_page"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "query"
+                name: "sha"
+                orig: "sha"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/repos/{owner}/{repo}/commits"
+          parts: [
+            "repos"
+            "{owner}"
+            "{repo}"
+            "commits"
+          ]
+          select: {
+            exist: [
+              "owner"
+              "page"
+              "path"
+              "per_page"
+              "repo"
+              "sha"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "repo"
+      ]
+    ]
+  }
+
+
+
+}

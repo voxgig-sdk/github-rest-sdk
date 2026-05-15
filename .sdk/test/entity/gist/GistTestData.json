@@ -1,0 +1,57 @@
+{
+  "existing": {
+    "gist": {
+      "GIST00": {
+        "created_at": "s64",
+        "description": "s65",
+        "file": {},
+        "html_url": "s67",
+        "id": "GIST00",
+        "node_id": "NODE01",
+        "owner": {},
+        "public": false,
+        "updated_at": "s6c",
+        "url": "s6d"
+      },
+      "GIST01": {
+        "created_at": "sc8",
+        "description": "sc9",
+        "file": {},
+        "html_url": "scb",
+        "id": "GIST01",
+        "node_id": "NODE01",
+        "owner": {},
+        "public": false,
+        "updated_at": "sd0",
+        "url": "sd1"
+      },
+      "GIST02": {
+        "created_at": "s12c",
+        "description": "s12d",
+        "file": {},
+        "html_url": "s12f",
+        "id": "GIST02",
+        "node_id": "NODE01",
+        "owner": {},
+        "public": false,
+        "updated_at": "s134",
+        "url": "s135"
+      }
+    }
+  },
+  "new": {
+    "gist": {
+      "gist_ref01": {
+        "created_at": "s190",
+        "description": "s191",
+        "file": {},
+        "html_url": "s193",
+        "node_id": "NODE01",
+        "owner": {},
+        "public": false,
+        "updated_at": "s198",
+        "url": "s199"
+      }
+    }
+  }
+}

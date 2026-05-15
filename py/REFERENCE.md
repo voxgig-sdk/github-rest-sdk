@@ -1,0 +1,957 @@
+# GithubRest Python SDK Reference
+
+Complete API reference for the GithubRest Python SDK.
+
+
+## GithubRestSDK
+
+### Constructor
+
+```python
+from github-rest_sdk import GithubRestSDK
+
+client = GithubRestSDK(options)
+```
+
+Create a new SDK client instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `options` | `dict` | SDK configuration options. |
+| `options["apikey"]` | `str` | API key for authentication. |
+| `options["base"]` | `str` | Base URL for API requests. |
+| `options["prefix"]` | `str` | URL prefix appended after base. |
+| `options["suffix"]` | `str` | URL suffix appended after path. |
+| `options["headers"]` | `dict` | Custom headers for all requests. |
+| `options["feature"]` | `dict` | Feature configuration. |
+| `options["system"]` | `dict` | System overrides (e.g. custom fetch). |
+
+
+### Static Methods
+
+#### `GithubRestSDK.test(testopts=None, sdkopts=None)`
+
+Create a test client with mock features active. Both arguments may be `None`.
+
+```python
+client = GithubRestSDK.test()
+```
+
+
+### Instance Methods
+
+#### `Branch(data=None)`
+
+Create a new `BranchEntity` instance. Pass `None` for no initial data.
+
+#### `Commit(data=None)`
+
+Create a new `CommitEntity` instance. Pass `None` for no initial data.
+
+#### `Gist(data=None)`
+
+Create a new `GistEntity` instance. Pass `None` for no initial data.
+
+#### `Issue(data=None)`
+
+Create a new `IssueEntity` instance. Pass `None` for no initial data.
+
+#### `Notification(data=None)`
+
+Create a new `NotificationEntity` instance. Pass `None` for no initial data.
+
+#### `Org(data=None)`
+
+Create a new `OrgEntity` instance. Pass `None` for no initial data.
+
+#### `Pull(data=None)`
+
+Create a new `PullEntity` instance. Pass `None` for no initial data.
+
+#### `RateLimit(data=None)`
+
+Create a new `RateLimitEntity` instance. Pass `None` for no initial data.
+
+#### `Repo(data=None)`
+
+Create a new `RepoEntity` instance. Pass `None` for no initial data.
+
+#### `Search(data=None)`
+
+Create a new `SearchEntity` instance. Pass `None` for no initial data.
+
+#### `User(data=None)`
+
+Create a new `UserEntity` instance. Pass `None` for no initial data.
+
+#### `options_map() -> dict`
+
+Return a deep copy of the current SDK options.
+
+#### `get_utility() -> Utility`
+
+Return a copy of the SDK utility object.
+
+#### `direct(fetchargs=None) -> tuple`
+
+Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `fetchargs["path"]` | `str` | URL path with optional `{param}` placeholders. |
+| `fetchargs["method"]` | `str` | HTTP method (default: `"GET"`). |
+| `fetchargs["params"]` | `dict` | Path parameter values. |
+| `fetchargs["query"]` | `dict` | Query string parameters. |
+| `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
+| `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
+
+**Returns:** `(result_dict, err)`
+
+#### `prepare(fetchargs=None) -> tuple`
+
+Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+
+
+---
+
+## BranchEntity
+
+```python
+branch = client.Branch()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `commit` | ``$OBJECT`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `protected` | ``$BOOLEAN`` | No |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Branch().list({})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `BranchEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## CommitEntity
+
+```python
+commit = client.Commit()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `author` | ``$OBJECT`` | No |  |
+| `commit` | ``$OBJECT`` | No |  |
+| `committer` | ``$OBJECT`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `sha` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Commit().list({})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `CommitEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## GistEntity
+
+```python
+gist = client.Gist()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `created_at` | ``$STRING`` | No |  |
+| `description` | ``$STRING`` | No |  |
+| `file` | ``$OBJECT`` | Yes |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `owner` | ``$OBJECT`` | No |  |
+| `public` | ``$BOOLEAN`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `created_at` | - | - | - | - | - |
+| `description` | - | - | - | - | - |
+| `file` | - | Yes | - | - | - |
+| `html_url` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `node_id` | - | - | - | - | - |
+| `owner` | - | - | - | - | - |
+| `public` | - | - | - | - | - |
+| `updated_at` | - | - | - | - | - |
+| `url` | - | - | - | - | - |
+
+### Operations
+
+#### `create(reqdata, ctrl=None) -> tuple`
+
+Create a new entity with the given data.
+
+```python
+result, err = client.Gist().create({
+    "file": # `$OBJECT`,
+})
+```
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Gist().list({})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `GistEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## IssueEntity
+
+```python
+issue = client.Issue()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `assignee` | ``$ANY`` | No |  |
+| `body` | ``$STRING`` | No |  |
+| `closed_at` | ``$STRING`` | No |  |
+| `comment` | ``$INTEGER`` | No |  |
+| `created_at` | ``$STRING`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `label` | ``$ARRAY`` | No |  |
+| `milestone` | ``$OBJECT`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `number` | ``$INTEGER`` | No |  |
+| `state` | ``$STRING`` | No |  |
+| `title` | ``$STRING`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+| `user` | ``$OBJECT`` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `assignee` | - | - | - | - | - |
+| `body` | - | - | - | - | - |
+| `closed_at` | - | - | - | - | - |
+| `comment` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `html_url` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `label` | - | - | - | - | - |
+| `milestone` | - | - | - | - | - |
+| `node_id` | - | - | - | - | - |
+| `number` | - | - | - | - | - |
+| `state` | - | - | - | - | - |
+| `title` | - | - | Yes | - | - |
+| `updated_at` | - | - | - | - | - |
+| `url` | - | - | - | - | - |
+| `user` | - | - | - | - | - |
+
+### Operations
+
+#### `create(reqdata, ctrl=None) -> tuple`
+
+Create a new entity with the given data.
+
+```python
+result, err = client.Issue().create({
+})
+```
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Issue().list({})
+```
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.Issue().load({"id": "issue_id"})
+```
+
+#### `update(reqdata, ctrl=None) -> tuple`
+
+Update an existing entity. The data must include the entity `id`.
+
+```python
+result, err = client.Issue().update({
+    "id": "issue_id",
+    # Fields to update
+})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `IssueEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## NotificationEntity
+
+```python
+notification = client.Notification()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | ``$STRING`` | No |  |
+| `last_read_at` | ``$STRING`` | No |  |
+| `reason` | ``$STRING`` | No |  |
+| `repository` | ``$OBJECT`` | No |  |
+| `subject` | ``$OBJECT`` | No |  |
+| `unread` | ``$BOOLEAN`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Notification().list({})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `NotificationEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## OrgEntity
+
+```python
+org = client.Org()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `avatar_url` | ``$STRING`` | No |  |
+| `blog` | ``$STRING`` | No |  |
+| `created_at` | ``$STRING`` | No |  |
+| `description` | ``$STRING`` | No |  |
+| `email` | ``$STRING`` | No |  |
+| `follower` | ``$INTEGER`` | No |  |
+| `following` | ``$INTEGER`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `location` | ``$STRING`` | No |  |
+| `login` | ``$STRING`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `public_gist` | ``$INTEGER`` | No |  |
+| `public_repo` | ``$INTEGER`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.Org().load({"id": "org_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `OrgEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## PullEntity
+
+```python
+pull = client.Pull()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `base` | ``$OBJECT`` | No |  |
+| `body` | ``$STRING`` | No |  |
+| `closed_at` | ``$STRING`` | No |  |
+| `created_at` | ``$STRING`` | No |  |
+| `draft` | ``$BOOLEAN`` | No |  |
+| `head` | ``$OBJECT`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `merged_at` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `number` | ``$INTEGER`` | No |  |
+| `state` | ``$STRING`` | No |  |
+| `title` | ``$STRING`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+| `user` | ``$OBJECT`` | No |  |
+
+### Field Usage by Operation
+
+| Field | load | list | create | update | remove |
+| --- | --- | --- | --- | --- | --- |
+| `base` | - | - | Yes | - | - |
+| `body` | - | - | - | - | - |
+| `closed_at` | - | - | - | - | - |
+| `created_at` | - | - | - | - | - |
+| `draft` | - | - | - | - | - |
+| `head` | - | - | Yes | - | - |
+| `html_url` | - | - | - | - | - |
+| `id` | - | - | - | - | - |
+| `merged_at` | - | - | - | - | - |
+| `node_id` | - | - | - | - | - |
+| `number` | - | - | - | - | - |
+| `state` | - | - | - | - | - |
+| `title` | - | - | Yes | - | - |
+| `updated_at` | - | - | - | - | - |
+| `url` | - | - | - | - | - |
+| `user` | - | - | - | - | - |
+
+### Operations
+
+#### `create(reqdata, ctrl=None) -> tuple`
+
+Create a new entity with the given data.
+
+```python
+result, err = client.Pull().create({
+})
+```
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Pull().list({})
+```
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.Pull().load({"id": "pull_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `PullEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## RateLimitEntity
+
+```python
+rate_limit = client.RateLimit()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `rate` | ``$OBJECT`` | No |  |
+| `resource` | ``$OBJECT`` | No |  |
+
+### Operations
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.RateLimit().load({"id": "rate_limit_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `RateLimitEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## RepoEntity
+
+```python
+repo = client.Repo()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `created_at` | ``$STRING`` | No |  |
+| `default_branch` | ``$STRING`` | No |  |
+| `description` | ``$STRING`` | No |  |
+| `fork` | ``$BOOLEAN`` | No |  |
+| `forks_count` | ``$INTEGER`` | No |  |
+| `full_name` | ``$STRING`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `language` | ``$STRING`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `open_issues_count` | ``$INTEGER`` | No |  |
+| `owner` | ``$OBJECT`` | No |  |
+| `private` | ``$BOOLEAN`` | No |  |
+| `pushed_at` | ``$STRING`` | No |  |
+| `size` | ``$INTEGER`` | No |  |
+| `stargazers_count` | ``$INTEGER`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+| `visibility` | ``$STRING`` | No |  |
+| `watchers_count` | ``$INTEGER`` | No |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Repo().list({})
+```
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.Repo().load({"id": "repo_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `RepoEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## SearchEntity
+
+```python
+search = client.Search()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `assignee` | ``$ANY`` | No |  |
+| `body` | ``$STRING`` | No |  |
+| `closed_at` | ``$STRING`` | No |  |
+| `comment` | ``$INTEGER`` | No |  |
+| `created_at` | ``$STRING`` | No |  |
+| `default_branch` | ``$STRING`` | No |  |
+| `description` | ``$STRING`` | No |  |
+| `fork` | ``$BOOLEAN`` | No |  |
+| `forks_count` | ``$INTEGER`` | No |  |
+| `full_name` | ``$STRING`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `label` | ``$ARRAY`` | No |  |
+| `language` | ``$STRING`` | No |  |
+| `milestone` | ``$OBJECT`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `number` | ``$INTEGER`` | No |  |
+| `open_issues_count` | ``$INTEGER`` | No |  |
+| `owner` | ``$OBJECT`` | No |  |
+| `private` | ``$BOOLEAN`` | No |  |
+| `pushed_at` | ``$STRING`` | No |  |
+| `size` | ``$INTEGER`` | No |  |
+| `stargazers_count` | ``$INTEGER`` | No |  |
+| `state` | ``$STRING`` | No |  |
+| `title` | ``$STRING`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+| `user` | ``$OBJECT`` | No |  |
+| `visibility` | ``$STRING`` | No |  |
+| `watchers_count` | ``$INTEGER`` | No |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl=None) -> tuple`
+
+List entities matching the given criteria. Returns an array.
+
+```python
+results, err = client.Search().list({})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `SearchEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## UserEntity
+
+```python
+user = client.User()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `avatar_url` | ``$STRING`` | No |  |
+| `bio` | ``$STRING`` | No |  |
+| `blog` | ``$STRING`` | No |  |
+| `company` | ``$STRING`` | No |  |
+| `created_at` | ``$STRING`` | No |  |
+| `email` | ``$STRING`` | No |  |
+| `follower` | ``$INTEGER`` | No |  |
+| `following` | ``$INTEGER`` | No |  |
+| `html_url` | ``$STRING`` | No |  |
+| `id` | ``$INTEGER`` | No |  |
+| `location` | ``$STRING`` | No |  |
+| `login` | ``$STRING`` | No |  |
+| `name` | ``$STRING`` | No |  |
+| `node_id` | ``$STRING`` | No |  |
+| `public_gist` | ``$INTEGER`` | No |  |
+| `public_repo` | ``$INTEGER`` | No |  |
+| `type` | ``$STRING`` | No |  |
+| `updated_at` | ``$STRING`` | No |  |
+| `url` | ``$STRING`` | No |  |
+
+### Operations
+
+#### `load(reqmatch, ctrl=None) -> tuple`
+
+Load a single entity matching the given criteria.
+
+```python
+result, err = client.User().load({"id": "user_id"})
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `UserEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## Features
+
+| Feature | Version | Description |
+| --- | --- | --- |
+| `test` | 0.0.1 | In-memory mock transport for testing without a live server |
+
+
+Features are activated via the `feature` option:
+
+```python
+client = GithubRestSDK({
+    "feature": {
+        "test": {"active": True},
+    },
+})
+```
+

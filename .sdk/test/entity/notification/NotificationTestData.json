@@ -1,0 +1,49 @@
+{
+  "existing": {
+    "notification": {
+      "NOTIFICATION00": {
+        "id": "NOTIFICATION00",
+        "last_read_at": "s51",
+        "reason": "s52",
+        "repository": {},
+        "subject": {},
+        "unread": false,
+        "updated_at": "s56",
+        "url": "s57"
+      },
+      "NOTIFICATION01": {
+        "id": "NOTIFICATION01",
+        "last_read_at": "sa1",
+        "reason": "sa2",
+        "repository": {},
+        "subject": {},
+        "unread": false,
+        "updated_at": "sa6",
+        "url": "sa7"
+      },
+      "NOTIFICATION02": {
+        "id": "NOTIFICATION02",
+        "last_read_at": "sf1",
+        "reason": "sf2",
+        "repository": {},
+        "subject": {},
+        "unread": false,
+        "updated_at": "sf6",
+        "url": "sf7"
+      }
+    }
+  },
+  "new": {
+    "notification": {
+      "notification_ref01": {
+        "last_read_at": "s141",
+        "reason": "s142",
+        "repository": {},
+        "subject": {},
+        "unread": false,
+        "updated_at": "s146",
+        "url": "s147"
+      }
+    }
+  }
+}

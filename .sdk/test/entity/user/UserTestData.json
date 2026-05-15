@@ -1,0 +1,93 @@
+{
+  "existing": {
+    "user": {
+      "USER00": {
+        "avatar_url": "sbe",
+        "bio": "sbf",
+        "blog": "sc0",
+        "company": "sc1",
+        "created_at": "sc2",
+        "email": "sc3",
+        "follower": "sc4",
+        "following": "sc5",
+        "html_url": "sc6",
+        "id": "USER00",
+        "location": "sc8",
+        "login": "sc9",
+        "name": "sca",
+        "node_id": "NODE01",
+        "public_gist": "scc",
+        "public_repo": "scd",
+        "type": "sce",
+        "updated_at": "scf",
+        "url": "sd0"
+      },
+      "USER01": {
+        "avatar_url": "s17c",
+        "bio": "s17d",
+        "blog": "s17e",
+        "company": "s17f",
+        "created_at": "s180",
+        "email": "s181",
+        "follower": "s182",
+        "following": "s183",
+        "html_url": "s184",
+        "id": "USER01",
+        "location": "s186",
+        "login": "s187",
+        "name": "s188",
+        "node_id": "NODE01",
+        "public_gist": "s18a",
+        "public_repo": "s18b",
+        "type": "s18c",
+        "updated_at": "s18d",
+        "url": "s18e"
+      },
+      "USER02": {
+        "avatar_url": "s23a",
+        "bio": "s23b",
+        "blog": "s23c",
+        "company": "s23d",
+        "created_at": "s23e",
+        "email": "s23f",
+        "follower": "s240",
+        "following": "s241",
+        "html_url": "s242",
+        "id": "USER02",
+        "location": "s244",
+        "login": "s245",
+        "name": "s246",
+        "node_id": "NODE01",
+        "public_gist": "s248",
+        "public_repo": "s249",
+        "type": "s24a",
+        "updated_at": "s24b",
+        "url": "s24c"
+      }
+    }
+  },
+  "new": {
+    "user": {
+      "user_ref01": {
+        "avatar_url": "s2f8",
+        "bio": "s2f9",
+        "blog": "s2fa",
+        "company": "s2fb",
+        "created_at": "s2fc",
+        "email": "s2fd",
+        "follower": "s2fe",
+        "following": "s2ff",
+        "html_url": "s300",
+        "location": "s302",
+        "login": "s303",
+        "name": "s304",
+        "node_id": "NODE01",
+        "public_gist": "s306",
+        "public_repo": "s307",
+        "type": "s308",
+        "updated_at": "s309",
+        "url": "s30a"
+      }
+    }
+  }
+}
