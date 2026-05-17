@@ -1,10 +1,10 @@
 package voxgiggithubrestsdk
 
 import (
-	"github.com/voxgig-sdk/github-rest-sdk/core"
-	"github.com/voxgig-sdk/github-rest-sdk/entity"
-	"github.com/voxgig-sdk/github-rest-sdk/feature"
-	_ "github.com/voxgig-sdk/github-rest-sdk/utility"
+	"github.com/voxgig-sdk/github-rest-sdk/go/core"
+	"github.com/voxgig-sdk/github-rest-sdk/go/entity"
+	"github.com/voxgig-sdk/github-rest-sdk/go/feature"
+	_ "github.com/voxgig-sdk/github-rest-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

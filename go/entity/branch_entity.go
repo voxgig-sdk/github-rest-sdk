@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/github-rest-sdk/core"
+	"github.com/voxgig-sdk/github-rest-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/github-rest-sdk/go/utility/struct"
 )
 
 type BranchEntity struct {

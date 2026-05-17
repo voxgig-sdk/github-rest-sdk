@@ -3,15 +3,18 @@
     "rate_limit": {
       "RATE_LIMIT00": {
         "rate": {},
-        "resource": {}
+        "resource": {},
+        "id": "RATE_LIMIT00"
       },
       "RATE_LIMIT01": {
         "rate": {},
-        "resource": {}
+        "resource": {},
+        "id": "RATE_LIMIT01"
       },
       "RATE_LIMIT02": {
         "rate": {},
-        "resource": {}
+        "resource": {},
+        "id": "RATE_LIMIT02"
       }
     }
   },

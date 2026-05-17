@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/github-rest-sdk"
-	"github.com/voxgig-sdk/github-rest-sdk/core"
+	sdk "github.com/voxgig-sdk/github-rest-sdk/go"
+	"github.com/voxgig-sdk/github-rest-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/github-rest-sdk/go/utility/struct"
 )
 
 func TestIssueEntity(t *testing.T) {

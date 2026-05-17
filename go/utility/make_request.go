@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/github-rest-sdk/core"
+import "github.com/voxgig-sdk/github-rest-sdk/go/core"
 
 func makeRequestUtil(ctx *core.Context) (*core.Response, error) {
 	if ctx.Out["request"] != nil {
