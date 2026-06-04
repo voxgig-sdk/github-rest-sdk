@@ -234,14 +234,12 @@ func repoDirectSetup(mockres any) *repoDirectSetupResult {
 	env := envOverride(map[string]any{
 		"GITHUBREST_TEST_REPO_ENTID": map[string]any{},
 		"GITHUBREST_TEST_LIVE":    "FALSE",
-		"GITHUBREST_APIKEY":       "NONE",
 	})
 
 	live := env["GITHUBREST_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["GITHUBREST_APIKEY"],
 		}
 		client := sdk.NewGithubRestSDK(mergedOpts)
 

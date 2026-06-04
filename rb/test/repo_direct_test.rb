@@ -131,14 +131,12 @@ def repo_direct_setup(mockres)
   env = Runner.env_override({
     "GITHUBREST_TEST_REPO_ENTID" => {},
     "GITHUBREST_TEST_LIVE" => "FALSE",
-    "GITHUBREST_APIKEY" => "NONE",
   })
 
   live = env["GITHUBREST_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["GITHUBREST_APIKEY"],
     }
     client = GithubRestSDK.new(merged_opts)
     return {

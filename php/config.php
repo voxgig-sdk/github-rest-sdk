@@ -20,9 +20,6 @@ class GithubRestConfig
             ],
             "options" => [
                 "base" => "https://api.github.com",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

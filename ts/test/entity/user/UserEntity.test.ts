@@ -114,7 +114,6 @@ function basicSetup(extra?: any) {
     'GITHUB_REST_TEST_USER_ENTID': idmap,
     'GITHUB_REST_TEST_LIVE': 'FALSE',
     'GITHUB_REST_TEST_EXPLAIN': 'FALSE',
-    'GITHUB_REST_APIKEY': 'NONE',
   })
 
   idmap = env['GITHUB_REST_TEST_USER_ENTID']
@@ -124,7 +123,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new GithubRestSDK(merge([
       {
-        apikey: env.GITHUB_REST_APIKEY,
       },
       extra
     ]))

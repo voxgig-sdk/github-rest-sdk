@@ -63,14 +63,12 @@ function search_direct_setup(mockres)
   local env = runner.env_override({
     ["GITHUBREST_TEST_SEARCH_ENTID"] = {},
     ["GITHUBREST_TEST_LIVE"] = "FALSE",
-    ["GITHUBREST_APIKEY"] = "NONE",
   })
 
   local live = env["GITHUBREST_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["GITHUBREST_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

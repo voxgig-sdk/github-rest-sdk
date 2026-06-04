@@ -69,14 +69,12 @@ def _org_direct_setup(mockres):
     env = runner.env_override({
         "GITHUBREST_TEST_ORG_ENTID": {},
         "GITHUBREST_TEST_LIVE": "FALSE",
-        "GITHUBREST_APIKEY": "NONE",
     })
 
     live = env.get("GITHUBREST_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("GITHUBREST_APIKEY"),
         }
         client = GithubRestSDK(merged_opts)
         return {
