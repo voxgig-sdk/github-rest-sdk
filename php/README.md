@@ -10,7 +10,7 @@ The PHP SDK for the GithubRest API — an entity-oriented client using PHP conve
 
 ## Install
 ```bash
-composer require voxgig/github-rest-sdk
+composer require voxgig-sdk/github-rest
 ```
 
 

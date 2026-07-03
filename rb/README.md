@@ -10,13 +10,13 @@ The Ruby SDK for the GithubRest API — an entity-oriented client using idiomati
 
 ## Install
 ```bash
-gem install github-rest-sdk
+gem install voxgig-sdk-github-rest
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "github-rest-sdk"
+gem "voxgig-sdk-github-rest"
 ```
 
 Then run:

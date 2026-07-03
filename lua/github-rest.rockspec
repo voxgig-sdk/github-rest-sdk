@@ -8,12 +8,14 @@ source = {
   dir = "github-rest-sdk/lua"
 }
 description = {
-  summary = "GithubRest SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the GitHub REST public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/github-rest-sdk",
+  issues_url = "https://github.com/voxgig-sdk/github-rest-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "github-rest" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

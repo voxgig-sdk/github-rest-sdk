@@ -10,7 +10,7 @@ The Lua SDK for the GithubRest API — an entity-oriented client using Lua conve
 
 ## Install
 ```bash
-luarocks install github-rest-sdk
+luarocks install voxgig-sdk-github-rest
 ```
 
 If the module is not yet published, add the source directory to

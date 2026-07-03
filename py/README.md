@@ -10,7 +10,7 @@ The Python SDK for the GithubRest API — an entity-oriented client following Py
 
 ## Install
 ```bash
-pip install github-rest-sdk
+pip install voxgig-sdk-github-rest
 ```
 
 Or install from source:

@@ -10,7 +10,7 @@ The TypeScript SDK for the GithubRest API — a type-safe, entity-oriented clien
 
 ## Install
 ```bash
-npm install github-rest
+npm install @voxgig-sdk/github-rest
 ```
 ## Tutorial: your first API call
 
