@@ -178,6 +178,7 @@ func issueBasicSetup(extra map[string]any) *entityTestSetup {
 		"GITHUBREST_TEST_ISSUE_ENTID": idmap,
 		"GITHUBREST_TEST_LIVE":      "FALSE",
 		"GITHUBREST_TEST_EXPLAIN":   "FALSE",
+		"GITHUBREST_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["GITHUBREST_TEST_ISSUE_ENTID"])
@@ -196,6 +197,7 @@ func issueBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["GITHUBREST_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["GITHUBREST_APIKEY"],
 			},
 			extra,
 		})

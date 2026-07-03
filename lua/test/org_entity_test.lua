@@ -95,6 +95,7 @@ function org_basic_setup(extra)
     ["GITHUBREST_TEST_ORG_ENTID"] = idmap,
     ["GITHUBREST_TEST_LIVE"] = "FALSE",
     ["GITHUBREST_TEST_EXPLAIN"] = "FALSE",
+    ["GITHUBREST_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -106,6 +107,7 @@ function org_basic_setup(extra)
   if env["GITHUBREST_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["GITHUBREST_APIKEY"],
       },
       extra or {},
     })

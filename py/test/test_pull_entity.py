@@ -115,6 +115,7 @@ def _pull_basic_setup(extra):
         "GITHUBREST_TEST_PULL_ENTID": idmap,
         "GITHUBREST_TEST_LIVE": "FALSE",
         "GITHUBREST_TEST_EXPLAIN": "FALSE",
+        "GITHUBREST_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -125,6 +126,7 @@ def _pull_basic_setup(extra):
     if env.get("GITHUBREST_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("GITHUBREST_APIKEY"),
             },
             extra or {},
         ])

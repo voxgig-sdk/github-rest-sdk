@@ -1,22 +1,8 @@
 # GithubRest SDK
 
-Programmatic access to GitHub repositories, issues, pull requests, users, and organizations
+GitHub REST API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About GitHub REST API
-
-The [GitHub REST API](https://docs.github.com/en/rest) is the official HTTP interface to [GitHub](https://github.com), operated by GitHub, Inc. (a subsidiary of Microsoft). It lets applications create integrations, retrieve data, and automate workflows across repositories, issues, pull requests, users, and organizations.
-
-What you get from the API:
-
-- Repository data: metadata, contents, branches, commits, tags, and releases.
-- Collaboration: issues, pull requests, reviews, comments, and notifications.
-- Identity: user profiles, organizations, teams, and membership.
-- Discovery: full-text search across code, issues, repositories, and users.
-- Service info: rate-limit status and gist storage.
-
-Requests are made against `https://api.github.com`. Authentication is via personal access tokens (classic or fine-grained), GitHub App installation tokens, or OAuth app tokens; many endpoints also work unauthenticated at a lower rate-limit tier. Clients should handle pagination via `Link` headers and back off when rate-limit headers indicate the quota is exhausted.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install github-rest-sdk
 luarocks install github-rest-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { GithubRestSDK } from 'github-rest'
 
-const client = new GithubRestSDK({})
+const client = new GithubRestSDK({
+  apikey: process.env.GITHUB-REST_APIKEY,
+})
 
 // List all branchs
 const branchs = await client.Branch().list()
+console.log(branchs.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,17 +90,17 @@ The API exposes 11 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Branch** | A named line of development in a repository, exposed under `/repos/{owner}/{repo}/branches`. | `/repos/{owner}/{repo}/branches` |
-| **Commit** | A single commit in a repository's history, exposed under `/repos/{owner}/{repo}/commits`. | `/repos/{owner}/{repo}/commits` |
-| **Gist** | A standalone snippet or set of files hosted on GitHub, exposed under `/gists`. | `/gists` |
-| **Issue** | A bug report, task, or discussion thread on a repository, exposed under `/repos/{owner}/{repo}/issues` and `/issues`. | `/repos/{owner}/{repo}/issues` |
-| **Notification** | An inbox item summarising activity the authenticated user is subscribed to, exposed under `/notifications`. | `/notifications` |
-| **Org** | A GitHub organization that groups members, teams, and repositories, exposed under `/orgs/{org}`. | `/orgs/{org}` |
-| **Pull** | A pull request proposing changes from one branch into another, exposed under `/repos/{owner}/{repo}/pulls`. | `/repos/{owner}/{repo}/pulls` |
-| **RateLimit** | The authenticated client's current rate-limit usage across REST, search, and GraphQL, exposed at `/rate_limit`. | `/rate_limit` |
-| **Repo** | A Git repository hosted on GitHub, including its metadata and contents, exposed under `/repos/{owner}/{repo}`. | `/users/{username}/repos` |
-| **Search** | Full-text search across repositories, code, issues, users, and topics, exposed under `/search/{kind}`. | `/search/issues` |
-| **User** | A GitHub user account and its public profile, exposed under `/users/{username}` and `/user`. | `/users/{username}` |
+| **Branch** |  | `/repos/{owner}/{repo}/branches` |
+| **Commit** |  | `/repos/{owner}/{repo}/commits` |
+| **Gist** |  | `/gists` |
+| **Issue** |  | `/repos/{owner}/{repo}/issues` |
+| **Notification** |  | `/notifications` |
+| **Org** |  | `/orgs/{org}` |
+| **Pull** |  | `/repos/{owner}/{repo}/pulls` |
+| **RateLimit** |  | `/rate_limit` |
+| **Repo** |  | `/users/{username}/repos` |
+| **Search** |  | `/search/issues` |
+| **User** |  | `/users/{username}` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -122,12 +110,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from githubrest_sdk import GithubRestSDK
 
-client = GithubRestSDK({})
+client = GithubRestSDK({
+    "apikey": os.environ.get("GITHUB-REST_APIKEY"),
+})
 
 # List all branchs
-branchs, err = client.Branch(None).list(None, None)
+branchs, err = client.Branch().list()
+print(branchs)
 ```
 
 ### PHP
@@ -136,10 +128,13 @@ branchs, err = client.Branch(None).list(None, None)
 <?php
 require_once 'githubrest_sdk.php';
 
-$client = new GithubRestSDK([]);
+$client = new GithubRestSDK([
+    "apikey" => getenv("GITHUB-REST_APIKEY"),
+]);
 
 // List all branchs
-[$branchs, $err] = $client->Branch(null)->list(null, null);
+[$branchs, $err] = $client->Branch()->list();
+print_r($branchs);
 ```
 
 ### Golang
@@ -147,10 +142,13 @@ $client = new GithubRestSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/github-rest-sdk/go"
 
-client := sdk.NewGithubRestSDK(map[string]any{})
+client := sdk.NewGithubRestSDK(map[string]any{
+    "apikey": os.Getenv("GITHUB-REST_APIKEY"),
+})
 
 // List all branchs
 branchs, err := client.Branch(nil).List(nil, nil)
+fmt.Println(branchs)
 ```
 
 ### Ruby
@@ -158,10 +156,13 @@ branchs, err := client.Branch(nil).List(nil, nil)
 ```ruby
 require_relative "GithubRest_sdk"
 
-client = GithubRestSDK.new({})
+client = GithubRestSDK.new({
+  "apikey" => ENV["GITHUB-REST_APIKEY"],
+})
 
 # List all branchs
-branchs, err = client.Branch(nil).list(nil, nil)
+branchs, err = client.Branch().list
+puts branchs
 ```
 
 ### Lua
@@ -169,10 +170,13 @@ branchs, err = client.Branch(nil).list(nil, nil)
 ```lua
 local sdk = require("github-rest_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("GITHUB-REST_APIKEY"),
+})
 
 -- List all branchs
-local branchs, err = client:Branch(nil):list(nil, nil)
+local branchs, err = client:Branch():list()
+print(branchs)
 ```
 
 ## Unit testing in offline mode
@@ -191,25 +195,21 @@ const result = await client.Branch().load({ id: 'test01' })
 ### Python
 
 ```python
-client = GithubRestSDK.test(None, None)
-result, err = client.Branch(None).load(
-    {"id": "test01"}, None
-)
+client = GithubRestSDK.test()
+result, err = client.Branch().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = GithubRestSDK::test(null, null);
-[$result, $err] = $client->Branch(null)->load(
-    ["id" => "test01"], null
-);
+$client = GithubRestSDK::test();
+[$result, $err] = $client->Branch()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Branch(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -218,19 +218,15 @@ result, err := client.Branch(nil).Load(
 ### Ruby
 
 ```ruby
-client = GithubRestSDK.test(nil, nil)
-result, err = client.Branch(nil).load(
-  { "id" => "test01" }, nil
-)
+client = GithubRestSDK.test
+result, err = client.Branch().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Branch(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Branch():load({ id = "test01" })
 ```
 
 ## How it works
@@ -334,15 +330,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the GitHub REST API
-
-- Upstream: [https://github.com](https://github.com)
-- API docs: [https://docs.github.com/en/rest](https://docs.github.com/en/rest)
-
-- API access is governed by the [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and the [Acceptable Use Policies](https://docs.github.com/en/site-policy/acceptable-use-policies).
-- This SDK wrapper is distributed under the MIT license; the underlying API and content belong to GitHub, Inc. and the respective repository owners.
-- Respect per-resource visibility: private repositories, issues, and user data require appropriate authorization scopes.
 
 ---
 

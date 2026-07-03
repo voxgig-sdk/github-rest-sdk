@@ -80,12 +80,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'GITHUBREST_TEST_USER_ENTID': {},
     'GITHUBREST_TEST_LIVE': 'FALSE',
+    'GITHUBREST_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.GITHUBREST_TEST_LIVE
 
   if (live) {
     const client = new GithubRestSDK({
+      apikey: env.GITHUBREST_APIKEY,
     })
 
     let idmap: any = env['GITHUBREST_TEST_USER_ENTID']

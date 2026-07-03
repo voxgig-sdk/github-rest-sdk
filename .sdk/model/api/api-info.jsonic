@@ -22,38 +22,7 @@ main: {
       termsOfService: "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
       title: "GitHub REST API"
       version: "2022-11-28"
-      tagline: "Programmatic access to GitHub repositories, issues, pull requests, users, and organizations"
-      homepage: "https://github.com"
-      docs_url: "https://docs.github.com/en/rest"
-      license_short: "GitHub Terms of Service; SDK code MIT-licensed"
-      license_md: `- API access is governed by the [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) and the [Acceptable Use Policies](https://docs.github.com/en/site-policy/acceptable-use-policies).
-- This SDK wrapper is distributed under the MIT license; the underlying API and content belong to GitHub, Inc. and the respective repository owners.
-- Respect per-resource visibility: private repositories, issues, and user data require appropriate authorization scopes.`
-      about_md: `The [GitHub REST API](https://docs.github.com/en/rest) is the official HTTP interface to [GitHub](https://github.com), operated by GitHub, Inc. (a subsidiary of Microsoft). It lets applications create integrations, retrieve data, and automate workflows across repositories, issues, pull requests, users, and organizations.
-
-What you get from the API:
-
-- Repository data: metadata, contents, branches, commits, tags, and releases.
-- Collaboration: issues, pull requests, reviews, comments, and notifications.
-- Identity: user profiles, organizations, teams, and membership.
-- Discovery: full-text search across code, issues, repositories, and users.
-- Service info: rate-limit status and gist storage.
-
-Requests are made against \`https://api.github.com\`. Authentication is via personal access tokens (classic or fine-grained), GitHub App installation tokens, or OAuth app tokens; many endpoints also work unauthenticated at a lower rate-limit tier. Clients should handle pagination via \`Link\` headers and back off when rate-limit headers indicate the quota is exhausted.`
-      entity_desc: {
-        branch: "A named line of development in a repository, exposed under `/repos/{owner}/{repo}/branches`."
-        commit: "A single commit in a repository's history, exposed under `/repos/{owner}/{repo}/commits`."
-        gist: "A standalone snippet or set of files hosted on GitHub, exposed under `/gists`."
-        issue: "A bug report, task, or discussion thread on a repository, exposed under `/repos/{owner}/{repo}/issues` and `/issues`."
-        notification: "An inbox item summarising activity the authenticated user is subscribed to, exposed under `/notifications`."
-        org: "A GitHub organization that groups members, teams, and repositories, exposed under `/orgs/{org}`."
-        pull: "A pull request proposing changes from one branch into another, exposed under `/repos/{owner}/{repo}/pulls`."
-        rate_limit: "The authenticated client's current rate-limit usage across REST, search, and GraphQL, exposed at `/rate_limit`."
-        repo: "A Git repository hosted on GitHub, including its metadata and contents, exposed under `/repos/{owner}/{repo}`."
-        search: "Full-text search across repositories, code, issues, users, and topics, exposed under `/search/{kind}`."
-        user: "A GitHub user account and its public profile, exposed under `/users/{username}` and `/user`."
-      }
-      auth: false
     }
   }
 }
+
