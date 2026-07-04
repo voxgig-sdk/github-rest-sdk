@@ -31,18 +31,16 @@ $client = new GithubRestSDK([
 ]);
 ```
 
-### 2. List branchs
+### 2. List branch records
 
 ```php
 try {
-    $result = $client->branch()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Branch records — iterate directly.
+    $branchs = $client->Branch()->list();
+    foreach ($branchs as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -88,13 +86,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = GithubRestSDK::test();
+$client = GithubRestSDK::test([
+    "entity" => ["branch" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->branch()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$branch = $client->Branch()->load(["id" => "test01"]);
+print_r($branch);
 ```
 
 ### Use a custom fetch function
@@ -178,14 +180,14 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `Branch` | `($data): BranchEntity` | Create a Branch entity instance. |
 | `Commit` | `($data): CommitEntity` | Create a Commit entity instance. |
 | `Gist` | `($data): GistEntity` | Create a Gist entity instance. |
-| `Issue` | `($data): IssueEntity` | Create a Issue entity instance. |
+| `Issue` | `($data): IssueEntity` | Create an Issue entity instance. |
 | `Notification` | `($data): NotificationEntity` | Create a Notification entity instance. |
-| `Org` | `($data): OrgEntity` | Create a Org entity instance. |
+| `Org` | `($data): OrgEntity` | Create an Org entity instance. |
 | `Pull` | `($data): PullEntity` | Create a Pull entity instance. |
 | `RateLimit` | `($data): RateLimitEntity` | Create a RateLimit entity instance. |
 | `Repo` | `($data): RepoEntity` | Create a Repo entity instance. |
 | `Search` | `($data): SearchEntity` | Create a Search entity instance. |
-| `User` | `($data): UserEntity` | Create a User entity instance. |
+| `User` | `($data): UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -481,7 +483,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.branch`
+Create an instance: `$branch = $client->Branch();`
 
 #### Operations
 
@@ -499,14 +501,15 @@ Create an instance: `const branch = client.branch`
 
 #### Example: List
 
-```ts
-const branchs = await client.branch.list()
+```php
+// list() returns an array of Branch records (throws on error).
+$branchs = $client->Branch()->list();
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.commit`
+Create an instance: `$commit = $client->Commit();`
 
 #### Operations
 
@@ -528,14 +531,15 @@ Create an instance: `const commit = client.commit`
 
 #### Example: List
 
-```ts
-const commits = await client.commit.list()
+```php
+// list() returns an array of Commit records (throws on error).
+$commits = $client->Commit()->list();
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.gist`
+Create an instance: `$gist = $client->Gist();`
 
 #### Operations
 
@@ -561,22 +565,23 @@ Create an instance: `const gist = client.gist`
 
 #### Example: List
 
-```ts
-const gists = await client.gist.list()
+```php
+// list() returns an array of Gist records (throws on error).
+$gists = $client->Gist()->list();
 ```
 
 #### Example: Create
 
-```ts
-const gist = await client.gist.create({
-  file: /* `$OBJECT` */,
-})
+```php
+$gist = $client->Gist()->create([
+    "file" => null, // `$OBJECT`
+]);
 ```
 
 
 ### Issue
 
-Create an instance: `const issue = client.issue`
+Create an instance: `$issue = $client->Issue();`
 
 #### Operations
 
@@ -610,27 +615,29 @@ Create an instance: `const issue = client.issue`
 
 #### Example: Load
 
-```ts
-const issue = await client.issue.load({ id: 'issue_id' })
+```php
+// load() returns the bare Issue record (throws on error).
+$issue = $client->Issue()->load(["id" => "issue_id"]);
 ```
 
 #### Example: List
 
-```ts
-const issues = await client.issue.list()
+```php
+// list() returns an array of Issue records (throws on error).
+$issues = $client->Issue()->list();
 ```
 
 #### Example: Create
 
-```ts
-const issue = await client.issue.create({
-})
+```php
+$issue = $client->Issue()->create([
+]);
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.notification`
+Create an instance: `$notification = $client->Notification();`
 
 #### Operations
 
@@ -653,14 +660,15 @@ Create an instance: `const notification = client.notification`
 
 #### Example: List
 
-```ts
-const notifications = await client.notification.list()
+```php
+// list() returns an array of Notification records (throws on error).
+$notifications = $client->Notification()->list();
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.org`
+Create an instance: `$org = $client->Org();`
 
 #### Operations
 
@@ -692,14 +700,15 @@ Create an instance: `const org = client.org`
 
 #### Example: Load
 
-```ts
-const org = await client.org.load({ id: 'org_id' })
+```php
+// load() returns the bare Org record (throws on error).
+$org = $client->Org()->load(["id" => "org_id"]);
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.pull`
+Create an instance: `$pull = $client->Pull();`
 
 #### Operations
 
@@ -732,27 +741,29 @@ Create an instance: `const pull = client.pull`
 
 #### Example: Load
 
-```ts
-const pull = await client.pull.load({ id: 'pull_id' })
+```php
+// load() returns the bare Pull record (throws on error).
+$pull = $client->Pull()->load(["id" => "pull_id"]);
 ```
 
 #### Example: List
 
-```ts
-const pulls = await client.pull.list()
+```php
+// list() returns an array of Pull records (throws on error).
+$pulls = $client->Pull()->list();
 ```
 
 #### Example: Create
 
-```ts
-const pull = await client.pull.create({
-})
+```php
+$pull = $client->Pull()->create([
+]);
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.rate_limit`
+Create an instance: `$rate_limit = $client->RateLimit();`
 
 #### Operations
 
@@ -769,14 +780,15 @@ Create an instance: `const rate_limit = client.rate_limit`
 
 #### Example: Load
 
-```ts
-const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
+```php
+// load() returns the bare RateLimit record (throws on error).
+$rate_limit = $client->RateLimit()->load(["id" => "rate_limit_id"]);
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.repo`
+Create an instance: `$repo = $client->Repo();`
 
 #### Operations
 
@@ -813,20 +825,22 @@ Create an instance: `const repo = client.repo`
 
 #### Example: Load
 
-```ts
-const repo = await client.repo.load({ id: 'repo_id' })
+```php
+// load() returns the bare Repo record (throws on error).
+$repo = $client->Repo()->load(["id" => "repo_id"]);
 ```
 
 #### Example: List
 
-```ts
-const repos = await client.repo.list()
+```php
+// list() returns an array of Repo records (throws on error).
+$repos = $client->Repo()->list();
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `$search = $client->Search();`
 
 #### Operations
 
@@ -872,14 +886,15 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```php
+// list() returns an array of Search records (throws on error).
+$searchs = $client->Search()->list();
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `$user = $client->User();`
 
 #### Operations
 
@@ -913,8 +928,9 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```php
+// load() returns the bare User record (throws on error).
+$user = $client->User()->load(["id" => "user_id"]);
 ```
 
 
@@ -989,7 +1005,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$branch = $client->branch();
+$branch = $client->Branch();
 $branch->load(["id" => "example_id"]);
 
 // $branch->dataGet() now returns the loaded branch data

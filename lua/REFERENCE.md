@@ -124,7 +124,7 @@ same parameters as `direct()`.
 ## BranchEntity
 
 ```lua
-local branch = client:branch(nil)
+local branch = client:Branch(nil)
 ```
 
 ### Fields
@@ -142,7 +142,7 @@ local branch = client:branch(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:branch():list()
+local results, err = client:Branch():list()
 ```
 
 ### Common Methods
@@ -178,7 +178,7 @@ Return the entity name.
 ## CommitEntity
 
 ```lua
-local commit = client:commit(nil)
+local commit = client:Commit(nil)
 ```
 
 ### Fields
@@ -200,7 +200,7 @@ local commit = client:commit(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:commit():list()
+local results, err = client:Commit():list()
 ```
 
 ### Common Methods
@@ -236,7 +236,7 @@ Return the entity name.
 ## GistEntity
 
 ```lua
-local gist = client:gist(nil)
+local gist = client:Gist(nil)
 ```
 
 ### Fields
@@ -276,7 +276,7 @@ local gist = client:gist(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:gist():create({
+local result, err = client:Gist():create({
   file = --[[ `$OBJECT` ]],
 })
 ```
@@ -286,7 +286,7 @@ local result, err = client:gist():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:gist():list()
+local results, err = client:Gist():list()
 ```
 
 ### Common Methods
@@ -322,7 +322,7 @@ Return the entity name.
 ## IssueEntity
 
 ```lua
-local issue = client:issue(nil)
+local issue = client:Issue(nil)
 ```
 
 ### Fields
@@ -374,7 +374,7 @@ local issue = client:issue(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:issue():create({
+local result, err = client:Issue():create({
 })
 ```
 
@@ -383,7 +383,7 @@ local result, err = client:issue():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:issue():list()
+local results, err = client:Issue():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -391,7 +391,7 @@ local results, err = client:issue():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:issue():load({ id = "issue_id" })
+local result, err = client:Issue():load({ id = "issue_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -399,7 +399,7 @@ local result, err = client:issue():load({ id = "issue_id" })
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:issue():update({
+local result, err = client:Issue():update({
   id = "issue_id",
   -- Fields to update
 })
@@ -438,7 +438,7 @@ Return the entity name.
 ## NotificationEntity
 
 ```lua
-local notification = client:notification(nil)
+local notification = client:Notification(nil)
 ```
 
 ### Fields
@@ -461,7 +461,7 @@ local notification = client:notification(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:notification():list()
+local results, err = client:Notification():list()
 ```
 
 ### Common Methods
@@ -497,7 +497,7 @@ Return the entity name.
 ## OrgEntity
 
 ```lua
-local org = client:org(nil)
+local org = client:Org(nil)
 ```
 
 ### Fields
@@ -529,7 +529,7 @@ local org = client:org(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:org():load({ id = "org_id" })
+local result, err = client:Org():load({ id = "org_id" })
 ```
 
 ### Common Methods
@@ -565,7 +565,7 @@ Return the entity name.
 ## PullEntity
 
 ```lua
-local pull = client:pull(nil)
+local pull = client:Pull(nil)
 ```
 
 ### Fields
@@ -617,7 +617,7 @@ local pull = client:pull(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:pull():create({
+local result, err = client:Pull():create({
 })
 ```
 
@@ -626,7 +626,7 @@ local result, err = client:pull():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:pull():list()
+local results, err = client:Pull():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -634,7 +634,7 @@ local results, err = client:pull():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:pull():load({ id = "pull_id" })
+local result, err = client:Pull():load({ id = "pull_id" })
 ```
 
 ### Common Methods
@@ -670,7 +670,7 @@ Return the entity name.
 ## RateLimitEntity
 
 ```lua
-local rate_limit = client:rate_limit(nil)
+local rate_limit = client:RateLimit(nil)
 ```
 
 ### Fields
@@ -687,7 +687,7 @@ local rate_limit = client:rate_limit(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:rate_limit():load({ id = "rate_limit_id" })
+local result, err = client:RateLimit():load({ id = "rate_limit_id" })
 ```
 
 ### Common Methods
@@ -723,7 +723,7 @@ Return the entity name.
 ## RepoEntity
 
 ```lua
-local repo = client:repo(nil)
+local repo = client:Repo(nil)
 ```
 
 ### Fields
@@ -759,7 +759,7 @@ local repo = client:repo(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:repo():list()
+local results, err = client:Repo():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -767,7 +767,7 @@ local results, err = client:repo():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:repo():load({ id = "repo_id" })
+local result, err = client:Repo():load({ id = "repo_id" })
 ```
 
 ### Common Methods
@@ -803,7 +803,7 @@ Return the entity name.
 ## SearchEntity
 
 ```lua
-local search = client:search(nil)
+local search = client:Search(nil)
 ```
 
 ### Fields
@@ -849,7 +849,7 @@ local search = client:search(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:search():list()
+local results, err = client:Search():list()
 ```
 
 ### Common Methods
@@ -885,7 +885,7 @@ Return the entity name.
 ## UserEntity
 
 ```lua
-local user = client:user(nil)
+local user = client:User(nil)
 ```
 
 ### Fields
@@ -919,7 +919,7 @@ local user = client:user(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:user():load({ id = "user_id" })
+local result, err = client:User():load({ id = "user_id" })
 ```
 
 ### Common Methods

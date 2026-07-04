@@ -220,185 +220,75 @@ class GithubRestSDK:
         }
 
 
-    @property
-    def branch(self):
-        """Idiomatic facade: client.branch.list() / client.branch.load({"id": ...})."""
-        from entity.branch_entity import BranchEntity
-        cached = getattr(self, "_branch", None)
-        if cached is None:
-            cached = BranchEntity(self, None)
-            self._branch = cached
-        return cached
-
-    def Branch(self, data=None):
-        # Deprecated: use client.branch instead.
+    def Branch(self, data=None) -> "BranchEntity":
+        """Entity factory: client.Branch().list({}) / client.Branch().load({"id": ...})."""
         from entity.branch_entity import BranchEntity
         return BranchEntity(self, data)
 
 
-    @property
-    def commit(self):
-        """Idiomatic facade: client.commit.list() / client.commit.load({"id": ...})."""
-        from entity.commit_entity import CommitEntity
-        cached = getattr(self, "_commit", None)
-        if cached is None:
-            cached = CommitEntity(self, None)
-            self._commit = cached
-        return cached
-
-    def Commit(self, data=None):
-        # Deprecated: use client.commit instead.
+    def Commit(self, data=None) -> "CommitEntity":
+        """Entity factory: client.Commit().list({}) / client.Commit().load({"id": ...})."""
         from entity.commit_entity import CommitEntity
         return CommitEntity(self, data)
 
 
-    @property
-    def gist(self):
-        """Idiomatic facade: client.gist.list() / client.gist.load({"id": ...})."""
-        from entity.gist_entity import GistEntity
-        cached = getattr(self, "_gist", None)
-        if cached is None:
-            cached = GistEntity(self, None)
-            self._gist = cached
-        return cached
-
-    def Gist(self, data=None):
-        # Deprecated: use client.gist instead.
+    def Gist(self, data=None) -> "GistEntity":
+        """Entity factory: client.Gist().list({}) / client.Gist().load({"id": ...})."""
         from entity.gist_entity import GistEntity
         return GistEntity(self, data)
 
 
-    @property
-    def issue(self):
-        """Idiomatic facade: client.issue.list() / client.issue.load({"id": ...})."""
-        from entity.issue_entity import IssueEntity
-        cached = getattr(self, "_issue", None)
-        if cached is None:
-            cached = IssueEntity(self, None)
-            self._issue = cached
-        return cached
-
-    def Issue(self, data=None):
-        # Deprecated: use client.issue instead.
+    def Issue(self, data=None) -> "IssueEntity":
+        """Entity factory: client.Issue().list({}) / client.Issue().load({"id": ...})."""
         from entity.issue_entity import IssueEntity
         return IssueEntity(self, data)
 
 
-    @property
-    def notification(self):
-        """Idiomatic facade: client.notification.list() / client.notification.load({"id": ...})."""
-        from entity.notification_entity import NotificationEntity
-        cached = getattr(self, "_notification", None)
-        if cached is None:
-            cached = NotificationEntity(self, None)
-            self._notification = cached
-        return cached
-
-    def Notification(self, data=None):
-        # Deprecated: use client.notification instead.
+    def Notification(self, data=None) -> "NotificationEntity":
+        """Entity factory: client.Notification().list({}) / client.Notification().load({"id": ...})."""
         from entity.notification_entity import NotificationEntity
         return NotificationEntity(self, data)
 
 
-    @property
-    def org(self):
-        """Idiomatic facade: client.org.list() / client.org.load({"id": ...})."""
-        from entity.org_entity import OrgEntity
-        cached = getattr(self, "_org", None)
-        if cached is None:
-            cached = OrgEntity(self, None)
-            self._org = cached
-        return cached
-
-    def Org(self, data=None):
-        # Deprecated: use client.org instead.
+    def Org(self, data=None) -> "OrgEntity":
+        """Entity factory: client.Org().list({}) / client.Org().load({"id": ...})."""
         from entity.org_entity import OrgEntity
         return OrgEntity(self, data)
 
 
-    @property
-    def pull(self):
-        """Idiomatic facade: client.pull.list() / client.pull.load({"id": ...})."""
-        from entity.pull_entity import PullEntity
-        cached = getattr(self, "_pull", None)
-        if cached is None:
-            cached = PullEntity(self, None)
-            self._pull = cached
-        return cached
-
-    def Pull(self, data=None):
-        # Deprecated: use client.pull instead.
+    def Pull(self, data=None) -> "PullEntity":
+        """Entity factory: client.Pull().list({}) / client.Pull().load({"id": ...})."""
         from entity.pull_entity import PullEntity
         return PullEntity(self, data)
 
 
-    @property
-    def rate_limit(self):
-        """Idiomatic facade: client.rate_limit.list() / client.rate_limit.load({"id": ...})."""
-        from entity.rate_limit_entity import RateLimitEntity
-        cached = getattr(self, "_rate_limit", None)
-        if cached is None:
-            cached = RateLimitEntity(self, None)
-            self._rate_limit = cached
-        return cached
-
-    def RateLimit(self, data=None):
-        # Deprecated: use client.rate_limit instead.
+    def RateLimit(self, data=None) -> "RateLimitEntity":
+        """Entity factory: client.RateLimit().list({}) / client.RateLimit().load({"id": ...})."""
         from entity.rate_limit_entity import RateLimitEntity
         return RateLimitEntity(self, data)
 
 
-    @property
-    def repo(self):
-        """Idiomatic facade: client.repo.list() / client.repo.load({"id": ...})."""
-        from entity.repo_entity import RepoEntity
-        cached = getattr(self, "_repo", None)
-        if cached is None:
-            cached = RepoEntity(self, None)
-            self._repo = cached
-        return cached
-
-    def Repo(self, data=None):
-        # Deprecated: use client.repo instead.
+    def Repo(self, data=None) -> "RepoEntity":
+        """Entity factory: client.Repo().list({}) / client.Repo().load({"id": ...})."""
         from entity.repo_entity import RepoEntity
         return RepoEntity(self, data)
 
 
-    @property
-    def search(self):
-        """Idiomatic facade: client.search.list() / client.search.load({"id": ...})."""
-        from entity.search_entity import SearchEntity
-        cached = getattr(self, "_search", None)
-        if cached is None:
-            cached = SearchEntity(self, None)
-            self._search = cached
-        return cached
-
-    def Search(self, data=None):
-        # Deprecated: use client.search instead.
+    def Search(self, data=None) -> "SearchEntity":
+        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
-    @property
-    def user(self):
-        """Idiomatic facade: client.user.list() / client.user.load({"id": ...})."""
-        from entity.user_entity import UserEntity
-        cached = getattr(self, "_user", None)
-        if cached is None:
-            cached = UserEntity(self, None)
-            self._user = cached
-        return cached
-
-    def User(self, data=None):
-        # Deprecated: use client.user instead.
+    def User(self, data=None) -> "UserEntity":
+        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "GithubRestSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -418,3 +308,19 @@ class GithubRestSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.branch_entity import BranchEntity
+    from entity.commit_entity import CommitEntity
+    from entity.gist_entity import GistEntity
+    from entity.issue_entity import IssueEntity
+    from entity.notification_entity import NotificationEntity
+    from entity.org_entity import OrgEntity
+    from entity.pull_entity import PullEntity
+    from entity.rate_limit_entity import RateLimitEntity
+    from entity.repo_entity import RepoEntity
+    from entity.search_entity import SearchEntity
+    from entity.user_entity import UserEntity

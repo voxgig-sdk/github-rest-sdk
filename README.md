@@ -28,9 +28,11 @@ const client = new GithubRestSDK({
   apikey: process.env.GITHUB_REST_APIKEY,
 })
 
-// List all branchs
-const branchs = await client.branch.list()
-console.log(branchs.data)
+// List all branchs (returns Branch[])
+const branchs = await client.Branch().list()
+for (const branch of branchs) {
+  console.log(branch)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -98,9 +100,10 @@ client = GithubRestSDK({
     "apikey": os.environ.get("GITHUB_REST_APIKEY"),
 })
 
-# List all branchs
-branchs = client.branch.list()
-print(branchs)
+# List all branchs (returns a list, raises on error)
+branchs = client.Branch().list({})
+for branch in branchs:
+    print(branch)
 ```
 
 ### PHP
@@ -113,8 +116,8 @@ $client = new GithubRestSDK([
     "apikey" => getenv("GITHUB_REST_APIKEY"),
 ]);
 
-// List all branchs (throws on error)
-$branchs = $client->branch()->list();
+// List all branchs (returns an array; throws on error)
+$branchs = $client->Branch()->list();
 print_r($branchs);
 ```
 
@@ -141,8 +144,8 @@ client = GithubRestSDK.new({
   "apikey" => ENV["GITHUB_REST_APIKEY"],
 })
 
-# List all branchs
-branchs = client.branch.list
+# List all branchs (returns an Array; raises on error)
+branchs = client.Branch.list
 puts branchs
 ```
 
@@ -156,7 +159,7 @@ local client = sdk.new({
 })
 
 -- List all branchs
-local branchs, err = client:branch():list()
+local branchs, err = client:Branch():list()
 print(branchs)
 ```
 
@@ -169,22 +172,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = GithubRestSDK.test()
-const result = await client.branch.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const branch = await client.Branch().load({ id: 'test01' })
+// branch is a bare Branch populated with mock data
+console.log(branch)
 ```
 
 ### Python
 
 ```python
 client = GithubRestSDK.test()
-result = client.branch.load({"id": "test01"})
+branch = client.Branch().load({"id": "test01"})
+print(branch)
 ```
 
 ### PHP
 
 ```php
-$client = GithubRestSDK::test();
-$result = $client->branch()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = GithubRestSDK::test([
+    "entity" => ["branch" => ["test01" => ["id" => "test01"]]],
+]);
+$branch = $client->Branch()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -199,15 +207,18 @@ result, err := client.Branch(nil).Load(
 ### Ruby
 
 ```ruby
-client = GithubRestSDK.test
-result = client.branch.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = GithubRestSDK.test({
+  "entity" => { "branch" => { "test01" => { "id" => "test01" } } },
+})
+branch = client.Branch.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:branch():load({ id = "test01" })
+local result, err = client:Branch():load({ id = "test01" })
 ```
 
 ## How it works
@@ -255,6 +266,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

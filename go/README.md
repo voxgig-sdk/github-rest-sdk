@@ -30,7 +30,12 @@ go mod edit -replace github.com/voxgig-sdk/github-rest-sdk/go=../github-rest-sdk
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
@@ -38,32 +43,23 @@ package main
 import (
     "fmt"
     "os"
-
     sdk "github.com/voxgig-sdk/github-rest-sdk/go"
-    "github.com/voxgig-sdk/github-rest-sdk/go/core"
 )
 
 func main() {
     client := sdk.NewGithubRestSDK(map[string]any{
         "apikey": os.Getenv("GITHUB_REST_APIKEY"),
     })
-```
 
-### 2. List branchs
-
-```go
-    result, err := client.Branch(nil).List(nil, nil)
+    // List branch records — the value is the array of records itself.
+    branchs, err := client.Branch(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range branchs.([]any) {
+        fmt.Println(item)
     }
+}
 ```
 
 
@@ -113,10 +109,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Branch(nil).Load(
+branch, err := client.Branch(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(branch) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -198,14 +197,14 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Branch` | `(data map[string]any) GithubRestEntity` | Create a Branch entity instance. |
 | `Commit` | `(data map[string]any) GithubRestEntity` | Create a Commit entity instance. |
 | `Gist` | `(data map[string]any) GithubRestEntity` | Create a Gist entity instance. |
-| `Issue` | `(data map[string]any) GithubRestEntity` | Create a Issue entity instance. |
+| `Issue` | `(data map[string]any) GithubRestEntity` | Create an Issue entity instance. |
 | `Notification` | `(data map[string]any) GithubRestEntity` | Create a Notification entity instance. |
-| `Org` | `(data map[string]any) GithubRestEntity` | Create a Org entity instance. |
+| `Org` | `(data map[string]any) GithubRestEntity` | Create an Org entity instance. |
 | `Pull` | `(data map[string]any) GithubRestEntity` | Create a Pull entity instance. |
 | `RateLimit` | `(data map[string]any) GithubRestEntity` | Create a RateLimit entity instance. |
 | `Repo` | `(data map[string]any) GithubRestEntity` | Create a Repo entity instance. |
 | `Search` | `(data map[string]any) GithubRestEntity` | Create a Search entity instance. |
-| `User` | `(data map[string]any) GithubRestEntity` | Create a User entity instance. |
+| `User` | `(data map[string]any) GithubRestEntity` | Create an User entity instance. |
 
 ### Entity interface (GithubRestEntity)
 
@@ -225,17 +224,24 @@ All entities implement the `GithubRestEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    branch, err := client.Branch(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // branch is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -514,7 +520,11 @@ Create an instance: `branch := client.Branch(nil)`
 #### Example: List
 
 ```go
-results, err := client.Branch(nil).List(nil, nil)
+branchs, err := client.Branch(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(branchs) // the array of records
 ```
 
 
@@ -543,7 +553,11 @@ Create an instance: `commit := client.Commit(nil)`
 #### Example: List
 
 ```go
-results, err := client.Commit(nil).List(nil, nil)
+commits, err := client.Commit(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(commits) // the array of records
 ```
 
 
@@ -576,7 +590,11 @@ Create an instance: `gist := client.Gist(nil)`
 #### Example: List
 
 ```go
-results, err := client.Gist(nil).List(nil, nil)
+gists, err := client.Gist(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(gists) // the array of records
 ```
 
 #### Example: Create
@@ -625,13 +643,21 @@ Create an instance: `issue := client.Issue(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Issue(nil).Load(map[string]any{"id": "issue_id"}, nil)
+issue, err := client.Issue(nil).Load(map[string]any{"id": "issue_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(issue) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Issue(nil).List(nil, nil)
+issues, err := client.Issue(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(issues) // the array of records
 ```
 
 #### Example: Create
@@ -668,7 +694,11 @@ Create an instance: `notification := client.Notification(nil)`
 #### Example: List
 
 ```go
-results, err := client.Notification(nil).List(nil, nil)
+notifications, err := client.Notification(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(notifications) // the array of records
 ```
 
 
@@ -707,7 +737,11 @@ Create an instance: `org := client.Org(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Org(nil).Load(map[string]any{"id": "org_id"}, nil)
+org, err := client.Org(nil).Load(map[string]any{"id": "org_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(org) // the loaded record
 ```
 
 
@@ -747,13 +781,21 @@ Create an instance: `pull := client.Pull(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Pull(nil).Load(map[string]any{"id": "pull_id"}, nil)
+pull, err := client.Pull(nil).Load(map[string]any{"id": "pull_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(pull) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Pull(nil).List(nil, nil)
+pulls, err := client.Pull(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(pulls) // the array of records
 ```
 
 #### Example: Create
@@ -784,7 +826,11 @@ Create an instance: `rate_limit := client.RateLimit(nil)`
 #### Example: Load
 
 ```go
-result, err := client.RateLimit(nil).Load(map[string]any{"id": "rate_limit_id"}, nil)
+rate_limit, err := client.RateLimit(nil).Load(map[string]any{"id": "rate_limit_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(rate_limit) // the loaded record
 ```
 
 
@@ -828,13 +874,21 @@ Create an instance: `repo := client.Repo(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Repo(nil).Load(map[string]any{"id": "repo_id"}, nil)
+repo, err := client.Repo(nil).Load(map[string]any{"id": "repo_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(repo) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Repo(nil).List(nil, nil)
+repos, err := client.Repo(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(repos) // the array of records
 ```
 
 
@@ -887,7 +941,11 @@ Create an instance: `search := client.Search(nil)`
 #### Example: List
 
 ```go
-results, err := client.Search(nil).List(nil, nil)
+searchs, err := client.Search(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(searchs) // the array of records
 ```
 
 
@@ -928,7 +986,11 @@ Create an instance: `user := client.User(nil)`
 #### Example: Load
 
 ```go
-result, err := client.User(nil).Load(map[string]any{"id": "user_id"}, nil)
+user, err := client.User(nil).Load(map[string]any{"id": "user_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(user) // the loaded record
 ```
 
 

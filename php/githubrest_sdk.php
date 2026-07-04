@@ -233,10 +233,10 @@ class GithubRestSDK
 
     private $_branch = null;
 
-    // Idiomatic facade: $client->branch()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Branch() (PHP method
-    // names are case-insensitive).
-    public function branch($data = null)
+    // Canonical facade: $client->Branch()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->branch()
+    // resolves here too.
+    public function Branch($data = null)
     {
         require_once __DIR__ . '/entity/branch_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class GithubRestSDK
 
     private $_commit = null;
 
-    // Idiomatic facade: $client->commit()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Commit() (PHP method
-    // names are case-insensitive).
-    public function commit($data = null)
+    // Canonical facade: $client->Commit()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->commit()
+    // resolves here too.
+    public function Commit($data = null)
     {
         require_once __DIR__ . '/entity/commit_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class GithubRestSDK
 
     private $_gist = null;
 
-    // Idiomatic facade: $client->gist()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Gist() (PHP method
-    // names are case-insensitive).
-    public function gist($data = null)
+    // Canonical facade: $client->Gist()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->gist()
+    // resolves here too.
+    public function Gist($data = null)
     {
         require_once __DIR__ . '/entity/gist_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class GithubRestSDK
 
     private $_issue = null;
 
-    // Idiomatic facade: $client->issue()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Issue() (PHP method
-    // names are case-insensitive).
-    public function issue($data = null)
+    // Canonical facade: $client->Issue()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->issue()
+    // resolves here too.
+    public function Issue($data = null)
     {
         require_once __DIR__ . '/entity/issue_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class GithubRestSDK
 
     private $_notification = null;
 
-    // Idiomatic facade: $client->notification()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Notification() (PHP method
-    // names are case-insensitive).
-    public function notification($data = null)
+    // Canonical facade: $client->Notification()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->notification()
+    // resolves here too.
+    public function Notification($data = null)
     {
         require_once __DIR__ . '/entity/notification_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class GithubRestSDK
 
     private $_org = null;
 
-    // Idiomatic facade: $client->org()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Org() (PHP method
-    // names are case-insensitive).
-    public function org($data = null)
+    // Canonical facade: $client->Org()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->org()
+    // resolves here too.
+    public function Org($data = null)
     {
         require_once __DIR__ . '/entity/org_entity.php';
         if ($data === null) {
@@ -341,10 +341,10 @@ class GithubRestSDK
 
     private $_pull = null;
 
-    // Idiomatic facade: $client->pull()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Pull() (PHP method
-    // names are case-insensitive).
-    public function pull($data = null)
+    // Canonical facade: $client->Pull()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->pull()
+    // resolves here too.
+    public function Pull($data = null)
     {
         require_once __DIR__ . '/entity/pull_entity.php';
         if ($data === null) {
@@ -359,10 +359,10 @@ class GithubRestSDK
 
     private $_rate_limit = null;
 
-    // Idiomatic facade: $client->rate_limit()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias RateLimit() (PHP method
-    // names are case-insensitive).
-    public function rate_limit($data = null)
+    // Canonical facade: $client->RateLimit()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->rate_limit()
+    // resolves here too.
+    public function RateLimit($data = null)
     {
         require_once __DIR__ . '/entity/rate_limit_entity.php';
         if ($data === null) {
@@ -377,10 +377,10 @@ class GithubRestSDK
 
     private $_repo = null;
 
-    // Idiomatic facade: $client->repo()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Repo() (PHP method
-    // names are case-insensitive).
-    public function repo($data = null)
+    // Canonical facade: $client->Repo()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->repo()
+    // resolves here too.
+    public function Repo($data = null)
     {
         require_once __DIR__ . '/entity/repo_entity.php';
         if ($data === null) {
@@ -395,10 +395,10 @@ class GithubRestSDK
 
     private $_search = null;
 
-    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Search() (PHP method
-    // names are case-insensitive).
-    public function search($data = null)
+    // Canonical facade: $client->Search()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->search()
+    // resolves here too.
+    public function Search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
         if ($data === null) {
@@ -413,10 +413,10 @@ class GithubRestSDK
 
     private $_user = null;
 
-    // Idiomatic facade: $client->user()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias User() (PHP method
-    // names are case-insensitive).
-    public function user($data = null)
+    // Canonical facade: $client->User()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->user()
+    // resolves here too.
+    public function User($data = null)
     {
         require_once __DIR__ . '/entity/user_entity.php';
         if ($data === null) {

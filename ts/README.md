@@ -30,15 +30,15 @@ const client = new GithubRestSDK({
 })
 ```
 
-### 2. List branchs
+### 2. List branch records
+
+`list()` resolves to an array of Branch objects — iterate it directly:
 
 ```ts
-const result = await client.branch.list()
+const branchs = await client.Branch().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const branch of branchs) {
+  console.log(branch)
 }
 ```
 
@@ -56,6 +56,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -84,9 +87,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const result = await client.branch.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const branch = await client.Branch().load({ id: 'test01' })
+// branch is a bare entity populated with mock response data
+console.log(branch)
 ```
 
 You can also use the instance method:
@@ -101,7 +104,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.branch
+const entity = client.Branch()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -186,14 +189,14 @@ new GithubRestSDK(options?: {
 | `Branch(data?)` | `BranchEntity` | Create a Branch entity instance. |
 | `Commit(data?)` | `CommitEntity` | Create a Commit entity instance. |
 | `Gist(data?)` | `GistEntity` | Create a Gist entity instance. |
-| `Issue(data?)` | `IssueEntity` | Create a Issue entity instance. |
+| `Issue(data?)` | `IssueEntity` | Create an Issue entity instance. |
 | `Notification(data?)` | `NotificationEntity` | Create a Notification entity instance. |
-| `Org(data?)` | `OrgEntity` | Create a Org entity instance. |
+| `Org(data?)` | `OrgEntity` | Create an Org entity instance. |
 | `Pull(data?)` | `PullEntity` | Create a Pull entity instance. |
 | `RateLimit(data?)` | `RateLimitEntity` | Create a RateLimit entity instance. |
 | `Repo(data?)` | `RepoEntity` | Create a Repo entity instance. |
 | `Search(data?)` | `SearchEntity` | Create a Search entity instance. |
-| `User(data?)` | `UserEntity` | Create a User entity instance. |
+| `User(data?)` | `UserEntity` | Create an User entity instance. |
 | `tester(testopts?, sdkopts?)` | `GithubRestSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -210,29 +213,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): GithubRestSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -520,7 +524,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.branch`
+Create an instance: `const branch = client.Branch()`
 
 #### Operations
 
@@ -539,13 +543,13 @@ Create an instance: `const branch = client.branch`
 #### Example: List
 
 ```ts
-const branchs = await client.branch.list()
+const branchs = await client.Branch().list()
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.commit`
+Create an instance: `const commit = client.Commit()`
 
 #### Operations
 
@@ -568,13 +572,13 @@ Create an instance: `const commit = client.commit`
 #### Example: List
 
 ```ts
-const commits = await client.commit.list()
+const commits = await client.Commit().list()
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.gist`
+Create an instance: `const gist = client.Gist()`
 
 #### Operations
 
@@ -601,13 +605,13 @@ Create an instance: `const gist = client.gist`
 #### Example: List
 
 ```ts
-const gists = await client.gist.list()
+const gists = await client.Gist().list()
 ```
 
 #### Example: Create
 
 ```ts
-const gist = await client.gist.create({
+const gist = await client.Gist().create({
   file: /* `$OBJECT` */,
 })
 ```
@@ -615,7 +619,7 @@ const gist = await client.gist.create({
 
 ### Issue
 
-Create an instance: `const issue = client.issue`
+Create an instance: `const issue = client.Issue()`
 
 #### Operations
 
@@ -650,26 +654,26 @@ Create an instance: `const issue = client.issue`
 #### Example: Load
 
 ```ts
-const issue = await client.issue.load({ id: 'issue_id' })
+const issue = await client.Issue().load({ id: 'issue_id' })
 ```
 
 #### Example: List
 
 ```ts
-const issues = await client.issue.list()
+const issues = await client.Issue().list()
 ```
 
 #### Example: Create
 
 ```ts
-const issue = await client.issue.create({
+const issue = await client.Issue().create({
 })
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.notification`
+Create an instance: `const notification = client.Notification()`
 
 #### Operations
 
@@ -693,13 +697,13 @@ Create an instance: `const notification = client.notification`
 #### Example: List
 
 ```ts
-const notifications = await client.notification.list()
+const notifications = await client.Notification().list()
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.org`
+Create an instance: `const org = client.Org()`
 
 #### Operations
 
@@ -732,13 +736,13 @@ Create an instance: `const org = client.org`
 #### Example: Load
 
 ```ts
-const org = await client.org.load({ id: 'org_id' })
+const org = await client.Org().load({ id: 'org_id' })
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.pull`
+Create an instance: `const pull = client.Pull()`
 
 #### Operations
 
@@ -772,26 +776,26 @@ Create an instance: `const pull = client.pull`
 #### Example: Load
 
 ```ts
-const pull = await client.pull.load({ id: 'pull_id' })
+const pull = await client.Pull().load({ id: 'pull_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pulls = await client.pull.list()
+const pulls = await client.Pull().list()
 ```
 
 #### Example: Create
 
 ```ts
-const pull = await client.pull.create({
+const pull = await client.Pull().create({
 })
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.rate_limit`
+Create an instance: `const rate_limit = client.RateLimit()`
 
 #### Operations
 
@@ -809,13 +813,13 @@ Create an instance: `const rate_limit = client.rate_limit`
 #### Example: Load
 
 ```ts
-const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
+const rate_limit = await client.RateLimit().load({ id: 'rate_limit_id' })
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.repo`
+Create an instance: `const repo = client.Repo()`
 
 #### Operations
 
@@ -853,19 +857,19 @@ Create an instance: `const repo = client.repo`
 #### Example: Load
 
 ```ts
-const repo = await client.repo.load({ id: 'repo_id' })
+const repo = await client.Repo().load({ id: 'repo_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repos = await client.repo.list()
+const repos = await client.Repo().list()
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `const search = client.Search()`
 
 #### Operations
 
@@ -912,13 +916,13 @@ Create an instance: `const search = client.search`
 #### Example: List
 
 ```ts
-const searchs = await client.search.list()
+const searchs = await client.Search().list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `const user = client.User()`
 
 #### Operations
 
@@ -953,7 +957,7 @@ Create an instance: `const user = client.user`
 #### Example: Load
 
 ```ts
-const user = await client.user.load({ id: 'user_id' })
+const user = await client.User().load({ id: 'user_id' })
 ```
 
 
@@ -1024,7 +1028,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const branch = client.branch
+const branch = client.Branch()
 await branch.load({ id: "example_id" })
 
 // branch.data() now returns the loaded branch data

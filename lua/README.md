@@ -33,17 +33,17 @@ local client = sdk.new({
 })
 ```
 
-### 2. List branchs
+### 2. List branch records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:branch():list()
+local branchs, err = client:Branch():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(branchs) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -90,8 +90,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:branch():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Branch():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -174,14 +174,14 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Branch` | `(data) -> BranchEntity` | Create a Branch entity instance. |
 | `Commit` | `(data) -> CommitEntity` | Create a Commit entity instance. |
 | `Gist` | `(data) -> GistEntity` | Create a Gist entity instance. |
-| `Issue` | `(data) -> IssueEntity` | Create a Issue entity instance. |
+| `Issue` | `(data) -> IssueEntity` | Create an Issue entity instance. |
 | `Notification` | `(data) -> NotificationEntity` | Create a Notification entity instance. |
-| `Org` | `(data) -> OrgEntity` | Create a Org entity instance. |
+| `Org` | `(data) -> OrgEntity` | Create an Org entity instance. |
 | `Pull` | `(data) -> PullEntity` | Create a Pull entity instance. |
 | `RateLimit` | `(data) -> RateLimitEntity` | Create a RateLimit entity instance. |
 | `Repo` | `(data) -> RepoEntity` | Create a Repo entity instance. |
 | `Search` | `(data) -> SearchEntity` | Create a Search entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -203,17 +203,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local branch, err = client:Branch():load({ id = "example_id" })
+    if err then error(err) end
+    -- branch is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -473,7 +478,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.branch`
+Create an instance: `local branch = client:Branch(nil)`
 
 #### Operations
 
@@ -491,14 +496,14 @@ Create an instance: `const branch = client.branch`
 
 #### Example: List
 
-```ts
-const branchs = await client.branch.list()
+```lua
+local branchs, err = client:Branch():list()
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.commit`
+Create an instance: `local commit = client:Commit(nil)`
 
 #### Operations
 
@@ -520,14 +525,14 @@ Create an instance: `const commit = client.commit`
 
 #### Example: List
 
-```ts
-const commits = await client.commit.list()
+```lua
+local commits, err = client:Commit():list()
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.gist`
+Create an instance: `local gist = client:Gist(nil)`
 
 #### Operations
 
@@ -553,22 +558,22 @@ Create an instance: `const gist = client.gist`
 
 #### Example: List
 
-```ts
-const gists = await client.gist.list()
+```lua
+local gists, err = client:Gist():list()
 ```
 
 #### Example: Create
 
-```ts
-const gist = await client.gist.create({
-  file: /* `$OBJECT` */,
+```lua
+local gist, err = client:Gist():create({
+  file = nil, -- `$OBJECT`
 })
 ```
 
 
 ### Issue
 
-Create an instance: `const issue = client.issue`
+Create an instance: `local issue = client:Issue(nil)`
 
 #### Operations
 
@@ -602,27 +607,27 @@ Create an instance: `const issue = client.issue`
 
 #### Example: Load
 
-```ts
-const issue = await client.issue.load({ id: 'issue_id' })
+```lua
+local issue, err = client:Issue():load({ id = "issue_id" })
 ```
 
 #### Example: List
 
-```ts
-const issues = await client.issue.list()
+```lua
+local issues, err = client:Issue():list()
 ```
 
 #### Example: Create
 
-```ts
-const issue = await client.issue.create({
+```lua
+local issue, err = client:Issue():create({
 })
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.notification`
+Create an instance: `local notification = client:Notification(nil)`
 
 #### Operations
 
@@ -645,14 +650,14 @@ Create an instance: `const notification = client.notification`
 
 #### Example: List
 
-```ts
-const notifications = await client.notification.list()
+```lua
+local notifications, err = client:Notification():list()
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.org`
+Create an instance: `local org = client:Org(nil)`
 
 #### Operations
 
@@ -684,14 +689,14 @@ Create an instance: `const org = client.org`
 
 #### Example: Load
 
-```ts
-const org = await client.org.load({ id: 'org_id' })
+```lua
+local org, err = client:Org():load({ id = "org_id" })
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.pull`
+Create an instance: `local pull = client:Pull(nil)`
 
 #### Operations
 
@@ -724,27 +729,27 @@ Create an instance: `const pull = client.pull`
 
 #### Example: Load
 
-```ts
-const pull = await client.pull.load({ id: 'pull_id' })
+```lua
+local pull, err = client:Pull():load({ id = "pull_id" })
 ```
 
 #### Example: List
 
-```ts
-const pulls = await client.pull.list()
+```lua
+local pulls, err = client:Pull():list()
 ```
 
 #### Example: Create
 
-```ts
-const pull = await client.pull.create({
+```lua
+local pull, err = client:Pull():create({
 })
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.rate_limit`
+Create an instance: `local rate_limit = client:RateLimit(nil)`
 
 #### Operations
 
@@ -761,14 +766,14 @@ Create an instance: `const rate_limit = client.rate_limit`
 
 #### Example: Load
 
-```ts
-const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
+```lua
+local rate_limit, err = client:RateLimit():load({ id = "rate_limit_id" })
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.repo`
+Create an instance: `local repo = client:Repo(nil)`
 
 #### Operations
 
@@ -805,20 +810,20 @@ Create an instance: `const repo = client.repo`
 
 #### Example: Load
 
-```ts
-const repo = await client.repo.load({ id: 'repo_id' })
+```lua
+local repo, err = client:Repo():load({ id = "repo_id" })
 ```
 
 #### Example: List
 
-```ts
-const repos = await client.repo.list()
+```lua
+local repos, err = client:Repo():list()
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `local search = client:Search(nil)`
 
 #### Operations
 
@@ -864,14 +869,14 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```lua
+local searchs, err = client:Search():list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `local user = client:User(nil)`
 
 #### Operations
 
@@ -905,8 +910,8 @@ Create an instance: `const user = client.user`
 
 #### Example: Load
 
-```ts
-const user = await client.user.load({ id: 'user_id' })
+```lua
+local user, err = client:User():load({ id = "user_id" })
 ```
 
 
@@ -981,7 +986,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local branch = client:branch()
+local branch = client:Branch()
 branch:load({ id = "example_id" })
 
 -- branch:data_get() now returns the loaded branch data

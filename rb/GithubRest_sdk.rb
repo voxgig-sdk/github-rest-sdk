@@ -208,143 +208,77 @@ class GithubRestSDK
   end
 
 
-  # Idiomatic facade: client.branch.list / client.branch.load({ "id" => ... })
-  def branch
-    require_relative 'entity/branch_entity'
-    @branch ||= BranchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.branch instead.
+  # Canonical facade: client.Branch.list / client.Branch.load({ "id" => ... })
   def Branch(data = nil)
     require_relative 'entity/branch_entity'
     BranchEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.commit.list / client.commit.load({ "id" => ... })
-  def commit
-    require_relative 'entity/commit_entity'
-    @commit ||= CommitEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.commit instead.
+  # Canonical facade: client.Commit.list / client.Commit.load({ "id" => ... })
   def Commit(data = nil)
     require_relative 'entity/commit_entity'
     CommitEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.gist.list / client.gist.load({ "id" => ... })
-  def gist
-    require_relative 'entity/gist_entity'
-    @gist ||= GistEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.gist instead.
+  # Canonical facade: client.Gist.list / client.Gist.load({ "id" => ... })
   def Gist(data = nil)
     require_relative 'entity/gist_entity'
     GistEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.issue.list / client.issue.load({ "id" => ... })
-  def issue
-    require_relative 'entity/issue_entity'
-    @issue ||= IssueEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.issue instead.
+  # Canonical facade: client.Issue.list / client.Issue.load({ "id" => ... })
   def Issue(data = nil)
     require_relative 'entity/issue_entity'
     IssueEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.notification.list / client.notification.load({ "id" => ... })
-  def notification
-    require_relative 'entity/notification_entity'
-    @notification ||= NotificationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.notification instead.
+  # Canonical facade: client.Notification.list / client.Notification.load({ "id" => ... })
   def Notification(data = nil)
     require_relative 'entity/notification_entity'
     NotificationEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.org.list / client.org.load({ "id" => ... })
-  def org
-    require_relative 'entity/org_entity'
-    @org ||= OrgEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.org instead.
+  # Canonical facade: client.Org.list / client.Org.load({ "id" => ... })
   def Org(data = nil)
     require_relative 'entity/org_entity'
     OrgEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.pull.list / client.pull.load({ "id" => ... })
-  def pull
-    require_relative 'entity/pull_entity'
-    @pull ||= PullEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.pull instead.
+  # Canonical facade: client.Pull.list / client.Pull.load({ "id" => ... })
   def Pull(data = nil)
     require_relative 'entity/pull_entity'
     PullEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.rate_limit.list / client.rate_limit.load({ "id" => ... })
-  def rate_limit
-    require_relative 'entity/rate_limit_entity'
-    @rate_limit ||= RateLimitEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.rate_limit instead.
+  # Canonical facade: client.RateLimit.list / client.RateLimit.load({ "id" => ... })
   def RateLimit(data = nil)
     require_relative 'entity/rate_limit_entity'
     RateLimitEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.repo.list / client.repo.load({ "id" => ... })
-  def repo
-    require_relative 'entity/repo_entity'
-    @repo ||= RepoEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.repo instead.
+  # Canonical facade: client.Repo.list / client.Repo.load({ "id" => ... })
   def Repo(data = nil)
     require_relative 'entity/repo_entity'
     RepoEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
-  def search
-    require_relative 'entity/search_entity'
-    @search ||= SearchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.search instead.
+  # Canonical facade: client.Search.list / client.Search.load({ "id" => ... })
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.user.list / client.user.load({ "id" => ... })
-  def user
-    require_relative 'entity/user_entity'
-    @user ||= UserEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.user instead.
+  # Canonical facade: client.User.list / client.User.load({ "id" => ... })
   def User(data = nil)
     require_relative 'entity/user_entity'
     UserEntity.new(self, data)

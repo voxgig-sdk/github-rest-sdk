@@ -4,363 +4,341 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Branch:
-    commit: Optional[dict] = None
-    name: Optional[str] = None
-    protected: Optional[bool] = None
+class Branch(TypedDict, total=False):
+    commit: dict
+    name: str
+    protected: bool
 
 
-@dataclass
-class BranchListMatch:
+class BranchListMatch(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class Commit:
-    author: Optional[dict] = None
-    commit: Optional[dict] = None
-    committer: Optional[dict] = None
-    html_url: Optional[str] = None
-    node_id: Optional[str] = None
-    sha: Optional[str] = None
-    url: Optional[str] = None
+class Commit(TypedDict, total=False):
+    author: dict
+    commit: dict
+    committer: dict
+    html_url: str
+    node_id: str
+    sha: str
+    url: str
 
 
-@dataclass
-class CommitListMatch:
+class CommitListMatch(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class Gist:
+class GistRequired(TypedDict):
     file: dict
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    html_url: Optional[str] = None
-    id: Optional[str] = None
-    node_id: Optional[str] = None
-    owner: Optional[dict] = None
-    public: Optional[bool] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
 
 
-@dataclass
-class GistListMatch:
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    file: Optional[dict] = None
-    html_url: Optional[str] = None
-    id: Optional[str] = None
-    node_id: Optional[str] = None
-    owner: Optional[dict] = None
-    public: Optional[bool] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class Gist(GistRequired, total=False):
+    created_at: str
+    description: str
+    html_url: str
+    id: str
+    node_id: str
+    owner: dict
+    public: bool
+    updated_at: str
+    url: str
 
 
-@dataclass
-class GistCreateData:
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    file: Optional[dict] = None
-    html_url: Optional[str] = None
-    id: Optional[str] = None
-    node_id: Optional[str] = None
-    owner: Optional[dict] = None
-    public: Optional[bool] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class GistListMatch(TypedDict, total=False):
+    created_at: str
+    description: str
+    file: dict
+    html_url: str
+    id: str
+    node_id: str
+    owner: dict
+    public: bool
+    updated_at: str
+    url: str
 
 
-@dataclass
-class Issue:
-    assignee: Optional[Any] = None
-    body: Optional[str] = None
-    closed_at: Optional[str] = None
-    comment: Optional[int] = None
-    created_at: Optional[str] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    label: Optional[list] = None
-    milestone: Optional[dict] = None
-    node_id: Optional[str] = None
-    number: Optional[int] = None
-    state: Optional[str] = None
-    title: Optional[str] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
-    user: Optional[dict] = None
+class GistCreateData(TypedDict, total=False):
+    created_at: str
+    description: str
+    file: dict
+    html_url: str
+    id: str
+    node_id: str
+    owner: dict
+    public: bool
+    updated_at: str
+    url: str
 
 
-@dataclass
-class IssueLoadMatch:
+class Issue(TypedDict, total=False):
+    assignee: Any
+    body: str
+    closed_at: str
+    comment: int
+    created_at: str
+    html_url: str
+    id: int
+    label: list
+    milestone: dict
+    node_id: str
+    number: int
+    state: str
+    title: str
+    updated_at: str
+    url: str
+    user: dict
+
+
+class IssueLoadMatch(TypedDict):
     id: int
     owner: str
     repo: str
 
 
-@dataclass
-class IssueListMatch:
+class IssueListMatch(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class IssueCreateData:
+class IssueCreateData(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class IssueUpdateData:
+class IssueUpdateData(TypedDict):
     id: int
     owner: str
     repo: str
 
 
-@dataclass
-class Notification:
-    id: Optional[str] = None
-    last_read_at: Optional[str] = None
-    reason: Optional[str] = None
-    repository: Optional[dict] = None
-    subject: Optional[dict] = None
-    unread: Optional[bool] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class Notification(TypedDict, total=False):
+    id: str
+    last_read_at: str
+    reason: str
+    repository: dict
+    subject: dict
+    unread: bool
+    updated_at: str
+    url: str
 
 
-@dataclass
-class NotificationListMatch:
-    id: Optional[str] = None
-    last_read_at: Optional[str] = None
-    reason: Optional[str] = None
-    repository: Optional[dict] = None
-    subject: Optional[dict] = None
-    unread: Optional[bool] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class NotificationListMatch(TypedDict, total=False):
+    id: str
+    last_read_at: str
+    reason: str
+    repository: dict
+    subject: dict
+    unread: bool
+    updated_at: str
+    url: str
 
 
-@dataclass
-class Org:
-    avatar_url: Optional[str] = None
-    blog: Optional[str] = None
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    email: Optional[str] = None
-    follower: Optional[int] = None
-    following: Optional[int] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    location: Optional[str] = None
-    login: Optional[str] = None
-    name: Optional[str] = None
-    node_id: Optional[str] = None
-    public_gist: Optional[int] = None
-    public_repo: Optional[int] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class Org(TypedDict, total=False):
+    avatar_url: str
+    blog: str
+    created_at: str
+    description: str
+    email: str
+    follower: int
+    following: int
+    html_url: str
+    id: int
+    location: str
+    login: str
+    name: str
+    node_id: str
+    public_gist: int
+    public_repo: int
+    updated_at: str
+    url: str
 
 
-@dataclass
-class OrgLoadMatch:
+class OrgLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class Pull:
-    base: Optional[dict] = None
-    body: Optional[str] = None
-    closed_at: Optional[str] = None
-    created_at: Optional[str] = None
-    draft: Optional[bool] = None
-    head: Optional[dict] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    merged_at: Optional[str] = None
-    node_id: Optional[str] = None
-    number: Optional[int] = None
-    state: Optional[str] = None
-    title: Optional[str] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
-    user: Optional[dict] = None
+class Pull(TypedDict, total=False):
+    base: dict
+    body: str
+    closed_at: str
+    created_at: str
+    draft: bool
+    head: dict
+    html_url: str
+    id: int
+    merged_at: str
+    node_id: str
+    number: int
+    state: str
+    title: str
+    updated_at: str
+    url: str
+    user: dict
 
 
-@dataclass
-class PullLoadMatch:
+class PullLoadMatch(TypedDict):
     id: int
     owner: str
     repo: str
 
 
-@dataclass
-class PullListMatch:
+class PullListMatch(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class PullCreateData:
+class PullCreateData(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class RateLimit:
-    rate: Optional[dict] = None
-    resource: Optional[dict] = None
+class RateLimit(TypedDict, total=False):
+    rate: dict
+    resource: dict
 
 
-@dataclass
-class RateLimitLoadMatch:
-    rate: Optional[dict] = None
-    resource: Optional[dict] = None
+class RateLimitLoadMatch(TypedDict, total=False):
+    rate: dict
+    resource: dict
 
 
-@dataclass
-class Repo:
-    created_at: Optional[str] = None
-    default_branch: Optional[str] = None
-    description: Optional[str] = None
-    fork: Optional[bool] = None
-    forks_count: Optional[int] = None
-    full_name: Optional[str] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    language: Optional[str] = None
-    name: Optional[str] = None
-    node_id: Optional[str] = None
-    open_issues_count: Optional[int] = None
-    owner: Optional[dict] = None
-    private: Optional[bool] = None
-    pushed_at: Optional[str] = None
-    size: Optional[int] = None
-    stargazers_count: Optional[int] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
-    visibility: Optional[str] = None
-    watchers_count: Optional[int] = None
+class Repo(TypedDict, total=False):
+    created_at: str
+    default_branch: str
+    description: str
+    fork: bool
+    forks_count: int
+    full_name: str
+    html_url: str
+    id: int
+    language: str
+    name: str
+    node_id: str
+    open_issues_count: int
+    owner: dict
+    private: bool
+    pushed_at: str
+    size: int
+    stargazers_count: int
+    updated_at: str
+    url: str
+    visibility: str
+    watchers_count: int
 
 
-@dataclass
-class RepoLoadMatch:
+class RepoLoadMatch(TypedDict):
     owner: str
     repo: str
 
 
-@dataclass
-class RepoListMatch:
+class RepoListMatch(TypedDict):
     username: str
     org_id: str
 
 
-@dataclass
-class Search:
-    assignee: Optional[Any] = None
-    body: Optional[str] = None
-    closed_at: Optional[str] = None
-    comment: Optional[int] = None
-    created_at: Optional[str] = None
-    default_branch: Optional[str] = None
-    description: Optional[str] = None
-    fork: Optional[bool] = None
-    forks_count: Optional[int] = None
-    full_name: Optional[str] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    label: Optional[list] = None
-    language: Optional[str] = None
-    milestone: Optional[dict] = None
-    name: Optional[str] = None
-    node_id: Optional[str] = None
-    number: Optional[int] = None
-    open_issues_count: Optional[int] = None
-    owner: Optional[dict] = None
-    private: Optional[bool] = None
-    pushed_at: Optional[str] = None
-    size: Optional[int] = None
-    stargazers_count: Optional[int] = None
-    state: Optional[str] = None
-    title: Optional[str] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
-    user: Optional[dict] = None
-    visibility: Optional[str] = None
-    watchers_count: Optional[int] = None
+class Search(TypedDict, total=False):
+    assignee: Any
+    body: str
+    closed_at: str
+    comment: int
+    created_at: str
+    default_branch: str
+    description: str
+    fork: bool
+    forks_count: int
+    full_name: str
+    html_url: str
+    id: int
+    label: list
+    language: str
+    milestone: dict
+    name: str
+    node_id: str
+    number: int
+    open_issues_count: int
+    owner: dict
+    private: bool
+    pushed_at: str
+    size: int
+    stargazers_count: int
+    state: str
+    title: str
+    updated_at: str
+    url: str
+    user: dict
+    visibility: str
+    watchers_count: int
 
 
-@dataclass
-class SearchListMatch:
-    assignee: Optional[Any] = None
-    body: Optional[str] = None
-    closed_at: Optional[str] = None
-    comment: Optional[int] = None
-    created_at: Optional[str] = None
-    default_branch: Optional[str] = None
-    description: Optional[str] = None
-    fork: Optional[bool] = None
-    forks_count: Optional[int] = None
-    full_name: Optional[str] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    label: Optional[list] = None
-    language: Optional[str] = None
-    milestone: Optional[dict] = None
-    name: Optional[str] = None
-    node_id: Optional[str] = None
-    number: Optional[int] = None
-    open_issues_count: Optional[int] = None
-    owner: Optional[dict] = None
-    private: Optional[bool] = None
-    pushed_at: Optional[str] = None
-    size: Optional[int] = None
-    stargazers_count: Optional[int] = None
-    state: Optional[str] = None
-    title: Optional[str] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
-    user: Optional[dict] = None
-    visibility: Optional[str] = None
-    watchers_count: Optional[int] = None
+class SearchListMatch(TypedDict, total=False):
+    assignee: Any
+    body: str
+    closed_at: str
+    comment: int
+    created_at: str
+    default_branch: str
+    description: str
+    fork: bool
+    forks_count: int
+    full_name: str
+    html_url: str
+    id: int
+    label: list
+    language: str
+    milestone: dict
+    name: str
+    node_id: str
+    number: int
+    open_issues_count: int
+    owner: dict
+    private: bool
+    pushed_at: str
+    size: int
+    stargazers_count: int
+    state: str
+    title: str
+    updated_at: str
+    url: str
+    user: dict
+    visibility: str
+    watchers_count: int
 
 
-@dataclass
-class User:
-    avatar_url: Optional[str] = None
-    bio: Optional[str] = None
-    blog: Optional[str] = None
-    company: Optional[str] = None
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    follower: Optional[int] = None
-    following: Optional[int] = None
-    html_url: Optional[str] = None
-    id: Optional[int] = None
-    location: Optional[str] = None
-    login: Optional[str] = None
-    name: Optional[str] = None
-    node_id: Optional[str] = None
-    public_gist: Optional[int] = None
-    public_repo: Optional[int] = None
-    type: Optional[str] = None
-    updated_at: Optional[str] = None
-    url: Optional[str] = None
+class User(TypedDict, total=False):
+    avatar_url: str
+    bio: str
+    blog: str
+    company: str
+    created_at: str
+    email: str
+    follower: int
+    following: int
+    html_url: str
+    id: int
+    location: str
+    login: str
+    name: str
+    node_id: str
+    public_gist: int
+    public_repo: int
+    type: str
+    updated_at: str
+    url: str
 
 
-@dataclass
-class UserLoadMatch:
+class UserLoadMatch(TypedDict):
     id: str
-
