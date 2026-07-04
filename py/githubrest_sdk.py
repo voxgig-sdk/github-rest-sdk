@@ -144,16 +144,23 @@ class GithubRestSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class GithubRestSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,65 +212,186 @@ class GithubRestSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def branch(self):
+        """Idiomatic facade: client.branch.list() / client.branch.load({"id": ...})."""
+        from entity.branch_entity import BranchEntity
+        cached = getattr(self, "_branch", None)
+        if cached is None:
+            cached = BranchEntity(self, None)
+            self._branch = cached
+        return cached
 
     def Branch(self, data=None):
+        # Deprecated: use client.branch instead.
         from entity.branch_entity import BranchEntity
         return BranchEntity(self, data)
 
 
+    @property
+    def commit(self):
+        """Idiomatic facade: client.commit.list() / client.commit.load({"id": ...})."""
+        from entity.commit_entity import CommitEntity
+        cached = getattr(self, "_commit", None)
+        if cached is None:
+            cached = CommitEntity(self, None)
+            self._commit = cached
+        return cached
+
     def Commit(self, data=None):
+        # Deprecated: use client.commit instead.
         from entity.commit_entity import CommitEntity
         return CommitEntity(self, data)
 
 
+    @property
+    def gist(self):
+        """Idiomatic facade: client.gist.list() / client.gist.load({"id": ...})."""
+        from entity.gist_entity import GistEntity
+        cached = getattr(self, "_gist", None)
+        if cached is None:
+            cached = GistEntity(self, None)
+            self._gist = cached
+        return cached
+
     def Gist(self, data=None):
+        # Deprecated: use client.gist instead.
         from entity.gist_entity import GistEntity
         return GistEntity(self, data)
 
 
+    @property
+    def issue(self):
+        """Idiomatic facade: client.issue.list() / client.issue.load({"id": ...})."""
+        from entity.issue_entity import IssueEntity
+        cached = getattr(self, "_issue", None)
+        if cached is None:
+            cached = IssueEntity(self, None)
+            self._issue = cached
+        return cached
+
     def Issue(self, data=None):
+        # Deprecated: use client.issue instead.
         from entity.issue_entity import IssueEntity
         return IssueEntity(self, data)
 
 
+    @property
+    def notification(self):
+        """Idiomatic facade: client.notification.list() / client.notification.load({"id": ...})."""
+        from entity.notification_entity import NotificationEntity
+        cached = getattr(self, "_notification", None)
+        if cached is None:
+            cached = NotificationEntity(self, None)
+            self._notification = cached
+        return cached
+
     def Notification(self, data=None):
+        # Deprecated: use client.notification instead.
         from entity.notification_entity import NotificationEntity
         return NotificationEntity(self, data)
 
 
+    @property
+    def org(self):
+        """Idiomatic facade: client.org.list() / client.org.load({"id": ...})."""
+        from entity.org_entity import OrgEntity
+        cached = getattr(self, "_org", None)
+        if cached is None:
+            cached = OrgEntity(self, None)
+            self._org = cached
+        return cached
+
     def Org(self, data=None):
+        # Deprecated: use client.org instead.
         from entity.org_entity import OrgEntity
         return OrgEntity(self, data)
 
 
+    @property
+    def pull(self):
+        """Idiomatic facade: client.pull.list() / client.pull.load({"id": ...})."""
+        from entity.pull_entity import PullEntity
+        cached = getattr(self, "_pull", None)
+        if cached is None:
+            cached = PullEntity(self, None)
+            self._pull = cached
+        return cached
+
     def Pull(self, data=None):
+        # Deprecated: use client.pull instead.
         from entity.pull_entity import PullEntity
         return PullEntity(self, data)
 
 
+    @property
+    def rate_limit(self):
+        """Idiomatic facade: client.rate_limit.list() / client.rate_limit.load({"id": ...})."""
+        from entity.rate_limit_entity import RateLimitEntity
+        cached = getattr(self, "_rate_limit", None)
+        if cached is None:
+            cached = RateLimitEntity(self, None)
+            self._rate_limit = cached
+        return cached
+
     def RateLimit(self, data=None):
+        # Deprecated: use client.rate_limit instead.
         from entity.rate_limit_entity import RateLimitEntity
         return RateLimitEntity(self, data)
 
 
+    @property
+    def repo(self):
+        """Idiomatic facade: client.repo.list() / client.repo.load({"id": ...})."""
+        from entity.repo_entity import RepoEntity
+        cached = getattr(self, "_repo", None)
+        if cached is None:
+            cached = RepoEntity(self, None)
+            self._repo = cached
+        return cached
+
     def Repo(self, data=None):
+        # Deprecated: use client.repo instead.
         from entity.repo_entity import RepoEntity
         return RepoEntity(self, data)
 
 
+    @property
+    def search(self):
+        """Idiomatic facade: client.search.list() / client.search.load({"id": ...})."""
+        from entity.search_entity import SearchEntity
+        cached = getattr(self, "_search", None)
+        if cached is None:
+            cached = SearchEntity(self, None)
+            self._search = cached
+        return cached
+
     def Search(self, data=None):
+        # Deprecated: use client.search instead.
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
+    @property
+    def user(self):
+        """Idiomatic facade: client.user.list() / client.user.load({"id": ...})."""
+        from entity.user_entity import UserEntity
+        cached = getattr(self, "_user", None)
+        if cached is None:
+            cached = UserEntity(self, None)
+            self._user = cached
+        return cached
+
     def User(self, data=None):
+        # Deprecated: use client.user instead.
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 

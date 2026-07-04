@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  User,
+  UserLoadMatch,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class UserEntity extends GithubRestEntityBase {
+class UserEntity extends GithubRestEntityBase<User> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class UserEntity extends GithubRestEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: UserLoadMatch, ctrl?: Control): Promise<User> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class UserEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<User> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

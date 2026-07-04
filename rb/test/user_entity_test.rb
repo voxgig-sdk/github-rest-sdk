@@ -44,8 +44,7 @@ class UserEntityTest < Minitest::Test
     user_ref01_match_dt0 = {
       "id" => user_ref01_data["id"],
     }
-    user_ref01_data_dt0_loaded, err = user_ref01_ent.load(user_ref01_match_dt0, nil)
-    assert_nil err
+    user_ref01_data_dt0_loaded = user_ref01_ent.load(user_ref01_match_dt0, nil)
     user_ref01_data_dt0_load_result = Helpers.to_map(user_ref01_data_dt0_loaded)
     assert !user_ref01_data_dt0_load_result.nil?
     assert_equal user_ref01_data_dt0_load_result["id"], user_ref01_data["id"]

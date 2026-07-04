@@ -38,8 +38,7 @@ class PullEntityTest < Minitest::Test
     pull_ref01_data["owner"] = setup[:idmap]["owner01"]
     pull_ref01_data["repo"] = setup[:idmap]["repo01"]
 
-    pull_ref01_data_result, err = pull_ref01_ent.create(pull_ref01_data, nil)
-    assert_nil err
+    pull_ref01_data_result = pull_ref01_ent.create(pull_ref01_data, nil)
     pull_ref01_data = Helpers.to_map(pull_ref01_data_result)
     assert !pull_ref01_data.nil?
     assert !pull_ref01_data["id"].nil?
@@ -50,8 +49,7 @@ class PullEntityTest < Minitest::Test
       "repo" => setup[:idmap]["repo01"],
     }
 
-    pull_ref01_list_result, err = pull_ref01_ent.list(pull_ref01_match, nil)
-    assert_nil err
+    pull_ref01_list_result = pull_ref01_ent.list(pull_ref01_match, nil)
     assert pull_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -63,8 +61,7 @@ class PullEntityTest < Minitest::Test
     pull_ref01_match_dt0 = {
       "id" => pull_ref01_data["id"],
     }
-    pull_ref01_data_dt0_loaded, err = pull_ref01_ent.load(pull_ref01_match_dt0, nil)
-    assert_nil err
+    pull_ref01_data_dt0_loaded = pull_ref01_ent.load(pull_ref01_match_dt0, nil)
     pull_ref01_data_dt0_load_result = Helpers.to_map(pull_ref01_data_dt0_loaded)
     assert !pull_ref01_data_dt0_load_result.nil?
     assert_equal pull_ref01_data_dt0_load_result["id"], pull_ref01_data["id"]

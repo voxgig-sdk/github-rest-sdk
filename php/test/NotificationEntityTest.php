@@ -50,8 +50,7 @@ class NotificationEntityTest extends TestCase
         $notification_ref01_ent = $client->Notification(null);
         $notification_ref01_match = [];
 
-        [$notification_ref01_list_result, $err] = $notification_ref01_ent->list($notification_ref01_match, null);
-        $this->assertNull($err);
+        $notification_ref01_list_result = $notification_ref01_ent->list($notification_ref01_match, null);
         $this->assertIsArray($notification_ref01_list_result);
 
     }

@@ -43,8 +43,7 @@ class NotificationEntityTest < Minitest::Test
     notification_ref01_ent = client.Notification(nil)
     notification_ref01_match = {}
 
-    notification_ref01_list_result, err = notification_ref01_ent.list(notification_ref01_match, nil)
-    assert_nil err
+    notification_ref01_list_result = notification_ref01_ent.list(notification_ref01_match, nil)
     assert notification_ref01_list_result.is_a?(Array)
 
   end

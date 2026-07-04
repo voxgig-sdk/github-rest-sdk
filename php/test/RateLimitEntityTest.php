@@ -49,8 +49,7 @@ class RateLimitEntityTest extends TestCase
         // LOAD
         $rate_limit_ref01_ent = $client->RateLimit(null);
         $rate_limit_ref01_match_dt0 = [];
-        [$rate_limit_ref01_data_dt0_loaded, $err] = $rate_limit_ref01_ent->load($rate_limit_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $rate_limit_ref01_data_dt0_loaded = $rate_limit_ref01_ent->load($rate_limit_ref01_match_dt0, null);
         $this->assertNotNull($rate_limit_ref01_data_dt0_loaded);
 
     }

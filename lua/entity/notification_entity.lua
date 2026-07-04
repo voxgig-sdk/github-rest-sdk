@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch NotificationListMatch
+---@param ctrl? table
+---@return Notification[]
+---@return string? err
 function NotificationEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

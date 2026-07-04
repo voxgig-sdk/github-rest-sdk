@@ -230,7 +230,7 @@ Alias for `GithubRestSDK.test()`.
 ## BranchEntity
 
 ```ts
-const branch = client.Branch()
+const branch = client.branch
 ```
 
 ### Fields
@@ -248,7 +248,7 @@ const branch = client.Branch()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Branch().list()
+const results = await client.branch.list()
 ```
 
 ### Common Methods
@@ -282,7 +282,7 @@ Return a copy of the entity options.
 ## CommitEntity
 
 ```ts
-const commit = client.Commit()
+const commit = client.commit
 ```
 
 ### Fields
@@ -304,7 +304,7 @@ const commit = client.Commit()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Commit().list()
+const results = await client.commit.list()
 ```
 
 ### Common Methods
@@ -338,7 +338,7 @@ Return a copy of the entity options.
 ## GistEntity
 
 ```ts
-const gist = client.Gist()
+const gist = client.gist
 ```
 
 ### Fields
@@ -378,7 +378,7 @@ const gist = client.Gist()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Gist().create({
+const result = await client.gist.create({
   file: /* `$OBJECT` */,
 })
 ```
@@ -388,7 +388,7 @@ const result = await client.Gist().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Gist().list()
+const results = await client.gist.list()
 ```
 
 ### Common Methods
@@ -422,7 +422,7 @@ Return a copy of the entity options.
 ## IssueEntity
 
 ```ts
-const issue = client.Issue()
+const issue = client.issue
 ```
 
 ### Fields
@@ -474,7 +474,7 @@ const issue = client.Issue()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Issue().create({
+const result = await client.issue.create({
 })
 ```
 
@@ -483,7 +483,7 @@ const result = await client.Issue().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Issue().list()
+const results = await client.issue.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -491,7 +491,7 @@ const results = await client.Issue().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Issue().load({ id: 'issue_id' })
+const result = await client.issue.load({ id: 'issue_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -499,7 +499,7 @@ const result = await client.Issue().load({ id: 'issue_id' })
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.Issue().update({
+const result = await client.issue.update({
   id: 'issue_id',
   // Fields to update
 })
@@ -536,7 +536,7 @@ Return a copy of the entity options.
 ## NotificationEntity
 
 ```ts
-const notification = client.Notification()
+const notification = client.notification
 ```
 
 ### Fields
@@ -559,7 +559,7 @@ const notification = client.Notification()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Notification().list()
+const results = await client.notification.list()
 ```
 
 ### Common Methods
@@ -593,7 +593,7 @@ Return a copy of the entity options.
 ## OrgEntity
 
 ```ts
-const org = client.Org()
+const org = client.org
 ```
 
 ### Fields
@@ -625,7 +625,7 @@ const org = client.Org()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Org().load({ id: 'org_id' })
+const result = await client.org.load({ id: 'org_id' })
 ```
 
 ### Common Methods
@@ -659,7 +659,7 @@ Return a copy of the entity options.
 ## PullEntity
 
 ```ts
-const pull = client.Pull()
+const pull = client.pull
 ```
 
 ### Fields
@@ -711,7 +711,7 @@ const pull = client.Pull()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Pull().create({
+const result = await client.pull.create({
 })
 ```
 
@@ -720,7 +720,7 @@ const result = await client.Pull().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Pull().list()
+const results = await client.pull.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -728,7 +728,7 @@ const results = await client.Pull().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Pull().load({ id: 'pull_id' })
+const result = await client.pull.load({ id: 'pull_id' })
 ```
 
 ### Common Methods
@@ -762,7 +762,7 @@ Return a copy of the entity options.
 ## RateLimitEntity
 
 ```ts
-const rate_limit = client.RateLimit()
+const rate_limit = client.rate_limit
 ```
 
 ### Fields
@@ -779,7 +779,7 @@ const rate_limit = client.RateLimit()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RateLimit().load({ id: 'rate_limit_id' })
+const result = await client.rate_limit.load({ id: 'rate_limit_id' })
 ```
 
 ### Common Methods
@@ -813,7 +813,7 @@ Return a copy of the entity options.
 ## RepoEntity
 
 ```ts
-const repo = client.Repo()
+const repo = client.repo
 ```
 
 ### Fields
@@ -849,7 +849,7 @@ const repo = client.Repo()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Repo().list()
+const results = await client.repo.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -857,7 +857,7 @@ const results = await client.Repo().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Repo().load({ id: 'repo_id' })
+const result = await client.repo.load({ id: 'repo_id' })
 ```
 
 ### Common Methods
@@ -891,7 +891,7 @@ Return a copy of the entity options.
 ## SearchEntity
 
 ```ts
-const search = client.Search()
+const search = client.search
 ```
 
 ### Fields
@@ -937,7 +937,7 @@ const search = client.Search()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Search().list()
+const results = await client.search.list()
 ```
 
 ### Common Methods
@@ -971,7 +971,7 @@ Return a copy of the entity options.
 ## UserEntity
 
 ```ts
-const user = client.User()
+const user = client.user
 ```
 
 ### Fields
@@ -1005,7 +1005,7 @@ const user = client.User()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.User().load({ id: 'user_id' })
+const result = await client.user.load({ id: 'user_id' })
 ```
 
 ### Common Methods

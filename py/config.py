@@ -77,6 +77,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -85,6 +86,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -211,6 +213,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -219,6 +222,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -588,6 +592,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -596,6 +601,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
@@ -637,6 +643,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -645,6 +652,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -747,6 +755,7 @@ def make_config():
                       "orig": "issue_number",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -755,6 +764,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                     {
                       "active": True,
@@ -763,6 +773,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 2,
                     },
                   ],
                 },
@@ -811,6 +822,7 @@ def make_config():
                       "orig": "issue_number",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -819,6 +831,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                     {
                       "active": True,
@@ -827,6 +840,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 2,
                     },
                   ],
                 },
@@ -1142,6 +1156,7 @@ def make_config():
                       "orig": "org",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -1325,6 +1340,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -1333,6 +1349,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
@@ -1374,6 +1391,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -1382,6 +1400,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                   "query": [
@@ -1475,6 +1494,7 @@ def make_config():
                       "orig": "pull_number",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -1483,6 +1503,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                     {
                       "active": True,
@@ -1491,6 +1512,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 2,
                     },
                   ],
                 },
@@ -1746,6 +1768,7 @@ def make_config():
                       "orig": "username",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -1830,6 +1853,7 @@ def make_config():
                       "orig": "org",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -1906,6 +1930,7 @@ def make_config():
                       "orig": "owner",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -1914,6 +1939,7 @@ def make_config():
                       "orig": "repo",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
@@ -2483,6 +2509,7 @@ def make_config():
                       "orig": "username",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },

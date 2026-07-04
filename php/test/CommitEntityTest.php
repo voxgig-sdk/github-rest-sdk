@@ -53,8 +53,7 @@ class CommitEntityTest extends TestCase
             "repo" => $setup["idmap"]["repo01"],
         ];
 
-        [$commit_ref01_list_result, $err] = $commit_ref01_ent->list($commit_ref01_match, null);
-        $this->assertNull($err);
+        $commit_ref01_list_result = $commit_ref01_ent->list($commit_ref01_match, null);
         $this->assertIsArray($commit_ref01_list_result);
 
     }

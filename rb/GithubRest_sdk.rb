@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'GithubRest_types'
+
 
 class GithubRestSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class GithubRestSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class GithubRestSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue GithubRestError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = GithubRestHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class GithubRestSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,76 +198,153 @@ class GithubRestSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.branch.list / client.branch.load({ "id" => ... })
+  def branch
+    require_relative 'entity/branch_entity'
+    @branch ||= BranchEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.branch instead.
   def Branch(data = nil)
     require_relative 'entity/branch_entity'
     BranchEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.commit.list / client.commit.load({ "id" => ... })
+  def commit
+    require_relative 'entity/commit_entity'
+    @commit ||= CommitEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.commit instead.
   def Commit(data = nil)
     require_relative 'entity/commit_entity'
     CommitEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.gist.list / client.gist.load({ "id" => ... })
+  def gist
+    require_relative 'entity/gist_entity'
+    @gist ||= GistEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.gist instead.
   def Gist(data = nil)
     require_relative 'entity/gist_entity'
     GistEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.issue.list / client.issue.load({ "id" => ... })
+  def issue
+    require_relative 'entity/issue_entity'
+    @issue ||= IssueEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.issue instead.
   def Issue(data = nil)
     require_relative 'entity/issue_entity'
     IssueEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.notification.list / client.notification.load({ "id" => ... })
+  def notification
+    require_relative 'entity/notification_entity'
+    @notification ||= NotificationEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.notification instead.
   def Notification(data = nil)
     require_relative 'entity/notification_entity'
     NotificationEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.org.list / client.org.load({ "id" => ... })
+  def org
+    require_relative 'entity/org_entity'
+    @org ||= OrgEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.org instead.
   def Org(data = nil)
     require_relative 'entity/org_entity'
     OrgEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.pull.list / client.pull.load({ "id" => ... })
+  def pull
+    require_relative 'entity/pull_entity'
+    @pull ||= PullEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.pull instead.
   def Pull(data = nil)
     require_relative 'entity/pull_entity'
     PullEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.rate_limit.list / client.rate_limit.load({ "id" => ... })
+  def rate_limit
+    require_relative 'entity/rate_limit_entity'
+    @rate_limit ||= RateLimitEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.rate_limit instead.
   def RateLimit(data = nil)
     require_relative 'entity/rate_limit_entity'
     RateLimitEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.repo.list / client.repo.load({ "id" => ... })
+  def repo
+    require_relative 'entity/repo_entity'
+    @repo ||= RepoEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.repo instead.
   def Repo(data = nil)
     require_relative 'entity/repo_entity'
     RepoEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
+  def search
+    require_relative 'entity/search_entity'
+    @search ||= SearchEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.search instead.
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.user.list / client.user.load({ "id" => ... })
+  def user
+    require_relative 'entity/user_entity'
+    @user ||= UserEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.user instead.
   def User(data = nil)
     require_relative 'entity/user_entity'
     UserEntity.new(self, data)

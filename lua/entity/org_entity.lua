@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch OrgLoadMatch
+---@param ctrl? table
+---@return Org
+---@return string? err
 function OrgEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

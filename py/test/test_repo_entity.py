@@ -52,16 +52,14 @@ class TestRepoEntity:
             "org_id": setup["idmap"]["org01"],
         }
 
-        repo_ref01_list_result, err = repo_ref01_ent.list(repo_ref01_match, None)
-        assert err is None
+        repo_ref01_list_result = repo_ref01_ent.list(repo_ref01_match, None)
         assert isinstance(repo_ref01_list_result, list)
 
         # LOAD
         repo_ref01_match_dt0 = {
             "id": repo_ref01_data["id"],
         }
-        repo_ref01_data_dt0_loaded, err = repo_ref01_ent.load(repo_ref01_match_dt0, None)
-        assert err is None
+        repo_ref01_data_dt0_loaded = repo_ref01_ent.load(repo_ref01_match_dt0, None)
         repo_ref01_data_dt0_load_result = helpers.to_map(repo_ref01_data_dt0_loaded)
         assert repo_ref01_data_dt0_load_result is not None
         assert repo_ref01_data_dt0_load_result["id"] == repo_ref01_data["id"]

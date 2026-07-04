@@ -82,6 +82,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -90,6 +91,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -216,6 +218,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -224,6 +227,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -593,6 +597,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -601,6 +606,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -642,6 +648,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -650,6 +657,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -752,6 +760,7 @@ class GithubRestConfig
                         'orig' => 'issue_number',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -760,6 +769,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                       [
                         'active' => true,
@@ -768,6 +778,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 2,
                       ],
                     ],
                   ],
@@ -816,6 +827,7 @@ class GithubRestConfig
                         'orig' => 'issue_number',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -824,6 +836,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                       [
                         'active' => true,
@@ -832,6 +845,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 2,
                       ],
                     ],
                   ],
@@ -1147,6 +1161,7 @@ class GithubRestConfig
                         'orig' => 'org',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -1330,6 +1345,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -1338,6 +1354,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -1379,6 +1396,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -1387,6 +1405,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                     'query' => [
@@ -1480,6 +1499,7 @@ class GithubRestConfig
                         'orig' => 'pull_number',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -1488,6 +1508,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                       [
                         'active' => true,
@@ -1496,6 +1517,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 2,
                       ],
                     ],
                   ],
@@ -1751,6 +1773,7 @@ class GithubRestConfig
                         'orig' => 'username',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -1835,6 +1858,7 @@ class GithubRestConfig
                         'orig' => 'org',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                     'query' => [
@@ -1911,6 +1935,7 @@ class GithubRestConfig
                         'orig' => 'owner',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                       [
                         'active' => true,
@@ -1919,6 +1944,7 @@ class GithubRestConfig
                         'orig' => 'repo',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -2488,6 +2514,7 @@ class GithubRestConfig
                         'orig' => 'username',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

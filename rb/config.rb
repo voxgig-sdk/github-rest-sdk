@@ -77,6 +77,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -85,6 +86,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -211,6 +213,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -219,6 +222,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -588,6 +592,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -596,6 +601,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },
@@ -637,6 +643,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -645,6 +652,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -747,6 +755,7 @@ module GithubRestConfig
                         "orig" => "issue_number",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -755,6 +764,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                       {
                         "active" => true,
@@ -763,6 +773,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 2,
                       },
                     ],
                   },
@@ -811,6 +822,7 @@ module GithubRestConfig
                         "orig" => "issue_number",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -819,6 +831,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                       {
                         "active" => true,
@@ -827,6 +840,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 2,
                       },
                     ],
                   },
@@ -1142,6 +1156,7 @@ module GithubRestConfig
                         "orig" => "org",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -1325,6 +1340,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -1333,6 +1349,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },
@@ -1374,6 +1391,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -1382,6 +1400,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                     "query" => [
@@ -1475,6 +1494,7 @@ module GithubRestConfig
                         "orig" => "pull_number",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -1483,6 +1503,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                       {
                         "active" => true,
@@ -1491,6 +1512,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 2,
                       },
                     ],
                   },
@@ -1746,6 +1768,7 @@ module GithubRestConfig
                         "orig" => "username",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -1830,6 +1853,7 @@ module GithubRestConfig
                         "orig" => "org",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -1906,6 +1930,7 @@ module GithubRestConfig
                         "orig" => "owner",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -1914,6 +1939,7 @@ module GithubRestConfig
                         "orig" => "repo",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },
@@ -2483,6 +2509,7 @@ module GithubRestConfig
                         "orig" => "username",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

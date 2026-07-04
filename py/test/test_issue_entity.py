@@ -46,9 +46,7 @@ class TestIssueEntity:
         issue_ref01_data["owner"] = setup["idmap"]["owner01"]
         issue_ref01_data["repo"] = setup["idmap"]["repo01"]
 
-        issue_ref01_data_result, err = issue_ref01_ent.create(issue_ref01_data, None)
-        assert err is None
-        issue_ref01_data = helpers.to_map(issue_ref01_data_result)
+        issue_ref01_data = helpers.to_map(issue_ref01_ent.create(issue_ref01_data, None))
         assert issue_ref01_data is not None
         assert issue_ref01_data["id"] is not None
 
@@ -58,8 +56,7 @@ class TestIssueEntity:
             "repo": setup["idmap"]["repo01"],
         }
 
-        issue_ref01_list_result, err = issue_ref01_ent.list(issue_ref01_match, None)
-        assert err is None
+        issue_ref01_list_result = issue_ref01_ent.list(issue_ref01_match, None)
         assert isinstance(issue_ref01_list_result, list)
 
         found_item = vs.select(
@@ -78,9 +75,7 @@ class TestIssueEntity:
         issue_ref01_markdef_up0_value = "Mark01-issue_ref01_" + str(setup["now"])
         issue_ref01_data_up0_up[issue_ref01_markdef_up0_name] = issue_ref01_markdef_up0_value
 
-        issue_ref01_resdata_up0_result, err = issue_ref01_ent.update(issue_ref01_data_up0_up, None)
-        assert err is None
-        issue_ref01_resdata_up0 = helpers.to_map(issue_ref01_resdata_up0_result)
+        issue_ref01_resdata_up0 = helpers.to_map(issue_ref01_ent.update(issue_ref01_data_up0_up, None))
         assert issue_ref01_resdata_up0 is not None
         assert issue_ref01_resdata_up0["id"] == issue_ref01_data_up0_up["id"]
         assert issue_ref01_resdata_up0[issue_ref01_markdef_up0_name] == issue_ref01_markdef_up0_value
@@ -89,8 +84,7 @@ class TestIssueEntity:
         issue_ref01_match_dt0 = {
             "id": issue_ref01_data["id"],
         }
-        issue_ref01_data_dt0_loaded, err = issue_ref01_ent.load(issue_ref01_match_dt0, None)
-        assert err is None
+        issue_ref01_data_dt0_loaded = issue_ref01_ent.load(issue_ref01_match_dt0, None)
         issue_ref01_data_dt0_load_result = helpers.to_map(issue_ref01_data_dt0_loaded)
         assert issue_ref01_data_dt0_load_result is not None
         assert issue_ref01_data_dt0_load_result["id"] == issue_ref01_data["id"]

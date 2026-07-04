@@ -51,8 +51,7 @@ class OrgEntityTest extends TestCase
         $org_ref01_match_dt0 = [
             "id" => $org_ref01_data["id"],
         ];
-        [$org_ref01_data_dt0_loaded, $err] = $org_ref01_ent->load($org_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $org_ref01_data_dt0_loaded = $org_ref01_ent->load($org_ref01_match_dt0, null);
         $org_ref01_data_dt0_load_result = Helpers::to_map($org_ref01_data_dt0_loaded);
         $this->assertNotNull($org_ref01_data_dt0_load_result);
         $this->assertEquals($org_ref01_data_dt0_load_result["id"], $org_ref01_data["id"]);

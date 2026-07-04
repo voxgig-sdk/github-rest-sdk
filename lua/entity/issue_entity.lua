@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch IssueLoadMatch
+---@param ctrl? table
+---@return Issue
+---@return string? err
 function IssueEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch IssueListMatch
+---@param ctrl? table
+---@return Issue[]
+---@return string? err
 function IssueEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata IssueCreateData
+---@param ctrl? table
+---@return Issue
+---@return string? err
 function IssueEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -148,6 +160,10 @@ end
 
 
 
+---@param reqdata IssueUpdateData
+---@param ctrl? table
+---@return Issue
+---@return string? err
 function IssueEntity:update(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

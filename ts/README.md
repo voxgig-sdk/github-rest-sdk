@@ -9,9 +9,12 @@ The TypeScript SDK for the GithubRest API — a type-safe, entity-oriented clien
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/github-rest
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/github-rest-sdk/releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,17 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GithubRestSDK } from 'github-rest'
+import { GithubRestSDK } from '@voxgig-sdk/github-rest'
 
 const client = new GithubRestSDK({
-  apikey: process.env.GITHUB-REST_APIKEY,
+  apikey: process.env.GITHUB_REST_APIKEY,
 })
 ```
 
 ### 2. List branchs
 
 ```ts
-const result = await client.Branch().list()
+const result = await client.branch.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +84,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.branch.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -98,7 +101,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.branch
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -135,8 +138,8 @@ const client = new GithubRestSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-REST_TEST_LIVE=TRUE
-GITHUB-REST_APIKEY=<your-key>
+GITHUB_REST_TEST_LIVE=TRUE
+GITHUB_REST_APIKEY=<your-key>
 ```
 
 Then run:
@@ -517,7 +520,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.Branch()`
+Create an instance: `const branch = client.branch`
 
 #### Operations
 
@@ -536,13 +539,13 @@ Create an instance: `const branch = client.Branch()`
 #### Example: List
 
 ```ts
-const branchs = await client.Branch().list()
+const branchs = await client.branch.list()
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.Commit()`
+Create an instance: `const commit = client.commit`
 
 #### Operations
 
@@ -565,13 +568,13 @@ Create an instance: `const commit = client.Commit()`
 #### Example: List
 
 ```ts
-const commits = await client.Commit().list()
+const commits = await client.commit.list()
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.Gist()`
+Create an instance: `const gist = client.gist`
 
 #### Operations
 
@@ -598,13 +601,13 @@ Create an instance: `const gist = client.Gist()`
 #### Example: List
 
 ```ts
-const gists = await client.Gist().list()
+const gists = await client.gist.list()
 ```
 
 #### Example: Create
 
 ```ts
-const gist = await client.Gist().create({
+const gist = await client.gist.create({
   file: /* `$OBJECT` */,
 })
 ```
@@ -612,7 +615,7 @@ const gist = await client.Gist().create({
 
 ### Issue
 
-Create an instance: `const issue = client.Issue()`
+Create an instance: `const issue = client.issue`
 
 #### Operations
 
@@ -647,26 +650,26 @@ Create an instance: `const issue = client.Issue()`
 #### Example: Load
 
 ```ts
-const issue = await client.Issue().load({ id: 'issue_id' })
+const issue = await client.issue.load({ id: 'issue_id' })
 ```
 
 #### Example: List
 
 ```ts
-const issues = await client.Issue().list()
+const issues = await client.issue.list()
 ```
 
 #### Example: Create
 
 ```ts
-const issue = await client.Issue().create({
+const issue = await client.issue.create({
 })
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.Notification()`
+Create an instance: `const notification = client.notification`
 
 #### Operations
 
@@ -690,13 +693,13 @@ Create an instance: `const notification = client.Notification()`
 #### Example: List
 
 ```ts
-const notifications = await client.Notification().list()
+const notifications = await client.notification.list()
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.Org()`
+Create an instance: `const org = client.org`
 
 #### Operations
 
@@ -729,13 +732,13 @@ Create an instance: `const org = client.Org()`
 #### Example: Load
 
 ```ts
-const org = await client.Org().load({ id: 'org_id' })
+const org = await client.org.load({ id: 'org_id' })
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.Pull()`
+Create an instance: `const pull = client.pull`
 
 #### Operations
 
@@ -769,26 +772,26 @@ Create an instance: `const pull = client.Pull()`
 #### Example: Load
 
 ```ts
-const pull = await client.Pull().load({ id: 'pull_id' })
+const pull = await client.pull.load({ id: 'pull_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pulls = await client.Pull().list()
+const pulls = await client.pull.list()
 ```
 
 #### Example: Create
 
 ```ts
-const pull = await client.Pull().create({
+const pull = await client.pull.create({
 })
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.RateLimit()`
+Create an instance: `const rate_limit = client.rate_limit`
 
 #### Operations
 
@@ -806,13 +809,13 @@ Create an instance: `const rate_limit = client.RateLimit()`
 #### Example: Load
 
 ```ts
-const rate_limit = await client.RateLimit().load({ id: 'rate_limit_id' })
+const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.Repo()`
+Create an instance: `const repo = client.repo`
 
 #### Operations
 
@@ -850,19 +853,19 @@ Create an instance: `const repo = client.Repo()`
 #### Example: Load
 
 ```ts
-const repo = await client.Repo().load({ id: 'repo_id' })
+const repo = await client.repo.load({ id: 'repo_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repos = await client.Repo().list()
+const repos = await client.repo.list()
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -909,13 +912,13 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.search.list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -950,7 +953,7 @@ Create an instance: `const user = client.User()`
 #### Example: Load
 
 ```ts
-const user = await client.User().load({ id: 'user_id' })
+const user = await client.user.load({ id: 'user_id' })
 ```
 
 
@@ -1011,7 +1014,7 @@ github-rest/
 Import the SDK from the package root:
 
 ```ts
-import { GithubRestSDK } from 'github-rest'
+import { GithubRestSDK } from '@voxgig-sdk/github-rest'
 ```
 
 ### Entity state
@@ -1021,11 +1024,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const branch = client.branch
+await branch.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// branch.data() now returns the loaded branch data
+// branch.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -50,8 +50,7 @@ class TestNotificationEntity:
         notification_ref01_ent = client.Notification(None)
         notification_ref01_match = {}
 
-        notification_ref01_list_result, err = notification_ref01_ent.list(notification_ref01_match, None)
-        assert err is None
+        notification_ref01_list_result = notification_ref01_ent.list(notification_ref01_match, None)
         assert isinstance(notification_ref01_list_result, list)
 
 

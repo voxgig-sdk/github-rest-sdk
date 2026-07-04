@@ -55,6 +55,9 @@ class IssueEntity
         return new IssueEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Issue|array $args Issue data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class IssueEntity
         }
     }
 
+    /**
+     * @return Issue|array The current Issue data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Issue fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class IssueEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Issue fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class IssueEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Issue.
+     *
+     * @param IssueLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed IssueLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Issue|array The loaded Issue as an assoc-array at the
+     *   SDK boundary; throws GithubRestError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -110,7 +131,16 @@ class IssueEntity
 
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Issue items matching the given filter.
+     *
+     * @param IssueListMatch|array|null $reqmatch Match filter (any subset
+     *   of Issue fields) as an assoc-array; IssueListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Issue[]|array A list of Issue items as assoc-arrays at
+     *   the SDK boundary; throws GithubRestError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -133,7 +163,16 @@ class IssueEntity
 
 
     
-    public function create($reqdata, $ctrl = null): array
+    /**
+     * Create a new Issue.
+     *
+     * @param IssueCreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed IssueCreateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Issue|array The created Issue as an assoc-array at the
+     *   SDK boundary; throws GithubRestError on failure (item-5 convention).
+     */
+    public function create(?array $reqdata = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -156,7 +195,16 @@ class IssueEntity
 
 
     
-    public function update($reqdata, $ctrl = null): array
+    /**
+     * Update an existing Issue.
+     *
+     * @param IssueUpdateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed IssueUpdateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Issue|array The updated Issue as an assoc-array at the
+     *   SDK boundary; throws GithubRestError on failure (item-5 convention).
+     */
+    public function update(?array $reqdata = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -183,7 +231,7 @@ class IssueEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

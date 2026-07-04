@@ -76,6 +76,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -84,6 +85,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -210,6 +212,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -218,6 +221,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -587,6 +591,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -595,6 +600,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},
@@ -636,6 +642,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -644,6 +651,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -746,6 +754,7 @@ func MakeConfig() map[string]any {
 											"orig": "issue_number",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -754,6 +763,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 										map[string]any{
 											"active": true,
@@ -762,6 +772,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 2,
 										},
 									},
 								},
@@ -810,6 +821,7 @@ func MakeConfig() map[string]any {
 											"orig": "issue_number",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -818,6 +830,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 										map[string]any{
 											"active": true,
@@ -826,6 +839,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 2,
 										},
 									},
 								},
@@ -1141,6 +1155,7 @@ func MakeConfig() map[string]any {
 											"orig": "org",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 								},
@@ -1324,6 +1339,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -1332,6 +1348,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},
@@ -1373,6 +1390,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -1381,6 +1399,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 									"query": []any{
@@ -1474,6 +1493,7 @@ func MakeConfig() map[string]any {
 											"orig": "pull_number",
 											"reqd": true,
 											"type": "`$INTEGER`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -1482,6 +1502,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 										map[string]any{
 											"active": true,
@@ -1490,6 +1511,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 2,
 										},
 									},
 								},
@@ -1745,6 +1767,7 @@ func MakeConfig() map[string]any {
 											"orig": "username",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -1829,6 +1852,7 @@ func MakeConfig() map[string]any {
 											"orig": "org",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -1905,6 +1929,7 @@ func MakeConfig() map[string]any {
 											"orig": "owner",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -1913,6 +1938,7 @@ func MakeConfig() map[string]any {
 											"orig": "repo",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},
@@ -2482,6 +2508,7 @@ func MakeConfig() map[string]any {
 											"orig": "username",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 								},

@@ -9,11 +9,9 @@ The Python SDK for the GithubRest API — an entity-oriented client following Py
 
 
 ## Install
-```bash
-pip install voxgig-sdk-github-rest
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -32,21 +30,20 @@ import os
 from githubrest_sdk import GithubRestSDK
 
 client = GithubRestSDK({
-    "apikey": os.environ.get("GITHUB-REST_APIKEY"),
+    "apikey": os.environ.get("GITHUB_REST_APIKEY"),
 })
 ```
 
 ### 2. List branchs
 
 ```python
-result, err = client.Branch().list()
-if err:
-    raise Exception(err)
-
-if isinstance(result, list):
+try:
+    result = client.branch.list()
     for item in result:
         d = item.data_get()
         print(d["id"], d["name"])
+except Exception as err:
+    print(f"list failed: {err}")
 ```
 
 
@@ -57,29 +54,28 @@ if isinstance(result, list):
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -93,7 +89,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubRestSDK.test()
 
-result, err = client.GithubRest().load({"id": "test01"})
+result = client.branch.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -123,8 +119,8 @@ client = GithubRestSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-REST_TEST_LIVE=TRUE
-GITHUB-REST_APIKEY=<your-key>
+GITHUB_REST_TEST_LIVE=TRUE
+GITHUB_REST_APIKEY=<your-key>
 ```
 
 Then run:
@@ -170,8 +166,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Branch` | `(data) -> BranchEntity` | Create a Branch entity instance. |
 | `Commit` | `(data) -> CommitEntity` | Create a Commit entity instance. |
 | `Gist` | `(data) -> GistEntity` | Create a Gist entity instance. |
@@ -190,11 +186,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -204,8 +200,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -474,7 +474,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.Branch()`
+Create an instance: `const branch = client.branch`
 
 #### Operations
 
@@ -493,13 +493,13 @@ Create an instance: `const branch = client.Branch()`
 #### Example: List
 
 ```ts
-const branchs = await client.Branch().list()
+const branchs = await client.branch.list()
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.Commit()`
+Create an instance: `const commit = client.commit`
 
 #### Operations
 
@@ -522,13 +522,13 @@ Create an instance: `const commit = client.Commit()`
 #### Example: List
 
 ```ts
-const commits = await client.Commit().list()
+const commits = await client.commit.list()
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.Gist()`
+Create an instance: `const gist = client.gist`
 
 #### Operations
 
@@ -555,13 +555,13 @@ Create an instance: `const gist = client.Gist()`
 #### Example: List
 
 ```ts
-const gists = await client.Gist().list()
+const gists = await client.gist.list()
 ```
 
 #### Example: Create
 
 ```ts
-const gist = await client.Gist().create({
+const gist = await client.gist.create({
   file: /* `$OBJECT` */,
 })
 ```
@@ -569,7 +569,7 @@ const gist = await client.Gist().create({
 
 ### Issue
 
-Create an instance: `const issue = client.Issue()`
+Create an instance: `const issue = client.issue`
 
 #### Operations
 
@@ -604,26 +604,26 @@ Create an instance: `const issue = client.Issue()`
 #### Example: Load
 
 ```ts
-const issue = await client.Issue().load({ id: 'issue_id' })
+const issue = await client.issue.load({ id: 'issue_id' })
 ```
 
 #### Example: List
 
 ```ts
-const issues = await client.Issue().list()
+const issues = await client.issue.list()
 ```
 
 #### Example: Create
 
 ```ts
-const issue = await client.Issue().create({
+const issue = await client.issue.create({
 })
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.Notification()`
+Create an instance: `const notification = client.notification`
 
 #### Operations
 
@@ -647,13 +647,13 @@ Create an instance: `const notification = client.Notification()`
 #### Example: List
 
 ```ts
-const notifications = await client.Notification().list()
+const notifications = await client.notification.list()
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.Org()`
+Create an instance: `const org = client.org`
 
 #### Operations
 
@@ -686,13 +686,13 @@ Create an instance: `const org = client.Org()`
 #### Example: Load
 
 ```ts
-const org = await client.Org().load({ id: 'org_id' })
+const org = await client.org.load({ id: 'org_id' })
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.Pull()`
+Create an instance: `const pull = client.pull`
 
 #### Operations
 
@@ -726,26 +726,26 @@ Create an instance: `const pull = client.Pull()`
 #### Example: Load
 
 ```ts
-const pull = await client.Pull().load({ id: 'pull_id' })
+const pull = await client.pull.load({ id: 'pull_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pulls = await client.Pull().list()
+const pulls = await client.pull.list()
 ```
 
 #### Example: Create
 
 ```ts
-const pull = await client.Pull().create({
+const pull = await client.pull.create({
 })
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.RateLimit()`
+Create an instance: `const rate_limit = client.rate_limit`
 
 #### Operations
 
@@ -763,13 +763,13 @@ Create an instance: `const rate_limit = client.RateLimit()`
 #### Example: Load
 
 ```ts
-const rate_limit = await client.RateLimit().load({ id: 'rate_limit_id' })
+const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.Repo()`
+Create an instance: `const repo = client.repo`
 
 #### Operations
 
@@ -807,19 +807,19 @@ Create an instance: `const repo = client.Repo()`
 #### Example: Load
 
 ```ts
-const repo = await client.Repo().load({ id: 'repo_id' })
+const repo = await client.repo.load({ id: 'repo_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repos = await client.Repo().list()
+const repos = await client.repo.list()
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -866,13 +866,13 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.search.list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -907,7 +907,7 @@ Create an instance: `const user = client.User()`
 #### Example: Load
 
 ```ts
-const user = await client.User().load({ id: 'user_id' })
+const user = await client.user.load({ id: 'user_id' })
 ```
 
 
@@ -981,11 +981,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+branch = client.branch
+branch.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# branch.data_get() now returns the loaded branch data
+# branch.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

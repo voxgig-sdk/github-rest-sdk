@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch GistListMatch
+---@param ctrl? table
+---@return Gist[]
+---@return string? err
 function GistEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata GistCreateData
+---@param ctrl? table
+---@return Gist
+---@return string? err
 function GistEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -244,66 +244,209 @@ end
 
 
 
+-- Idiomatic facade: client:branch():list() / client:branch():load({ id = ... })
+function GithubRestSDK:branch(data)
+  local EntityMod = require("entity.branch_entity")
+  if data == nil then
+    if self._branch == nil then
+      self._branch = EntityMod.new(self, nil)
+    end
+    return self._branch
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:branch() instead.
 function GithubRestSDK:Branch(data)
   local EntityMod = require("entity.branch_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:commit():list() / client:commit():load({ id = ... })
+function GithubRestSDK:commit(data)
+  local EntityMod = require("entity.commit_entity")
+  if data == nil then
+    if self._commit == nil then
+      self._commit = EntityMod.new(self, nil)
+    end
+    return self._commit
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:commit() instead.
 function GithubRestSDK:Commit(data)
   local EntityMod = require("entity.commit_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:gist():list() / client:gist():load({ id = ... })
+function GithubRestSDK:gist(data)
+  local EntityMod = require("entity.gist_entity")
+  if data == nil then
+    if self._gist == nil then
+      self._gist = EntityMod.new(self, nil)
+    end
+    return self._gist
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:gist() instead.
 function GithubRestSDK:Gist(data)
   local EntityMod = require("entity.gist_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:issue():list() / client:issue():load({ id = ... })
+function GithubRestSDK:issue(data)
+  local EntityMod = require("entity.issue_entity")
+  if data == nil then
+    if self._issue == nil then
+      self._issue = EntityMod.new(self, nil)
+    end
+    return self._issue
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:issue() instead.
 function GithubRestSDK:Issue(data)
   local EntityMod = require("entity.issue_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:notification():list() / client:notification():load({ id = ... })
+function GithubRestSDK:notification(data)
+  local EntityMod = require("entity.notification_entity")
+  if data == nil then
+    if self._notification == nil then
+      self._notification = EntityMod.new(self, nil)
+    end
+    return self._notification
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:notification() instead.
 function GithubRestSDK:Notification(data)
   local EntityMod = require("entity.notification_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:org():list() / client:org():load({ id = ... })
+function GithubRestSDK:org(data)
+  local EntityMod = require("entity.org_entity")
+  if data == nil then
+    if self._org == nil then
+      self._org = EntityMod.new(self, nil)
+    end
+    return self._org
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:org() instead.
 function GithubRestSDK:Org(data)
   local EntityMod = require("entity.org_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:pull():list() / client:pull():load({ id = ... })
+function GithubRestSDK:pull(data)
+  local EntityMod = require("entity.pull_entity")
+  if data == nil then
+    if self._pull == nil then
+      self._pull = EntityMod.new(self, nil)
+    end
+    return self._pull
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:pull() instead.
 function GithubRestSDK:Pull(data)
   local EntityMod = require("entity.pull_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:rate_limit():list() / client:rate_limit():load({ id = ... })
+function GithubRestSDK:rate_limit(data)
+  local EntityMod = require("entity.rate_limit_entity")
+  if data == nil then
+    if self._rate_limit == nil then
+      self._rate_limit = EntityMod.new(self, nil)
+    end
+    return self._rate_limit
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:rate_limit() instead.
 function GithubRestSDK:RateLimit(data)
   local EntityMod = require("entity.rate_limit_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:repo():list() / client:repo():load({ id = ... })
+function GithubRestSDK:repo(data)
+  local EntityMod = require("entity.repo_entity")
+  if data == nil then
+    if self._repo == nil then
+      self._repo = EntityMod.new(self, nil)
+    end
+    return self._repo
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:repo() instead.
 function GithubRestSDK:Repo(data)
   local EntityMod = require("entity.repo_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
+function GithubRestSDK:search(data)
+  local EntityMod = require("entity.search_entity")
+  if data == nil then
+    if self._search == nil then
+      self._search = EntityMod.new(self, nil)
+    end
+    return self._search
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:search() instead.
 function GithubRestSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:user():list() / client:user():load({ id = ... })
+function GithubRestSDK:user(data)
+  local EntityMod = require("entity.user_entity")
+  if data == nil then
+    if self._user == nil then
+      self._user = EntityMod.new(self, nil)
+    end
+    return self._user
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:user() instead.
 function GithubRestSDK:User(data)
   local EntityMod = require("entity.user_entity")
   return EntityMod.new(self, data)

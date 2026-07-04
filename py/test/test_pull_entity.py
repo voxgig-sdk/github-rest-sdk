@@ -46,9 +46,7 @@ class TestPullEntity:
         pull_ref01_data["owner"] = setup["idmap"]["owner01"]
         pull_ref01_data["repo"] = setup["idmap"]["repo01"]
 
-        pull_ref01_data_result, err = pull_ref01_ent.create(pull_ref01_data, None)
-        assert err is None
-        pull_ref01_data = helpers.to_map(pull_ref01_data_result)
+        pull_ref01_data = helpers.to_map(pull_ref01_ent.create(pull_ref01_data, None))
         assert pull_ref01_data is not None
         assert pull_ref01_data["id"] is not None
 
@@ -58,8 +56,7 @@ class TestPullEntity:
             "repo": setup["idmap"]["repo01"],
         }
 
-        pull_ref01_list_result, err = pull_ref01_ent.list(pull_ref01_match, None)
-        assert err is None
+        pull_ref01_list_result = pull_ref01_ent.list(pull_ref01_match, None)
         assert isinstance(pull_ref01_list_result, list)
 
         found_item = vs.select(
@@ -71,8 +68,7 @@ class TestPullEntity:
         pull_ref01_match_dt0 = {
             "id": pull_ref01_data["id"],
         }
-        pull_ref01_data_dt0_loaded, err = pull_ref01_ent.load(pull_ref01_match_dt0, None)
-        assert err is None
+        pull_ref01_data_dt0_loaded = pull_ref01_ent.load(pull_ref01_match_dt0, None)
         pull_ref01_data_dt0_load_result = helpers.to_map(pull_ref01_data_dt0_loaded)
         assert pull_ref01_data_dt0_load_result is not None
         assert pull_ref01_data_dt0_load_result["id"] == pull_ref01_data["id"]

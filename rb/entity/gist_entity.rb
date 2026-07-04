@@ -45,6 +45,7 @@ class GistEntity
     end
   end
 
+  # @return [Gist, Hash] the current Gist data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class GistEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Gist fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class GistEntity
   
 
   
+  # List Gist items matching the given filter.
+  #
+  # @param reqmatch [GistListMatch, Hash, nil] match filter (any subset of Gist fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Gist>, Array] the matching Gist items; raises GithubRestError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -85,6 +92,11 @@ class GistEntity
 
 
   
+  # Create a new Gist.
+  #
+  # @param reqdata [GistCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Gist, Hash] the created Gist; raises GithubRestError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

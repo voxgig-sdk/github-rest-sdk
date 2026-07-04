@@ -14,9 +14,16 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Issue,
+  IssueLoadMatch,
+  IssueListMatch,
+  IssueCreateData,
+  IssueUpdateData,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class IssueEntity extends GithubRestEntityBase {
+class IssueEntity extends GithubRestEntityBase<Issue> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +39,7 @@ class IssueEntity extends GithubRestEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: IssueLoadMatch, ctrl?: Control): Promise<Issue> {
 
     const utility = this._utility
 
@@ -136,14 +143,16 @@ class IssueEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Issue> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: IssueListMatch, ctrl?: Control): Promise<Issue[]> {
 
     const utility = this._utility
 
@@ -243,14 +252,16 @@ class IssueEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Issue[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: IssueCreateData, ctrl?: Control): Promise<Issue> {
 
     const utility = this._utility
     const {
@@ -349,14 +360,16 @@ class IssueEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Issue> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async update(this: any, reqdata?: any, ctrl?: Control) {
+  async update(this: any, reqdata?: IssueUpdateData, ctrl?: Control): Promise<Issue> {
 
     const utility = this._utility
 
@@ -461,7 +474,9 @@ class IssueEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Issue> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Notification,
+  NotificationListMatch,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class NotificationEntity extends GithubRestEntityBase {
+class NotificationEntity extends GithubRestEntityBase<Notification> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class NotificationEntity extends GithubRestEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: NotificationListMatch, ctrl?: Control): Promise<Notification[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class NotificationEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Notification[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

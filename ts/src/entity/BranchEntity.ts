@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Branch,
+  BranchListMatch,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class BranchEntity extends GithubRestEntityBase {
+class BranchEntity extends GithubRestEntityBase<Branch> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class BranchEntity extends GithubRestEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: BranchListMatch, ctrl?: Control): Promise<Branch[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class BranchEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Branch[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

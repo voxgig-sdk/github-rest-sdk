@@ -96,7 +96,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -110,11 +113,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -122,7 +126,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## BranchEntity
 
 ```php
-$branch = $client->Branch();
+$branch = $client->branch();
 ```
 
 ### Fields
@@ -135,12 +139,12 @@ $branch = $client->Branch();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Branch()->list([]);
+$results = $client->branch()->list([]);
 ```
 
 ### Common Methods
@@ -176,7 +180,7 @@ Return the entity name.
 ## CommitEntity
 
 ```php
-$commit = $client->Commit();
+$commit = $client->commit();
 ```
 
 ### Fields
@@ -193,12 +197,12 @@ $commit = $client->Commit();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Commit()->list([]);
+$results = $client->commit()->list([]);
 ```
 
 ### Common Methods
@@ -234,7 +238,7 @@ Return the entity name.
 ## GistEntity
 
 ```php
-$gist = $client->Gist();
+$gist = $client->gist();
 ```
 
 ### Fields
@@ -269,22 +273,22 @@ $gist = $client->Gist();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Gist()->create([
+$result = $client->gist()->create([
   "file" => /* `$OBJECT` */,
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Gist()->list([]);
+$results = $client->gist()->list([]);
 ```
 
 ### Common Methods
@@ -320,7 +324,7 @@ Return the entity name.
 ## IssueEntity
 
 ```php
-$issue = $client->Issue();
+$issue = $client->issue();
 ```
 
 ### Fields
@@ -367,37 +371,37 @@ $issue = $client->Issue();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Issue()->create([
+$result = $client->issue()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Issue()->list([]);
+$results = $client->issue()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Issue()->load(["id" => "issue_id"]);
+$result = $client->issue()->load(["id" => "issue_id"]);
 ```
 
-#### `update(array $reqdata, ?array $ctrl = null): array`
+#### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-[$result, $err] = $client->Issue()->update([
+$result = $client->issue()->update([
   "id" => "issue_id",
   // Fields to update
 ]);
@@ -436,7 +440,7 @@ Return the entity name.
 ## NotificationEntity
 
 ```php
-$notification = $client->Notification();
+$notification = $client->notification();
 ```
 
 ### Fields
@@ -454,12 +458,12 @@ $notification = $client->Notification();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Notification()->list([]);
+$results = $client->notification()->list([]);
 ```
 
 ### Common Methods
@@ -495,7 +499,7 @@ Return the entity name.
 ## OrgEntity
 
 ```php
-$org = $client->Org();
+$org = $client->org();
 ```
 
 ### Fields
@@ -522,12 +526,12 @@ $org = $client->Org();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Org()->load(["id" => "org_id"]);
+$result = $client->org()->load(["id" => "org_id"]);
 ```
 
 ### Common Methods
@@ -563,7 +567,7 @@ Return the entity name.
 ## PullEntity
 
 ```php
-$pull = $client->Pull();
+$pull = $client->pull();
 ```
 
 ### Fields
@@ -610,29 +614,29 @@ $pull = $client->Pull();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Pull()->create([
+$result = $client->pull()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Pull()->list([]);
+$results = $client->pull()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Pull()->load(["id" => "pull_id"]);
+$result = $client->pull()->load(["id" => "pull_id"]);
 ```
 
 ### Common Methods
@@ -668,7 +672,7 @@ Return the entity name.
 ## RateLimitEntity
 
 ```php
-$rate_limit = $client->RateLimit();
+$rate_limit = $client->rate_limit();
 ```
 
 ### Fields
@@ -680,12 +684,12 @@ $rate_limit = $client->RateLimit();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->RateLimit()->load(["id" => "rate_limit_id"]);
+$result = $client->rate_limit()->load(["id" => "rate_limit_id"]);
 ```
 
 ### Common Methods
@@ -721,7 +725,7 @@ Return the entity name.
 ## RepoEntity
 
 ```php
-$repo = $client->Repo();
+$repo = $client->repo();
 ```
 
 ### Fields
@@ -752,20 +756,20 @@ $repo = $client->Repo();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Repo()->list([]);
+$results = $client->repo()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Repo()->load(["id" => "repo_id"]);
+$result = $client->repo()->load(["id" => "repo_id"]);
 ```
 
 ### Common Methods
@@ -801,7 +805,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->Search();
+$search = $client->search();
 ```
 
 ### Fields
@@ -842,12 +846,12 @@ $search = $client->Search();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Search()->list([]);
+$results = $client->search()->list([]);
 ```
 
 ### Common Methods
@@ -883,7 +887,7 @@ Return the entity name.
 ## UserEntity
 
 ```php
-$user = $client->User();
+$user = $client->user();
 ```
 
 ### Fields
@@ -912,12 +916,12 @@ $user = $client->User();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->User()->load(["id" => "user_id"]);
+$result = $client->user()->load(["id" => "user_id"]);
 ```
 
 ### Common Methods

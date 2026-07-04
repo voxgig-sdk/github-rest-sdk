@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Gist,
+  GistListMatch,
+  GistCreateData,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class GistEntity extends GithubRestEntityBase {
+class GistEntity extends GithubRestEntityBase<Gist> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +38,7 @@ class GistEntity extends GithubRestEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: GistListMatch, ctrl?: Control): Promise<Gist[]> {
 
     const utility = this._utility
 
@@ -133,14 +138,16 @@ class GistEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Gist[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: GistCreateData, ctrl?: Control): Promise<Gist> {
 
     const utility = this._utility
     const {
@@ -239,7 +246,9 @@ class GistEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Gist> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

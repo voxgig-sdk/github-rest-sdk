@@ -53,8 +53,7 @@ class BranchEntityTest extends TestCase
             "repo" => $setup["idmap"]["repo01"],
         ];
 
-        [$branch_ref01_list_result, $err] = $branch_ref01_ent->list($branch_ref01_match, null);
-        $this->assertNull($err);
+        $branch_ref01_list_result = $branch_ref01_ent->list($branch_ref01_match, null);
         $this->assertIsArray($branch_ref01_list_result);
 
     }

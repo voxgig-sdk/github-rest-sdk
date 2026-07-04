@@ -46,8 +46,7 @@ class CommitEntityTest < Minitest::Test
       "repo" => setup[:idmap]["repo01"],
     }
 
-    commit_ref01_list_result, err = commit_ref01_ent.list(commit_ref01_match, nil)
-    assert_nil err
+    commit_ref01_list_result = commit_ref01_ent.list(commit_ref01_match, nil)
     assert commit_ref01_list_result.is_a?(Array)
 
   end

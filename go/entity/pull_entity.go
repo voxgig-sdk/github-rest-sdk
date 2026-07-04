@@ -85,6 +85,27 @@ func (e *PullEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Pull; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *PullEntity) DataTyped(data ...Pull) Pull {
+	if len(data) > 0 {
+		return typedFrom[Pull](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Pull](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Pull (all fields
+// optional at the wire level).
+func (e *PullEntity) MatchTyped(match ...Pull) Pull {
+	if len(match) > 0 {
+		return typedFrom[Pull](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Pull](e.Match())
+}
+
 
 func (e *PullEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *PullEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, er
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// PullLoadMatch and returns an Pull. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *PullEntity) LoadTyped(reqmatch PullLoadMatch, ctrl map[string]any) (Pull, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Pull{}, err
+	}
+	return typedFrom[Pull](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *PullEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, er
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// PullListMatch and returns []Pull. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *PullEntity) ListTyped(reqmatch PullListMatch, ctrl map[string]any) ([]Pull, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Pull](res), nil
 }
 
 
@@ -156,6 +199,17 @@ func (e *PullEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, e
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// PullCreateData and returns an Pull. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *PullEntity) CreateTyped(reqdata PullCreateData, ctrl map[string]any) (Pull, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Pull{}, err
+	}
+	return typedFrom[Pull](res), nil
 }
 
 

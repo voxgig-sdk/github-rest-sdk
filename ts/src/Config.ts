@@ -126,7 +126,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -134,7 +135,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -260,7 +262,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -268,7 +271,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -637,7 +641,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -645,7 +650,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -686,7 +692,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -694,7 +701,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -796,7 +804,8 @@ class Config {
                     "name": "id",
                     "orig": "issue_number",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -804,7 +813,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -812,7 +822,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -860,7 +871,8 @@ class Config {
                     "name": "id",
                     "orig": "issue_number",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -868,7 +880,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -876,7 +889,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -1191,7 +1205,8 @@ class Config {
                     "name": "id",
                     "orig": "org",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -1374,7 +1389,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1382,7 +1398,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -1423,7 +1440,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1431,7 +1449,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -1524,7 +1543,8 @@ class Config {
                     "name": "id",
                     "orig": "pull_number",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1532,7 +1552,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   },
                   {
                     "active": true,
@@ -1540,7 +1561,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 2
                   }
                 ]
               },
@@ -1795,7 +1817,8 @@ class Config {
                     "name": "username",
                     "orig": "username",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -1879,7 +1902,8 @@ class Config {
                     "name": "org_id",
                     "orig": "org",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -1955,7 +1979,8 @@ class Config {
                     "name": "owner",
                     "orig": "owner",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -1963,7 +1988,8 @@ class Config {
                     "name": "repo",
                     "orig": "repo",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -2532,7 +2558,8 @@ class Config {
                     "name": "id",
                     "orig": "username",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

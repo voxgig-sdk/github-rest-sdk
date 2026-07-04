@@ -53,8 +53,7 @@ class TestCommitEntity:
             "repo": setup["idmap"]["repo01"],
         }
 
-        commit_ref01_list_result, err = commit_ref01_ent.list(commit_ref01_match, None)
-        assert err is None
+        commit_ref01_list_result = commit_ref01_ent.list(commit_ref01_match, None)
         assert isinstance(commit_ref01_list_result, list)
 
 

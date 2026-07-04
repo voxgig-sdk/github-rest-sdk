@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch PullLoadMatch
+---@param ctrl? table
+---@return Pull
+---@return string? err
 function PullEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch PullListMatch
+---@param ctrl? table
+---@return Pull[]
+---@return string? err
 function PullEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata PullCreateData
+---@param ctrl? table
+---@return Pull
+---@return string? err
 function PullEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -245,56 +245,89 @@ func (sdk *GithubRestSDK) Direct(fetchargs map[string]any) (map[string]any, erro
 }
 
 
+// Branch returns a Branch entity bound to this client.
+// Idiomatic usage: client.Branch(nil).List(nil, nil) or
+// client.Branch(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Branch(data map[string]any) GithubRestEntity {
 	return NewBranchEntityFunc(sdk, data)
 }
 
 
+// Commit returns a Commit entity bound to this client.
+// Idiomatic usage: client.Commit(nil).List(nil, nil) or
+// client.Commit(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Commit(data map[string]any) GithubRestEntity {
 	return NewCommitEntityFunc(sdk, data)
 }
 
 
+// Gist returns a Gist entity bound to this client.
+// Idiomatic usage: client.Gist(nil).List(nil, nil) or
+// client.Gist(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Gist(data map[string]any) GithubRestEntity {
 	return NewGistEntityFunc(sdk, data)
 }
 
 
+// Issue returns a Issue entity bound to this client.
+// Idiomatic usage: client.Issue(nil).List(nil, nil) or
+// client.Issue(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Issue(data map[string]any) GithubRestEntity {
 	return NewIssueEntityFunc(sdk, data)
 }
 
 
+// Notification returns a Notification entity bound to this client.
+// Idiomatic usage: client.Notification(nil).List(nil, nil) or
+// client.Notification(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Notification(data map[string]any) GithubRestEntity {
 	return NewNotificationEntityFunc(sdk, data)
 }
 
 
+// Org returns a Org entity bound to this client.
+// Idiomatic usage: client.Org(nil).List(nil, nil) or
+// client.Org(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Org(data map[string]any) GithubRestEntity {
 	return NewOrgEntityFunc(sdk, data)
 }
 
 
+// Pull returns a Pull entity bound to this client.
+// Idiomatic usage: client.Pull(nil).List(nil, nil) or
+// client.Pull(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Pull(data map[string]any) GithubRestEntity {
 	return NewPullEntityFunc(sdk, data)
 }
 
 
+// RateLimit returns a RateLimit entity bound to this client.
+// Idiomatic usage: client.RateLimit(nil).List(nil, nil) or
+// client.RateLimit(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) RateLimit(data map[string]any) GithubRestEntity {
 	return NewRateLimitEntityFunc(sdk, data)
 }
 
 
+// Repo returns a Repo entity bound to this client.
+// Idiomatic usage: client.Repo(nil).List(nil, nil) or
+// client.Repo(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Repo(data map[string]any) GithubRestEntity {
 	return NewRepoEntityFunc(sdk, data)
 }
 
 
+// Search returns a Search entity bound to this client.
+// Idiomatic usage: client.Search(nil).List(nil, nil) or
+// client.Search(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) Search(data map[string]any) GithubRestEntity {
 	return NewSearchEntityFunc(sdk, data)
 }
 
 
+// User returns a User entity bound to this client.
+// Idiomatic usage: client.User(nil).List(nil, nil) or
+// client.User(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubRestSDK) User(data map[string]any) GithubRestEntity {
 	return NewUserEntityFunc(sdk, data)
 }

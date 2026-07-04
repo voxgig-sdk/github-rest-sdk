@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch BranchListMatch
+---@param ctrl? table
+---@return Branch[]
+---@return string? err
 function BranchEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

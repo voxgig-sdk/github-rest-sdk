@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Org,
+  OrgLoadMatch,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class OrgEntity extends GithubRestEntityBase {
+class OrgEntity extends GithubRestEntityBase<Org> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class OrgEntity extends GithubRestEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: OrgLoadMatch, ctrl?: Control): Promise<Org> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class OrgEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Org> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

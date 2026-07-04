@@ -85,6 +85,27 @@ func (e *NotificationEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Notification; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *NotificationEntity) DataTyped(data ...Notification) Notification {
+	if len(data) > 0 {
+		return typedFrom[Notification](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Notification](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Notification (all fields
+// optional at the wire level).
+func (e *NotificationEntity) MatchTyped(match ...Notification) Notification {
+	if len(match) > 0 {
+		return typedFrom[Notification](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Notification](e.Match())
+}
+
 func (e *NotificationEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
@@ -108,6 +129,17 @@ func (e *NotificationEntity) List(reqmatch map[string]any, ctrl map[string]any) 
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// NotificationListMatch and returns []Notification. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *NotificationEntity) ListTyped(reqmatch NotificationListMatch, ctrl map[string]any) ([]Notification, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Notification](res), nil
 }
 
 

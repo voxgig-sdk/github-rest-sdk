@@ -45,6 +45,7 @@ class IssueEntity
     end
   end
 
+  # @return [Issue, Hash] the current Issue data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class IssueEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Issue fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Issue.
+  #
+  # @param reqmatch [IssueLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Issue, Hash] the loaded Issue; raises GithubRestError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class IssueEntity
 
 
   
+  # List Issue items matching the given filter.
+  #
+  # @param reqmatch [IssueListMatch, Hash, nil] match filter (any subset of Issue fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Issue>, Array] the matching Issue items; raises GithubRestError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class IssueEntity
 
 
   
+  # Create a new Issue.
+  #
+  # @param reqdata [IssueCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Issue, Hash] the created Issue; raises GithubRestError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -128,6 +145,11 @@ class IssueEntity
 
 
   
+  # Update an existing Issue.
+  #
+  # @param reqdata [IssueUpdateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Issue, Hash] the updated Issue; raises GithubRestError on failure
   def update(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

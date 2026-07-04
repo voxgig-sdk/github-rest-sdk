@@ -45,8 +45,7 @@ class PullEntityTest extends TestCase
         $pull_ref01_data["owner"] = $setup["idmap"]["owner01"];
         $pull_ref01_data["repo"] = $setup["idmap"]["repo01"];
 
-        [$pull_ref01_data_result, $err] = $pull_ref01_ent->create($pull_ref01_data, null);
-        $this->assertNull($err);
+        $pull_ref01_data_result = $pull_ref01_ent->create($pull_ref01_data, null);
         $pull_ref01_data = Helpers::to_map($pull_ref01_data_result);
         $this->assertNotNull($pull_ref01_data);
         $this->assertNotNull($pull_ref01_data["id"]);
@@ -57,8 +56,7 @@ class PullEntityTest extends TestCase
             "repo" => $setup["idmap"]["repo01"],
         ];
 
-        [$pull_ref01_list_result, $err] = $pull_ref01_ent->list($pull_ref01_match, null);
-        $this->assertNull($err);
+        $pull_ref01_list_result = $pull_ref01_ent->list($pull_ref01_match, null);
         $this->assertIsArray($pull_ref01_list_result);
 
         $found_item = sdk_select(
@@ -70,8 +68,7 @@ class PullEntityTest extends TestCase
         $pull_ref01_match_dt0 = [
             "id" => $pull_ref01_data["id"],
         ];
-        [$pull_ref01_data_dt0_loaded, $err] = $pull_ref01_ent->load($pull_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $pull_ref01_data_dt0_loaded = $pull_ref01_ent->load($pull_ref01_match_dt0, null);
         $pull_ref01_data_dt0_load_result = Helpers::to_map($pull_ref01_data_dt0_loaded);
         $this->assertNotNull($pull_ref01_data_dt0_load_result);
         $this->assertEquals($pull_ref01_data_dt0_load_result["id"], $pull_ref01_data["id"]);

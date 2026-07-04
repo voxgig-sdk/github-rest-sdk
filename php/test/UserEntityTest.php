@@ -51,8 +51,7 @@ class UserEntityTest extends TestCase
         $user_ref01_match_dt0 = [
             "id" => $user_ref01_data["id"],
         ];
-        [$user_ref01_data_dt0_loaded, $err] = $user_ref01_ent->load($user_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $user_ref01_data_dt0_loaded = $user_ref01_ent->load($user_ref01_match_dt0, null);
         $user_ref01_data_dt0_load_result = Helpers::to_map($user_ref01_data_dt0_loaded);
         $this->assertNotNull($user_ref01_data_dt0_load_result);
         $this->assertEquals($user_ref01_data_dt0_load_result["id"], $user_ref01_data["id"]);

@@ -44,8 +44,7 @@ class OrgEntityTest < Minitest::Test
     org_ref01_match_dt0 = {
       "id" => org_ref01_data["id"],
     }
-    org_ref01_data_dt0_loaded, err = org_ref01_ent.load(org_ref01_match_dt0, nil)
-    assert_nil err
+    org_ref01_data_dt0_loaded = org_ref01_ent.load(org_ref01_match_dt0, nil)
     org_ref01_data_dt0_load_result = Helpers.to_map(org_ref01_data_dt0_loaded)
     assert !org_ref01_data_dt0_load_result.nil?
     assert_equal org_ref01_data_dt0_load_result["id"], org_ref01_data["id"]

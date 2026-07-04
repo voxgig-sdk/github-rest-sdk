@@ -53,8 +53,7 @@ class TestBranchEntity:
             "repo": setup["idmap"]["repo01"],
         }
 
-        branch_ref01_list_result, err = branch_ref01_ent.list(branch_ref01_match, None)
-        assert err is None
+        branch_ref01_list_result = branch_ref01_ent.list(branch_ref01_match, None)
         assert isinstance(branch_ref01_list_result, list)
 
 

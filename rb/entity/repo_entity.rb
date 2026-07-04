@@ -45,6 +45,7 @@ class RepoEntity
     end
   end
 
+  # @return [Repo, Hash] the current Repo data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class RepoEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Repo fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Repo.
+  #
+  # @param reqmatch [RepoLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Repo, Hash] the loaded Repo; raises GithubRestError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class RepoEntity
 
 
   
+  # List Repo items matching the given filter.
+  #
+  # @param reqmatch [RepoListMatch, Hash, nil] match filter (any subset of Repo fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Repo>, Array] the matching Repo items; raises GithubRestError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

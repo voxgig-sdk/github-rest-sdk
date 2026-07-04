@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch RateLimitLoadMatch
+---@param ctrl? table
+---@return RateLimit
+---@return string? err
 function RateLimitEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

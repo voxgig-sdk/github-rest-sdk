@@ -46,8 +46,7 @@ class BranchEntityTest < Minitest::Test
       "repo" => setup[:idmap]["repo01"],
     }
 
-    branch_ref01_list_result, err = branch_ref01_ent.list(branch_ref01_match, nil)
-    assert_nil err
+    branch_ref01_list_result = branch_ref01_ent.list(branch_ref01_match, nil)
     assert branch_ref01_list_result.is_a?(Array)
 
   end

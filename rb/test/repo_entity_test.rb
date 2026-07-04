@@ -45,16 +45,14 @@ class RepoEntityTest < Minitest::Test
       "org_id" => setup[:idmap]["org01"],
     }
 
-    repo_ref01_list_result, err = repo_ref01_ent.list(repo_ref01_match, nil)
-    assert_nil err
+    repo_ref01_list_result = repo_ref01_ent.list(repo_ref01_match, nil)
     assert repo_ref01_list_result.is_a?(Array)
 
     # LOAD
     repo_ref01_match_dt0 = {
       "id" => repo_ref01_data["id"],
     }
-    repo_ref01_data_dt0_loaded, err = repo_ref01_ent.load(repo_ref01_match_dt0, nil)
-    assert_nil err
+    repo_ref01_data_dt0_loaded = repo_ref01_ent.load(repo_ref01_match_dt0, nil)
     repo_ref01_data_dt0_load_result = Helpers.to_map(repo_ref01_data_dt0_loaded)
     assert !repo_ref01_data_dt0_load_result.nil?
     assert_equal repo_ref01_data_dt0_load_result["id"], repo_ref01_data["id"]

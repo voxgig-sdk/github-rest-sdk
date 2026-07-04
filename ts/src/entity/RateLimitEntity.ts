@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  RateLimit,
+  RateLimitLoadMatch,
+} from '../GithubRestTypes'
 
 // TODO: needs Entity superclass
-class RateLimitEntity extends GithubRestEntityBase {
+class RateLimitEntity extends GithubRestEntityBase<RateLimit> {
 
   constructor(client: GithubRestSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class RateLimitEntity extends GithubRestEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: RateLimitLoadMatch, ctrl?: Control): Promise<RateLimit> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class RateLimitEntity extends GithubRestEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<RateLimit> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

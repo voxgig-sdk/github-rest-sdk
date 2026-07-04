@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch CommitListMatch
+---@param ctrl? table
+---@return Commit[]
+---@return string? err
 function CommitEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

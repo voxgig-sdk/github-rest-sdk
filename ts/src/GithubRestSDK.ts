@@ -12,6 +12,8 @@ import { RepoEntity } from './entity/RepoEntity'
 import { SearchEntity } from './entity/SearchEntity'
 import { UserEntity } from './entity/UserEntity'
 
+export type * from './GithubRestTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -212,66 +214,154 @@ class GithubRestSDK {
 
 
 
+  _branch?: BranchEntity
+
+  // Idiomatic facade: `client.branch.list()` / `client.branch.load({ id })`.
+  get branch(): BranchEntity {
+    return (this._branch ??= new BranchEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.branch` instead. */
   Branch(data?: any) {
     const self = this
     return new BranchEntity(self,data)
   }
 
 
+  _commit?: CommitEntity
+
+  // Idiomatic facade: `client.commit.list()` / `client.commit.load({ id })`.
+  get commit(): CommitEntity {
+    return (this._commit ??= new CommitEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.commit` instead. */
   Commit(data?: any) {
     const self = this
     return new CommitEntity(self,data)
   }
 
 
+  _gist?: GistEntity
+
+  // Idiomatic facade: `client.gist.list()` / `client.gist.load({ id })`.
+  get gist(): GistEntity {
+    return (this._gist ??= new GistEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.gist` instead. */
   Gist(data?: any) {
     const self = this
     return new GistEntity(self,data)
   }
 
 
+  _issue?: IssueEntity
+
+  // Idiomatic facade: `client.issue.list()` / `client.issue.load({ id })`.
+  get issue(): IssueEntity {
+    return (this._issue ??= new IssueEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.issue` instead. */
   Issue(data?: any) {
     const self = this
     return new IssueEntity(self,data)
   }
 
 
+  _notification?: NotificationEntity
+
+  // Idiomatic facade: `client.notification.list()` / `client.notification.load({ id })`.
+  get notification(): NotificationEntity {
+    return (this._notification ??= new NotificationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.notification` instead. */
   Notification(data?: any) {
     const self = this
     return new NotificationEntity(self,data)
   }
 
 
+  _org?: OrgEntity
+
+  // Idiomatic facade: `client.org.list()` / `client.org.load({ id })`.
+  get org(): OrgEntity {
+    return (this._org ??= new OrgEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.org` instead. */
   Org(data?: any) {
     const self = this
     return new OrgEntity(self,data)
   }
 
 
+  _pull?: PullEntity
+
+  // Idiomatic facade: `client.pull.list()` / `client.pull.load({ id })`.
+  get pull(): PullEntity {
+    return (this._pull ??= new PullEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.pull` instead. */
   Pull(data?: any) {
     const self = this
     return new PullEntity(self,data)
   }
 
 
+  _rate_limit?: RateLimitEntity
+
+  // Idiomatic facade: `client.rate_limit.list()` / `client.rate_limit.load({ id })`.
+  get rate_limit(): RateLimitEntity {
+    return (this._rate_limit ??= new RateLimitEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.rate_limit` instead. */
   RateLimit(data?: any) {
     const self = this
     return new RateLimitEntity(self,data)
   }
 
 
+  _repo?: RepoEntity
+
+  // Idiomatic facade: `client.repo.list()` / `client.repo.load({ id })`.
+  get repo(): RepoEntity {
+    return (this._repo ??= new RepoEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.repo` instead. */
   Repo(data?: any) {
     const self = this
     return new RepoEntity(self,data)
   }
 
 
+  _search?: SearchEntity
+
+  // Idiomatic facade: `client.search.list()` / `client.search.load({ id })`.
+  get search(): SearchEntity {
+    return (this._search ??= new SearchEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.search` instead. */
   Search(data?: any) {
     const self = this
     return new SearchEntity(self,data)
   }
 
 
+  _user?: UserEntity
+
+  // Idiomatic facade: `client.user.list()` / `client.user.load({ id })`.
+  get user(): UserEntity {
+    return (this._user ??= new UserEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.user` instead. */
   User(data?: any) {
     const self = this
     return new UserEntity(self,data)

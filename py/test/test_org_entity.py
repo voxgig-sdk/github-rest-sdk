@@ -51,8 +51,7 @@ class TestOrgEntity:
         org_ref01_match_dt0 = {
             "id": org_ref01_data["id"],
         }
-        org_ref01_data_dt0_loaded, err = org_ref01_ent.load(org_ref01_match_dt0, None)
-        assert err is None
+        org_ref01_data_dt0_loaded = org_ref01_ent.load(org_ref01_match_dt0, None)
         org_ref01_data_dt0_load_result = helpers.to_map(org_ref01_data_dt0_loaded)
         assert org_ref01_data_dt0_load_result is not None
         assert org_ref01_data_dt0_load_result["id"] == org_ref01_data["id"]

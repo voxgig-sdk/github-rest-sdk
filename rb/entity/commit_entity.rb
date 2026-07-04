@@ -45,6 +45,7 @@ class CommitEntity
     end
   end
 
+  # @return [Commit, Hash] the current Commit data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class CommitEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Commit fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class CommitEntity
   
 
   
+  # List Commit items matching the given filter.
+  #
+  # @param reqmatch [CommitListMatch, Hash, nil] match filter (any subset of Commit fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Commit>, Array] the matching Commit items; raises GithubRestError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

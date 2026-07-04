@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch RepoLoadMatch
+---@param ctrl? table
+---@return Repo
+---@return string? err
 function RepoEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch RepoListMatch
+---@param ctrl? table
+---@return Repo[]
+---@return string? err
 function RepoEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

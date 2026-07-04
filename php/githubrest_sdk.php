@@ -103,7 +103,7 @@ class GithubRestSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class GithubRestSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class GithubRestSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,94 +216,215 @@ class GithubRestSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Branch($data = null)
+    private $_branch = null;
+
+    // Idiomatic facade: $client->branch()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Branch() (PHP method
+    // names are case-insensitive).
+    public function branch($data = null)
     {
         require_once __DIR__ . '/entity/branch_entity.php';
+        if ($data === null) {
+            if ($this->_branch === null) {
+                $this->_branch = new BranchEntity($this, null);
+            }
+            return $this->_branch;
+        }
         return new BranchEntity($this, $data);
     }
 
 
-    public function Commit($data = null)
+    private $_commit = null;
+
+    // Idiomatic facade: $client->commit()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Commit() (PHP method
+    // names are case-insensitive).
+    public function commit($data = null)
     {
         require_once __DIR__ . '/entity/commit_entity.php';
+        if ($data === null) {
+            if ($this->_commit === null) {
+                $this->_commit = new CommitEntity($this, null);
+            }
+            return $this->_commit;
+        }
         return new CommitEntity($this, $data);
     }
 
 
-    public function Gist($data = null)
+    private $_gist = null;
+
+    // Idiomatic facade: $client->gist()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Gist() (PHP method
+    // names are case-insensitive).
+    public function gist($data = null)
     {
         require_once __DIR__ . '/entity/gist_entity.php';
+        if ($data === null) {
+            if ($this->_gist === null) {
+                $this->_gist = new GistEntity($this, null);
+            }
+            return $this->_gist;
+        }
         return new GistEntity($this, $data);
     }
 
 
-    public function Issue($data = null)
+    private $_issue = null;
+
+    // Idiomatic facade: $client->issue()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Issue() (PHP method
+    // names are case-insensitive).
+    public function issue($data = null)
     {
         require_once __DIR__ . '/entity/issue_entity.php';
+        if ($data === null) {
+            if ($this->_issue === null) {
+                $this->_issue = new IssueEntity($this, null);
+            }
+            return $this->_issue;
+        }
         return new IssueEntity($this, $data);
     }
 
 
-    public function Notification($data = null)
+    private $_notification = null;
+
+    // Idiomatic facade: $client->notification()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Notification() (PHP method
+    // names are case-insensitive).
+    public function notification($data = null)
     {
         require_once __DIR__ . '/entity/notification_entity.php';
+        if ($data === null) {
+            if ($this->_notification === null) {
+                $this->_notification = new NotificationEntity($this, null);
+            }
+            return $this->_notification;
+        }
         return new NotificationEntity($this, $data);
     }
 
 
-    public function Org($data = null)
+    private $_org = null;
+
+    // Idiomatic facade: $client->org()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Org() (PHP method
+    // names are case-insensitive).
+    public function org($data = null)
     {
         require_once __DIR__ . '/entity/org_entity.php';
+        if ($data === null) {
+            if ($this->_org === null) {
+                $this->_org = new OrgEntity($this, null);
+            }
+            return $this->_org;
+        }
         return new OrgEntity($this, $data);
     }
 
 
-    public function Pull($data = null)
+    private $_pull = null;
+
+    // Idiomatic facade: $client->pull()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Pull() (PHP method
+    // names are case-insensitive).
+    public function pull($data = null)
     {
         require_once __DIR__ . '/entity/pull_entity.php';
+        if ($data === null) {
+            if ($this->_pull === null) {
+                $this->_pull = new PullEntity($this, null);
+            }
+            return $this->_pull;
+        }
         return new PullEntity($this, $data);
     }
 
 
-    public function RateLimit($data = null)
+    private $_rate_limit = null;
+
+    // Idiomatic facade: $client->rate_limit()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias RateLimit() (PHP method
+    // names are case-insensitive).
+    public function rate_limit($data = null)
     {
         require_once __DIR__ . '/entity/rate_limit_entity.php';
+        if ($data === null) {
+            if ($this->_rate_limit === null) {
+                $this->_rate_limit = new RateLimitEntity($this, null);
+            }
+            return $this->_rate_limit;
+        }
         return new RateLimitEntity($this, $data);
     }
 
 
-    public function Repo($data = null)
+    private $_repo = null;
+
+    // Idiomatic facade: $client->repo()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Repo() (PHP method
+    // names are case-insensitive).
+    public function repo($data = null)
     {
         require_once __DIR__ . '/entity/repo_entity.php';
+        if ($data === null) {
+            if ($this->_repo === null) {
+                $this->_repo = new RepoEntity($this, null);
+            }
+            return $this->_repo;
+        }
         return new RepoEntity($this, $data);
     }
 
 
-    public function Search($data = null)
+    private $_search = null;
+
+    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Search() (PHP method
+    // names are case-insensitive).
+    public function search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
+        if ($data === null) {
+            if ($this->_search === null) {
+                $this->_search = new SearchEntity($this, null);
+            }
+            return $this->_search;
+        }
         return new SearchEntity($this, $data);
     }
 
 
-    public function User($data = null)
+    private $_user = null;
+
+    // Idiomatic facade: $client->user()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias User() (PHP method
+    // names are case-insensitive).
+    public function user($data = null)
     {
         require_once __DIR__ . '/entity/user_entity.php';
+        if ($data === null) {
+            if ($this->_user === null) {
+                $this->_user = new UserEntity($this, null);
+            }
+            return $this->_user;
+        }
         return new UserEntity($this, $data);
     }
 

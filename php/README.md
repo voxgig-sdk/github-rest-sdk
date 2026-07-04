@@ -9,9 +9,10 @@ The PHP SDK for the GithubRest API — an entity-oriented client using PHP conve
 
 
 ## Install
-```bash
-composer require voxgig-sdk/github-rest
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/github-rest-sdk/releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -26,21 +27,23 @@ loading a specific record.
 require_once 'githubrest_sdk.php';
 
 $client = new GithubRestSDK([
-    "apikey" => getenv("GITHUB-REST_APIKEY"),
+    "apikey" => getenv("GITHUB_REST_APIKEY"),
 ]);
 ```
 
 ### 2. List branchs
 
 ```php
-[$result, $err] = $client->Branch()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->branch()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
@@ -52,28 +55,31 @@ if (is_array($result)) {
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -87,7 +93,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = GithubRestSDK::test();
 
-[$result, $err] = $client->GithubRest()->load(["id" => "test01"]);
+$result = $client->branch()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -121,8 +127,8 @@ $client = new GithubRestSDK([
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-REST_TEST_LIVE=TRUE
-GITHUB-REST_APIKEY=<your-key>
+GITHUB_REST_TEST_LIVE=TRUE
+GITHUB_REST_APIKEY=<your-key>
 ```
 
 Then run:
@@ -201,8 +207,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -471,7 +481,7 @@ API path: `/users/{username}`
 
 ### Branch
 
-Create an instance: `const branch = client.Branch()`
+Create an instance: `const branch = client.branch`
 
 #### Operations
 
@@ -490,13 +500,13 @@ Create an instance: `const branch = client.Branch()`
 #### Example: List
 
 ```ts
-const branchs = await client.Branch().list()
+const branchs = await client.branch.list()
 ```
 
 
 ### Commit
 
-Create an instance: `const commit = client.Commit()`
+Create an instance: `const commit = client.commit`
 
 #### Operations
 
@@ -519,13 +529,13 @@ Create an instance: `const commit = client.Commit()`
 #### Example: List
 
 ```ts
-const commits = await client.Commit().list()
+const commits = await client.commit.list()
 ```
 
 
 ### Gist
 
-Create an instance: `const gist = client.Gist()`
+Create an instance: `const gist = client.gist`
 
 #### Operations
 
@@ -552,13 +562,13 @@ Create an instance: `const gist = client.Gist()`
 #### Example: List
 
 ```ts
-const gists = await client.Gist().list()
+const gists = await client.gist.list()
 ```
 
 #### Example: Create
 
 ```ts
-const gist = await client.Gist().create({
+const gist = await client.gist.create({
   file: /* `$OBJECT` */,
 })
 ```
@@ -566,7 +576,7 @@ const gist = await client.Gist().create({
 
 ### Issue
 
-Create an instance: `const issue = client.Issue()`
+Create an instance: `const issue = client.issue`
 
 #### Operations
 
@@ -601,26 +611,26 @@ Create an instance: `const issue = client.Issue()`
 #### Example: Load
 
 ```ts
-const issue = await client.Issue().load({ id: 'issue_id' })
+const issue = await client.issue.load({ id: 'issue_id' })
 ```
 
 #### Example: List
 
 ```ts
-const issues = await client.Issue().list()
+const issues = await client.issue.list()
 ```
 
 #### Example: Create
 
 ```ts
-const issue = await client.Issue().create({
+const issue = await client.issue.create({
 })
 ```
 
 
 ### Notification
 
-Create an instance: `const notification = client.Notification()`
+Create an instance: `const notification = client.notification`
 
 #### Operations
 
@@ -644,13 +654,13 @@ Create an instance: `const notification = client.Notification()`
 #### Example: List
 
 ```ts
-const notifications = await client.Notification().list()
+const notifications = await client.notification.list()
 ```
 
 
 ### Org
 
-Create an instance: `const org = client.Org()`
+Create an instance: `const org = client.org`
 
 #### Operations
 
@@ -683,13 +693,13 @@ Create an instance: `const org = client.Org()`
 #### Example: Load
 
 ```ts
-const org = await client.Org().load({ id: 'org_id' })
+const org = await client.org.load({ id: 'org_id' })
 ```
 
 
 ### Pull
 
-Create an instance: `const pull = client.Pull()`
+Create an instance: `const pull = client.pull`
 
 #### Operations
 
@@ -723,26 +733,26 @@ Create an instance: `const pull = client.Pull()`
 #### Example: Load
 
 ```ts
-const pull = await client.Pull().load({ id: 'pull_id' })
+const pull = await client.pull.load({ id: 'pull_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pulls = await client.Pull().list()
+const pulls = await client.pull.list()
 ```
 
 #### Example: Create
 
 ```ts
-const pull = await client.Pull().create({
+const pull = await client.pull.create({
 })
 ```
 
 
 ### RateLimit
 
-Create an instance: `const rate_limit = client.RateLimit()`
+Create an instance: `const rate_limit = client.rate_limit`
 
 #### Operations
 
@@ -760,13 +770,13 @@ Create an instance: `const rate_limit = client.RateLimit()`
 #### Example: Load
 
 ```ts
-const rate_limit = await client.RateLimit().load({ id: 'rate_limit_id' })
+const rate_limit = await client.rate_limit.load({ id: 'rate_limit_id' })
 ```
 
 
 ### Repo
 
-Create an instance: `const repo = client.Repo()`
+Create an instance: `const repo = client.repo`
 
 #### Operations
 
@@ -804,19 +814,19 @@ Create an instance: `const repo = client.Repo()`
 #### Example: Load
 
 ```ts
-const repo = await client.Repo().load({ id: 'repo_id' })
+const repo = await client.repo.load({ id: 'repo_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repos = await client.Repo().list()
+const repos = await client.repo.list()
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -863,13 +873,13 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.search.list()
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -904,7 +914,7 @@ Create an instance: `const user = client.User()`
 #### Example: Load
 
 ```ts
-const user = await client.User().load({ id: 'user_id' })
+const user = await client.user.load({ id: 'user_id' })
 ```
 
 
@@ -979,11 +989,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$branch = $client->branch();
+$branch->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $branch->dataGet() now returns the loaded branch data
+// $branch->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration
