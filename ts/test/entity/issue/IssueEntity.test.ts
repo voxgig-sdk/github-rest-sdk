@@ -85,12 +85,12 @@ describe('IssueEntity', async () => {
     issue_ref01_data_up0 ['repo'] = setup.idmap['repo']
 
     const issue_ref01_markdef_up0 = { name: 'body', value: 'Mark01-issue_ref01_' + setup.now }
-    issue_ref01_data_up0 [issue_ref01_markdef_up0.name] = issue_ref01_markdef_up0.value
+    ;(issue_ref01_data_up0 as any)[issue_ref01_markdef_up0.name] = issue_ref01_markdef_up0.value
 
     const issue_ref01_resdata_up0 = await issue_ref01_ent.update(issue_ref01_data_up0)
     assert(issue_ref01_resdata_up0.id === issue_ref01_data_up0.id)
 
-    assert(issue_ref01_resdata_up0[issue_ref01_markdef_up0.name] === issue_ref01_markdef_up0.value)
+    assert((issue_ref01_resdata_up0 as any)[issue_ref01_markdef_up0.name] === issue_ref01_markdef_up0.value)
 
 
     // LOAD

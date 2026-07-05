@@ -221,67 +221,67 @@ class GithubRestSDK:
 
 
     def Branch(self, data=None) -> "BranchEntity":
-        """Entity factory: client.Branch().list({}) / client.Branch().load({"id": ...})."""
+        """Entity factory: client.Branch().list() / client.Branch().load({"id": ...})."""
         from entity.branch_entity import BranchEntity
         return BranchEntity(self, data)
 
 
     def Commit(self, data=None) -> "CommitEntity":
-        """Entity factory: client.Commit().list({}) / client.Commit().load({"id": ...})."""
+        """Entity factory: client.Commit().list() / client.Commit().load({"id": ...})."""
         from entity.commit_entity import CommitEntity
         return CommitEntity(self, data)
 
 
     def Gist(self, data=None) -> "GistEntity":
-        """Entity factory: client.Gist().list({}) / client.Gist().load({"id": ...})."""
+        """Entity factory: client.Gist().list() / client.Gist().load({"id": ...})."""
         from entity.gist_entity import GistEntity
         return GistEntity(self, data)
 
 
     def Issue(self, data=None) -> "IssueEntity":
-        """Entity factory: client.Issue().list({}) / client.Issue().load({"id": ...})."""
+        """Entity factory: client.Issue().list() / client.Issue().load({"id": ...})."""
         from entity.issue_entity import IssueEntity
         return IssueEntity(self, data)
 
 
     def Notification(self, data=None) -> "NotificationEntity":
-        """Entity factory: client.Notification().list({}) / client.Notification().load({"id": ...})."""
+        """Entity factory: client.Notification().list() / client.Notification().load({"id": ...})."""
         from entity.notification_entity import NotificationEntity
         return NotificationEntity(self, data)
 
 
     def Org(self, data=None) -> "OrgEntity":
-        """Entity factory: client.Org().list({}) / client.Org().load({"id": ...})."""
+        """Entity factory: client.Org().list() / client.Org().load({"id": ...})."""
         from entity.org_entity import OrgEntity
         return OrgEntity(self, data)
 
 
     def Pull(self, data=None) -> "PullEntity":
-        """Entity factory: client.Pull().list({}) / client.Pull().load({"id": ...})."""
+        """Entity factory: client.Pull().list() / client.Pull().load({"id": ...})."""
         from entity.pull_entity import PullEntity
         return PullEntity(self, data)
 
 
     def RateLimit(self, data=None) -> "RateLimitEntity":
-        """Entity factory: client.RateLimit().list({}) / client.RateLimit().load({"id": ...})."""
+        """Entity factory: client.RateLimit().list() / client.RateLimit().load({"id": ...})."""
         from entity.rate_limit_entity import RateLimitEntity
         return RateLimitEntity(self, data)
 
 
     def Repo(self, data=None) -> "RepoEntity":
-        """Entity factory: client.Repo().list({}) / client.Repo().load({"id": ...})."""
+        """Entity factory: client.Repo().list() / client.Repo().load({"id": ...})."""
         from entity.repo_entity import RepoEntity
         return RepoEntity(self, data)
 
 
     def Search(self, data=None) -> "SearchEntity":
-        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
+        """Entity factory: client.Search().list() / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
     def User(self, data=None) -> "UserEntity":
-        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
+        """Entity factory: client.User().list() / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 

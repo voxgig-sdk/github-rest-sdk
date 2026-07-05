@@ -4,6 +4,8 @@
 
 The Lua SDK for the GithubRest API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Branch()` — each with the same small set of operations (`list`, `load`, `create`, `update`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -43,8 +45,30 @@ local branchs, err = client:Branch():list()
 if err then error(err) end
 
 for _, item in ipairs(branchs) do
-  print(item["id"], item["name"])
+  print(item["name"])
 end
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local branchs, err = client:Branch():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -90,8 +114,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Branch():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Branch():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -193,7 +217,6 @@ All entities share the same interface.
 | `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
 | `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
 | `update` | `(reqdata, ctrl) -> any, err` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -208,12 +231,12 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `load` / `create` / `update` | the entity record (a `table`) |
 | `list` | an array (`table`) of entity records |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local branch, err = client:Branch():load({ id = "example_id" })
+    local branch, err = client:Branch():load()
     if err then error(err) end
     -- branch is the loaded record
 
@@ -490,9 +513,9 @@ Create an instance: `local branch = client:Branch(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `table` |  |
+| `name` | `string` |  |
+| `protected` | `boolean` |  |
 
 #### Example: List
 
@@ -515,13 +538,13 @@ Create an instance: `local commit = client:Commit(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `table` |  |
+| `commit` | `table` |  |
+| `committer` | `table` |  |
+| `html_url` | `string` |  |
+| `node_id` | `string` |  |
+| `sha` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -545,16 +568,16 @@ Create an instance: `local gist = client:Gist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `file` | `table` |  |
+| `html_url` | `string` |  |
+| `id` | `string` |  |
+| `node_id` | `string` |  |
+| `owner` | `table` |  |
+| `public` | `boolean` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -566,7 +589,7 @@ local gists, err = client:Gist():list()
 
 ```lua
 local gist, err = client:Gist():create({
-  file = nil, -- `$OBJECT`
+  file = nil, -- table
 })
 ```
 
@@ -588,22 +611,22 @@ Create an instance: `local issue = client:Issue(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `number` |  |
+| `created_at` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `label` | `table` |  |
+| `milestone` | `table` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `table` |  |
 
 #### Example: Load
 
@@ -639,14 +662,14 @@ Create an instance: `local notification = client:Notification(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `string` |  |
+| `last_read_at` | `string` |  |
+| `reason` | `string` |  |
+| `repository` | `table` |  |
+| `subject` | `table` |  |
+| `unread` | `boolean` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -669,23 +692,23 @@ Create an instance: `local org = client:Org(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `blog` | `string` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `number` |  |
+| `following` | `number` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `number` |  |
+| `public_repo` | `number` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -710,22 +733,22 @@ Create an instance: `local pull = client:Pull(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `table` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `created_at` | `string` |  |
+| `draft` | `boolean` |  |
+| `head` | `table` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `merged_at` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `table` |  |
 
 #### Example: Load
 
@@ -761,13 +784,13 @@ Create an instance: `local rate_limit = client:RateLimit(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `table` |  |
+| `resource` | `table` |  |
 
 #### Example: Load
 
 ```lua
-local rate_limit, err = client:RateLimit():load({ id = "rate_limit_id" })
+local rate_limit, err = client:RateLimit():load()
 ```
 
 
@@ -786,32 +809,32 @@ Create an instance: `local repo = client:Repo(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `boolean` |  |
+| `forks_count` | `number` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `language` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `open_issues_count` | `number` |  |
+| `owner` | `table` |  |
+| `private` | `boolean` |  |
+| `pushed_at` | `string` |  |
+| `size` | `number` |  |
+| `stargazers_count` | `number` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `number` |  |
 
 #### Example: Load
 
 ```lua
-local repo, err = client:Repo():load({ id = "repo_id" })
+local repo, err = client:Repo():load()
 ```
 
 #### Example: List
@@ -835,37 +858,37 @@ Create an instance: `local search = client:Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `number` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `boolean` |  |
+| `forks_count` | `number` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `label` | `table` |  |
+| `language` | `string` |  |
+| `milestone` | `table` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `open_issues_count` | `number` |  |
+| `owner` | `table` |  |
+| `private` | `boolean` |  |
+| `pushed_at` | `string` |  |
+| `size` | `number` |  |
+| `stargazers_count` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `table` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `number` |  |
 
 #### Example: List
 
@@ -888,25 +911,25 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `number` |  |
+| `following` | `number` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `number` |  |
+| `public_repo` | `number` |  |
+| `type` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -915,12 +938,16 @@ local user, err = client:User():load({ id = "user_id" })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -937,8 +964,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -982,14 +1010,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local branch = client:Branch()
-branch:load({ id = "example_id" })
+branch:list()
 
--- branch:data_get() now returns the loaded branch data
+-- branch:data_get() now returns the branch data from the last list
 -- branch:match_get() returns the last match criteria
 ```
 

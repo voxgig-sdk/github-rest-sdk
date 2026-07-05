@@ -4,6 +4,8 @@
 
 The Ruby SDK for the GithubRest API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Branch` — with named operations (`list`/`load`/`create`/`update`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,11 +39,38 @@ begin
   # list returns an Array of Branch records — iterate directly.
   branchs = client.Branch.list
   branchs.each do |item|
-    puts "#{item["id"]} #{item["name"]}"
+    puts "#{item["commit"]}"
   end
 rescue => err
   warn "list failed: #{err}"
 end
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  branchs = client.Branch.list()
+rescue => err
+  warn "list failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -62,7 +91,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -85,16 +116,13 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = GithubRestSDK.test({
-  "entity" => { "branch" => { "test01" => { "id" => "test01" } } },
-})
+client = GithubRestSDK.test
 
-# load returns the bare mock record (raises on error).
-branch = client.Branch.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+branch = client.Branch.list()
 puts branch
 ```
 
@@ -192,10 +220,9 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
 | `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -490,9 +517,9 @@ Create an instance: `branch = client.Branch`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `Hash` |  |
+| `name` | `String` |  |
+| `protected` | `Boolean` |  |
 
 #### Example: List
 
@@ -516,13 +543,13 @@ Create an instance: `commit = client.Commit`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `Hash` |  |
+| `commit` | `Hash` |  |
+| `committer` | `Hash` |  |
+| `html_url` | `String` |  |
+| `node_id` | `String` |  |
+| `sha` | `String` |  |
+| `url` | `String` |  |
 
 #### Example: List
 
@@ -547,16 +574,16 @@ Create an instance: `gist = client.Gist`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `String` |  |
+| `description` | `String` |  |
+| `file` | `Hash` |  |
+| `html_url` | `String` |  |
+| `id` | `String` |  |
+| `node_id` | `String` |  |
+| `owner` | `Hash` |  |
+| `public` | `Boolean` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
 
 #### Example: List
 
@@ -569,7 +596,7 @@ gists = client.Gist.list
 
 ```ruby
 gist = client.Gist.create({
-  "file" => nil, # `$OBJECT`
+  "file" => {}, # Hash
 })
 ```
 
@@ -591,22 +618,22 @@ Create an instance: `issue = client.Issue`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `Object` |  |
+| `body` | `String` |  |
+| `closed_at` | `String` |  |
+| `comment` | `Integer` |  |
+| `created_at` | `String` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `label` | `Array` |  |
+| `milestone` | `Hash` |  |
+| `node_id` | `String` |  |
+| `number` | `Integer` |  |
+| `state` | `String` |  |
+| `title` | `String` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
+| `user` | `Hash` |  |
 
 #### Example: Load
 
@@ -644,14 +671,14 @@ Create an instance: `notification = client.Notification`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `String` |  |
+| `last_read_at` | `String` |  |
+| `reason` | `String` |  |
+| `repository` | `Hash` |  |
+| `subject` | `Hash` |  |
+| `unread` | `Boolean` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
 
 #### Example: List
 
@@ -675,23 +702,23 @@ Create an instance: `org = client.Org`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `String` |  |
+| `blog` | `String` |  |
+| `created_at` | `String` |  |
+| `description` | `String` |  |
+| `email` | `String` |  |
+| `follower` | `Integer` |  |
+| `following` | `Integer` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `location` | `String` |  |
+| `login` | `String` |  |
+| `name` | `String` |  |
+| `node_id` | `String` |  |
+| `public_gist` | `Integer` |  |
+| `public_repo` | `Integer` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
 
 #### Example: Load
 
@@ -717,22 +744,22 @@ Create an instance: `pull = client.Pull`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `Hash` |  |
+| `body` | `String` |  |
+| `closed_at` | `String` |  |
+| `created_at` | `String` |  |
+| `draft` | `Boolean` |  |
+| `head` | `Hash` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `merged_at` | `String` |  |
+| `node_id` | `String` |  |
+| `number` | `Integer` |  |
+| `state` | `String` |  |
+| `title` | `String` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
+| `user` | `Hash` |  |
 
 #### Example: Load
 
@@ -770,14 +797,14 @@ Create an instance: `rate_limit = client.RateLimit`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `Hash` |  |
+| `resource` | `Hash` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare RateLimit record (raises on error).
-rate_limit = client.RateLimit.load({ "id" => "rate_limit_id" })
+rate_limit = client.RateLimit.load()
 ```
 
 
@@ -796,33 +823,33 @@ Create an instance: `repo = client.Repo`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `String` |  |
+| `default_branch` | `String` |  |
+| `description` | `String` |  |
+| `fork` | `Boolean` |  |
+| `forks_count` | `Integer` |  |
+| `full_name` | `String` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `language` | `String` |  |
+| `name` | `String` |  |
+| `node_id` | `String` |  |
+| `open_issues_count` | `Integer` |  |
+| `owner` | `Hash` |  |
+| `private` | `Boolean` |  |
+| `pushed_at` | `String` |  |
+| `size` | `Integer` |  |
+| `stargazers_count` | `Integer` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
+| `visibility` | `String` |  |
+| `watchers_count` | `Integer` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Repo record (raises on error).
-repo = client.Repo.load({ "id" => "repo_id" })
+repo = client.Repo.load()
 ```
 
 #### Example: List
@@ -847,37 +874,37 @@ Create an instance: `search = client.Search`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `Object` |  |
+| `body` | `String` |  |
+| `closed_at` | `String` |  |
+| `comment` | `Integer` |  |
+| `created_at` | `String` |  |
+| `default_branch` | `String` |  |
+| `description` | `String` |  |
+| `fork` | `Boolean` |  |
+| `forks_count` | `Integer` |  |
+| `full_name` | `String` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `label` | `Array` |  |
+| `language` | `String` |  |
+| `milestone` | `Hash` |  |
+| `name` | `String` |  |
+| `node_id` | `String` |  |
+| `number` | `Integer` |  |
+| `open_issues_count` | `Integer` |  |
+| `owner` | `Hash` |  |
+| `private` | `Boolean` |  |
+| `pushed_at` | `String` |  |
+| `size` | `Integer` |  |
+| `stargazers_count` | `Integer` |  |
+| `state` | `String` |  |
+| `title` | `String` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
+| `user` | `Hash` |  |
+| `visibility` | `String` |  |
+| `watchers_count` | `Integer` |  |
 
 #### Example: List
 
@@ -901,25 +928,25 @@ Create an instance: `user = client.User`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `String` |  |
+| `bio` | `String` |  |
+| `blog` | `String` |  |
+| `company` | `String` |  |
+| `created_at` | `String` |  |
+| `email` | `String` |  |
+| `follower` | `Integer` |  |
+| `following` | `Integer` |  |
+| `html_url` | `String` |  |
+| `id` | `Integer` |  |
+| `location` | `String` |  |
+| `login` | `String` |  |
+| `name` | `String` |  |
+| `node_id` | `String` |  |
+| `public_gist` | `Integer` |  |
+| `public_repo` | `Integer` |  |
+| `type` | `String` |  |
+| `updated_at` | `String` |  |
+| `url` | `String` |  |
 
 #### Example: Load
 
@@ -929,12 +956,16 @@ user = client.User.load({ "id" => "user_id" })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -951,8 +982,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -996,14 +1028,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 branch = client.Branch
-branch.load({ "id" => "example_id" })
+branch.list()
 
-# branch.data_get now returns the loaded branch data
+# branch.data_get now returns the branch data from the last list
 # branch.match_get returns the last match criteria
 ```
 

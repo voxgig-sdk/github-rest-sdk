@@ -52,8 +52,7 @@ type Gist struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// GistListMatch mirrors the gist fields as an all-optional match
-// filter (Go analog of Partial<Gist>).
+// GistListMatch is the typed request payload for Gist.ListTyped.
 type GistListMatch struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -67,12 +66,11 @@ type GistListMatch struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// GistCreateData mirrors the gist fields as an all-optional match
-// filter (Go analog of Partial<Gist>).
+// GistCreateData is the typed request payload for Gist.CreateTyped.
 type GistCreateData struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
-	File *map[string]any `json:"file,omitempty"`
+	File map[string]any `json:"file"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *string `json:"id,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
@@ -140,8 +138,7 @@ type Notification struct {
 	Url *string `json:"url,omitempty"`
 }
 
-// NotificationListMatch mirrors the notification fields as an all-optional match
-// filter (Go analog of Partial<Notification>).
+// NotificationListMatch is the typed request payload for Notification.ListTyped.
 type NotificationListMatch struct {
 	Id *string `json:"id,omitempty"`
 	LastReadAt *string `json:"last_read_at,omitempty"`
@@ -224,8 +221,7 @@ type RateLimit struct {
 	Resource *map[string]any `json:"resource,omitempty"`
 }
 
-// RateLimitLoadMatch mirrors the rate_limit fields as an all-optional match
-// filter (Go analog of Partial<RateLimit>).
+// RateLimitLoadMatch is the typed request payload for RateLimit.LoadTyped.
 type RateLimitLoadMatch struct {
 	Rate *map[string]any `json:"rate,omitempty"`
 	Resource *map[string]any `json:"resource,omitempty"`
@@ -303,8 +299,7 @@ type Search struct {
 	WatchersCount *int `json:"watchers_count,omitempty"`
 }
 
-// SearchListMatch mirrors the search fields as an all-optional match
-// filter (Go analog of Partial<Search>).
+// SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
 	Assignee *any `json:"assignee,omitempty"`
 	Body *string `json:"body,omitempty"`

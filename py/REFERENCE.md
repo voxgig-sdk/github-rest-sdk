@@ -8,7 +8,7 @@ Complete API reference for the GithubRest Python SDK.
 ### Constructor
 
 ```python
-from github-rest_sdk import GithubRestSDK
+from githubrest_sdk import GithubRestSDK
 
 client = GithubRestSDK(options)
 ```
@@ -128,18 +128,18 @@ branch = client.Branch()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `commit` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `protected` | ``$BOOLEAN`` | No |  |
+| `commit` | `dict` | No |  |
+| `name` | `str` | No |  |
+| `protected` | `bool` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Branch().list({})
+results = client.Branch().list()
 for branch in results:
     print(branch)
 ```
@@ -183,22 +183,22 @@ commit = client.Commit()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$OBJECT`` | No |  |
-| `commit` | ``$OBJECT`` | No |  |
-| `committer` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `sha` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `dict` | No |  |
+| `commit` | `dict` | No |  |
+| `committer` | `dict` | No |  |
+| `html_url` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `sha` | `str` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Commit().list({})
+results = client.Commit().list()
 for commit in results:
     print(commit)
 ```
@@ -242,31 +242,31 @@ gist = client.Gist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `file` | ``$OBJECT`` | Yes |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `public` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `created_at` | `str` | No |  |
+| `description` | `str` | No |  |
+| `file` | `dict` | Yes |  |
+| `html_url` | `str` | No |  |
+| `id` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `owner` | `dict` | No |  |
+| `public` | `bool` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `file` | - | Yes | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `owner` | - | - | - | - | - |
-| `public` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `created_at` | - | - |
+| `description` | - | - |
+| `file` | Yes | - |
+| `html_url` | - | - |
+| `id` | - | - |
+| `node_id` | - | - |
+| `owner` | - | - |
+| `public` | - | - |
+| `updated_at` | - | - |
+| `url` | - | - |
 
 ### Operations
 
@@ -276,16 +276,16 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Gist().create({
-    "file": ...,  # `$OBJECT`
+    "file": {},  # dict
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Gist().list({})
+results = client.Gist().list()
 for gist in results:
     print(gist)
 ```
@@ -329,43 +329,43 @@ issue = client.Issue()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `assignee` | `Any` | No |  |
+| `body` | `str` | No |  |
+| `closed_at` | `str` | No |  |
+| `comment` | `int` | No |  |
+| `created_at` | `str` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `label` | `list` | No |  |
+| `milestone` | `dict` | No |  |
+| `node_id` | `str` | No |  |
+| `number` | `int` | No |  |
+| `state` | `str` | No |  |
+| `title` | `str` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
+| `user` | `dict` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `assignee` | - | - | - | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `comment` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `label` | - | - | - | - | - |
-| `milestone` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `assignee` | - | - | - | - |
+| `body` | - | - | - | - |
+| `closed_at` | - | - | - | - |
+| `comment` | - | - | - | - |
+| `created_at` | - | - | - | - |
+| `html_url` | - | - | - | - |
+| `id` | - | - | - | - |
+| `label` | - | - | - | - |
+| `milestone` | - | - | - | - |
+| `node_id` | - | - | - | - |
+| `number` | - | - | - | - |
+| `state` | - | - | - | - |
+| `title` | - | - | Yes | - |
+| `updated_at` | - | - | - | - |
+| `url` | - | - | - | - |
+| `user` | - | - | - | - |
 
 ### Operations
 
@@ -378,12 +378,12 @@ result = client.Issue().create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Issue().list({})
+results = client.Issue().list()
 for issue in results:
     print(issue)
 ```
@@ -446,23 +446,23 @@ notification = client.Notification()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `last_read_at` | ``$STRING`` | No |  |
-| `reason` | ``$STRING`` | No |  |
-| `repository` | ``$OBJECT`` | No |  |
-| `subject` | ``$OBJECT`` | No |  |
-| `unread` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `id` | `str` | No |  |
+| `last_read_at` | `str` | No |  |
+| `reason` | `str` | No |  |
+| `repository` | `dict` | No |  |
+| `subject` | `dict` | No |  |
+| `unread` | `bool` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Notification().list({})
+results = client.Notification().list()
 for notification in results:
     print(notification)
 ```
@@ -506,23 +506,23 @@ org = client.Org()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `str` | No |  |
+| `blog` | `str` | No |  |
+| `created_at` | `str` | No |  |
+| `description` | `str` | No |  |
+| `email` | `str` | No |  |
+| `follower` | `int` | No |  |
+| `following` | `int` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `location` | `str` | No |  |
+| `login` | `str` | No |  |
+| `name` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `public_gist` | `int` | No |  |
+| `public_repo` | `int` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 
@@ -573,43 +573,43 @@ pull = client.Pull()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | ``$OBJECT`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `draft` | ``$BOOLEAN`` | No |  |
-| `head` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `merged_at` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `base` | `dict` | No |  |
+| `body` | `str` | No |  |
+| `closed_at` | `str` | No |  |
+| `created_at` | `str` | No |  |
+| `draft` | `bool` | No |  |
+| `head` | `dict` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `merged_at` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `number` | `int` | No |  |
+| `state` | `str` | No |  |
+| `title` | `str` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
+| `user` | `dict` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `base` | - | - | Yes | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `draft` | - | - | - | - | - |
-| `head` | - | - | Yes | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `merged_at` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `base` | - | - | Yes |
+| `body` | - | - | - |
+| `closed_at` | - | - | - |
+| `created_at` | - | - | - |
+| `draft` | - | - | - |
+| `head` | - | - | Yes |
+| `html_url` | - | - | - |
+| `id` | - | - | - |
+| `merged_at` | - | - | - |
+| `node_id` | - | - | - |
+| `number` | - | - | - |
+| `state` | - | - | - |
+| `title` | - | - | Yes |
+| `updated_at` | - | - | - |
+| `url` | - | - | - |
+| `user` | - | - | - |
 
 ### Operations
 
@@ -622,12 +622,12 @@ result = client.Pull().create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Pull().list({})
+results = client.Pull().list()
 for pull in results:
     print(pull)
 ```
@@ -679,8 +679,8 @@ rate_limit = client.RateLimit()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `rate` | ``$OBJECT`` | No |  |
-| `resource` | ``$OBJECT`` | No |  |
+| `rate` | `dict` | No |  |
+| `resource` | `dict` | No |  |
 
 ### Operations
 
@@ -689,7 +689,7 @@ rate_limit = client.RateLimit()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RateLimit().load({"id": "rate_limit_id"})
+result = client.RateLimit().load()
 ```
 
 ### Common Methods
@@ -731,36 +731,36 @@ repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `created_at` | `str` | No |  |
+| `default_branch` | `str` | No |  |
+| `description` | `str` | No |  |
+| `fork` | `bool` | No |  |
+| `forks_count` | `int` | No |  |
+| `full_name` | `str` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `language` | `str` | No |  |
+| `name` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `open_issues_count` | `int` | No |  |
+| `owner` | `dict` | No |  |
+| `private` | `bool` | No |  |
+| `pushed_at` | `str` | No |  |
+| `size` | `int` | No |  |
+| `stargazers_count` | `int` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
+| `visibility` | `str` | No |  |
+| `watchers_count` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Repo().list({})
+results = client.Repo().list()
 for repo in results:
     print(repo)
 ```
@@ -770,7 +770,7 @@ for repo in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Repo().load({"id": "repo_id"})
+result = client.Repo().load()
 ```
 
 ### Common Methods
@@ -812,46 +812,46 @@ search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `assignee` | `Any` | No |  |
+| `body` | `str` | No |  |
+| `closed_at` | `str` | No |  |
+| `comment` | `int` | No |  |
+| `created_at` | `str` | No |  |
+| `default_branch` | `str` | No |  |
+| `description` | `str` | No |  |
+| `fork` | `bool` | No |  |
+| `forks_count` | `int` | No |  |
+| `full_name` | `str` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `label` | `list` | No |  |
+| `language` | `str` | No |  |
+| `milestone` | `dict` | No |  |
+| `name` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `number` | `int` | No |  |
+| `open_issues_count` | `int` | No |  |
+| `owner` | `dict` | No |  |
+| `private` | `bool` | No |  |
+| `pushed_at` | `str` | No |  |
+| `size` | `int` | No |  |
+| `stargazers_count` | `int` | No |  |
+| `state` | `str` | No |  |
+| `title` | `str` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
+| `user` | `dict` | No |  |
+| `visibility` | `str` | No |  |
+| `watchers_count` | `int` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Search().list({})
+results = client.Search().list()
 for search in results:
     print(search)
 ```
@@ -895,25 +895,25 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `bio` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `company` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `str` | No |  |
+| `bio` | `str` | No |  |
+| `blog` | `str` | No |  |
+| `company` | `str` | No |  |
+| `created_at` | `str` | No |  |
+| `email` | `str` | No |  |
+| `follower` | `int` | No |  |
+| `following` | `int` | No |  |
+| `html_url` | `str` | No |  |
+| `id` | `int` | No |  |
+| `location` | `str` | No |  |
+| `login` | `str` | No |  |
+| `name` | `str` | No |  |
+| `node_id` | `str` | No |  |
+| `public_gist` | `int` | No |  |
+| `public_repo` | `int` | No |  |
+| `type` | `str` | No |  |
+| `updated_at` | `str` | No |  |
+| `url` | `str` | No |  |
 
 ### Operations
 

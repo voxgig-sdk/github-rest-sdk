@@ -237,9 +237,9 @@ const branch = client.Branch()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `commit` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `protected` | ``$BOOLEAN`` | No |  |
+| `commit` | `Record<string, any>` | No |  |
+| `name` | `string` | No |  |
+| `protected` | `boolean` | No |  |
 
 ### Operations
 
@@ -289,13 +289,13 @@ const commit = client.Commit()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$OBJECT`` | No |  |
-| `commit` | ``$OBJECT`` | No |  |
-| `committer` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `sha` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `Record<string, any>` | No |  |
+| `commit` | `Record<string, any>` | No |  |
+| `committer` | `Record<string, any>` | No |  |
+| `html_url` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `sha` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -345,31 +345,31 @@ const gist = client.Gist()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `file` | ``$OBJECT`` | Yes |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `public` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `file` | `Record<string, any>` | Yes |  |
+| `html_url` | `string` | No |  |
+| `id` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `owner` | `Record<string, any>` | No |  |
+| `public` | `boolean` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `file` | - | Yes | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `owner` | - | - | - | - | - |
-| `public` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `created_at` | - | - |
+| `description` | - | - |
+| `file` | Yes | - |
+| `html_url` | - | - |
+| `id` | - | - |
+| `node_id` | - | - |
+| `owner` | - | - |
+| `public` | - | - |
+| `updated_at` | - | - |
+| `url` | - | - |
 
 ### Operations
 
@@ -379,7 +379,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Gist().create({
-  file: /* `$OBJECT` */,
+  file: /* Record<string, any> */,
 })
 ```
 
@@ -429,43 +429,43 @@ const issue = client.Issue()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `assignee` | `any` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `comment` | `number` | No |  |
+| `created_at` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `label` | `any[]` | No |  |
+| `milestone` | `Record<string, any>` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `number` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `Record<string, any>` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `assignee` | - | - | - | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `comment` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `label` | - | - | - | - | - |
-| `milestone` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `assignee` | - | - | - | - |
+| `body` | - | - | - | - |
+| `closed_at` | - | - | - | - |
+| `comment` | - | - | - | - |
+| `created_at` | - | - | - | - |
+| `html_url` | - | - | - | - |
+| `id` | - | - | - | - |
+| `label` | - | - | - | - |
+| `milestone` | - | - | - | - |
+| `node_id` | - | - | - | - |
+| `number` | - | - | - | - |
+| `state` | - | - | - | - |
+| `title` | - | - | Yes | - |
+| `updated_at` | - | - | - | - |
+| `url` | - | - | - | - |
+| `user` | - | - | - | - |
 
 ### Operations
 
@@ -491,7 +491,7 @@ const results = await client.Issue().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Issue().load({ id: 'issue_id' })
+const result = await client.Issue().load({ id: 1 })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -500,7 +500,7 @@ Update an existing entity. The data must include the entity `id`.
 
 ```ts
 const result = await client.Issue().update({
-  id: 'issue_id',
+  id: 1,
   // Fields to update
 })
 ```
@@ -543,14 +543,14 @@ const notification = client.Notification()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `last_read_at` | ``$STRING`` | No |  |
-| `reason` | ``$STRING`` | No |  |
-| `repository` | ``$OBJECT`` | No |  |
-| `subject` | ``$OBJECT`` | No |  |
-| `unread` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `id` | `string` | No |  |
+| `last_read_at` | `string` | No |  |
+| `reason` | `string` | No |  |
+| `repository` | `Record<string, any>` | No |  |
+| `subject` | `Record<string, any>` | No |  |
+| `unread` | `boolean` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -600,23 +600,23 @@ const org = client.Org()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `follower` | `number` | No |  |
+| `following` | `number` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `public_gist` | `number` | No |  |
+| `public_repo` | `number` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -666,43 +666,43 @@ const pull = client.Pull()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | ``$OBJECT`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `draft` | ``$BOOLEAN`` | No |  |
-| `head` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `merged_at` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `base` | `Record<string, any>` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `draft` | `boolean` | No |  |
+| `head` | `Record<string, any>` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `merged_at` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `number` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `Record<string, any>` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `base` | - | - | Yes | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `draft` | - | - | - | - | - |
-| `head` | - | - | Yes | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `merged_at` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `base` | - | - | Yes |
+| `body` | - | - | - |
+| `closed_at` | - | - | - |
+| `created_at` | - | - | - |
+| `draft` | - | - | - |
+| `head` | - | - | Yes |
+| `html_url` | - | - | - |
+| `id` | - | - | - |
+| `merged_at` | - | - | - |
+| `node_id` | - | - | - |
+| `number` | - | - | - |
+| `state` | - | - | - |
+| `title` | - | - | Yes |
+| `updated_at` | - | - | - |
+| `url` | - | - | - |
+| `user` | - | - | - |
 
 ### Operations
 
@@ -728,7 +728,7 @@ const results = await client.Pull().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Pull().load({ id: 'pull_id' })
+const result = await client.Pull().load({ id: 1 })
 ```
 
 ### Common Methods
@@ -769,8 +769,8 @@ const rate_limit = client.RateLimit()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `rate` | ``$OBJECT`` | No |  |
-| `resource` | ``$OBJECT`` | No |  |
+| `rate` | `Record<string, any>` | No |  |
+| `resource` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -779,7 +779,7 @@ const rate_limit = client.RateLimit()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RateLimit().load({ id: 'rate_limit_id' })
+const result = await client.RateLimit().load()
 ```
 
 ### Common Methods
@@ -820,27 +820,27 @@ const repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `created_at` | `string` | No |  |
+| `default_branch` | `string` | No |  |
+| `description` | `string` | No |  |
+| `fork` | `boolean` | No |  |
+| `forks_count` | `number` | No |  |
+| `full_name` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `language` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `open_issues_count` | `number` | No |  |
+| `owner` | `Record<string, any>` | No |  |
+| `private` | `boolean` | No |  |
+| `pushed_at` | `string` | No |  |
+| `size` | `number` | No |  |
+| `stargazers_count` | `number` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `visibility` | `string` | No |  |
+| `watchers_count` | `number` | No |  |
 
 ### Operations
 
@@ -857,7 +857,7 @@ const results = await client.Repo().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Repo().load({ id: 'repo_id' })
+const result = await client.Repo().load()
 ```
 
 ### Common Methods
@@ -898,37 +898,37 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `assignee` | `any` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `comment` | `number` | No |  |
+| `created_at` | `string` | No |  |
+| `default_branch` | `string` | No |  |
+| `description` | `string` | No |  |
+| `fork` | `boolean` | No |  |
+| `forks_count` | `number` | No |  |
+| `full_name` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `label` | `any[]` | No |  |
+| `language` | `string` | No |  |
+| `milestone` | `Record<string, any>` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `number` | No |  |
+| `open_issues_count` | `number` | No |  |
+| `owner` | `Record<string, any>` | No |  |
+| `private` | `boolean` | No |  |
+| `pushed_at` | `string` | No |  |
+| `size` | `number` | No |  |
+| `stargazers_count` | `number` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `Record<string, any>` | No |  |
+| `visibility` | `string` | No |  |
+| `watchers_count` | `number` | No |  |
 
 ### Operations
 
@@ -978,25 +978,25 @@ const user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `bio` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `company` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | No |  |
+| `follower` | `number` | No |  |
+| `following` | `number` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `number` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `public_gist` | `number` | No |  |
+| `public_repo` | `number` | No |  |
+| `type` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 

@@ -61,7 +61,7 @@ class Gist
     public ?string $url = null;
 }
 
-/** Match filter for Gist#list (any subset of Gist fields). */
+/** Request payload for Gist#list. */
 class GistListMatch
 {
     public ?string $created_at = null;
@@ -76,12 +76,12 @@ class GistListMatch
     public ?string $url = null;
 }
 
-/** Match filter for Gist#create (any subset of Gist fields). */
+/** Request payload for Gist#create. */
 class GistCreateData
 {
     public ?string $created_at = null;
     public ?string $description = null;
-    public ?array $file = null;
+    public array $file;
     public ?string $html_url = null;
     public ?string $id = null;
     public ?string $node_id = null;
@@ -155,7 +155,7 @@ class Notification
     public ?string $url = null;
 }
 
-/** Match filter for Notification#list (any subset of Notification fields). */
+/** Request payload for Notification#list. */
 class NotificationListMatch
 {
     public ?string $id = null;
@@ -246,7 +246,7 @@ class RateLimit
     public ?array $resource = null;
 }
 
-/** Match filter for RateLimit#load (any subset of RateLimit fields). */
+/** Request payload for RateLimit#load. */
 class RateLimitLoadMatch
 {
     public ?array $rate = null;
@@ -329,7 +329,7 @@ class Search
     public ?int $watchers_count = null;
 }
 
-/** Match filter for Search#list (any subset of Search fields). */
+/** Request payload for Search#list. */
 class SearchListMatch
 {
     public mixed $assignee = null;

@@ -8,7 +8,7 @@ Complete API reference for the GithubRest Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'github-rest_sdk'
+require_relative 'GithubRest_sdk'
 
 client = GithubRestSDK.new(options)
 ```
@@ -134,18 +134,18 @@ branch = client.Branch
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `commit` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `protected` | ``$BOOLEAN`` | No |  |
+| `commit` | `Hash` | No |  |
+| `name` | `String` | No |  |
+| `protected` | `Boolean` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Branch.list(nil)
+results = client.Branch.list
 ```
 
 ### Common Methods
@@ -188,22 +188,22 @@ commit = client.Commit
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$OBJECT`` | No |  |
-| `commit` | ``$OBJECT`` | No |  |
-| `committer` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `sha` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `Hash` | No |  |
+| `commit` | `Hash` | No |  |
+| `committer` | `Hash` | No |  |
+| `html_url` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `sha` | `String` | No |  |
+| `url` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Commit.list(nil)
+results = client.Commit.list
 ```
 
 ### Common Methods
@@ -246,31 +246,31 @@ gist = client.Gist
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `file` | ``$OBJECT`` | Yes |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `public` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `created_at` | `String` | No |  |
+| `description` | `String` | No |  |
+| `file` | `Hash` | Yes |  |
+| `html_url` | `String` | No |  |
+| `id` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `owner` | `Hash` | No |  |
+| `public` | `Boolean` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `file` | - | Yes | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `owner` | - | - | - | - | - |
-| `public` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `created_at` | - | - |
+| `description` | - | - |
+| `file` | Yes | - |
+| `html_url` | - | - |
+| `id` | - | - |
+| `node_id` | - | - |
+| `owner` | - | - |
+| `public` | - | - |
+| `updated_at` | - | - |
+| `url` | - | - |
 
 ### Operations
 
@@ -280,16 +280,16 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Gist.create({
-  "file" => # `$OBJECT`,
+  "file" => {}, # Hash
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Gist.list(nil)
+results = client.Gist.list
 ```
 
 ### Common Methods
@@ -332,43 +332,43 @@ issue = client.Issue
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `assignee` | `Object` | No |  |
+| `body` | `String` | No |  |
+| `closed_at` | `String` | No |  |
+| `comment` | `Integer` | No |  |
+| `created_at` | `String` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `label` | `Array` | No |  |
+| `milestone` | `Hash` | No |  |
+| `node_id` | `String` | No |  |
+| `number` | `Integer` | No |  |
+| `state` | `String` | No |  |
+| `title` | `String` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
+| `user` | `Hash` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `assignee` | - | - | - | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `comment` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `label` | - | - | - | - | - |
-| `milestone` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `assignee` | - | - | - | - |
+| `body` | - | - | - | - |
+| `closed_at` | - | - | - | - |
+| `comment` | - | - | - | - |
+| `created_at` | - | - | - | - |
+| `html_url` | - | - | - | - |
+| `id` | - | - | - | - |
+| `label` | - | - | - | - |
+| `milestone` | - | - | - | - |
+| `node_id` | - | - | - | - |
+| `number` | - | - | - | - |
+| `state` | - | - | - | - |
+| `title` | - | - | Yes | - |
+| `updated_at` | - | - | - | - |
+| `url` | - | - | - | - |
+| `user` | - | - | - | - |
 
 ### Operations
 
@@ -381,12 +381,12 @@ result = client.Issue.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Issue.list(nil)
+results = client.Issue.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -448,23 +448,23 @@ notification = client.Notification
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `last_read_at` | ``$STRING`` | No |  |
-| `reason` | ``$STRING`` | No |  |
-| `repository` | ``$OBJECT`` | No |  |
-| `subject` | ``$OBJECT`` | No |  |
-| `unread` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `id` | `String` | No |  |
+| `last_read_at` | `String` | No |  |
+| `reason` | `String` | No |  |
+| `repository` | `Hash` | No |  |
+| `subject` | `Hash` | No |  |
+| `unread` | `Boolean` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Notification.list(nil)
+results = client.Notification.list
 ```
 
 ### Common Methods
@@ -507,23 +507,23 @@ org = client.Org
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `String` | No |  |
+| `blog` | `String` | No |  |
+| `created_at` | `String` | No |  |
+| `description` | `String` | No |  |
+| `email` | `String` | No |  |
+| `follower` | `Integer` | No |  |
+| `following` | `Integer` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `location` | `String` | No |  |
+| `login` | `String` | No |  |
+| `name` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `public_gist` | `Integer` | No |  |
+| `public_repo` | `Integer` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
 
 ### Operations
 
@@ -575,43 +575,43 @@ pull = client.Pull
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | ``$OBJECT`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `draft` | ``$BOOLEAN`` | No |  |
-| `head` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `merged_at` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `base` | `Hash` | No |  |
+| `body` | `String` | No |  |
+| `closed_at` | `String` | No |  |
+| `created_at` | `String` | No |  |
+| `draft` | `Boolean` | No |  |
+| `head` | `Hash` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `merged_at` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `number` | `Integer` | No |  |
+| `state` | `String` | No |  |
+| `title` | `String` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
+| `user` | `Hash` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `base` | - | - | Yes | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `draft` | - | - | - | - | - |
-| `head` | - | - | Yes | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `merged_at` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `base` | - | - | Yes |
+| `body` | - | - | - |
+| `closed_at` | - | - | - |
+| `created_at` | - | - | - |
+| `draft` | - | - | - |
+| `head` | - | - | Yes |
+| `html_url` | - | - | - |
+| `id` | - | - | - |
+| `merged_at` | - | - | - |
+| `node_id` | - | - | - |
+| `number` | - | - | - |
+| `state` | - | - | - |
+| `title` | - | - | Yes |
+| `updated_at` | - | - | - |
+| `url` | - | - | - |
+| `user` | - | - | - |
 
 ### Operations
 
@@ -624,12 +624,12 @@ result = client.Pull.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Pull.list(nil)
+results = client.Pull.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -680,8 +680,8 @@ rate_limit = client.RateLimit
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `rate` | ``$OBJECT`` | No |  |
-| `resource` | ``$OBJECT`` | No |  |
+| `rate` | `Hash` | No |  |
+| `resource` | `Hash` | No |  |
 
 ### Operations
 
@@ -690,7 +690,7 @@ rate_limit = client.RateLimit
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.RateLimit.load({ "id" => "rate_limit_id" })
+result = client.RateLimit.load()
 ```
 
 ### Common Methods
@@ -733,36 +733,36 @@ repo = client.Repo
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `created_at` | `String` | No |  |
+| `default_branch` | `String` | No |  |
+| `description` | `String` | No |  |
+| `fork` | `Boolean` | No |  |
+| `forks_count` | `Integer` | No |  |
+| `full_name` | `String` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `language` | `String` | No |  |
+| `name` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `open_issues_count` | `Integer` | No |  |
+| `owner` | `Hash` | No |  |
+| `private` | `Boolean` | No |  |
+| `pushed_at` | `String` | No |  |
+| `size` | `Integer` | No |  |
+| `stargazers_count` | `Integer` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
+| `visibility` | `String` | No |  |
+| `watchers_count` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Repo.list(nil)
+results = client.Repo.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -770,7 +770,7 @@ results = client.Repo.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Repo.load({ "id" => "repo_id" })
+result = client.Repo.load()
 ```
 
 ### Common Methods
@@ -813,46 +813,46 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `assignee` | `Object` | No |  |
+| `body` | `String` | No |  |
+| `closed_at` | `String` | No |  |
+| `comment` | `Integer` | No |  |
+| `created_at` | `String` | No |  |
+| `default_branch` | `String` | No |  |
+| `description` | `String` | No |  |
+| `fork` | `Boolean` | No |  |
+| `forks_count` | `Integer` | No |  |
+| `full_name` | `String` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `label` | `Array` | No |  |
+| `language` | `String` | No |  |
+| `milestone` | `Hash` | No |  |
+| `name` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `number` | `Integer` | No |  |
+| `open_issues_count` | `Integer` | No |  |
+| `owner` | `Hash` | No |  |
+| `private` | `Boolean` | No |  |
+| `pushed_at` | `String` | No |  |
+| `size` | `Integer` | No |  |
+| `stargazers_count` | `Integer` | No |  |
+| `state` | `String` | No |  |
+| `title` | `String` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
+| `user` | `Hash` | No |  |
+| `visibility` | `String` | No |  |
+| `watchers_count` | `Integer` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Search.list(nil)
+results = client.Search.list
 ```
 
 ### Common Methods
@@ -895,25 +895,25 @@ user = client.User
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `bio` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `company` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `String` | No |  |
+| `bio` | `String` | No |  |
+| `blog` | `String` | No |  |
+| `company` | `String` | No |  |
+| `created_at` | `String` | No |  |
+| `email` | `String` | No |  |
+| `follower` | `Integer` | No |  |
+| `following` | `Integer` | No |  |
+| `html_url` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `location` | `String` | No |  |
+| `login` | `String` | No |  |
+| `name` | `String` | No |  |
+| `node_id` | `String` | No |  |
+| `public_gist` | `Integer` | No |  |
+| `public_repo` | `Integer` | No |  |
+| `type` | `String` | No |  |
+| `updated_at` | `String` | No |  |
+| `url` | `String` | No |  |
 
 ### Operations
 

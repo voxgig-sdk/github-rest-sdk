@@ -129,7 +129,7 @@ Gist = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Gist#list (any subset of Gist fields).
+# Request payload for Gist#list.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -174,7 +174,7 @@ GistListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Gist#create (any subset of Gist fields).
+# Request payload for Gist#create.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -183,7 +183,7 @@ GistListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] file
-#   @return [Hash, nil]
+#   @return [Hash]
 #
 # @!attribute [rw] html_url
 #   @return [String, nil]
@@ -385,7 +385,7 @@ Notification = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Notification#list (any subset of Notification fields).
+# Request payload for Notification#list.
 #
 # @!attribute [rw] id
 #   @return [String, nil]
@@ -629,7 +629,7 @@ RateLimit = Struct.new(
   keyword_init: true
 )
 
-# Match filter for RateLimit#load (any subset of RateLimit fields).
+# Request payload for RateLimit#load.
 #
 # @!attribute [rw] rate
 #   @return [Hash, nil]
@@ -886,7 +886,7 @@ Search = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Search#list (any subset of Search fields).
+# Request payload for Search#list.
 #
 # @!attribute [rw] assignee
 #   @return [Object, nil]

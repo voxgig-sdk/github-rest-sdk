@@ -4,6 +4,8 @@
 
 The Golang SDK for the GithubRest API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Branch(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -63,6 +65,35 @@ func main() {
 ```
 
 
+## Error handling
+
+Every entity operation returns `(value, error)`. Check `err` before
+using the value — there is no exception to catch:
+
+```go
+branchs, err := client.Branch(nil).List(nil, nil)
+if err != nil {
+    // handle err
+    return
+}
+_ = branchs
+```
+
+`Direct` follows the same `(value, error)` convention:
+
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
+    "method": "GET",
+    "params": map[string]any{"id": "example_id"},
+})
+if err != nil {
+    // handle err
+}
+_ = result
+```
+
+
 ## How-to guides
 
 ### Make a direct HTTP request
@@ -109,13 +140,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-branch, err := client.Branch(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+branch, err := client.Branch(nil).List(
+    nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(branch) // the loaded mock data
+fmt.Println(branch) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -216,7 +247,6 @@ All entities implement the `GithubRestEntity` interface.
 | `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
 | `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
 | `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -229,16 +259,16 @@ operation's data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `Load` / `Create` / `Update` | the entity record (`map[string]any`) |
 | `List` | a `[]any` of entity records |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    branch, err := client.Branch(nil).Load(map[string]any{"id": "example_id"}, nil)
+    branch, err := client.Branch(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // branch is the loaded record
+    // branch is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -513,9 +543,9 @@ Create an instance: `branch := client.Branch(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `map[string]any` |  |
+| `name` | `string` |  |
+| `protected` | `bool` |  |
 
 #### Example: List
 
@@ -542,13 +572,13 @@ Create an instance: `commit := client.Commit(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `map[string]any` |  |
+| `commit` | `map[string]any` |  |
+| `committer` | `map[string]any` |  |
+| `html_url` | `string` |  |
+| `node_id` | `string` |  |
+| `sha` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -576,16 +606,16 @@ Create an instance: `gist := client.Gist(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `file` | `map[string]any` |  |
+| `html_url` | `string` |  |
+| `id` | `string` |  |
+| `node_id` | `string` |  |
+| `owner` | `map[string]any` |  |
+| `public` | `bool` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -601,7 +631,7 @@ fmt.Println(gists) // the array of records
 
 ```go
 result, err := client.Gist(nil).Create(map[string]any{
-    "file": /* `$OBJECT` */,
+    "file": /* map[string]any */,
 }, nil)
 ```
 
@@ -623,22 +653,22 @@ Create an instance: `issue := client.Issue(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `int` |  |
+| `created_at` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `label` | `[]any` |  |
+| `milestone` | `map[string]any` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `map[string]any` |  |
 
 #### Example: Load
 
@@ -682,14 +712,14 @@ Create an instance: `notification := client.Notification(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `string` |  |
+| `last_read_at` | `string` |  |
+| `reason` | `string` |  |
+| `repository` | `map[string]any` |  |
+| `subject` | `map[string]any` |  |
+| `unread` | `bool` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -716,23 +746,23 @@ Create an instance: `org := client.Org(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `blog` | `string` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -761,22 +791,22 @@ Create an instance: `pull := client.Pull(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `map[string]any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `created_at` | `string` |  |
+| `draft` | `bool` |  |
+| `head` | `map[string]any` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `merged_at` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `map[string]any` |  |
 
 #### Example: Load
 
@@ -820,13 +850,13 @@ Create an instance: `rate_limit := client.RateLimit(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `map[string]any` |  |
+| `resource` | `map[string]any` |  |
 
 #### Example: Load
 
 ```go
-rate_limit, err := client.RateLimit(nil).Load(map[string]any{"id": "rate_limit_id"}, nil)
+rate_limit, err := client.RateLimit(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -849,32 +879,32 @@ Create an instance: `repo := client.Repo(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `language` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `map[string]any` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `string` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: Load
 
 ```go
-repo, err := client.Repo(nil).Load(map[string]any{"id": "repo_id"}, nil)
+repo, err := client.Repo(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
@@ -906,37 +936,37 @@ Create an instance: `search := client.Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `int` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `label` | `[]any` |  |
+| `language` | `string` |  |
+| `milestone` | `map[string]any` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `map[string]any` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `string` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `map[string]any` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: List
 
@@ -963,25 +993,25 @@ Create an instance: `user := client.User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `type` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -994,12 +1024,16 @@ fmt.Println(user) // the loaded record
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -1016,9 +1050,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller. An unexpected panic triggers the
-`PreUnexpected` hook.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -1059,14 +1093,14 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `Load`, the entity
+Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
 branch := client.Branch(nil)
-branch.Load(map[string]any{"id": "example_id"}, nil)
+branch.List(nil, nil)
 
-// branch.Data() now returns the loaded branch data
+// branch.Data() now returns the branch data from the last list
 // branch.Match() returns the last match criteria
 ```
 

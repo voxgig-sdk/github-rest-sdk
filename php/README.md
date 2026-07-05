@@ -4,6 +4,8 @@
 
 The PHP SDK for the GithubRest API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Branch()` — with named operations (`list`/`load`/`create`/`update`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,10 +40,41 @@ try {
     // list() returns an array of Branch records — iterate directly.
     $branchs = $client->Branch()->list();
     foreach ($branchs as $item) {
-        echo $item["id"] . " " . $item["name"] . "\n";
+        echo $item["commit"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
+}
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $branchs = $client->Branch()->list();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -65,7 +98,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -86,16 +122,13 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = GithubRestSDK::test([
-    "entity" => ["branch" => ["test01" => ["id" => "test01"]]],
-]);
+$client = GithubRestSDK::test();
 
-// load() returns the bare mock record (throws on error).
-$branch = $client->Branch()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$branch = $client->Branch()->list();
 print_r($branch);
 ```
 
@@ -196,10 +229,9 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
 | `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -495,9 +527,9 @@ Create an instance: `$branch = $client->Branch();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `array` |  |
+| `name` | `string` |  |
+| `protected` | `bool` |  |
 
 #### Example: List
 
@@ -521,13 +553,13 @@ Create an instance: `$commit = $client->Commit();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `array` |  |
+| `commit` | `array` |  |
+| `committer` | `array` |  |
+| `html_url` | `string` |  |
+| `node_id` | `string` |  |
+| `sha` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -552,16 +584,16 @@ Create an instance: `$gist = $client->Gist();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `file` | `array` |  |
+| `html_url` | `string` |  |
+| `id` | `string` |  |
+| `node_id` | `string` |  |
+| `owner` | `array` |  |
+| `public` | `bool` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -574,7 +606,7 @@ $gists = $client->Gist()->list();
 
 ```php
 $gist = $client->Gist()->create([
-    "file" => null, // `$OBJECT`
+    "file" => null, // array
 ]);
 ```
 
@@ -596,22 +628,22 @@ Create an instance: `$issue = $client->Issue();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `mixed` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `int` |  |
+| `created_at` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `label` | `array` |  |
+| `milestone` | `array` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `array` |  |
 
 #### Example: Load
 
@@ -649,14 +681,14 @@ Create an instance: `$notification = $client->Notification();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `string` |  |
+| `last_read_at` | `string` |  |
+| `reason` | `string` |  |
+| `repository` | `array` |  |
+| `subject` | `array` |  |
+| `unread` | `bool` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -680,23 +712,23 @@ Create an instance: `$org = $client->Org();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `blog` | `string` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -722,22 +754,22 @@ Create an instance: `$pull = $client->Pull();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `array` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `created_at` | `string` |  |
+| `draft` | `bool` |  |
+| `head` | `array` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `merged_at` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `array` |  |
 
 #### Example: Load
 
@@ -775,14 +807,14 @@ Create an instance: `$rate_limit = $client->RateLimit();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `array` |  |
+| `resource` | `array` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare RateLimit record (throws on error).
-$rate_limit = $client->RateLimit()->load(["id" => "rate_limit_id"]);
+$rate_limit = $client->RateLimit()->load();
 ```
 
 
@@ -801,33 +833,33 @@ Create an instance: `$repo = $client->Repo();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `language` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `array` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `string` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Repo record (throws on error).
-$repo = $client->Repo()->load(["id" => "repo_id"]);
+$repo = $client->Repo()->load();
 ```
 
 #### Example: List
@@ -852,37 +884,37 @@ Create an instance: `$search = $client->Search();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `mixed` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `int` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `label` | `array` |  |
+| `language` | `string` |  |
+| `milestone` | `array` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `int` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `array` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `string` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `array` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: List
 
@@ -906,25 +938,25 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `string` |  |
+| `id` | `int` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `type` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -934,12 +966,16 @@ $user = $client->User()->load(["id" => "user_id"]);
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -956,8 +992,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -1001,15 +1038,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $branch = $client->Branch();
-$branch->load(["id" => "example_id"]);
+$branch->list();
 
-// $branch->dataGet() now returns the loaded branch data
-// $branch->matchGet() returns the last match criteria
+// $branch->data_get() now returns the branch data from the last list
+// $branch->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

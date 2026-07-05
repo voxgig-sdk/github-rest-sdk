@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the GithubRest API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Branch()` — each with a small set of operations (`list`, `load`, `create`, `update`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -39,6 +44,35 @@ const branchs = await client.Branch().list()
 
 for (const branch of branchs) {
   console.log(branch)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const branchs = await client.Branch().list()
+  console.log(branchs)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -87,7 +121,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const branch = await client.Branch().load({ id: 'test01' })
+const branch = await client.Branch().list()
 // branch is a bare entity populated with mock response data
 console.log(branch)
 ```
@@ -106,12 +140,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Branch()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -217,9 +251,8 @@ All entities share the same interface.
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
 | `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): GithubRestSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -232,7 +265,6 @@ result envelope:
 - `load`, `create` and `update` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -536,9 +568,9 @@ Create an instance: `const branch = client.Branch()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `Record<string, any>` |  |
+| `name` | `string` |  |
+| `protected` | `boolean` |  |
 
 #### Example: List
 
@@ -561,13 +593,13 @@ Create an instance: `const commit = client.Commit()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `Record<string, any>` |  |
+| `commit` | `Record<string, any>` |  |
+| `committer` | `Record<string, any>` |  |
+| `html_url` | `string` |  |
+| `node_id` | `string` |  |
+| `sha` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -591,16 +623,16 @@ Create an instance: `const gist = client.Gist()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `file` | `Record<string, any>` |  |
+| `html_url` | `string` |  |
+| `id` | `string` |  |
+| `node_id` | `string` |  |
+| `owner` | `Record<string, any>` |  |
+| `public` | `boolean` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -612,7 +644,7 @@ const gists = await client.Gist().list()
 
 ```ts
 const gist = await client.Gist().create({
-  file: /* `$OBJECT` */,
+  file: /* Record<string, any> */,
 })
 ```
 
@@ -634,27 +666,27 @@ Create an instance: `const issue = client.Issue()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `number` |  |
+| `created_at` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `label` | `any[]` |  |
+| `milestone` | `Record<string, any>` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `Record<string, any>` |  |
 
 #### Example: Load
 
 ```ts
-const issue = await client.Issue().load({ id: 'issue_id' })
+const issue = await client.Issue().load({ id: 1 })
 ```
 
 #### Example: List
@@ -685,14 +717,14 @@ Create an instance: `const notification = client.Notification()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `string` |  |
+| `last_read_at` | `string` |  |
+| `reason` | `string` |  |
+| `repository` | `Record<string, any>` |  |
+| `subject` | `Record<string, any>` |  |
+| `unread` | `boolean` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: List
 
@@ -715,23 +747,23 @@ Create an instance: `const org = client.Org()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `blog` | `string` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `number` |  |
+| `following` | `number` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `number` |  |
+| `public_repo` | `number` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -756,27 +788,27 @@ Create an instance: `const pull = client.Pull()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `Record<string, any>` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `created_at` | `string` |  |
+| `draft` | `boolean` |  |
+| `head` | `Record<string, any>` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `merged_at` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `Record<string, any>` |  |
 
 #### Example: Load
 
 ```ts
-const pull = await client.Pull().load({ id: 'pull_id' })
+const pull = await client.Pull().load({ id: 1 })
 ```
 
 #### Example: List
@@ -807,13 +839,13 @@ Create an instance: `const rate_limit = client.RateLimit()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `Record<string, any>` |  |
+| `resource` | `Record<string, any>` |  |
 
 #### Example: Load
 
 ```ts
-const rate_limit = await client.RateLimit().load({ id: 'rate_limit_id' })
+const rate_limit = await client.RateLimit().load()
 ```
 
 
@@ -832,32 +864,32 @@ Create an instance: `const repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `boolean` |  |
+| `forks_count` | `number` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `language` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `open_issues_count` | `number` |  |
+| `owner` | `Record<string, any>` |  |
+| `private` | `boolean` |  |
+| `pushed_at` | `string` |  |
+| `size` | `number` |  |
+| `stargazers_count` | `number` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `number` |  |
 
 #### Example: Load
 
 ```ts
-const repo = await client.Repo().load({ id: 'repo_id' })
+const repo = await client.Repo().load()
 ```
 
 #### Example: List
@@ -881,37 +913,37 @@ Create an instance: `const search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `any` |  |
+| `body` | `string` |  |
+| `closed_at` | `string` |  |
+| `comment` | `number` |  |
+| `created_at` | `string` |  |
+| `default_branch` | `string` |  |
+| `description` | `string` |  |
+| `fork` | `boolean` |  |
+| `forks_count` | `number` |  |
+| `full_name` | `string` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `label` | `any[]` |  |
+| `language` | `string` |  |
+| `milestone` | `Record<string, any>` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `number` | `number` |  |
+| `open_issues_count` | `number` |  |
+| `owner` | `Record<string, any>` |  |
+| `private` | `boolean` |  |
+| `pushed_at` | `string` |  |
+| `size` | `number` |  |
+| `stargazers_count` | `number` |  |
+| `state` | `string` |  |
+| `title` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
+| `user` | `Record<string, any>` |  |
+| `visibility` | `string` |  |
+| `watchers_count` | `number` |  |
 
 #### Example: List
 
@@ -934,25 +966,25 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `follower` | `number` |  |
+| `following` | `number` |  |
+| `html_url` | `string` |  |
+| `id` | `number` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
+| `name` | `string` |  |
+| `node_id` | `string` |  |
+| `public_gist` | `number` |  |
+| `public_repo` | `number` |  |
+| `type` | `string` |  |
+| `updated_at` | `string` |  |
+| `url` | `string` |  |
 
 #### Example: Load
 
@@ -961,12 +993,16 @@ const user = await client.User().load({ id: 'user_id' })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -983,11 +1019,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -1023,16 +1057,16 @@ import { GithubRestSDK } from '@voxgig-sdk/github-rest'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const branch = client.Branch()
-await branch.load({ id: "example_id" })
+await branch.list()
 
-// branch.data() now returns the loaded branch data
-// branch.match() returns { id: "example_id" }
+// branch.data() now returns the branch data from the last `list`
+// branch.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

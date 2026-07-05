@@ -8,7 +8,7 @@ Complete API reference for the GithubRest PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/github-rest_sdk.php';
+require_once __DIR__ . '/githubrest_sdk.php';
 
 $client = new GithubRestSDK($options);
 ```
@@ -86,11 +86,11 @@ Create a new `SearchEntity` instance. Pass `null` for no initial data.
 
 Create a new `UserEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): GithubRestUtility`
 
 Return a copy of the SDK utility object.
 
@@ -133,35 +133,35 @@ $branch = $client->Branch();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `commit` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `protected` | ``$BOOLEAN`` | No |  |
+| `commit` | `array` | No |  |
+| `name` | `string` | No |  |
+| `protected` | `bool` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Branch()->list([]);
+$results = $client->Branch()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -170,7 +170,7 @@ Set the entity match criteria.
 Create a new `BranchEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -187,39 +187,39 @@ $commit = $client->Commit();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `author` | ``$OBJECT`` | No |  |
-| `commit` | ``$OBJECT`` | No |  |
-| `committer` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `sha` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `author` | `array` | No |  |
+| `commit` | `array` | No |  |
+| `committer` | `array` | No |  |
+| `html_url` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `sha` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Commit()->list([]);
+$results = $client->Commit()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -228,7 +228,7 @@ Set the entity match criteria.
 Create a new `CommitEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -245,31 +245,31 @@ $gist = $client->Gist();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `file` | ``$OBJECT`` | Yes |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `public` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `file` | `array` | Yes |  |
+| `html_url` | `string` | No |  |
+| `id` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `owner` | `array` | No |  |
+| `public` | `bool` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `file` | - | Yes | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `owner` | - | - | - | - | - |
-| `public` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `created_at` | - | - |
+| `description` | - | - |
+| `file` | Yes | - |
+| `html_url` | - | - |
+| `id` | - | - |
+| `node_id` | - | - |
+| `owner` | - | - |
+| `public` | - | - |
+| `updated_at` | - | - |
+| `url` | - | - |
 
 ### Operations
 
@@ -279,33 +279,33 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Gist()->create([
-  "file" => /* `$OBJECT` */,
+  "file" => null, // array
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Gist()->list([]);
+$results = $client->Gist()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -314,7 +314,7 @@ Set the entity match criteria.
 Create a new `GistEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -331,43 +331,43 @@ $issue = $client->Issue();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `assignee` | `mixed` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `comment` | `int` | No |  |
+| `created_at` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `label` | `array` | No |  |
+| `milestone` | `array` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `int` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `array` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `assignee` | - | - | - | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `comment` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `label` | - | - | - | - | - |
-| `milestone` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create | update |
+| --- | --- | --- | --- | --- |
+| `assignee` | - | - | - | - |
+| `body` | - | - | - | - |
+| `closed_at` | - | - | - | - |
+| `comment` | - | - | - | - |
+| `created_at` | - | - | - | - |
+| `html_url` | - | - | - | - |
+| `id` | - | - | - | - |
+| `label` | - | - | - | - |
+| `milestone` | - | - | - | - |
+| `node_id` | - | - | - | - |
+| `number` | - | - | - | - |
+| `state` | - | - | - | - |
+| `title` | - | - | Yes | - |
+| `updated_at` | - | - | - | - |
+| `url` | - | - | - | - |
+| `user` | - | - | - | - |
 
 ### Operations
 
@@ -380,12 +380,12 @@ $result = $client->Issue()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Issue()->list([]);
+$results = $client->Issue()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -409,19 +409,19 @@ $result = $client->Issue()->update([
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -430,7 +430,7 @@ Set the entity match criteria.
 Create a new `IssueEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -447,40 +447,40 @@ $notification = $client->Notification();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$STRING`` | No |  |
-| `last_read_at` | ``$STRING`` | No |  |
-| `reason` | ``$STRING`` | No |  |
-| `repository` | ``$OBJECT`` | No |  |
-| `subject` | ``$OBJECT`` | No |  |
-| `unread` | ``$BOOLEAN`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `id` | `string` | No |  |
+| `last_read_at` | `string` | No |  |
+| `reason` | `string` | No |  |
+| `repository` | `array` | No |  |
+| `subject` | `array` | No |  |
+| `unread` | `bool` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Notification()->list([]);
+$results = $client->Notification()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -489,7 +489,7 @@ Set the entity match criteria.
 Create a new `NotificationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -506,23 +506,23 @@ $org = $client->Org();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `follower` | `int` | No |  |
+| `following` | `int` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `public_gist` | `int` | No |  |
+| `public_repo` | `int` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -536,19 +536,19 @@ $result = $client->Org()->load(["id" => "org_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -557,7 +557,7 @@ Set the entity match criteria.
 Create a new `OrgEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -574,43 +574,43 @@ $pull = $client->Pull();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | ``$OBJECT`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `draft` | ``$BOOLEAN`` | No |  |
-| `head` | ``$OBJECT`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `merged_at` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `base` | `array` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `draft` | `bool` | No |  |
+| `head` | `array` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `merged_at` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `int` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `array` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `base` | - | - | Yes | - | - |
-| `body` | - | - | - | - | - |
-| `closed_at` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `draft` | - | - | - | - | - |
-| `head` | - | - | Yes | - | - |
-| `html_url` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `merged_at` | - | - | - | - | - |
-| `node_id` | - | - | - | - | - |
-| `number` | - | - | - | - | - |
-| `state` | - | - | - | - | - |
-| `title` | - | - | Yes | - | - |
-| `updated_at` | - | - | - | - | - |
-| `url` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | load | list | create |
+| --- | --- | --- | --- |
+| `base` | - | - | Yes |
+| `body` | - | - | - |
+| `closed_at` | - | - | - |
+| `created_at` | - | - | - |
+| `draft` | - | - | - |
+| `head` | - | - | Yes |
+| `html_url` | - | - | - |
+| `id` | - | - | - |
+| `merged_at` | - | - | - |
+| `node_id` | - | - | - |
+| `number` | - | - | - |
+| `state` | - | - | - |
+| `title` | - | - | Yes |
+| `updated_at` | - | - | - |
+| `url` | - | - | - |
+| `user` | - | - | - |
 
 ### Operations
 
@@ -623,12 +623,12 @@ $result = $client->Pull()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Pull()->list([]);
+$results = $client->Pull()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -641,19 +641,19 @@ $result = $client->Pull()->load(["id" => "pull_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -662,7 +662,7 @@ Set the entity match criteria.
 Create a new `PullEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -679,8 +679,8 @@ $rate_limit = $client->RateLimit();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `rate` | ``$OBJECT`` | No |  |
-| `resource` | ``$OBJECT`` | No |  |
+| `rate` | `array` | No |  |
+| `resource` | `array` | No |  |
 
 ### Operations
 
@@ -689,24 +689,24 @@ $rate_limit = $client->RateLimit();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RateLimit()->load(["id" => "rate_limit_id"]);
+$result = $client->RateLimit()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -715,7 +715,7 @@ Set the entity match criteria.
 Create a new `RateLimitEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -732,36 +732,36 @@ $repo = $client->Repo();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `created_at` | `string` | No |  |
+| `default_branch` | `string` | No |  |
+| `description` | `string` | No |  |
+| `fork` | `bool` | No |  |
+| `forks_count` | `int` | No |  |
+| `full_name` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `language` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `open_issues_count` | `int` | No |  |
+| `owner` | `array` | No |  |
+| `private` | `bool` | No |  |
+| `pushed_at` | `string` | No |  |
+| `size` | `int` | No |  |
+| `stargazers_count` | `int` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `visibility` | `string` | No |  |
+| `watchers_count` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Repo()->list([]);
+$results = $client->Repo()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -769,24 +769,24 @@ $results = $client->Repo()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Repo()->load(["id" => "repo_id"]);
+$result = $client->Repo()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -795,7 +795,7 @@ Set the entity match criteria.
 Create a new `RepoEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -812,63 +812,63 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `assignee` | ``$ANY`` | No |  |
-| `body` | ``$STRING`` | No |  |
-| `closed_at` | ``$STRING`` | No |  |
-| `comment` | ``$INTEGER`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `default_branch` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `fork` | ``$BOOLEAN`` | No |  |
-| `forks_count` | ``$INTEGER`` | No |  |
-| `full_name` | ``$STRING`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `language` | ``$STRING`` | No |  |
-| `milestone` | ``$OBJECT`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `number` | ``$INTEGER`` | No |  |
-| `open_issues_count` | ``$INTEGER`` | No |  |
-| `owner` | ``$OBJECT`` | No |  |
-| `private` | ``$BOOLEAN`` | No |  |
-| `pushed_at` | ``$STRING`` | No |  |
-| `size` | ``$INTEGER`` | No |  |
-| `stargazers_count` | ``$INTEGER`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
-| `visibility` | ``$STRING`` | No |  |
-| `watchers_count` | ``$INTEGER`` | No |  |
+| `assignee` | `mixed` | No |  |
+| `body` | `string` | No |  |
+| `closed_at` | `string` | No |  |
+| `comment` | `int` | No |  |
+| `created_at` | `string` | No |  |
+| `default_branch` | `string` | No |  |
+| `description` | `string` | No |  |
+| `fork` | `bool` | No |  |
+| `forks_count` | `int` | No |  |
+| `full_name` | `string` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `label` | `array` | No |  |
+| `language` | `string` | No |  |
+| `milestone` | `array` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `number` | `int` | No |  |
+| `open_issues_count` | `int` | No |  |
+| `owner` | `array` | No |  |
+| `private` | `bool` | No |  |
+| `pushed_at` | `string` | No |  |
+| `size` | `int` | No |  |
+| `stargazers_count` | `int` | No |  |
+| `state` | `string` | No |  |
+| `title` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
+| `user` | `array` | No |  |
+| `visibility` | `string` | No |  |
+| `watchers_count` | `int` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Search()->list([]);
+$results = $client->Search()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -877,7 +877,7 @@ Set the entity match criteria.
 Create a new `SearchEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -894,25 +894,25 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | ``$STRING`` | No |  |
-| `bio` | ``$STRING`` | No |  |
-| `blog` | ``$STRING`` | No |  |
-| `company` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | No |  |
-| `follower` | ``$INTEGER`` | No |  |
-| `following` | ``$INTEGER`` | No |  |
-| `html_url` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `location` | ``$STRING`` | No |  |
-| `login` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `node_id` | ``$STRING`` | No |  |
-| `public_gist` | ``$INTEGER`` | No |  |
-| `public_repo` | ``$INTEGER`` | No |  |
-| `type` | ``$STRING`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `url` | ``$STRING`` | No |  |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | No |  |
+| `follower` | `int` | No |  |
+| `following` | `int` | No |  |
+| `html_url` | `string` | No |  |
+| `id` | `int` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
+| `name` | `string` | No |  |
+| `node_id` | `string` | No |  |
+| `public_gist` | `int` | No |  |
+| `public_repo` | `int` | No |  |
+| `type` | `string` | No |  |
+| `updated_at` | `string` | No |  |
+| `url` | `string` | No |  |
 
 ### Operations
 
@@ -926,19 +926,19 @@ $result = $client->User()->load(["id" => "user_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -947,7 +947,7 @@ Set the entity match criteria.
 Create a new `UserEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

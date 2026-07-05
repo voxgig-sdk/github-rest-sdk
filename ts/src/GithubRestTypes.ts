@@ -44,9 +44,31 @@ export interface Gist {
   url?: string
 }
 
-export type GistListMatch = Partial<Gist>
+export interface GistListMatch {
+  created_at?: string
+  description?: string
+  file?: Record<string, any>
+  html_url?: string
+  id?: string
+  node_id?: string
+  owner?: Record<string, any>
+  public?: boolean
+  updated_at?: string
+  url?: string
+}
 
-export type GistCreateData = Partial<Gist>
+export interface GistCreateData {
+  created_at?: string
+  description?: string
+  file: Record<string, any>
+  html_url?: string
+  id?: string
+  node_id?: string
+  owner?: Record<string, any>
+  public?: boolean
+  updated_at?: string
+  url?: string
+}
 
 export interface Issue {
   assignee?: any
@@ -100,7 +122,16 @@ export interface Notification {
   url?: string
 }
 
-export type NotificationListMatch = Partial<Notification>
+export interface NotificationListMatch {
+  id?: string
+  last_read_at?: string
+  reason?: string
+  repository?: Record<string, any>
+  subject?: Record<string, any>
+  unread?: boolean
+  updated_at?: string
+  url?: string
+}
 
 export interface Org {
   avatar_url?: string
@@ -166,7 +197,10 @@ export interface RateLimit {
   resource?: Record<string, any>
 }
 
-export type RateLimitLoadMatch = Partial<RateLimit>
+export interface RateLimitLoadMatch {
+  rate?: Record<string, any>
+  resource?: Record<string, any>
+}
 
 export interface Repo {
   created_at?: string
@@ -236,7 +270,39 @@ export interface Search {
   watchers_count?: number
 }
 
-export type SearchListMatch = Partial<Search>
+export interface SearchListMatch {
+  assignee?: any
+  body?: string
+  closed_at?: string
+  comment?: number
+  created_at?: string
+  default_branch?: string
+  description?: string
+  fork?: boolean
+  forks_count?: number
+  full_name?: string
+  html_url?: string
+  id?: number
+  label?: any[]
+  language?: string
+  milestone?: Record<string, any>
+  name?: string
+  node_id?: string
+  number?: number
+  open_issues_count?: number
+  owner?: Record<string, any>
+  private?: boolean
+  pushed_at?: string
+  size?: number
+  stargazers_count?: number
+  state?: string
+  title?: string
+  updated_at?: string
+  url?: string
+  user?: Record<string, any>
+  visibility?: string
+  watchers_count?: number
+}
 
 export interface User {
   avatar_url?: string

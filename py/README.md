@@ -4,6 +4,11 @@
 
 The Python SDK for the GithubRest API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Branch()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `update`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,11 +46,39 @@ error — iterate it directly.
 
 ```python
 try:
-    branchs = client.Branch().list({})
+    branchs = client.Branch().list()
     for branch in branchs:
         print(branch)
 except Exception as err:
     print(f"list failed: {err}")
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    branchs = client.Branch().list()
+    print(branchs)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -66,7 +99,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -92,7 +128,7 @@ Create a mock client for unit testing — no server required:
 client = GithubRestSDK.test()
 
 # Entity ops return the bare record and raise on error.
-branch = client.Branch().load({"id": "test01"})
+branch = client.Branch().list()
 # branch contains the mock response record
 ```
 
@@ -193,7 +229,6 @@ All entities share the same interface.
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
 | `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -483,20 +518,20 @@ Create an instance: `branch = client.Branch()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `commit` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `protected` | ``$BOOLEAN`` |  |
+| `commit` | `dict` |  |
+| `name` | `str` |  |
+| `protected` | `bool` |  |
 
 #### Example: List
 
 ```python
-branchs = client.Branch().list({})
+branchs = client.Branch().list()
 ```
 
 
@@ -508,24 +543,24 @@ Create an instance: `commit = client.Commit()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `author` | ``$OBJECT`` |  |
-| `commit` | ``$OBJECT`` |  |
-| `committer` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `sha` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `author` | `dict` |  |
+| `commit` | `dict` |  |
+| `committer` | `dict` |  |
+| `html_url` | `str` |  |
+| `node_id` | `str` |  |
+| `sha` | `str` |  |
+| `url` | `str` |  |
 
 #### Example: List
 
 ```python
-commits = client.Commit().list({})
+commits = client.Commit().list()
 ```
 
 
@@ -538,34 +573,34 @@ Create an instance: `gist = client.Gist()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `file` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `public` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `created_at` | `str` |  |
+| `description` | `str` |  |
+| `file` | `dict` |  |
+| `html_url` | `str` |  |
+| `id` | `str` |  |
+| `node_id` | `str` |  |
+| `owner` | `dict` |  |
+| `public` | `bool` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
 
 #### Example: List
 
 ```python
-gists = client.Gist().list({})
+gists = client.Gist().list()
 ```
 
 #### Example: Create
 
 ```python
 gist = client.Gist().create({
-    "file": ...,  # `$OBJECT`
+    "file": {},  # dict
 })
 ```
 
@@ -579,7 +614,7 @@ Create an instance: `issue = client.Issue()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `update(data)` | Update an existing entity. |
 
@@ -587,22 +622,22 @@ Create an instance: `issue = client.Issue()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `assignee` | `Any` |  |
+| `body` | `str` |  |
+| `closed_at` | `str` |  |
+| `comment` | `int` |  |
+| `created_at` | `str` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `label` | `list` |  |
+| `milestone` | `dict` |  |
+| `node_id` | `str` |  |
+| `number` | `int` |  |
+| `state` | `str` |  |
+| `title` | `str` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
+| `user` | `dict` |  |
 
 #### Example: Load
 
@@ -613,7 +648,7 @@ issue = client.Issue().load({"id": "issue_id"})
 #### Example: List
 
 ```python
-issues = client.Issue().list({})
+issues = client.Issue().list()
 ```
 
 #### Example: Create
@@ -632,25 +667,25 @@ Create an instance: `notification = client.Notification()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `id` | ``$STRING`` |  |
-| `last_read_at` | ``$STRING`` |  |
-| `reason` | ``$STRING`` |  |
-| `repository` | ``$OBJECT`` |  |
-| `subject` | ``$OBJECT`` |  |
-| `unread` | ``$BOOLEAN`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `id` | `str` |  |
+| `last_read_at` | `str` |  |
+| `reason` | `str` |  |
+| `repository` | `dict` |  |
+| `subject` | `dict` |  |
+| `unread` | `bool` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
 
 #### Example: List
 
 ```python
-notifications = client.Notification().list({})
+notifications = client.Notification().list()
 ```
 
 
@@ -668,23 +703,23 @@ Create an instance: `org = client.Org()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `str` |  |
+| `blog` | `str` |  |
+| `created_at` | `str` |  |
+| `description` | `str` |  |
+| `email` | `str` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `location` | `str` |  |
+| `login` | `str` |  |
+| `name` | `str` |  |
+| `node_id` | `str` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
 
 #### Example: Load
 
@@ -702,29 +737,29 @@ Create an instance: `pull = client.Pull()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | ``$OBJECT`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `draft` | ``$BOOLEAN`` |  |
-| `head` | ``$OBJECT`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `merged_at` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `base` | `dict` |  |
+| `body` | `str` |  |
+| `closed_at` | `str` |  |
+| `created_at` | `str` |  |
+| `draft` | `bool` |  |
+| `head` | `dict` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `merged_at` | `str` |  |
+| `node_id` | `str` |  |
+| `number` | `int` |  |
+| `state` | `str` |  |
+| `title` | `str` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
+| `user` | `dict` |  |
 
 #### Example: Load
 
@@ -735,7 +770,7 @@ pull = client.Pull().load({"id": "pull_id"})
 #### Example: List
 
 ```python
-pulls = client.Pull().list({})
+pulls = client.Pull().list()
 ```
 
 #### Example: Create
@@ -760,13 +795,13 @@ Create an instance: `rate_limit = client.RateLimit()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `rate` | ``$OBJECT`` |  |
-| `resource` | ``$OBJECT`` |  |
+| `rate` | `dict` |  |
+| `resource` | `dict` |  |
 
 #### Example: Load
 
 ```python
-rate_limit = client.RateLimit().load({"id": "rate_limit_id"})
+rate_limit = client.RateLimit().load()
 ```
 
 
@@ -778,45 +813,45 @@ Create an instance: `repo = client.Repo()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `language` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `created_at` | `str` |  |
+| `default_branch` | `str` |  |
+| `description` | `str` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `str` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `language` | `str` |  |
+| `name` | `str` |  |
+| `node_id` | `str` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `dict` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `str` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
+| `visibility` | `str` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: Load
 
 ```python
-repo = client.Repo().load({"id": "repo_id"})
+repo = client.Repo().load()
 ```
 
 #### Example: List
 
 ```python
-repos = client.Repo().list({})
+repos = client.Repo().list()
 ```
 
 
@@ -828,48 +863,48 @@ Create an instance: `search = client.Search()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `assignee` | ``$ANY`` |  |
-| `body` | ``$STRING`` |  |
-| `closed_at` | ``$STRING`` |  |
-| `comment` | ``$INTEGER`` |  |
-| `created_at` | ``$STRING`` |  |
-| `default_branch` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `fork` | ``$BOOLEAN`` |  |
-| `forks_count` | ``$INTEGER`` |  |
-| `full_name` | ``$STRING`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `label` | ``$ARRAY`` |  |
-| `language` | ``$STRING`` |  |
-| `milestone` | ``$OBJECT`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `number` | ``$INTEGER`` |  |
-| `open_issues_count` | ``$INTEGER`` |  |
-| `owner` | ``$OBJECT`` |  |
-| `private` | ``$BOOLEAN`` |  |
-| `pushed_at` | ``$STRING`` |  |
-| `size` | ``$INTEGER`` |  |
-| `stargazers_count` | ``$INTEGER`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
-| `visibility` | ``$STRING`` |  |
-| `watchers_count` | ``$INTEGER`` |  |
+| `assignee` | `Any` |  |
+| `body` | `str` |  |
+| `closed_at` | `str` |  |
+| `comment` | `int` |  |
+| `created_at` | `str` |  |
+| `default_branch` | `str` |  |
+| `description` | `str` |  |
+| `fork` | `bool` |  |
+| `forks_count` | `int` |  |
+| `full_name` | `str` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `label` | `list` |  |
+| `language` | `str` |  |
+| `milestone` | `dict` |  |
+| `name` | `str` |  |
+| `node_id` | `str` |  |
+| `number` | `int` |  |
+| `open_issues_count` | `int` |  |
+| `owner` | `dict` |  |
+| `private` | `bool` |  |
+| `pushed_at` | `str` |  |
+| `size` | `int` |  |
+| `stargazers_count` | `int` |  |
+| `state` | `str` |  |
+| `title` | `str` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
+| `user` | `dict` |  |
+| `visibility` | `str` |  |
+| `watchers_count` | `int` |  |
 
 #### Example: List
 
 ```python
-searchs = client.Search().list({})
+searchs = client.Search().list()
 ```
 
 
@@ -887,25 +922,25 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | ``$STRING`` |  |
-| `bio` | ``$STRING`` |  |
-| `blog` | ``$STRING`` |  |
-| `company` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `follower` | ``$INTEGER`` |  |
-| `following` | ``$INTEGER`` |  |
-| `html_url` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `location` | ``$STRING`` |  |
-| `login` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `node_id` | ``$STRING`` |  |
-| `public_gist` | ``$INTEGER`` |  |
-| `public_repo` | ``$INTEGER`` |  |
-| `type` | ``$STRING`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `url` | ``$STRING`` |  |
+| `avatar_url` | `str` |  |
+| `bio` | `str` |  |
+| `blog` | `str` |  |
+| `company` | `str` |  |
+| `created_at` | `str` |  |
+| `email` | `str` |  |
+| `follower` | `int` |  |
+| `following` | `int` |  |
+| `html_url` | `str` |  |
+| `id` | `int` |  |
+| `location` | `str` |  |
+| `login` | `str` |  |
+| `name` | `str` |  |
+| `node_id` | `str` |  |
+| `public_gist` | `int` |  |
+| `public_repo` | `int` |  |
+| `type` | `str` |  |
+| `updated_at` | `str` |  |
+| `url` | `str` |  |
 
 #### Example: Load
 
@@ -914,12 +949,16 @@ user = client.User().load({"id": "user_id"})
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -936,8 +975,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -980,14 +1020,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 branch = client.Branch()
-branch.load({"id": "example_id"})
+branch.list()
 
-# branch.data_get() now returns the loaded branch data
+# branch.data_get() now returns the branch data from the last list
 # branch.match_get() returns the last match criteria
 ```
 

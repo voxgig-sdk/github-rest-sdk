@@ -17,8 +17,6 @@ go build -o github-rest-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./github-rest-cli list branch
-./github-rest-cli load 1 branch
-./github-rest-cli load '{id:1}' branch
 
 # REPL
 ./github-rest-cli

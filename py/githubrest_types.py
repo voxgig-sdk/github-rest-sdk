@@ -71,10 +71,13 @@ class GistListMatch(TypedDict, total=False):
     url: str
 
 
-class GistCreateData(TypedDict, total=False):
+class GistCreateDataRequired(TypedDict):
+    file: dict
+
+
+class GistCreateData(GistCreateDataRequired, total=False):
     created_at: str
     description: str
-    file: dict
     html_url: str
     id: str
     node_id: str

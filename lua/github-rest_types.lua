@@ -41,8 +41,28 @@
 ---@field url? string
 
 ---@class GistListMatch
+---@field created_at? string
+---@field description? string
+---@field file? table
+---@field html_url? string
+---@field id? string
+---@field node_id? string
+---@field owner? table
+---@field public? boolean
+---@field updated_at? string
+---@field url? string
 
 ---@class GistCreateData
+---@field created_at? string
+---@field description? string
+---@field file table
+---@field html_url? string
+---@field id? string
+---@field node_id? string
+---@field owner? table
+---@field public? boolean
+---@field updated_at? string
+---@field url? string
 
 ---@class Issue
 ---@field assignee? any
@@ -91,6 +111,14 @@
 ---@field url? string
 
 ---@class NotificationListMatch
+---@field id? string
+---@field last_read_at? string
+---@field reason? string
+---@field repository? table
+---@field subject? table
+---@field unread? boolean
+---@field updated_at? string
+---@field url? string
 
 ---@class Org
 ---@field avatar_url? string
@@ -150,6 +178,8 @@
 ---@field resource? table
 
 ---@class RateLimitLoadMatch
+---@field rate? table
+---@field resource? table
 
 ---@class Repo
 ---@field created_at? string
@@ -216,6 +246,37 @@
 ---@field watchers_count? number
 
 ---@class SearchListMatch
+---@field assignee? any
+---@field body? string
+---@field closed_at? string
+---@field comment? number
+---@field created_at? string
+---@field default_branch? string
+---@field description? string
+---@field fork? boolean
+---@field forks_count? number
+---@field full_name? string
+---@field html_url? string
+---@field id? number
+---@field label? table
+---@field language? string
+---@field milestone? table
+---@field name? string
+---@field node_id? string
+---@field number? number
+---@field open_issues_count? number
+---@field owner? table
+---@field private? boolean
+---@field pushed_at? string
+---@field size? number
+---@field stargazers_count? number
+---@field state? string
+---@field title? string
+---@field updated_at? string
+---@field url? string
+---@field user? table
+---@field visibility? string
+---@field watchers_count? number
 
 ---@class User
 ---@field avatar_url? string
