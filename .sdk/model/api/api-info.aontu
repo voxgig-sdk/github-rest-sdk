@@ -26,9 +26,11 @@ main: {
           url: "https://api.github.com"
         }
       ]
+      summary: "The GitHub REST API allows developers to create integrations, retrieve data, and automate workflows on the GitHub platform."
       termsOfService: "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service"
       title: "GitHub REST API"
       version: "2022-11-28"
+      website: "https://github.com"
     }
   }
 }
