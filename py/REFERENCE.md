@@ -375,6 +375,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Issue().create({
+    "owner": "example_owner",  # str
+    "repo": "example_repo",  # str
 })
 ```
 
@@ -393,7 +395,7 @@ for issue in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Issue().load({"id": "issue_id"})
+result = client.Issue().load({"id": 1, "owner": "owner", "repo": "repo"})
 ```
 
 #### `update(reqdata, ctrl=None) -> dict`
@@ -402,7 +404,9 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```python
 result = client.Issue().update({
-    "id": "issue_id",
+    "id": 1,
+    "owner": "owner",
+    "repo": "repo",
     # Fields to update
 })
 ```
@@ -619,6 +623,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Pull().create({
+    "owner": "example_owner",  # str
+    "repo": "example_repo",  # str
 })
 ```
 
@@ -637,7 +643,7 @@ for pull in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Pull().load({"id": "pull_id"})
+result = client.Pull().load({"id": 1, "owner": "owner", "repo": "repo"})
 ```
 
 ### Common Methods
@@ -770,7 +776,7 @@ for repo in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Repo().load()
+result = client.Repo().load({"owner": "owner", "repo": "repo"})
 ```
 
 ### Common Methods

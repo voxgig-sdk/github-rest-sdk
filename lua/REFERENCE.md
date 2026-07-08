@@ -375,6 +375,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Issue():create({
+  owner = --[[ string ]],
+  repo = --[[ string ]],
 })
 ```
 
@@ -391,7 +393,7 @@ local results, err = client:Issue():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Issue():load({ id = "issue_id" })
+local result, err = client:Issue():load({ id = 1, owner = "owner", repo = "repo" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -400,7 +402,9 @@ Update an existing entity. The data must include the entity `id`.
 
 ```lua
 local result, err = client:Issue():update({
-  id = "issue_id",
+  id = 1,
+  owner = "owner",
+  repo = "repo",
   -- Fields to update
 })
 ```
@@ -618,6 +622,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Pull():create({
+  owner = --[[ string ]],
+  repo = --[[ string ]],
 })
 ```
 
@@ -634,7 +640,7 @@ local results, err = client:Pull():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Pull():load({ id = "pull_id" })
+local result, err = client:Pull():load({ id = 1, owner = "owner", repo = "repo" })
 ```
 
 ### Common Methods
@@ -767,7 +773,7 @@ local results, err = client:Repo():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Repo():load()
+local result, err = client:Repo():load({ owner = "owner", repo = "repo" })
 ```
 
 ### Common Methods

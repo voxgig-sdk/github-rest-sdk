@@ -248,7 +248,7 @@ class RepoLoadMatch(TypedDict):
     repo: str
 
 
-class RepoListMatch(TypedDict):
+class RepoListMatch(TypedDict, total=False):
     username: str
     org_id: str
 
@@ -343,5 +343,5 @@ class User(TypedDict, total=False):
     url: str
 
 
-class UserLoadMatch(TypedDict):
+class UserLoadMatch(TypedDict, total=False):
     id: str

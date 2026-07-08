@@ -46,6 +46,20 @@ rescue => err
 end
 ```
 
+### 3. Load an issue
+
+Issue is nested under owner, so provide the `owner`.
+
+```ruby
+begin
+  # load returns the bare Issue record (raises on error).
+  issue = client.Issue.load({ "owner" => "example_owner", "repo" => "example_repo", "id" => 1 })
+  puts issue
+rescue => err
+  warn "load failed: #{err}"
+end
+```
+
 
 ## Error handling
 
@@ -639,7 +653,7 @@ Create an instance: `issue = client.Issue`
 
 ```ruby
 # load returns the bare Issue record (raises on error).
-issue = client.Issue.load({ "id" => "issue_id" })
+issue = client.Issue.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
 #### Example: List
@@ -653,6 +667,8 @@ issues = client.Issue.list
 
 ```ruby
 issue = client.Issue.create({
+  "owner" => "example_owner", # String
+  "repo" => "example_repo", # String
 })
 ```
 
@@ -765,7 +781,7 @@ Create an instance: `pull = client.Pull`
 
 ```ruby
 # load returns the bare Pull record (raises on error).
-pull = client.Pull.load({ "id" => "pull_id" })
+pull = client.Pull.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
 #### Example: List
@@ -779,6 +795,8 @@ pulls = client.Pull.list
 
 ```ruby
 pull = client.Pull.create({
+  "owner" => "example_owner", # String
+  "repo" => "example_repo", # String
 })
 ```
 
@@ -849,7 +867,7 @@ Create an instance: `repo = client.Repo`
 
 ```ruby
 # load returns the bare Repo record (raises on error).
-repo = client.Repo.load()
+repo = client.Repo.load({ "owner" => "owner", "repo" => "repo" })
 ```
 
 #### Example: List

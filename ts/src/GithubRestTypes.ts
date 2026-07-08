@@ -232,8 +232,8 @@ export interface RepoLoadMatch {
 }
 
 export interface RepoListMatch {
-  username: string
-  org_id: string
+  username?: string
+  org_id?: string
 }
 
 export interface Search {
@@ -327,6 +327,6 @@ export interface User {
 }
 
 export interface UserLoadMatch {
-  id: string
+  id?: string
 }
 

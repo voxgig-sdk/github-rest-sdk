@@ -53,6 +53,19 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
+### 3. Load an issue
+
+Issue is nested under owner, so provide the `owner`.
+`load()` returns the bare record (a `dict`) and raises on error.
+
+```python
+try:
+    issue = client.Issue().load({"owner": "example_owner", "repo": "example_repo", "id": 1})
+    print(issue)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
 
 ## Error handling
 
@@ -642,7 +655,7 @@ Create an instance: `issue = client.Issue()`
 #### Example: Load
 
 ```python
-issue = client.Issue().load({"id": "issue_id"})
+issue = client.Issue().load({"id": 1, "owner": "owner", "repo": "repo"})
 ```
 
 #### Example: List
@@ -655,6 +668,8 @@ issues = client.Issue().list()
 
 ```python
 issue = client.Issue().create({
+    "owner": "example_owner",  # str
+    "repo": "example_repo",  # str
 })
 ```
 
@@ -764,7 +779,7 @@ Create an instance: `pull = client.Pull()`
 #### Example: Load
 
 ```python
-pull = client.Pull().load({"id": "pull_id"})
+pull = client.Pull().load({"id": 1, "owner": "owner", "repo": "repo"})
 ```
 
 #### Example: List
@@ -777,6 +792,8 @@ pulls = client.Pull().list()
 
 ```python
 pull = client.Pull().create({
+    "owner": "example_owner",  # str
+    "repo": "example_repo",  # str
 })
 ```
 
@@ -845,7 +862,7 @@ Create an instance: `repo = client.Repo()`
 #### Example: Load
 
 ```python
-repo = client.Repo().load()
+repo = client.Repo().load({"owner": "owner", "repo": "repo"})
 ```
 
 #### Example: List

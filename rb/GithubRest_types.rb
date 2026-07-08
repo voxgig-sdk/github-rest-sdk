@@ -747,10 +747,10 @@ RepoLoadMatch = Struct.new(
 # Request payload for Repo#list.
 #
 # @!attribute [rw] username
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] org_id
-#   @return [String]
+#   @return [String, nil]
 RepoListMatch = Struct.new(
   :username,
   :org_id,
@@ -1099,7 +1099,7 @@ User = Struct.new(
 # Request payload for User#load.
 #
 # @!attribute [rw] id
-#   @return [String]
+#   @return [String, nil]
 UserLoadMatch = Struct.new(
   :id,
   keyword_init: true

@@ -49,6 +49,16 @@ for _, item in ipairs(branchs) do
 end
 ```
 
+### 3. Load an issue
+
+Issue is nested under owner, so provide the `owner`.
+
+```lua
+local issue, err = client:Issue():load({ owner = "example_owner", repo = "example_repo", id = 1 })
+if err then error(err) end
+print(issue)
+```
+
 
 ## Error handling
 
@@ -589,7 +599,7 @@ local gists, err = client:Gist():list()
 
 ```lua
 local gist, err = client:Gist():create({
-  file = nil, -- table
+  file = {}, -- table
 })
 ```
 
@@ -631,7 +641,7 @@ Create an instance: `local issue = client:Issue(nil)`
 #### Example: Load
 
 ```lua
-local issue, err = client:Issue():load({ id = "issue_id" })
+local issue, err = client:Issue():load({ id = 1, owner = "owner", repo = "repo" })
 ```
 
 #### Example: List
@@ -644,6 +654,8 @@ local issues, err = client:Issue():list()
 
 ```lua
 local issue, err = client:Issue():create({
+  owner = "example_owner", -- string
+  repo = "example_repo", -- string
 })
 ```
 
@@ -753,7 +765,7 @@ Create an instance: `local pull = client:Pull(nil)`
 #### Example: Load
 
 ```lua
-local pull, err = client:Pull():load({ id = "pull_id" })
+local pull, err = client:Pull():load({ id = 1, owner = "owner", repo = "repo" })
 ```
 
 #### Example: List
@@ -766,6 +778,8 @@ local pulls, err = client:Pull():list()
 
 ```lua
 local pull, err = client:Pull():create({
+  owner = "example_owner", -- string
+  repo = "example_repo", -- string
 })
 ```
 
@@ -834,7 +848,7 @@ Create an instance: `local repo = client:Repo(nil)`
 #### Example: Load
 
 ```lua
-local repo, err = client:Repo():load()
+local repo, err = client:Repo():load({ owner = "owner", repo = "repo" })
 ```
 
 #### Example: List

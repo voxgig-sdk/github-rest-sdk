@@ -599,8 +599,8 @@ Create an instance: `gist := client.Gist(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -633,6 +633,10 @@ fmt.Println(gists) // the array of records
 result, err := client.Gist(nil).Create(map[string]any{
     "file": /* map[string]any */,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -644,9 +648,9 @@ Create an instance: `issue := client.Issue(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Update(data, ctrl)` | Update an existing entity. |
 
 #### Fields
@@ -673,7 +677,7 @@ Create an instance: `issue := client.Issue(nil)`
 #### Example: Load
 
 ```go
-issue, err := client.Issue(nil).Load(map[string]any{"id": "issue_id"}, nil)
+issue, err := client.Issue(nil).Load(map[string]any{"id": 1, "owner": "owner", "repo": "repo"}, nil)
 if err != nil {
     panic(err)
 }
@@ -694,7 +698,13 @@ fmt.Println(issues) // the array of records
 
 ```go
 result, err := client.Issue(nil).Create(map[string]any{
+    "owner": /* string */,
+    "repo": /* string */,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -783,9 +793,9 @@ Create an instance: `pull := client.Pull(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -811,7 +821,7 @@ Create an instance: `pull := client.Pull(nil)`
 #### Example: Load
 
 ```go
-pull, err := client.Pull(nil).Load(map[string]any{"id": "pull_id"}, nil)
+pull, err := client.Pull(nil).Load(map[string]any{"id": 1, "owner": "owner", "repo": "repo"}, nil)
 if err != nil {
     panic(err)
 }
@@ -832,13 +842,19 @@ fmt.Println(pulls) // the array of records
 
 ```go
 result, err := client.Pull(nil).Create(map[string]any{
+    "owner": /* string */,
+    "repo": /* string */,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
 ### RateLimit
 
-Create an instance: `rate_limit := client.RateLimit(nil)`
+Create an instance: `rateLimit := client.RateLimit(nil)`
 
 #### Operations
 
@@ -856,11 +872,11 @@ Create an instance: `rate_limit := client.RateLimit(nil)`
 #### Example: Load
 
 ```go
-rate_limit, err := client.RateLimit(nil).Load(nil, nil)
+rateLimit, err := client.RateLimit(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(rate_limit) // the loaded record
+fmt.Println(rateLimit) // the loaded record
 ```
 
 
@@ -904,7 +920,7 @@ Create an instance: `repo := client.Repo(nil)`
 #### Example: Load
 
 ```go
-repo, err := client.Repo(nil).Load(nil, nil)
+repo, err := client.Repo(nil).Load(map[string]any{"owner": "owner", "repo": "repo"}, nil)
 if err != nil {
     panic(err)
 }

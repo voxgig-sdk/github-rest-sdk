@@ -475,6 +475,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Issue().create({
+  owner: /* string */,
+  repo: /* string */,
 })
 ```
 
@@ -491,7 +493,7 @@ const results = await client.Issue().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Issue().load({ id: 1 })
+const result = await client.Issue().load({ id: 1, owner: 'owner', repo: 'repo' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -501,6 +503,8 @@ Update an existing entity. The data must include the entity `id`.
 ```ts
 const result = await client.Issue().update({
   id: 1,
+  owner: 'owner',
+  repo: 'repo',
   // Fields to update
 })
 ```
@@ -712,6 +716,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Pull().create({
+  owner: /* string */,
+  repo: /* string */,
 })
 ```
 
@@ -728,7 +734,7 @@ const results = await client.Pull().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Pull().load({ id: 1 })
+const result = await client.Pull().load({ id: 1, owner: 'owner', repo: 'repo' })
 ```
 
 ### Common Methods
@@ -857,7 +863,7 @@ const results = await client.Repo().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Repo().load()
+const result = await client.Repo().load({ owner: 'owner', repo: 'repo' })
 ```
 
 ### Common Methods

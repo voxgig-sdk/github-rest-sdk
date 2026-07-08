@@ -289,8 +289,8 @@ class RepoLoadMatch
 /** Request payload for Repo#list. */
 class RepoListMatch
 {
-    public string $username;
-    public string $org_id;
+    public ?string $username = null;
+    public ?string $org_id = null;
 }
 
 /** Search entity data model. */
@@ -392,6 +392,6 @@ class User
 /** Request payload for User#load. */
 class UserLoadMatch
 {
-    public string $id;
+    public ?string $id = null;
 }
 

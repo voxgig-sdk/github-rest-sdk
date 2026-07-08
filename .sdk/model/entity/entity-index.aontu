@@ -1,0 +1,13 @@
+# Entity Models
+
+@"branch.aontu"
+@"commit.aontu"
+@"gist.aontu"
+@"issue.aontu"
+@"notification.aontu"
+@"org.aontu"
+@"pull.aontu"
+@"rate_limit.aontu"
+@"repo.aontu"
+@"search.aontu"
+@"user.aontu"

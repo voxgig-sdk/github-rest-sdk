@@ -47,6 +47,24 @@ for (const branch of branchs) {
 }
 ```
 
+### 3. Load an issue
+
+Issue is nested under owner, so provide the `owner`.
+`load()` returns the entity directly and throws on failure:
+
+```ts
+try {
+  const issue = await client.Issue().load({
+    owner: 'example_owner',
+    repo: 'example_repo',
+    id: 1,
+  })
+  console.log(issue)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
 
 ## Error handling
 
@@ -686,7 +704,7 @@ Create an instance: `const issue = client.Issue()`
 #### Example: Load
 
 ```ts
-const issue = await client.Issue().load({ id: 1 })
+const issue = await client.Issue().load({ id: 1, owner: 'owner', repo: 'repo' })
 ```
 
 #### Example: List
@@ -699,6 +717,8 @@ const issues = await client.Issue().list()
 
 ```ts
 const issue = await client.Issue().create({
+  owner: /* string */,
+  repo: /* string */,
 })
 ```
 
@@ -808,7 +828,7 @@ Create an instance: `const pull = client.Pull()`
 #### Example: Load
 
 ```ts
-const pull = await client.Pull().load({ id: 1 })
+const pull = await client.Pull().load({ id: 1, owner: 'owner', repo: 'repo' })
 ```
 
 #### Example: List
@@ -821,6 +841,8 @@ const pulls = await client.Pull().list()
 
 ```ts
 const pull = await client.Pull().create({
+  owner: /* string */,
+  repo: /* string */,
 })
 ```
 
@@ -889,7 +911,7 @@ Create an instance: `const repo = client.Repo()`
 #### Example: Load
 
 ```ts
-const repo = await client.Repo().load()
+const repo = await client.Repo().load({ owner: 'owner', repo: 'repo' })
 ```
 
 #### Example: List

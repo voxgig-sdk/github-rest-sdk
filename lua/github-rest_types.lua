@@ -209,8 +209,8 @@
 ---@field repo string
 
 ---@class RepoListMatch
----@field username string
----@field org_id string
+---@field username? string
+---@field org_id? string
 
 ---@class Search
 ---@field assignee? any
@@ -300,7 +300,7 @@
 ---@field url? string
 
 ---@class UserLoadMatch
----@field id string
+---@field id? string
 
 local M = {}
 

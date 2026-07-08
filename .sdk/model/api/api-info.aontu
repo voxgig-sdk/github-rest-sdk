@@ -13,6 +13,13 @@ main: {
         name: "MIT"
         url: "https://opensource.org/licenses/MIT"
       }
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "BearerAuth"
+        type: "http"
+      }
       servers: [
         {
           description: "GitHub REST API v3"

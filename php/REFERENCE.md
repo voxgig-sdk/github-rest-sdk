@@ -377,6 +377,8 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Issue()->create([
+  "owner" => null, // string
+  "repo" => null, // string
 ]);
 ```
 
@@ -393,7 +395,7 @@ $results = $client->Issue()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Issue()->load(["id" => "issue_id"]);
+$result = $client->Issue()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -402,7 +404,9 @@ Update an existing entity. The data must include the entity `id`. Throws on erro
 
 ```php
 $result = $client->Issue()->update([
-  "id" => "issue_id",
+  "id" => 1,
+  "owner" => "owner",
+  "repo" => "repo",
   // Fields to update
 ]);
 ```
@@ -620,6 +624,8 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Pull()->create([
+  "owner" => null, // string
+  "repo" => null, // string
 ]);
 ```
 
@@ -636,7 +642,7 @@ $results = $client->Pull()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Pull()->load(["id" => "pull_id"]);
+$result = $client->Pull()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
 ### Common Methods
@@ -769,7 +775,7 @@ $results = $client->Repo()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Repo()->load();
+$result = $client->Repo()->load(["owner" => "owner", "repo" => "repo"]);
 ```
 
 ### Common Methods

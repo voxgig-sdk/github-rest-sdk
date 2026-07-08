@@ -48,6 +48,14 @@ const branchs = await client.Branch().list()
 for (const branch of branchs) {
   console.log(branch)
 }
+
+// Load a specific issue (returns a Issue)
+const issue = await client.Issue().load({
+  owner: 'example_owner',
+  repo: 'example_repo',
+  id: 1,
+})
+console.log(issue)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -147,7 +155,19 @@ client := sdk.NewGithubRestSDK(map[string]any{
 
 // List all branchs
 branchs, err := client.Branch(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
 fmt.Println(branchs)
+
+// Load a specific issue
+issue, err := client.Issue(nil).Load(
+    map[string]any{"owner": "example_owner", "repo": "example_repo", "id": 1}, nil,
+)
+if err != nil {
+    panic(err)
+}
+fmt.Println(issue)
 ```
 
 ### Ruby
@@ -187,17 +207,17 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = GithubRestSDK.test()
-const branch = await client.Branch().list()
-// branch is a bare Branch populated with mock data
-console.log(branch)
+const branchs = await client.Branch().list()
+// branchs is an array of bare Branch records populated with mock data
+console.log(branchs)
 ```
 
 ### Python
 
 ```python
 client = GithubRestSDK.test()
-branch = client.Branch().list()
-print(branch)
+branchs = client.Branch().list()
+print(branchs)
 ```
 
 ### PHP
@@ -207,7 +227,7 @@ print(branch)
 $client = GithubRestSDK::test([
     "entity" => ["branch" => ["test01" => []]],
 ]);
-$branch = $client->Branch()->list();
+$branchs = $client->Branch()->list();
 ```
 
 ### Golang
@@ -226,14 +246,14 @@ result, err := client.Branch(nil).List(
 client = GithubRestSDK.test({
   "entity" => { "branch" => { "test01" => {} } },
 })
-branch = client.Branch.list()
+branchs = client.Branch.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Branch():list()
+local results, err = client:Branch():list()
 ```
 
 ## Direct and prepare
@@ -290,6 +310,10 @@ result, err := client.Direct(map[string]any{
     "method": "GET",
     "params": map[string]any{"id": "example"},
 })
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 **Ruby:**

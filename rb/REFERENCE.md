@@ -378,6 +378,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Issue.create({
+  "owner" => "example_owner", # String
+  "repo" => "example_repo", # String
 })
 ```
 
@@ -394,7 +396,7 @@ results = client.Issue.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Issue.load({ "id" => "issue_id" })
+result = client.Issue.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -403,7 +405,9 @@ Update an existing entity. The data must include the entity `id`. Raises on erro
 
 ```ruby
 result = client.Issue.update({
-  "id" => "issue_id",
+  "id" => 1,
+  "owner" => "owner",
+  "repo" => "repo",
   # Fields to update
 })
 ```
@@ -621,6 +625,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Pull.create({
+  "owner" => "example_owner", # String
+  "repo" => "example_repo", # String
 })
 ```
 
@@ -637,7 +643,7 @@ results = client.Pull.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Pull.load({ "id" => "pull_id" })
+result = client.Pull.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
 ### Common Methods
@@ -770,7 +776,7 @@ results = client.Repo.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Repo.load()
+result = client.Repo.load({ "owner" => "owner", "repo" => "repo" })
 ```
 
 ### Common Methods

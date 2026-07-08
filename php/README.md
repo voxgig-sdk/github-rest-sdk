@@ -47,6 +47,20 @@ try {
 }
 ```
 
+### 3. Load an issue
+
+Issue is nested under owner, so provide the `owner`.
+
+```php
+try {
+    // load() returns the bare Issue record (throws on error).
+    $issue = $client->Issue()->load(["owner" => "example_owner", "repo" => "example_repo", "id" => 1]);
+    print_r($issue);
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
 
 ## Error handling
 
@@ -649,7 +663,7 @@ Create an instance: `$issue = $client->Issue();`
 
 ```php
 // load() returns the bare Issue record (throws on error).
-$issue = $client->Issue()->load(["id" => "issue_id"]);
+$issue = $client->Issue()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
 #### Example: List
@@ -663,6 +677,8 @@ $issues = $client->Issue()->list();
 
 ```php
 $issue = $client->Issue()->create([
+    "owner" => null, // string
+    "repo" => null, // string
 ]);
 ```
 
@@ -775,7 +791,7 @@ Create an instance: `$pull = $client->Pull();`
 
 ```php
 // load() returns the bare Pull record (throws on error).
-$pull = $client->Pull()->load(["id" => "pull_id"]);
+$pull = $client->Pull()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
 #### Example: List
@@ -789,6 +805,8 @@ $pulls = $client->Pull()->list();
 
 ```php
 $pull = $client->Pull()->create([
+    "owner" => null, // string
+    "repo" => null, // string
 ]);
 ```
 
@@ -859,7 +877,7 @@ Create an instance: `$repo = $client->Repo();`
 
 ```php
 // load() returns the bare Repo record (throws on error).
-$repo = $client->Repo()->load();
+$repo = $client->Repo()->load(["owner" => "owner", "repo" => "repo"]);
 ```
 
 #### Example: List
