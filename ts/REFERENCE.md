@@ -379,7 +379,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Gist().create({
-  file: /* Record<string, any> */,
+  file: {},
 })
 ```
 
@@ -475,8 +475,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Issue().create({
-  owner: /* string */,
-  repo: /* string */,
+  owner: 'example_owner',
+  repo: 'example_repo',
 })
 ```
 
@@ -716,8 +716,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Pull().create({
-  owner: /* string */,
-  repo: /* string */,
+  owner: 'example_owner',
+  repo: 'example_repo',
 })
 ```
 

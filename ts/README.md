@@ -662,7 +662,7 @@ const gists = await client.Gist().list()
 
 ```ts
 const gist = await client.Gist().create({
-  file: /* Record<string, any> */,
+  file: {},
 })
 ```
 
@@ -717,8 +717,8 @@ const issues = await client.Issue().list()
 
 ```ts
 const issue = await client.Issue().create({
-  owner: /* string */,
-  repo: /* string */,
+  owner: 'example_owner',
+  repo: 'example_repo',
 })
 ```
 
@@ -841,8 +841,8 @@ const pulls = await client.Pull().list()
 
 ```ts
 const pull = await client.Pull().create({
-  owner: /* string */,
-  repo: /* string */,
+  owner: 'example_owner',
+  repo: 'example_repo',
 })
 ```
 

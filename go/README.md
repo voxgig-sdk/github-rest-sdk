@@ -631,7 +631,7 @@ fmt.Println(gists) // the array of records
 
 ```go
 result, err := client.Gist(nil).Create(map[string]any{
-    "file": /* map[string]any */,
+    "file": map[string]any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -698,8 +698,8 @@ fmt.Println(issues) // the array of records
 
 ```go
 result, err := client.Issue(nil).Create(map[string]any{
-    "owner": /* string */,
-    "repo": /* string */,
+    "owner": "example_owner",
+    "repo": "example_repo",
 }, nil)
 if err != nil {
     panic(err)
@@ -842,8 +842,8 @@ fmt.Println(pulls) // the array of records
 
 ```go
 result, err := client.Pull(nil).Create(map[string]any{
-    "owner": /* string */,
-    "repo": /* string */,
+    "owner": "example_owner",
+    "repo": "example_repo",
 }, nil)
 if err != nil {
     panic(err)

@@ -1,6 +1,15 @@
 {
+  "NAME": "GITHUB-REST",
+  "Name": "GithubRest",
   "def": "github-rest_0.1.0.json",
   "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
     "def": {
       "desc": ""
     },
@@ -3341,5 +3350,8 @@
     }
   },
   "name": "github-rest",
+  "name-": "github-rest",
+  "name_": "github_rest",
+  "name__orig": "github-rest",
   "origin": "voxgig-sdk"
 }
