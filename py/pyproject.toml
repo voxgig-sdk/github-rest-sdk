@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "voxgig-sdk-github-rest"
-version = "0.0.2"
+version = "0.0.5"
 description = "Unofficial generated Python SDK for the GitHub REST public API. Not affiliated with or endorsed by the upstream API provider."
 readme = "README.md"
 license = "MIT"
