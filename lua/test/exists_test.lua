@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- GithubRest SDK exists test
 
 local sdk = require("github-rest_sdk")
 
