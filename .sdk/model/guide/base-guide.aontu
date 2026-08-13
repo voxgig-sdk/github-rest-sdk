@@ -73,6 +73,7 @@ guide: {
     }
     path: "/repos/{owner}/{repo}": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.owner`")|top
     }
     path: "/users/{username}/repos": {
       op: list: method: *GET
@@ -83,10 +84,12 @@ guide: {
     path: "/search/issues": {
       action: "issue": {}
       op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
     }
     path: "/search/repositories": {
       action: "repository": {}
       op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
     }
   }
 

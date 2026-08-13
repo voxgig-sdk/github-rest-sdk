@@ -26,8 +26,8 @@ import {
 describe('NotificationEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -63,7 +63,7 @@ describe('NotificationEntity', async () => {
     const notification_ref01_ent = client.Notification()
     const notification_ref01_match: any = {}
 
-    const notification_ref01_list = await notification_ref01_ent.list(notification_ref01_match)
+    const notification_ref01_list = (await notification_ref01_ent.list(notification_ref01_match)).map((e: any) => e.data())
 
 
   })

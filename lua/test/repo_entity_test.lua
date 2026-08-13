@@ -70,7 +70,7 @@ describe("RepoEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set GITHUBREST_TEST_REPO_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set GITHUB_REST_TEST_REPO_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -99,7 +99,7 @@ describe("RepoEntity", function()
     }
     local repo_ref01_data_dt0_loaded, err = repo_ref01_ent:load(repo_ref01_match_dt0, nil)
     assert.is_nil(err)
-    local repo_ref01_data_dt0_load_result = helpers.to_map(repo_ref01_data_dt0_loaded)
+    local repo_ref01_data_dt0_load_result = helpers.to_map(type(repo_ref01_data_dt0_loaded) == 'table' and repo_ref01_data_dt0_loaded.data_get and repo_ref01_data_dt0_loaded:data_get() or repo_ref01_data_dt0_loaded)
     assert.is_not_nil(repo_ref01_data_dt0_load_result)
     assert.are.equal(repo_ref01_data_dt0_load_result["id"], repo_ref01_data["id"])
 
@@ -138,39 +138,39 @@ function repo_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("GITHUBREST_TEST_REPO_ENTID")
+  local entid_env_raw = os.getenv("GITHUB_REST_TEST_REPO_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["GITHUBREST_TEST_REPO_ENTID"] = idmap,
-    ["GITHUBREST_TEST_LIVE"] = "FALSE",
-    ["GITHUBREST_TEST_EXPLAIN"] = "FALSE",
-    ["GITHUBREST_APIKEY"] = "NONE",
+    ["GITHUB_REST_TEST_REPO_ENTID"] = idmap,
+    ["GITHUB_REST_TEST_LIVE"] = "FALSE",
+    ["GITHUB_REST_TEST_EXPLAIN"] = "FALSE",
+    ["GITHUB_REST_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["GITHUBREST_TEST_REPO_ENTID"])
+    env["GITHUB_REST_TEST_REPO_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["GITHUBREST_TEST_LIVE"] == "TRUE" then
+  if env["GITHUB_REST_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["GITHUBREST_APIKEY"],
+        apikey = env["GITHUB_REST_APIKEY"],
       },
       extra or {},
     })
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["GITHUBREST_TEST_LIVE"] == "TRUE"
+  local live = env["GITHUB_REST_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["GITHUBREST_TEST_EXPLAIN"] == "TRUE",
+    explain = env["GITHUB_REST_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

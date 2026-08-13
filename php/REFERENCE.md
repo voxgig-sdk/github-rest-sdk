@@ -247,7 +247,7 @@ $gist = $client->Gist();
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
-| `file` | `array` | Yes |  |
+| `files` | `array` | Yes |  |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
@@ -262,7 +262,7 @@ $gist = $client->Gist();
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -279,7 +279,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Gist()->create([
-  "file" => null, // array
+  "files" => null, // array
 ]);
 ```
 
@@ -332,13 +332,14 @@ $issue = $client->Issue();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `mixed` | No |  |
+| `assignees` | `array` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
-| `label` | `array` | No |  |
+| `labels` | `array` | No |  |
 | `milestone` | `array` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `int` | No |  |
@@ -353,13 +354,14 @@ $issue = $client->Issue();
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -515,7 +517,7 @@ $org = $client->Org();
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
@@ -523,8 +525,8 @@ $org = $client->Org();
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -686,7 +688,7 @@ $rate_limit = $client->RateLimit();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `array` | No |  |
-| `resource` | `array` | No |  |
+| `resources` | `array` | No |  |
 
 ### Operations
 
@@ -738,23 +740,35 @@ $repo = $client->Repo();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `followers` | `int` | No |  |
+| `following` | `int` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
 | `language` | `string` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `array` | No |  |
 | `private` | `bool` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `pushed_at` | `string` | No |  |
 | `size` | `int` | No |  |
 | `stargazers_count` | `int` | No |  |
+| `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `visibility` | `string` | No |  |
@@ -819,9 +833,10 @@ $search = $client->Search();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `mixed` | No |  |
+| `assignees` | `array` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
@@ -830,7 +845,7 @@ $search = $client->Search();
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
-| `label` | `array` | No |  |
+| `labels` | `array` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `array` | No |  |
 | `name` | `string` | No |  |
@@ -906,7 +921,7 @@ $user = $client->User();
 | `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
@@ -914,8 +929,8 @@ $user = $client->User();
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |

@@ -26,8 +26,8 @@ import {
 describe('GistEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -62,14 +62,14 @@ describe('GistEntity', async () => {
     const gist_ref01_ent = client.Gist()
     let gist_ref01_data = setup.data.new.gist['gist_ref01']
 
-    gist_ref01_data = await gist_ref01_ent.create(gist_ref01_data)
+    gist_ref01_data = (await gist_ref01_ent.create(gist_ref01_data)).data()
     assert(null != gist_ref01_data.id)
 
 
     // LIST
     const gist_ref01_match: any = {}
 
-    const gist_ref01_list = await gist_ref01_ent.list(gist_ref01_match)
+    const gist_ref01_list = (await gist_ref01_ent.list(gist_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(gist_ref01_list, { id: gist_ref01_data.id })))
 

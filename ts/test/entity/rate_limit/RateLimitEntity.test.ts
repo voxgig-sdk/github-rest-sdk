@@ -26,8 +26,8 @@ import {
 describe('RateLimitEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -62,7 +62,7 @@ describe('RateLimitEntity', async () => {
     // LOAD
     const rate_limit_ref01_ent = client.RateLimit()
     const rate_limit_ref01_match_dt0: any = {}
-    const rate_limit_ref01_data_dt0 = await rate_limit_ref01_ent.load(rate_limit_ref01_match_dt0)
+    const rate_limit_ref01_data_dt0 = (await rate_limit_ref01_ent.load(rate_limit_ref01_match_dt0)).data()
     assert(null != rate_limit_ref01_data_dt0)
 
 

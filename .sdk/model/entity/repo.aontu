@@ -6,6 +6,26 @@ main: kit: entity: repo: {
 
   fields: [
     {
+      name: "avatar_url"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "bio"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "blog"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "company"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -19,6 +39,21 @@ main: kit: entity: repo: {
       name: "description"
       req: false
       type: "`$STRING`"
+    }
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "followers"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "following"
+      req: false
+      type: "`$INTEGER`"
     }
     {
       name: "fork"
@@ -51,6 +86,16 @@ main: kit: entity: repo: {
       type: "`$STRING`"
     }
     {
+      name: "location"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "login"
+      req: false
+      type: "`$STRING`"
+    }
+    {
       name: "name"
       req: false
       type: "`$STRING`"
@@ -76,6 +121,16 @@ main: kit: entity: repo: {
       type: "`$BOOLEAN`"
     }
     {
+      name: "public_gists"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "public_repos"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
       name: "pushed_at"
       req: false
       type: "`$STRING`"
@@ -89,6 +144,11 @@ main: kit: entity: repo: {
       name: "stargazers_count"
       req: false
       type: "`$INTEGER`"
+    }
+    {
+      name: "type"
+      req: false
+      type: "`$STRING`"
     }
     {
       name: "updated_at"
@@ -300,7 +360,7 @@ main: kit: entity: repo: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.owner`"
           }
         }
       ]

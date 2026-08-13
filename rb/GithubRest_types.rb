@@ -92,7 +92,7 @@ CommitListMatch = Struct.new(
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] file
+# @!attribute [rw] files
 #   @return [Hash]
 #
 # @!attribute [rw] html_url
@@ -118,7 +118,7 @@ CommitListMatch = Struct.new(
 Gist = Struct.new(
   :created_at,
   :description,
-  :file,
+  :files,
   :html_url,
   :id,
   :node_id,
@@ -137,7 +137,7 @@ Gist = Struct.new(
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] file
+# @!attribute [rw] files
 #   @return [Hash, nil]
 #
 # @!attribute [rw] html_url
@@ -163,7 +163,7 @@ Gist = Struct.new(
 GistListMatch = Struct.new(
   :created_at,
   :description,
-  :file,
+  :files,
   :html_url,
   :id,
   :node_id,
@@ -182,7 +182,7 @@ GistListMatch = Struct.new(
 # @!attribute [rw] description
 #   @return [String, nil]
 #
-# @!attribute [rw] file
+# @!attribute [rw] files
 #   @return [Hash]
 #
 # @!attribute [rw] html_url
@@ -208,7 +208,7 @@ GistListMatch = Struct.new(
 GistCreateData = Struct.new(
   :created_at,
   :description,
-  :file,
+  :files,
   :html_url,
   :id,
   :node_id,
@@ -224,13 +224,16 @@ GistCreateData = Struct.new(
 # @!attribute [rw] assignee
 #   @return [Object, nil]
 #
+# @!attribute [rw] assignees
+#   @return [Array, nil]
+#
 # @!attribute [rw] body
 #   @return [String, nil]
 #
 # @!attribute [rw] closed_at
 #   @return [String, nil]
 #
-# @!attribute [rw] comment
+# @!attribute [rw] comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] created_at
@@ -242,7 +245,7 @@ GistCreateData = Struct.new(
 # @!attribute [rw] id
 #   @return [Integer, nil]
 #
-# @!attribute [rw] label
+# @!attribute [rw] labels
 #   @return [Array, nil]
 #
 # @!attribute [rw] milestone
@@ -270,13 +273,14 @@ GistCreateData = Struct.new(
 #   @return [Hash, nil]
 Issue = Struct.new(
   :assignee,
+  :assignees,
   :body,
   :closed_at,
-  :comment,
+  :comments,
   :created_at,
   :html_url,
   :id,
-  :label,
+  :labels,
   :milestone,
   :node_id,
   :number,
@@ -325,9 +329,77 @@ IssueListMatch = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] assignee
+#   @return [Object, nil]
+#
+# @!attribute [rw] assignees
+#   @return [Array, nil]
+#
+# @!attribute [rw] body
+#   @return [String, nil]
+#
+# @!attribute [rw] closed_at
+#   @return [String, nil]
+#
+# @!attribute [rw] comments
+#   @return [Integer, nil]
+#
+# @!attribute [rw] created_at
+#   @return [String, nil]
+#
+# @!attribute [rw] html_url
+#   @return [String, nil]
+#
+# @!attribute [rw] id
+#   @return [Integer, nil]
+#
+# @!attribute [rw] labels
+#   @return [Array, nil]
+#
+# @!attribute [rw] milestone
+#   @return [Hash, nil]
+#
+# @!attribute [rw] node_id
+#   @return [String, nil]
+#
+# @!attribute [rw] number
+#   @return [Integer, nil]
+#
+# @!attribute [rw] state
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] updated_at
+#   @return [String, nil]
+#
+# @!attribute [rw] url
+#   @return [String, nil]
+#
+# @!attribute [rw] user
+#   @return [Hash, nil]
 IssueCreateData = Struct.new(
   :owner,
   :repo,
+  :assignee,
+  :assignees,
+  :body,
+  :closed_at,
+  :comments,
+  :created_at,
+  :html_url,
+  :id,
+  :labels,
+  :milestone,
+  :node_id,
+  :number,
+  :state,
+  :title,
+  :updated_at,
+  :url,
+  :user,
   keyword_init: true
 )
 
@@ -341,10 +413,74 @@ IssueCreateData = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] assignee
+#   @return [Object, nil]
+#
+# @!attribute [rw] assignees
+#   @return [Array, nil]
+#
+# @!attribute [rw] body
+#   @return [String, nil]
+#
+# @!attribute [rw] closed_at
+#   @return [String, nil]
+#
+# @!attribute [rw] comments
+#   @return [Integer, nil]
+#
+# @!attribute [rw] created_at
+#   @return [String, nil]
+#
+# @!attribute [rw] html_url
+#   @return [String, nil]
+#
+# @!attribute [rw] labels
+#   @return [Array, nil]
+#
+# @!attribute [rw] milestone
+#   @return [Hash, nil]
+#
+# @!attribute [rw] node_id
+#   @return [String, nil]
+#
+# @!attribute [rw] number
+#   @return [Integer, nil]
+#
+# @!attribute [rw] state
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] updated_at
+#   @return [String, nil]
+#
+# @!attribute [rw] url
+#   @return [String, nil]
+#
+# @!attribute [rw] user
+#   @return [Hash, nil]
 IssueUpdateData = Struct.new(
   :id,
   :owner,
   :repo,
+  :assignee,
+  :assignees,
+  :body,
+  :closed_at,
+  :comments,
+  :created_at,
+  :html_url,
+  :labels,
+  :milestone,
+  :node_id,
+  :number,
+  :state,
+  :title,
+  :updated_at,
+  :url,
+  :user,
   keyword_init: true
 )
 
@@ -439,7 +575,7 @@ NotificationListMatch = Struct.new(
 # @!attribute [rw] email
 #   @return [String, nil]
 #
-# @!attribute [rw] follower
+# @!attribute [rw] followers
 #   @return [Integer, nil]
 #
 # @!attribute [rw] following
@@ -463,10 +599,10 @@ NotificationListMatch = Struct.new(
 # @!attribute [rw] node_id
 #   @return [String, nil]
 #
-# @!attribute [rw] public_gist
+# @!attribute [rw] public_gists
 #   @return [Integer, nil]
 #
-# @!attribute [rw] public_repo
+# @!attribute [rw] public_repos
 #   @return [Integer, nil]
 #
 # @!attribute [rw] updated_at
@@ -480,7 +616,7 @@ Org = Struct.new(
   :created_at,
   :description,
   :email,
-  :follower,
+  :followers,
   :following,
   :html_url,
   :id,
@@ -488,8 +624,8 @@ Org = Struct.new(
   :login,
   :name,
   :node_id,
-  :public_gist,
-  :public_repo,
+  :public_gists,
+  :public_repos,
   :updated_at,
   :url,
   keyword_init: true
@@ -610,9 +746,73 @@ PullListMatch = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] base
+#   @return [Hash, nil]
+#
+# @!attribute [rw] body
+#   @return [String, nil]
+#
+# @!attribute [rw] closed_at
+#   @return [String, nil]
+#
+# @!attribute [rw] created_at
+#   @return [String, nil]
+#
+# @!attribute [rw] draft
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] head
+#   @return [Hash, nil]
+#
+# @!attribute [rw] html_url
+#   @return [String, nil]
+#
+# @!attribute [rw] id
+#   @return [Integer, nil]
+#
+# @!attribute [rw] merged_at
+#   @return [String, nil]
+#
+# @!attribute [rw] node_id
+#   @return [String, nil]
+#
+# @!attribute [rw] number
+#   @return [Integer, nil]
+#
+# @!attribute [rw] state
+#   @return [String, nil]
+#
+# @!attribute [rw] title
+#   @return [String, nil]
+#
+# @!attribute [rw] updated_at
+#   @return [String, nil]
+#
+# @!attribute [rw] url
+#   @return [String, nil]
+#
+# @!attribute [rw] user
+#   @return [Hash, nil]
 PullCreateData = Struct.new(
   :owner,
   :repo,
+  :base,
+  :body,
+  :closed_at,
+  :created_at,
+  :draft,
+  :head,
+  :html_url,
+  :id,
+  :merged_at,
+  :node_id,
+  :number,
+  :state,
+  :title,
+  :updated_at,
+  :url,
+  :user,
   keyword_init: true
 )
 
@@ -621,11 +821,11 @@ PullCreateData = Struct.new(
 # @!attribute [rw] rate
 #   @return [Hash, nil]
 #
-# @!attribute [rw] resource
+# @!attribute [rw] resources
 #   @return [Hash, nil]
 RateLimit = Struct.new(
   :rate,
-  :resource,
+  :resources,
   keyword_init: true
 )
 
@@ -634,15 +834,27 @@ RateLimit = Struct.new(
 # @!attribute [rw] rate
 #   @return [Hash, nil]
 #
-# @!attribute [rw] resource
+# @!attribute [rw] resources
 #   @return [Hash, nil]
 RateLimitLoadMatch = Struct.new(
   :rate,
-  :resource,
+  :resources,
   keyword_init: true
 )
 
 # Repo entity data model.
+#
+# @!attribute [rw] avatar_url
+#   @return [String, nil]
+#
+# @!attribute [rw] bio
+#   @return [String, nil]
+#
+# @!attribute [rw] blog
+#   @return [String, nil]
+#
+# @!attribute [rw] company
+#   @return [String, nil]
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -652,6 +864,15 @@ RateLimitLoadMatch = Struct.new(
 #
 # @!attribute [rw] description
 #   @return [String, nil]
+#
+# @!attribute [rw] email
+#   @return [String, nil]
+#
+# @!attribute [rw] followers
+#   @return [Integer, nil]
+#
+# @!attribute [rw] following
+#   @return [Integer, nil]
 #
 # @!attribute [rw] fork
 #   @return [Boolean, nil]
@@ -671,6 +892,12 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] language
 #   @return [String, nil]
 #
+# @!attribute [rw] location
+#   @return [String, nil]
+#
+# @!attribute [rw] login
+#   @return [String, nil]
+#
 # @!attribute [rw] name
 #   @return [String, nil]
 #
@@ -686,6 +913,12 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] private
 #   @return [Boolean, nil]
 #
+# @!attribute [rw] public_gists
+#   @return [Integer, nil]
+#
+# @!attribute [rw] public_repos
+#   @return [Integer, nil]
+#
 # @!attribute [rw] pushed_at
 #   @return [String, nil]
 #
@@ -694,6 +927,9 @@ RateLimitLoadMatch = Struct.new(
 #
 # @!attribute [rw] stargazers_count
 #   @return [Integer, nil]
+#
+# @!attribute [rw] type
+#   @return [String, nil]
 #
 # @!attribute [rw] updated_at
 #   @return [String, nil]
@@ -707,23 +943,35 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] watchers_count
 #   @return [Integer, nil]
 Repo = Struct.new(
+  :avatar_url,
+  :bio,
+  :blog,
+  :company,
   :created_at,
   :default_branch,
   :description,
+  :email,
+  :followers,
+  :following,
   :fork,
   :forks_count,
   :full_name,
   :html_url,
   :id,
   :language,
+  :location,
+  :login,
   :name,
   :node_id,
   :open_issues_count,
   :owner,
   :private,
+  :public_gists,
+  :public_repos,
   :pushed_at,
   :size,
   :stargazers_count,
+  :type,
   :updated_at,
   :url,
   :visibility,
@@ -762,13 +1010,16 @@ RepoListMatch = Struct.new(
 # @!attribute [rw] assignee
 #   @return [Object, nil]
 #
+# @!attribute [rw] assignees
+#   @return [Array, nil]
+#
 # @!attribute [rw] body
 #   @return [String, nil]
 #
 # @!attribute [rw] closed_at
 #   @return [String, nil]
 #
-# @!attribute [rw] comment
+# @!attribute [rw] comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] created_at
@@ -795,7 +1046,7 @@ RepoListMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [Integer, nil]
 #
-# @!attribute [rw] label
+# @!attribute [rw] labels
 #   @return [Array, nil]
 #
 # @!attribute [rw] language
@@ -853,9 +1104,10 @@ RepoListMatch = Struct.new(
 #   @return [Integer, nil]
 Search = Struct.new(
   :assignee,
+  :assignees,
   :body,
   :closed_at,
-  :comment,
+  :comments,
   :created_at,
   :default_branch,
   :description,
@@ -864,7 +1116,7 @@ Search = Struct.new(
   :full_name,
   :html_url,
   :id,
-  :label,
+  :labels,
   :language,
   :milestone,
   :name,
@@ -891,13 +1143,16 @@ Search = Struct.new(
 # @!attribute [rw] assignee
 #   @return [Object, nil]
 #
+# @!attribute [rw] assignees
+#   @return [Array, nil]
+#
 # @!attribute [rw] body
 #   @return [String, nil]
 #
 # @!attribute [rw] closed_at
 #   @return [String, nil]
 #
-# @!attribute [rw] comment
+# @!attribute [rw] comments
 #   @return [Integer, nil]
 #
 # @!attribute [rw] created_at
@@ -924,7 +1179,7 @@ Search = Struct.new(
 # @!attribute [rw] id
 #   @return [Integer, nil]
 #
-# @!attribute [rw] label
+# @!attribute [rw] labels
 #   @return [Array, nil]
 #
 # @!attribute [rw] language
@@ -982,9 +1237,10 @@ Search = Struct.new(
 #   @return [Integer, nil]
 SearchListMatch = Struct.new(
   :assignee,
+  :assignees,
   :body,
   :closed_at,
-  :comment,
+  :comments,
   :created_at,
   :default_branch,
   :description,
@@ -993,7 +1249,7 @@ SearchListMatch = Struct.new(
   :full_name,
   :html_url,
   :id,
-  :label,
+  :labels,
   :language,
   :milestone,
   :name,
@@ -1035,7 +1291,7 @@ SearchListMatch = Struct.new(
 # @!attribute [rw] email
 #   @return [String, nil]
 #
-# @!attribute [rw] follower
+# @!attribute [rw] followers
 #   @return [Integer, nil]
 #
 # @!attribute [rw] following
@@ -1059,10 +1315,10 @@ SearchListMatch = Struct.new(
 # @!attribute [rw] node_id
 #   @return [String, nil]
 #
-# @!attribute [rw] public_gist
+# @!attribute [rw] public_gists
 #   @return [Integer, nil]
 #
-# @!attribute [rw] public_repo
+# @!attribute [rw] public_repos
 #   @return [Integer, nil]
 #
 # @!attribute [rw] type
@@ -1080,7 +1336,7 @@ User = Struct.new(
   :company,
   :created_at,
   :email,
-  :follower,
+  :followers,
   :following,
   :html_url,
   :id,
@@ -1088,8 +1344,8 @@ User = Struct.new(
   :login,
   :name,
   :node_id,
-  :public_gist,
-  :public_repo,
+  :public_gists,
+  :public_repos,
   :type,
   :updated_at,
   :url,

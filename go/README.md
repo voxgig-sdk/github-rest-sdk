@@ -71,12 +71,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-branchs, err := client.Branch(nil).List(nil, nil)
+issues, err := client.Issue(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = branchs
+_ = issues
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -140,13 +140,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-branch, err := client.Branch(nil).List(
+issue, err := client.Issue(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(branch) // the returned mock data
+fmt.Println(issue) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -309,7 +309,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `"created_at"` |  |
 | `"description"` |  |
-| `"file"` |  |
+| `"files"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
 | `"node_id"` |  |
@@ -327,13 +327,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `"assignee"` |  |
+| `"assignees"` |  |
 | `"body"` |  |
 | `"closed_at"` |  |
-| `"comment"` |  |
+| `"comments"` |  |
 | `"created_at"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
-| `"label"` |  |
+| `"labels"` |  |
 | `"milestone"` |  |
 | `"node_id"` |  |
 | `"number"` |  |
@@ -373,7 +374,7 @@ API path: `/notifications`
 | `"created_at"` |  |
 | `"description"` |  |
 | `"email"` |  |
-| `"follower"` |  |
+| `"followers"` |  |
 | `"following"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
@@ -381,8 +382,8 @@ API path: `/notifications`
 | `"login"` |  |
 | `"name"` |  |
 | `"node_id"` |  |
-| `"public_gist"` |  |
-| `"public_repo"` |  |
+| `"public_gists"` |  |
+| `"public_repos"` |  |
 | `"updated_at"` |  |
 | `"url"` |  |
 
@@ -420,7 +421,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `"rate"` |  |
-| `"resource"` |  |
+| `"resources"` |  |
 
 Operations: Load.
 
@@ -430,23 +431,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `"avatar_url"` |  |
+| `"bio"` |  |
+| `"blog"` |  |
+| `"company"` |  |
 | `"created_at"` |  |
 | `"default_branch"` |  |
 | `"description"` |  |
+| `"email"` |  |
+| `"followers"` |  |
+| `"following"` |  |
 | `"fork"` |  |
 | `"forks_count"` |  |
 | `"full_name"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
 | `"language"` |  |
+| `"location"` |  |
+| `"login"` |  |
 | `"name"` |  |
 | `"node_id"` |  |
 | `"open_issues_count"` |  |
 | `"owner"` |  |
 | `"private"` |  |
+| `"public_gists"` |  |
+| `"public_repos"` |  |
 | `"pushed_at"` |  |
 | `"size"` |  |
 | `"stargazers_count"` |  |
+| `"type"` |  |
 | `"updated_at"` |  |
 | `"url"` |  |
 | `"visibility"` |  |
@@ -461,9 +474,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `"assignee"` |  |
+| `"assignees"` |  |
 | `"body"` |  |
 | `"closed_at"` |  |
-| `"comment"` |  |
+| `"comments"` |  |
 | `"created_at"` |  |
 | `"default_branch"` |  |
 | `"description"` |  |
@@ -472,7 +486,7 @@ API path: `/users/{username}/repos`
 | `"full_name"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
-| `"label"` |  |
+| `"labels"` |  |
 | `"language"` |  |
 | `"milestone"` |  |
 | `"name"` |  |
@@ -506,7 +520,7 @@ API path: `/search/issues`
 | `"company"` |  |
 | `"created_at"` |  |
 | `"email"` |  |
-| `"follower"` |  |
+| `"followers"` |  |
 | `"following"` |  |
 | `"html_url"` |  |
 | `"id"` |  |
@@ -514,8 +528,8 @@ API path: `/search/issues`
 | `"login"` |  |
 | `"name"` |  |
 | `"node_id"` |  |
-| `"public_gist"` |  |
-| `"public_repo"` |  |
+| `"public_gists"` |  |
+| `"public_repos"` |  |
 | `"type"` |  |
 | `"updated_at"` |  |
 | `"url"` |  |
@@ -608,7 +622,7 @@ Create an instance: `gist := client.Gist(nil)`
 | --- | --- | --- |
 | `created_at` | `string` |  |
 | `description` | `string` |  |
-| `file` | `map[string]any` |  |
+| `files` | `map[string]any` |  |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
@@ -631,7 +645,7 @@ fmt.Println(gists) // the array of records
 
 ```go
 result, err := client.Gist(nil).Create(map[string]any{
-    "file": map[string]any{},
+    "files": map[string]any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -658,13 +672,14 @@ Create an instance: `issue := client.Issue(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `[]any` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
-| `label` | `[]any` |  |
+| `labels` | `[]any` |  |
 | `milestone` | `map[string]any` |  |
 | `node_id` | `string` |  |
 | `number` | `int` |  |
@@ -761,7 +776,7 @@ Create an instance: `org := client.Org(nil)`
 | `created_at` | `string` |  |
 | `description` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
@@ -769,8 +784,8 @@ Create an instance: `org := client.Org(nil)`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
@@ -867,7 +882,7 @@ Create an instance: `rateLimit := client.RateLimit(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `map[string]any` |  |
-| `resource` | `map[string]any` |  |
+| `resources` | `map[string]any` |  |
 
 #### Example: Load
 
@@ -895,23 +910,35 @@ Create an instance: `repo := client.Repo(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
+| `email` | `string` |  |
+| `followers` | `int` |  |
+| `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
 | `language` | `string` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `map[string]any` |  |
 | `private` | `bool` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `pushed_at` | `string` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
+| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |
@@ -953,9 +980,10 @@ Create an instance: `search := client.Search(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `[]any` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
@@ -964,7 +992,7 @@ Create an instance: `search := client.Search(nil)`
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
-| `label` | `[]any` |  |
+| `labels` | `[]any` |  |
 | `language` | `string` |  |
 | `milestone` | `map[string]any` |  |
 | `name` | `string` |  |
@@ -1015,7 +1043,7 @@ Create an instance: `user := client.User(nil)`
 | `company` | `string` |  |
 | `created_at` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
@@ -1023,8 +1051,8 @@ Create an instance: `user := client.User(nil)`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
@@ -1113,11 +1141,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-branch := client.Branch(nil)
-branch.List(nil, nil)
+issue := client.Issue(nil)
+issue.List(nil, nil)
 
-// branch.Data() now returns the branch data from the last list
-// branch.Match() returns the last match criteria
+// issue.Data() now returns the issue data from the last list
+// issue.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

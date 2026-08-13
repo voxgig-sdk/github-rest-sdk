@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'GithubRest',
   }
 
 
@@ -160,6 +160,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/branches",
               "parts": [
@@ -312,6 +313,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/commits",
               "parts": [
@@ -366,7 +368,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "file",
+          "name": "files",
           "op": {
             "list": {
               "req": false,
@@ -436,6 +438,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/gists",
               "parts": [
@@ -479,6 +482,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/gists",
               "parts": [
@@ -515,80 +519,87 @@ class Config {
         },
         {
           "active": true,
-          "name": "body",
+          "name": "assignees",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$ARRAY`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "closed_at",
+          "name": "body",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "comment",
+          "name": "closed_at",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 3
+        },
+        {
+          "active": true,
+          "name": "comments",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 3
+          "index$": 4
         },
         {
           "active": true,
           "name": "created_at",
           "req": false,
           "type": "`$STRING`",
-          "index$": 4
+          "index$": 5
         },
         {
           "active": true,
           "name": "html_url",
           "req": false,
           "type": "`$STRING`",
-          "index$": 5
+          "index$": 6
         },
         {
           "active": true,
           "name": "id",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 6
+          "index$": 7
         },
         {
           "active": true,
-          "name": "label",
+          "name": "labels",
           "req": false,
           "type": "`$ARRAY`",
-          "index$": 7
+          "index$": 8
         },
         {
           "active": true,
           "name": "milestone",
           "req": false,
           "type": "`$OBJECT`",
-          "index$": 8
+          "index$": 9
         },
         {
           "active": true,
           "name": "node_id",
           "req": false,
           "type": "`$STRING`",
-          "index$": 9
+          "index$": 10
         },
         {
           "active": true,
           "name": "number",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 10
+          "index$": 11
         },
         {
           "active": true,
           "name": "state",
           "req": false,
           "type": "`$STRING`",
-          "index$": 11
+          "index$": 12
         },
         {
           "active": true,
@@ -601,28 +612,28 @@ class Config {
           },
           "req": false,
           "type": "`$STRING`",
-          "index$": 12
+          "index$": 13
         },
         {
           "active": true,
           "name": "updated_at",
           "req": false,
           "type": "`$STRING`",
-          "index$": 13
+          "index$": 14
         },
         {
           "active": true,
           "name": "url",
           "req": false,
           "type": "`$STRING`",
-          "index$": 14
+          "index$": 15
         },
         {
           "active": true,
           "name": "user",
           "req": false,
           "type": "`$OBJECT`",
-          "index$": 15
+          "index$": 16
         }
       ],
       "name": "issue",
@@ -655,6 +666,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/repos/{owner}/{repo}/issues",
               "parts": [
@@ -761,6 +773,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/issues",
               "parts": [
@@ -827,6 +840,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
               "parts": [
@@ -894,6 +908,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PATCH",
               "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
               "parts": [
@@ -1040,6 +1055,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/notifications",
               "parts": [
@@ -1106,7 +1122,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "follower",
+          "name": "followers",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 5
@@ -1162,14 +1178,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "public_gist",
+          "name": "public_gists",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 13
         },
         {
           "active": true,
-          "name": "public_repo",
+          "name": "public_repos",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 14
@@ -1210,6 +1226,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/orgs/{org}",
               "parts": [
@@ -1403,6 +1420,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/repos/{owner}/{repo}/pulls",
               "parts": [
@@ -1501,6 +1519,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/pulls",
               "parts": [
@@ -1566,6 +1585,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/pulls/{pull_number}",
               "parts": [
@@ -1616,7 +1636,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "resource",
+          "name": "resources",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 1
@@ -1631,6 +1651,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/rate_limit",
               "parts": [
@@ -1655,150 +1676,234 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "created_at",
+          "name": "avatar_url",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "default_branch",
+          "name": "bio",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "description",
+          "name": "blog",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "fork",
+          "name": "company",
           "req": false,
-          "type": "`$BOOLEAN`",
+          "type": "`$STRING`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "forks_count",
+          "name": "created_at",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "full_name",
+          "name": "default_branch",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "html_url",
+          "name": "description",
           "req": false,
           "type": "`$STRING`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "id",
+          "name": "email",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$STRING`",
           "index$": 7
         },
         {
           "active": true,
-          "name": "language",
+          "name": "followers",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$INTEGER`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "name",
+          "name": "following",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$INTEGER`",
           "index$": 9
         },
         {
           "active": true,
-          "name": "node_id",
+          "name": "fork",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$BOOLEAN`",
           "index$": 10
         },
         {
           "active": true,
-          "name": "open_issues_count",
+          "name": "forks_count",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 11
         },
         {
           "active": true,
-          "name": "owner",
+          "name": "full_name",
           "req": false,
-          "type": "`$OBJECT`",
+          "type": "`$STRING`",
           "index$": 12
         },
         {
           "active": true,
-          "name": "private",
+          "name": "html_url",
           "req": false,
-          "type": "`$BOOLEAN`",
+          "type": "`$STRING`",
           "index$": 13
         },
         {
           "active": true,
-          "name": "pushed_at",
+          "name": "id",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$INTEGER`",
           "index$": 14
         },
         {
           "active": true,
-          "name": "size",
+          "name": "language",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$STRING`",
           "index$": 15
         },
         {
           "active": true,
-          "name": "stargazers_count",
+          "name": "location",
           "req": false,
-          "type": "`$INTEGER`",
+          "type": "`$STRING`",
           "index$": 16
         },
         {
           "active": true,
-          "name": "updated_at",
+          "name": "login",
           "req": false,
           "type": "`$STRING`",
           "index$": 17
         },
         {
           "active": true,
-          "name": "url",
+          "name": "name",
           "req": false,
           "type": "`$STRING`",
           "index$": 18
         },
         {
           "active": true,
-          "name": "visibility",
+          "name": "node_id",
           "req": false,
           "type": "`$STRING`",
           "index$": 19
         },
         {
           "active": true,
-          "name": "watchers_count",
+          "name": "open_issues_count",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 20
+        },
+        {
+          "active": true,
+          "name": "owner",
+          "req": false,
+          "type": "`$OBJECT`",
+          "index$": 21
+        },
+        {
+          "active": true,
+          "name": "private",
+          "req": false,
+          "type": "`$BOOLEAN`",
+          "index$": 22
+        },
+        {
+          "active": true,
+          "name": "public_gists",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 23
+        },
+        {
+          "active": true,
+          "name": "public_repos",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 24
+        },
+        {
+          "active": true,
+          "name": "pushed_at",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 25
+        },
+        {
+          "active": true,
+          "name": "size",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 26
+        },
+        {
+          "active": true,
+          "name": "stargazers_count",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 27
+        },
+        {
+          "active": true,
+          "name": "type",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 28
+        },
+        {
+          "active": true,
+          "name": "updated_at",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 29
+        },
+        {
+          "active": true,
+          "name": "url",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 30
+        },
+        {
+          "active": true,
+          "name": "visibility",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 31
+        },
+        {
+          "active": true,
+          "name": "watchers_count",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 32
         }
       ],
       "name": "repo",
@@ -1869,6 +1974,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/users/{username}/repos",
               "parts": [
@@ -1936,6 +2042,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/orgs/{org}/repos",
               "parts": [
@@ -1993,6 +2100,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}",
               "parts": [
@@ -2008,7 +2116,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.owner`"
               },
               "index$": 0
             }
@@ -2041,213 +2149,220 @@ class Config {
         },
         {
           "active": true,
-          "name": "body",
+          "name": "assignees",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$ARRAY`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "closed_at",
+          "name": "body",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "comment",
+          "name": "closed_at",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 3
+        },
+        {
+          "active": true,
+          "name": "comments",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 3
+          "index$": 4
         },
         {
           "active": true,
           "name": "created_at",
           "req": false,
           "type": "`$STRING`",
-          "index$": 4
+          "index$": 5
         },
         {
           "active": true,
           "name": "default_branch",
           "req": false,
           "type": "`$STRING`",
-          "index$": 5
+          "index$": 6
         },
         {
           "active": true,
           "name": "description",
           "req": false,
           "type": "`$STRING`",
-          "index$": 6
+          "index$": 7
         },
         {
           "active": true,
           "name": "fork",
           "req": false,
           "type": "`$BOOLEAN`",
-          "index$": 7
+          "index$": 8
         },
         {
           "active": true,
           "name": "forks_count",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 8
+          "index$": 9
         },
         {
           "active": true,
           "name": "full_name",
           "req": false,
           "type": "`$STRING`",
-          "index$": 9
+          "index$": 10
         },
         {
           "active": true,
           "name": "html_url",
           "req": false,
           "type": "`$STRING`",
-          "index$": 10
+          "index$": 11
         },
         {
           "active": true,
           "name": "id",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 11
+          "index$": 12
         },
         {
           "active": true,
-          "name": "label",
+          "name": "labels",
           "req": false,
           "type": "`$ARRAY`",
-          "index$": 12
+          "index$": 13
         },
         {
           "active": true,
           "name": "language",
           "req": false,
           "type": "`$STRING`",
-          "index$": 13
+          "index$": 14
         },
         {
           "active": true,
           "name": "milestone",
           "req": false,
           "type": "`$OBJECT`",
-          "index$": 14
+          "index$": 15
         },
         {
           "active": true,
           "name": "name",
           "req": false,
           "type": "`$STRING`",
-          "index$": 15
+          "index$": 16
         },
         {
           "active": true,
           "name": "node_id",
           "req": false,
           "type": "`$STRING`",
-          "index$": 16
+          "index$": 17
         },
         {
           "active": true,
           "name": "number",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 17
+          "index$": 18
         },
         {
           "active": true,
           "name": "open_issues_count",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 18
+          "index$": 19
         },
         {
           "active": true,
           "name": "owner",
           "req": false,
           "type": "`$OBJECT`",
-          "index$": 19
+          "index$": 20
         },
         {
           "active": true,
           "name": "private",
           "req": false,
           "type": "`$BOOLEAN`",
-          "index$": 20
+          "index$": 21
         },
         {
           "active": true,
           "name": "pushed_at",
           "req": false,
           "type": "`$STRING`",
-          "index$": 21
+          "index$": 22
         },
         {
           "active": true,
           "name": "size",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 22
+          "index$": 23
         },
         {
           "active": true,
           "name": "stargazers_count",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 23
+          "index$": 24
         },
         {
           "active": true,
           "name": "state",
           "req": false,
           "type": "`$STRING`",
-          "index$": 24
+          "index$": 25
         },
         {
           "active": true,
           "name": "title",
           "req": false,
           "type": "`$STRING`",
-          "index$": 25
+          "index$": 26
         },
         {
           "active": true,
           "name": "updated_at",
           "req": false,
           "type": "`$STRING`",
-          "index$": 26
+          "index$": 27
         },
         {
           "active": true,
           "name": "url",
           "req": false,
           "type": "`$STRING`",
-          "index$": 27
+          "index$": 28
         },
         {
           "active": true,
           "name": "user",
           "req": false,
           "type": "`$OBJECT`",
-          "index$": 28
+          "index$": 29
         },
         {
           "active": true,
           "name": "visibility",
           "req": false,
           "type": "`$STRING`",
-          "index$": 29
+          "index$": 30
         },
         {
           "active": true,
           "name": "watchers_count",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 30
+          "index$": 31
         }
       ],
       "name": "search",
@@ -2305,6 +2420,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/search/issues",
               "parts": [
@@ -2323,7 +2439,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 0
             },
@@ -2376,6 +2492,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/search/repositories",
               "parts": [
@@ -2394,7 +2511,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.items`"
               },
               "index$": 1
             }
@@ -2452,7 +2569,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "follower",
+          "name": "followers",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 6
@@ -2508,14 +2625,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "public_gist",
+          "name": "public_gists",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 14
         },
         {
           "active": true,
-          "name": "public_repo",
+          "name": "public_repos",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 15
@@ -2563,6 +2680,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/users/{username}",
               "parts": [
@@ -2588,6 +2706,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/user",
               "parts": [

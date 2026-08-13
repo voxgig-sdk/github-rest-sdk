@@ -26,8 +26,8 @@ import {
 describe('OrgEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -63,7 +63,7 @@ describe('OrgEntity', async () => {
     const org_ref01_ent = client.Org()
     const org_ref01_match_dt0: any = {}
     org_ref01_match_dt0.id = org_ref01_data.id
-    const org_ref01_data_dt0 = await org_ref01_ent.load(org_ref01_match_dt0)
+    const org_ref01_data_dt0 = (await org_ref01_ent.load(org_ref01_match_dt0)).data()
     assert(org_ref01_data_dt0.id === org_ref01_data.id)
 
 

@@ -92,7 +92,7 @@ func TestSearchEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set GITHUBREST_TEST_SEARCH_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set GITHUB_REST_TEST_SEARCH_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -160,38 +160,38 @@ func searchBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("GITHUBREST_TEST_SEARCH_ENTID")
+	entidEnvRaw := os.Getenv("GITHUB_REST_TEST_SEARCH_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"GITHUBREST_TEST_SEARCH_ENTID": idmap,
-		"GITHUBREST_TEST_LIVE":      "FALSE",
-		"GITHUBREST_TEST_EXPLAIN":   "FALSE",
-		"GITHUBREST_APIKEY":         "NONE",
+		"GITHUB_REST_TEST_SEARCH_ENTID": idmap,
+		"GITHUB_REST_TEST_LIVE":      "FALSE",
+		"GITHUB_REST_TEST_EXPLAIN":   "FALSE",
+		"GITHUB_REST_APIKEY":         "NONE",
 	})
 
-	idmapResolved := core.ToMapAny(env["GITHUBREST_TEST_SEARCH_ENTID"])
+	idmapResolved := core.ToMapAny(env["GITHUB_REST_TEST_SEARCH_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["GITHUBREST_TEST_LIVE"] == "TRUE" {
+	if env["GITHUB_REST_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["GITHUBREST_APIKEY"],
+				"apikey": env["GITHUB_REST_APIKEY"],
 			},
 			extra,
 		})
 		client = sdk.NewGithubRestSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["GITHUBREST_TEST_LIVE"] == "TRUE"
+	live := env["GITHUB_REST_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["GITHUBREST_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["GITHUB_REST_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

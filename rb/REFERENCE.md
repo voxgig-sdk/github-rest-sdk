@@ -248,7 +248,7 @@ gist = client.Gist
 | --- | --- | --- | --- |
 | `created_at` | `String` | No |  |
 | `description` | `String` | No |  |
-| `file` | `Hash` | Yes |  |
+| `files` | `Hash` | Yes |  |
 | `html_url` | `String` | No |  |
 | `id` | `String` | No |  |
 | `node_id` | `String` | No |  |
@@ -263,7 +263,7 @@ gist = client.Gist
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -280,7 +280,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Gist.create({
-  "file" => {}, # Hash
+  "files" => {}, # Hash
 })
 ```
 
@@ -333,13 +333,14 @@ issue = client.Issue
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `Object` | No |  |
+| `assignees` | `Array` | No |  |
 | `body` | `String` | No |  |
 | `closed_at` | `String` | No |  |
-| `comment` | `Integer` | No |  |
+| `comments` | `Integer` | No |  |
 | `created_at` | `String` | No |  |
 | `html_url` | `String` | No |  |
 | `id` | `Integer` | No |  |
-| `label` | `Array` | No |  |
+| `labels` | `Array` | No |  |
 | `milestone` | `Hash` | No |  |
 | `node_id` | `String` | No |  |
 | `number` | `Integer` | No |  |
@@ -354,13 +355,14 @@ issue = client.Issue
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -516,7 +518,7 @@ org = client.Org
 | `created_at` | `String` | No |  |
 | `description` | `String` | No |  |
 | `email` | `String` | No |  |
-| `follower` | `Integer` | No |  |
+| `followers` | `Integer` | No |  |
 | `following` | `Integer` | No |  |
 | `html_url` | `String` | No |  |
 | `id` | `Integer` | No |  |
@@ -524,8 +526,8 @@ org = client.Org
 | `login` | `String` | No |  |
 | `name` | `String` | No |  |
 | `node_id` | `String` | No |  |
-| `public_gist` | `Integer` | No |  |
-| `public_repo` | `Integer` | No |  |
+| `public_gists` | `Integer` | No |  |
+| `public_repos` | `Integer` | No |  |
 | `updated_at` | `String` | No |  |
 | `url` | `String` | No |  |
 
@@ -687,7 +689,7 @@ rate_limit = client.RateLimit
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `Hash` | No |  |
-| `resource` | `Hash` | No |  |
+| `resources` | `Hash` | No |  |
 
 ### Operations
 
@@ -739,23 +741,35 @@ repo = client.Repo
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `String` | No |  |
+| `bio` | `String` | No |  |
+| `blog` | `String` | No |  |
+| `company` | `String` | No |  |
 | `created_at` | `String` | No |  |
 | `default_branch` | `String` | No |  |
 | `description` | `String` | No |  |
+| `email` | `String` | No |  |
+| `followers` | `Integer` | No |  |
+| `following` | `Integer` | No |  |
 | `fork` | `Boolean` | No |  |
 | `forks_count` | `Integer` | No |  |
 | `full_name` | `String` | No |  |
 | `html_url` | `String` | No |  |
 | `id` | `Integer` | No |  |
 | `language` | `String` | No |  |
+| `location` | `String` | No |  |
+| `login` | `String` | No |  |
 | `name` | `String` | No |  |
 | `node_id` | `String` | No |  |
 | `open_issues_count` | `Integer` | No |  |
 | `owner` | `Hash` | No |  |
 | `private` | `Boolean` | No |  |
+| `public_gists` | `Integer` | No |  |
+| `public_repos` | `Integer` | No |  |
 | `pushed_at` | `String` | No |  |
 | `size` | `Integer` | No |  |
 | `stargazers_count` | `Integer` | No |  |
+| `type` | `String` | No |  |
 | `updated_at` | `String` | No |  |
 | `url` | `String` | No |  |
 | `visibility` | `String` | No |  |
@@ -820,9 +834,10 @@ search = client.Search
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `Object` | No |  |
+| `assignees` | `Array` | No |  |
 | `body` | `String` | No |  |
 | `closed_at` | `String` | No |  |
-| `comment` | `Integer` | No |  |
+| `comments` | `Integer` | No |  |
 | `created_at` | `String` | No |  |
 | `default_branch` | `String` | No |  |
 | `description` | `String` | No |  |
@@ -831,7 +846,7 @@ search = client.Search
 | `full_name` | `String` | No |  |
 | `html_url` | `String` | No |  |
 | `id` | `Integer` | No |  |
-| `label` | `Array` | No |  |
+| `labels` | `Array` | No |  |
 | `language` | `String` | No |  |
 | `milestone` | `Hash` | No |  |
 | `name` | `String` | No |  |
@@ -907,7 +922,7 @@ user = client.User
 | `company` | `String` | No |  |
 | `created_at` | `String` | No |  |
 | `email` | `String` | No |  |
-| `follower` | `Integer` | No |  |
+| `followers` | `Integer` | No |  |
 | `following` | `Integer` | No |  |
 | `html_url` | `String` | No |  |
 | `id` | `Integer` | No |  |
@@ -915,8 +930,8 @@ user = client.User
 | `login` | `String` | No |  |
 | `name` | `String` | No |  |
 | `node_id` | `String` | No |  |
-| `public_gist` | `Integer` | No |  |
-| `public_repo` | `Integer` | No |  |
+| `public_gists` | `Integer` | No |  |
+| `public_repos` | `Integer` | No |  |
 | `type` | `String` | No |  |
 | `updated_at` | `String` | No |  |
 | `url` | `String` | No |  |

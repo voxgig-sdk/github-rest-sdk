@@ -53,7 +53,7 @@ Issue is nested under owner, so provide the `owner`.
 
 ```php
 try {
-    // load() returns the bare Issue record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Issue record (throws on error).
     $issue = $client->Issue()->load(["owner" => "example_owner", "repo" => "example_repo", "id" => 1]);
     print_r($issue);
 } catch (\Throwable $err) {
@@ -69,7 +69,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $branchs = $client->Branch()->list();
+    $issues = $client->Issue()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -136,14 +136,18 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = GithubRestSDK::test();
+$client = GithubRestSDK::test([
+    "entity" => ["issue" => ["test01" => ["id" => "test01"]]],
+]);
 
-// Entity ops return the bare mock record (throws on error).
-$branch = $client->Branch()->list();
-print_r($branch);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$issue = $client->Issue()->list();
+print_r($issue);
 ```
 
 ### Use a custom fetch function
@@ -255,7 +259,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -307,7 +311,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `created_at` |  |
 | `description` |  |
-| `file` |  |
+| `files` |  |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
@@ -325,13 +329,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `milestone` |  |
 | `node_id` |  |
 | `number` |  |
@@ -371,7 +376,7 @@ API path: `/notifications`
 | `created_at` |  |
 | `description` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -379,8 +384,8 @@ API path: `/notifications`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `updated_at` |  |
 | `url` |  |
 
@@ -418,7 +423,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `rate` |  |
-| `resource` |  |
+| `resources` |  |
 
 Operations: Load.
 
@@ -428,23 +433,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `avatar_url` |  |
+| `bio` |  |
+| `blog` |  |
+| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
+| `email` |  |
+| `followers` |  |
+| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
 | `language` |  |
+| `location` |  |
+| `login` |  |
 | `name` |  |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
+| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -459,9 +476,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
@@ -470,7 +488,7 @@ API path: `/users/{username}/repos`
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `language` |  |
 | `milestone` |  |
 | `name` |  |
@@ -504,7 +522,7 @@ API path: `/search/issues`
 | `company` |  |
 | `created_at` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -512,8 +530,8 @@ API path: `/search/issues`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `type` |  |
 | `updated_at` |  |
 | `url` |  |
@@ -600,7 +618,7 @@ Create an instance: `$gist = $client->Gist();`
 | --- | --- | --- |
 | `created_at` | `string` |  |
 | `description` | `string` |  |
-| `file` | `array` |  |
+| `files` | `array` |  |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
@@ -620,7 +638,7 @@ $gists = $client->Gist()->list();
 
 ```php
 $gist = $client->Gist()->create([
-    "file" => null, // array
+    "files" => null, // array
 ]);
 ```
 
@@ -643,13 +661,14 @@ Create an instance: `$issue = $client->Issue();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `mixed` |  |
+| `assignees` | `array` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
-| `label` | `array` |  |
+| `labels` | `array` |  |
 | `milestone` | `array` |  |
 | `node_id` | `string` |  |
 | `number` | `int` |  |
@@ -662,7 +681,7 @@ Create an instance: `$issue = $client->Issue();`
 #### Example: Load
 
 ```php
-// load() returns the bare Issue record (throws on error).
+// load() returns the ENTITY — call data_get() for the Issue record (throws on error).
 $issue = $client->Issue()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
@@ -733,7 +752,7 @@ Create an instance: `$org = $client->Org();`
 | `created_at` | `string` |  |
 | `description` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
@@ -741,15 +760,15 @@ Create an instance: `$org = $client->Org();`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Org record (throws on error).
+// load() returns the ENTITY — call data_get() for the Org record (throws on error).
 $org = $client->Org()->load(["id" => "org_id"]);
 ```
 
@@ -790,7 +809,7 @@ Create an instance: `$pull = $client->Pull();`
 #### Example: Load
 
 ```php
-// load() returns the bare Pull record (throws on error).
+// load() returns the ENTITY — call data_get() for the Pull record (throws on error).
 $pull = $client->Pull()->load(["id" => 1, "owner" => "owner", "repo" => "repo"]);
 ```
 
@@ -826,12 +845,12 @@ Create an instance: `$rate_limit = $client->RateLimit();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `array` |  |
-| `resource` | `array` |  |
+| `resources` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare RateLimit record (throws on error).
+// load() returns the ENTITY — call data_get() for the RateLimit record (throws on error).
 $rate_limit = $client->RateLimit()->load();
 ```
 
@@ -851,23 +870,35 @@ Create an instance: `$repo = $client->Repo();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
+| `email` | `string` |  |
+| `followers` | `int` |  |
+| `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
 | `language` | `string` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `array` |  |
 | `private` | `bool` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `pushed_at` | `string` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
+| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |
@@ -876,7 +907,7 @@ Create an instance: `$repo = $client->Repo();`
 #### Example: Load
 
 ```php
-// load() returns the bare Repo record (throws on error).
+// load() returns the ENTITY — call data_get() for the Repo record (throws on error).
 $repo = $client->Repo()->load(["owner" => "owner", "repo" => "repo"]);
 ```
 
@@ -903,9 +934,10 @@ Create an instance: `$search = $client->Search();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `mixed` |  |
+| `assignees` | `array` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
@@ -914,7 +946,7 @@ Create an instance: `$search = $client->Search();`
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
-| `label` | `array` |  |
+| `labels` | `array` |  |
 | `language` | `string` |  |
 | `milestone` | `array` |  |
 | `name` | `string` |  |
@@ -962,7 +994,7 @@ Create an instance: `$user = $client->User();`
 | `company` | `string` |  |
 | `created_at` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
@@ -970,8 +1002,8 @@ Create an instance: `$user = $client->User();`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
@@ -979,7 +1011,7 @@ Create an instance: `$user = $client->User();`
 #### Example: Load
 
 ```php
-// load() returns the bare User record (throws on error).
+// load() returns the ENTITY — call data_get() for the User record (throws on error).
 $user = $client->User()->load(["id" => "user_id"]);
 ```
 
@@ -1060,11 +1092,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$branch = $client->Branch();
-$branch->list();
+$issue = $client->Issue();
+$issue->list();
 
-// $branch->data_get() now returns the branch data from the last list
-// $branch->match_get() returns the last match criteria
+// $issue->data_get() now returns the issue data from the last list
+// $issue->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

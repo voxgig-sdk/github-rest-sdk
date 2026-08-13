@@ -37,7 +37,7 @@ class BranchEntity extends GithubRestEntityBase<Branch> {
 
 
 
-  async list(this: any, reqmatch?: BranchListMatch, ctrl?: Control): Promise<Branch[]> {
+  async list(this: any, reqmatch?: BranchListMatch, ctrl?: Control): Promise<BranchEntity[]> {
 
     const utility = this._utility
 

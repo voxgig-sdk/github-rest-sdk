@@ -72,7 +72,7 @@ class IssueEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUBREST_TEST_ISSUE_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUB_REST_TEST_ISSUE_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -85,7 +85,7 @@ class IssueEntityTest extends TestCase
         $issue_ref01_data["repo"] = $setup["idmap"]["repo01"];
 
         $issue_ref01_data_result = $issue_ref01_ent->create($issue_ref01_data, null);
-        $issue_ref01_data = Helpers::to_map($issue_ref01_data_result);
+        $issue_ref01_data = Helpers::to_map(is_object($issue_ref01_data_result) && method_exists($issue_ref01_data_result, 'data_get') ? $issue_ref01_data_result->data_get() : $issue_ref01_data_result);
         $this->assertNotNull($issue_ref01_data);
         $this->assertNotNull($issue_ref01_data["id"]);
 
@@ -115,7 +115,7 @@ class IssueEntityTest extends TestCase
         $issue_ref01_data_up0_up[$issue_ref01_markdef_up0_name] = $issue_ref01_markdef_up0_value;
 
         $issue_ref01_resdata_up0_result = $issue_ref01_ent->update($issue_ref01_data_up0_up, null);
-        $issue_ref01_resdata_up0 = Helpers::to_map($issue_ref01_resdata_up0_result);
+        $issue_ref01_resdata_up0 = Helpers::to_map(is_object($issue_ref01_resdata_up0_result) && method_exists($issue_ref01_resdata_up0_result, 'data_get') ? $issue_ref01_resdata_up0_result->data_get() : $issue_ref01_resdata_up0_result);
         $this->assertNotNull($issue_ref01_resdata_up0);
         $this->assertEquals($issue_ref01_resdata_up0["id"], $issue_ref01_data_up0_up["id"]);
         $this->assertEquals($issue_ref01_resdata_up0[$issue_ref01_markdef_up0_name], $issue_ref01_markdef_up0_value);
@@ -125,7 +125,7 @@ class IssueEntityTest extends TestCase
             "id" => $issue_ref01_data["id"],
         ];
         $issue_ref01_data_dt0_loaded = $issue_ref01_ent->load($issue_ref01_match_dt0, null);
-        $issue_ref01_data_dt0_load_result = Helpers::to_map($issue_ref01_data_dt0_loaded);
+        $issue_ref01_data_dt0_load_result = Helpers::to_map(is_object($issue_ref01_data_dt0_loaded) && method_exists($issue_ref01_data_dt0_loaded, 'data_get') ? $issue_ref01_data_dt0_loaded->data_get() : $issue_ref01_data_dt0_loaded);
         $this->assertNotNull($issue_ref01_data_dt0_load_result);
         $this->assertEquals($issue_ref01_data_dt0_load_result["id"], $issue_ref01_data["id"]);
 
@@ -154,18 +154,18 @@ function issue_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("GITHUBREST_TEST_ISSUE_ENTID");
+    $entid_env_raw = getenv("GITHUB_REST_TEST_ISSUE_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "GITHUBREST_TEST_ISSUE_ENTID" => $idmap,
-        "GITHUBREST_TEST_LIVE" => "FALSE",
-        "GITHUBREST_TEST_EXPLAIN" => "FALSE",
-        "GITHUBREST_APIKEY" => "NONE",
+        "GITHUB_REST_TEST_ISSUE_ENTID" => $idmap,
+        "GITHUB_REST_TEST_LIVE" => "FALSE",
+        "GITHUB_REST_TEST_EXPLAIN" => "FALSE",
+        "GITHUB_REST_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["GITHUBREST_TEST_ISSUE_ENTID"]);
+        $env["GITHUB_REST_TEST_ISSUE_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
@@ -176,23 +176,23 @@ function issue_basic_setup($extra)
         $idmap_resolved["repo"] = $idmap_resolved["repo01"];
     }
 
-    if ($env["GITHUBREST_TEST_LIVE"] === "TRUE") {
+    if ($env["GITHUB_REST_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["GITHUBREST_APIKEY"],
+                "apikey" => $env["GITHUB_REST_APIKEY"],
             ],
             $extra ?? [],
         ]);
         $client = new GithubRestSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["GITHUBREST_TEST_LIVE"] === "TRUE";
+    $live = $env["GITHUB_REST_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["GITHUBREST_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["GITHUB_REST_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

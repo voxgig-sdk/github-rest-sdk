@@ -136,16 +136,16 @@ function pull_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["GITHUBREST_TEST_PULL_ENTID"] = {},
-    ["GITHUBREST_TEST_LIVE"] = "FALSE",
-    ["GITHUBREST_APIKEY"] = "NONE",
+    ["GITHUB_REST_TEST_PULL_ENTID"] = {},
+    ["GITHUB_REST_TEST_LIVE"] = "FALSE",
+    ["GITHUB_REST_APIKEY"] = "NONE",
   })
 
-  local live = env["GITHUBREST_TEST_LIVE"] == "TRUE"
+  local live = env["GITHUB_REST_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["GITHUBREST_APIKEY"],
+      apikey = env["GITHUB_REST_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

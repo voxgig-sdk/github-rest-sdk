@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    branchs = client.Branch().list()
+    branchs = client.Branch().list({"owner": "example", "repo": "example"})
     for branch in branchs:
         print(branch)
 except Exception as err:
@@ -56,7 +56,7 @@ except Exception as err:
 ### 3. Load an issue
 
 Issue is nested under owner, so provide the `owner`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -73,8 +73,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    branchs = client.Branch().list()
-    print(branchs)
+    issues = client.Issue().list()
+    print(issues)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -140,9 +140,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubRestSDK.test()
 
-# Entity ops return the bare record and raise on error.
-branch = client.Branch().list()
-# branch contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+issue = client.Issue().list()
+# issue contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -251,7 +252,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -303,7 +304,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `created_at` |  |
 | `description` |  |
-| `file` |  |
+| `files` |  |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
@@ -321,13 +322,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `milestone` |  |
 | `node_id` |  |
 | `number` |  |
@@ -367,7 +369,7 @@ API path: `/notifications`
 | `created_at` |  |
 | `description` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -375,8 +377,8 @@ API path: `/notifications`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `updated_at` |  |
 | `url` |  |
 
@@ -414,7 +416,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `rate` |  |
-| `resource` |  |
+| `resources` |  |
 
 Operations: Load.
 
@@ -424,23 +426,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `avatar_url` |  |
+| `bio` |  |
+| `blog` |  |
+| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
+| `email` |  |
+| `followers` |  |
+| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
 | `language` |  |
+| `location` |  |
+| `login` |  |
 | `name` |  |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
+| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -455,9 +469,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
@@ -466,7 +481,7 @@ API path: `/users/{username}/repos`
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `language` |  |
 | `milestone` |  |
 | `name` |  |
@@ -500,7 +515,7 @@ API path: `/search/issues`
 | `company` |  |
 | `created_at` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -508,8 +523,8 @@ API path: `/search/issues`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `type` |  |
 | `updated_at` |  |
 | `url` |  |
@@ -544,7 +559,7 @@ Create an instance: `branch = client.Branch()`
 #### Example: List
 
 ```python
-branchs = client.Branch().list()
+branchs = client.Branch().list({"owner": "example", "repo": "example"})
 ```
 
 
@@ -573,7 +588,7 @@ Create an instance: `commit = client.Commit()`
 #### Example: List
 
 ```python
-commits = client.Commit().list()
+commits = client.Commit().list({"owner": "example", "repo": "example"})
 ```
 
 
@@ -594,7 +609,7 @@ Create an instance: `gist = client.Gist()`
 | --- | --- | --- |
 | `created_at` | `str` |  |
 | `description` | `str` |  |
-| `file` | `dict` |  |
+| `files` | `dict` |  |
 | `html_url` | `str` |  |
 | `id` | `str` |  |
 | `node_id` | `str` |  |
@@ -613,7 +628,7 @@ gists = client.Gist().list()
 
 ```python
 gist = client.Gist().create({
-    "file": {},  # dict
+    "files": {},  # dict
 })
 ```
 
@@ -636,13 +651,14 @@ Create an instance: `issue = client.Issue()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `Any` |  |
+| `assignees` | `list` |  |
 | `body` | `str` |  |
 | `closed_at` | `str` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `str` |  |
 | `html_url` | `str` |  |
 | `id` | `int` |  |
-| `label` | `list` |  |
+| `labels` | `list` |  |
 | `milestone` | `dict` |  |
 | `node_id` | `str` |  |
 | `number` | `int` |  |
@@ -661,7 +677,7 @@ issue = client.Issue().load({"id": 1, "owner": "owner", "repo": "repo"})
 #### Example: List
 
 ```python
-issues = client.Issue().list()
+issues = client.Issue().list({"owner": "example", "repo": "example"})
 ```
 
 #### Example: Create
@@ -723,7 +739,7 @@ Create an instance: `org = client.Org()`
 | `created_at` | `str` |  |
 | `description` | `str` |  |
 | `email` | `str` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `str` |  |
 | `id` | `int` |  |
@@ -731,8 +747,8 @@ Create an instance: `org = client.Org()`
 | `login` | `str` |  |
 | `name` | `str` |  |
 | `node_id` | `str` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `updated_at` | `str` |  |
 | `url` | `str` |  |
 
@@ -785,7 +801,7 @@ pull = client.Pull().load({"id": 1, "owner": "owner", "repo": "repo"})
 #### Example: List
 
 ```python
-pulls = client.Pull().list()
+pulls = client.Pull().list({"owner": "example", "repo": "example"})
 ```
 
 #### Example: Create
@@ -813,7 +829,7 @@ Create an instance: `rate_limit = client.RateLimit()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `dict` |  |
-| `resource` | `dict` |  |
+| `resources` | `dict` |  |
 
 #### Example: Load
 
@@ -837,23 +853,35 @@ Create an instance: `repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `str` |  |
+| `bio` | `str` |  |
+| `blog` | `str` |  |
+| `company` | `str` |  |
 | `created_at` | `str` |  |
 | `default_branch` | `str` |  |
 | `description` | `str` |  |
+| `email` | `str` |  |
+| `followers` | `int` |  |
+| `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
 | `full_name` | `str` |  |
 | `html_url` | `str` |  |
 | `id` | `int` |  |
 | `language` | `str` |  |
+| `location` | `str` |  |
+| `login` | `str` |  |
 | `name` | `str` |  |
 | `node_id` | `str` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `dict` |  |
 | `private` | `bool` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `pushed_at` | `str` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
+| `type` | `str` |  |
 | `updated_at` | `str` |  |
 | `url` | `str` |  |
 | `visibility` | `str` |  |
@@ -887,9 +915,10 @@ Create an instance: `search = client.Search()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `Any` |  |
+| `assignees` | `list` |  |
 | `body` | `str` |  |
 | `closed_at` | `str` |  |
-| `comment` | `int` |  |
+| `comments` | `int` |  |
 | `created_at` | `str` |  |
 | `default_branch` | `str` |  |
 | `description` | `str` |  |
@@ -898,7 +927,7 @@ Create an instance: `search = client.Search()`
 | `full_name` | `str` |  |
 | `html_url` | `str` |  |
 | `id` | `int` |  |
-| `label` | `list` |  |
+| `labels` | `list` |  |
 | `language` | `str` |  |
 | `milestone` | `dict` |  |
 | `name` | `str` |  |
@@ -945,7 +974,7 @@ Create an instance: `user = client.User()`
 | `company` | `str` |  |
 | `created_at` | `str` |  |
 | `email` | `str` |  |
-| `follower` | `int` |  |
+| `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `str` |  |
 | `id` | `int` |  |
@@ -953,8 +982,8 @@ Create an instance: `user = client.User()`
 | `login` | `str` |  |
 | `name` | `str` |  |
 | `node_id` | `str` |  |
-| `public_gist` | `int` |  |
-| `public_repo` | `int` |  |
+| `public_gists` | `int` |  |
+| `public_repos` | `int` |  |
 | `type` | `str` |  |
 | `updated_at` | `str` |  |
 | `url` | `str` |  |
@@ -1041,11 +1070,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-branch = client.Branch()
-branch.list()
+issue = client.Issue()
+issue.list()
 
-# branch.data_get() now returns the branch data from the last list
-# branch.match_get() returns the last match criteria
+# issue.data_get() now returns the issue data from the last list
+# issue.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

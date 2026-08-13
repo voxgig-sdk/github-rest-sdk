@@ -31,7 +31,7 @@ main: kit: entity: org: {
       type: "`$STRING`"
     }
     {
-      name: "follower"
+      name: "followers"
       req: false
       type: "`$INTEGER`"
     }
@@ -71,12 +71,12 @@ main: kit: entity: org: {
       type: "`$STRING`"
     }
     {
-      name: "public_gist"
+      name: "public_gists"
       req: false
       type: "`$INTEGER`"
     }
     {
-      name: "public_repo"
+      name: "public_repos"
       req: false
       type: "`$INTEGER`"
     }

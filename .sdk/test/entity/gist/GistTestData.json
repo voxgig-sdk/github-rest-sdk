@@ -4,7 +4,7 @@
       "GIST00": {
         "created_at": "s64",
         "description": "s65",
-        "file": {},
+        "files": {},
         "html_url": "s67",
         "id": "GIST00",
         "node_id": "NODE01",
@@ -16,7 +16,7 @@
       "GIST01": {
         "created_at": "sc8",
         "description": "sc9",
-        "file": {},
+        "files": {},
         "html_url": "scb",
         "id": "GIST01",
         "node_id": "NODE01",
@@ -28,7 +28,7 @@
       "GIST02": {
         "created_at": "s12c",
         "description": "s12d",
-        "file": {},
+        "files": {},
         "html_url": "s12f",
         "id": "GIST02",
         "node_id": "NODE01",
@@ -44,7 +44,7 @@
       "gist_ref01": {
         "created_at": "s190",
         "description": "s191",
-        "file": {},
+        "files": {},
         "html_url": "s193",
         "node_id": "NODE01",
         "owner": {},

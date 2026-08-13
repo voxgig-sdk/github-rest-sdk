@@ -31,7 +31,7 @@
 ---@class Gist
 ---@field created_at? string
 ---@field description? string
----@field file table
+---@field files table
 ---@field html_url? string
 ---@field id? string
 ---@field node_id? string
@@ -43,7 +43,7 @@
 ---@class GistListMatch
 ---@field created_at? string
 ---@field description? string
----@field file? table
+---@field files? table
 ---@field html_url? string
 ---@field id? string
 ---@field node_id? string
@@ -55,7 +55,7 @@
 ---@class GistCreateData
 ---@field created_at? string
 ---@field description? string
----@field file table
+---@field files table
 ---@field html_url? string
 ---@field id? string
 ---@field node_id? string
@@ -66,13 +66,14 @@
 
 ---@class Issue
 ---@field assignee? any
+---@field assignees? table
 ---@field body? string
 ---@field closed_at? string
----@field comment? number
+---@field comments? number
 ---@field created_at? string
 ---@field html_url? string
 ---@field id? number
----@field label? table
+---@field labels? table
 ---@field milestone? table
 ---@field node_id? string
 ---@field number? number
@@ -94,11 +95,44 @@
 ---@class IssueCreateData
 ---@field owner string
 ---@field repo string
+---@field assignee? any
+---@field assignees? table
+---@field body? string
+---@field closed_at? string
+---@field comments? number
+---@field created_at? string
+---@field html_url? string
+---@field id? number
+---@field labels? table
+---@field milestone? table
+---@field node_id? string
+---@field number? number
+---@field state? string
+---@field title? string
+---@field updated_at? string
+---@field url? string
+---@field user? table
 
 ---@class IssueUpdateData
 ---@field id number
 ---@field owner string
 ---@field repo string
+---@field assignee? any
+---@field assignees? table
+---@field body? string
+---@field closed_at? string
+---@field comments? number
+---@field created_at? string
+---@field html_url? string
+---@field labels? table
+---@field milestone? table
+---@field node_id? string
+---@field number? number
+---@field state? string
+---@field title? string
+---@field updated_at? string
+---@field url? string
+---@field user? table
 
 ---@class Notification
 ---@field id? string
@@ -126,7 +160,7 @@
 ---@field created_at? string
 ---@field description? string
 ---@field email? string
----@field follower? number
+---@field followers? number
 ---@field following? number
 ---@field html_url? string
 ---@field id? number
@@ -134,8 +168,8 @@
 ---@field login? string
 ---@field name? string
 ---@field node_id? string
----@field public_gist? number
----@field public_repo? number
+---@field public_gists? number
+---@field public_repos? number
 ---@field updated_at? string
 ---@field url? string
 
@@ -172,33 +206,61 @@
 ---@class PullCreateData
 ---@field owner string
 ---@field repo string
+---@field base? table
+---@field body? string
+---@field closed_at? string
+---@field created_at? string
+---@field draft? boolean
+---@field head? table
+---@field html_url? string
+---@field id? number
+---@field merged_at? string
+---@field node_id? string
+---@field number? number
+---@field state? string
+---@field title? string
+---@field updated_at? string
+---@field url? string
+---@field user? table
 
 ---@class RateLimit
 ---@field rate? table
----@field resource? table
+---@field resources? table
 
 ---@class RateLimitLoadMatch
 ---@field rate? table
----@field resource? table
+---@field resources? table
 
 ---@class Repo
+---@field avatar_url? string
+---@field bio? string
+---@field blog? string
+---@field company? string
 ---@field created_at? string
 ---@field default_branch? string
 ---@field description? string
+---@field email? string
+---@field followers? number
+---@field following? number
 ---@field fork? boolean
 ---@field forks_count? number
 ---@field full_name? string
 ---@field html_url? string
 ---@field id? number
 ---@field language? string
+---@field location? string
+---@field login? string
 ---@field name? string
 ---@field node_id? string
 ---@field open_issues_count? number
 ---@field owner? table
 ---@field private? boolean
+---@field public_gists? number
+---@field public_repos? number
 ---@field pushed_at? string
 ---@field size? number
 ---@field stargazers_count? number
+---@field type? string
 ---@field updated_at? string
 ---@field url? string
 ---@field visibility? string
@@ -214,9 +276,10 @@
 
 ---@class Search
 ---@field assignee? any
+---@field assignees? table
 ---@field body? string
 ---@field closed_at? string
----@field comment? number
+---@field comments? number
 ---@field created_at? string
 ---@field default_branch? string
 ---@field description? string
@@ -225,7 +288,7 @@
 ---@field full_name? string
 ---@field html_url? string
 ---@field id? number
----@field label? table
+---@field labels? table
 ---@field language? string
 ---@field milestone? table
 ---@field name? string
@@ -247,9 +310,10 @@
 
 ---@class SearchListMatch
 ---@field assignee? any
+---@field assignees? table
 ---@field body? string
 ---@field closed_at? string
----@field comment? number
+---@field comments? number
 ---@field created_at? string
 ---@field default_branch? string
 ---@field description? string
@@ -258,7 +322,7 @@
 ---@field full_name? string
 ---@field html_url? string
 ---@field id? number
----@field label? table
+---@field labels? table
 ---@field language? string
 ---@field milestone? table
 ---@field name? string
@@ -285,7 +349,7 @@
 ---@field company? string
 ---@field created_at? string
 ---@field email? string
----@field follower? number
+---@field followers? number
 ---@field following? number
 ---@field html_url? string
 ---@field id? number
@@ -293,8 +357,8 @@
 ---@field login? string
 ---@field name? string
 ---@field node_id? string
----@field public_gist? number
----@field public_repo? number
+---@field public_gists? number
+---@field public_repos? number
 ---@field type? string
 ---@field updated_at? string
 ---@field url? string

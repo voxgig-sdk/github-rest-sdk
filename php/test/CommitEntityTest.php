@@ -72,7 +72,7 @@ class CommitEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUBREST_TEST_COMMIT_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set GITHUB_REST_TEST_COMMIT_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -120,39 +120,39 @@ function commit_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("GITHUBREST_TEST_COMMIT_ENTID");
+    $entid_env_raw = getenv("GITHUB_REST_TEST_COMMIT_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "GITHUBREST_TEST_COMMIT_ENTID" => $idmap,
-        "GITHUBREST_TEST_LIVE" => "FALSE",
-        "GITHUBREST_TEST_EXPLAIN" => "FALSE",
-        "GITHUBREST_APIKEY" => "NONE",
+        "GITHUB_REST_TEST_COMMIT_ENTID" => $idmap,
+        "GITHUB_REST_TEST_LIVE" => "FALSE",
+        "GITHUB_REST_TEST_EXPLAIN" => "FALSE",
+        "GITHUB_REST_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["GITHUBREST_TEST_COMMIT_ENTID"]);
+        $env["GITHUB_REST_TEST_COMMIT_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["GITHUBREST_TEST_LIVE"] === "TRUE") {
+    if ($env["GITHUB_REST_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["GITHUBREST_APIKEY"],
+                "apikey" => $env["GITHUB_REST_APIKEY"],
             ],
             $extra ?? [],
         ]);
         $client = new GithubRestSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["GITHUBREST_TEST_LIVE"] === "TRUE";
+    $live = $env["GITHUB_REST_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["GITHUBREST_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["GITHUB_REST_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

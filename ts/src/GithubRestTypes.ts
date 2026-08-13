@@ -34,7 +34,7 @@ export interface CommitListMatch {
 export interface Gist {
   created_at?: string
   description?: string
-  file: Record<string, any>
+  files: Record<string, any>
   html_url?: string
   id?: string
   node_id?: string
@@ -47,7 +47,7 @@ export interface Gist {
 export interface GistListMatch {
   created_at?: string
   description?: string
-  file?: Record<string, any>
+  files?: Record<string, any>
   html_url?: string
   id?: string
   node_id?: string
@@ -60,7 +60,7 @@ export interface GistListMatch {
 export interface GistCreateData {
   created_at?: string
   description?: string
-  file: Record<string, any>
+  files: Record<string, any>
   html_url?: string
   id?: string
   node_id?: string
@@ -72,13 +72,14 @@ export interface GistCreateData {
 
 export interface Issue {
   assignee?: any
+  assignees?: any[]
   body?: string
   closed_at?: string
-  comment?: number
+  comments?: number
   created_at?: string
   html_url?: string
   id?: number
-  label?: any[]
+  labels?: any[]
   milestone?: Record<string, any>
   node_id?: string
   number?: number
@@ -103,12 +104,45 @@ export interface IssueListMatch {
 export interface IssueCreateData {
   owner: string
   repo: string
+  assignee?: any
+  assignees?: any[]
+  body?: string
+  closed_at?: string
+  comments?: number
+  created_at?: string
+  html_url?: string
+  id?: number
+  labels?: any[]
+  milestone?: Record<string, any>
+  node_id?: string
+  number?: number
+  state?: string
+  title?: string
+  updated_at?: string
+  url?: string
+  user?: Record<string, any>
 }
 
 export interface IssueUpdateData {
   id: number
   owner: string
   repo: string
+  assignee?: any
+  assignees?: any[]
+  body?: string
+  closed_at?: string
+  comments?: number
+  created_at?: string
+  html_url?: string
+  labels?: any[]
+  milestone?: Record<string, any>
+  node_id?: string
+  number?: number
+  state?: string
+  title?: string
+  updated_at?: string
+  url?: string
+  user?: Record<string, any>
 }
 
 export interface Notification {
@@ -139,7 +173,7 @@ export interface Org {
   created_at?: string
   description?: string
   email?: string
-  follower?: number
+  followers?: number
   following?: number
   html_url?: string
   id?: number
@@ -147,8 +181,8 @@ export interface Org {
   login?: string
   name?: string
   node_id?: string
-  public_gist?: number
-  public_repo?: number
+  public_gists?: number
+  public_repos?: number
   updated_at?: string
   url?: string
 }
@@ -190,36 +224,64 @@ export interface PullListMatch {
 export interface PullCreateData {
   owner: string
   repo: string
+  base?: Record<string, any>
+  body?: string
+  closed_at?: string
+  created_at?: string
+  draft?: boolean
+  head?: Record<string, any>
+  html_url?: string
+  id?: number
+  merged_at?: string
+  node_id?: string
+  number?: number
+  state?: string
+  title?: string
+  updated_at?: string
+  url?: string
+  user?: Record<string, any>
 }
 
 export interface RateLimit {
   rate?: Record<string, any>
-  resource?: Record<string, any>
+  resources?: Record<string, any>
 }
 
 export interface RateLimitLoadMatch {
   rate?: Record<string, any>
-  resource?: Record<string, any>
+  resources?: Record<string, any>
 }
 
 export interface Repo {
+  avatar_url?: string
+  bio?: string
+  blog?: string
+  company?: string
   created_at?: string
   default_branch?: string
   description?: string
+  email?: string
+  followers?: number
+  following?: number
   fork?: boolean
   forks_count?: number
   full_name?: string
   html_url?: string
   id?: number
   language?: string
+  location?: string
+  login?: string
   name?: string
   node_id?: string
   open_issues_count?: number
   owner?: Record<string, any>
   private?: boolean
+  public_gists?: number
+  public_repos?: number
   pushed_at?: string
   size?: number
   stargazers_count?: number
+  type?: string
   updated_at?: string
   url?: string
   visibility?: string
@@ -238,9 +300,10 @@ export interface RepoListMatch {
 
 export interface Search {
   assignee?: any
+  assignees?: any[]
   body?: string
   closed_at?: string
-  comment?: number
+  comments?: number
   created_at?: string
   default_branch?: string
   description?: string
@@ -249,7 +312,7 @@ export interface Search {
   full_name?: string
   html_url?: string
   id?: number
-  label?: any[]
+  labels?: any[]
   language?: string
   milestone?: Record<string, any>
   name?: string
@@ -272,9 +335,10 @@ export interface Search {
 
 export interface SearchListMatch {
   assignee?: any
+  assignees?: any[]
   body?: string
   closed_at?: string
-  comment?: number
+  comments?: number
   created_at?: string
   default_branch?: string
   description?: string
@@ -283,7 +347,7 @@ export interface SearchListMatch {
   full_name?: string
   html_url?: string
   id?: number
-  label?: any[]
+  labels?: any[]
   language?: string
   milestone?: Record<string, any>
   name?: string
@@ -302,6 +366,12 @@ export interface SearchListMatch {
   user?: Record<string, any>
   visibility?: string
   watchers_count?: number
+
+  // Selects a custom action instead of the plain list:
+  //   'issue' | 'repository'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface User {
@@ -311,7 +381,7 @@ export interface User {
   company?: string
   created_at?: string
   email?: string
-  follower?: number
+  followers?: number
   following?: number
   html_url?: string
   id?: number
@@ -319,8 +389,8 @@ export interface User {
   login?: string
   name?: string
   node_id?: string
-  public_gist?: number
-  public_repo?: number
+  public_gists?: number
+  public_repos?: number
   type?: string
   updated_at?: string
   url?: string

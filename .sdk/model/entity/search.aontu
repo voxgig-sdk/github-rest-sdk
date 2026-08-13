@@ -11,6 +11,11 @@ main: kit: entity: search: {
       type: "`$ANY`"
     }
     {
+      name: "assignees"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
       name: "body"
       req: false
       type: "`$STRING`"
@@ -21,7 +26,7 @@ main: kit: entity: search: {
       type: "`$STRING`"
     }
     {
-      name: "comment"
+      name: "comments"
       req: false
       type: "`$INTEGER`"
     }
@@ -66,7 +71,7 @@ main: kit: entity: search: {
       type: "`$INTEGER`"
     }
     {
-      name: "label"
+      name: "labels"
       req: false
       type: "`$ARRAY`"
     }
@@ -233,7 +238,7 @@ main: kit: entity: search: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
         {
@@ -297,7 +302,7 @@ main: kit: entity: search: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.items`"
           }
         }
       ]

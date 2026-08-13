@@ -11,6 +11,11 @@ main: kit: entity: issue: {
       type: "`$ANY`"
     }
     {
+      name: "assignees"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
       name: "body"
       req: false
       type: "`$STRING`"
@@ -21,7 +26,7 @@ main: kit: entity: issue: {
       type: "`$STRING`"
     }
     {
-      name: "comment"
+      name: "comments"
       req: false
       type: "`$INTEGER`"
     }
@@ -41,7 +46,7 @@ main: kit: entity: issue: {
       type: "`$INTEGER`"
     }
     {
-      name: "label"
+      name: "labels"
       req: false
       type: "`$ARRAY`"
     }

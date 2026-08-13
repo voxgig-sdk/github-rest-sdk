@@ -37,7 +37,7 @@ class NotificationEntity extends GithubRestEntityBase<Notification> {
 
 
 
-  async list(this: any, reqmatch?: NotificationListMatch, ctrl?: Control): Promise<Notification[]> {
+  async list(this: any, reqmatch?: NotificationListMatch, ctrl?: Control): Promise<NotificationEntity[]> {
 
     const utility = this._utility
 

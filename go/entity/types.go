@@ -6,7 +6,11 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/github-rest-sdk/go/core"
+)
 
 // Branch is the typed data model for the branch entity.
 type Branch struct {
@@ -42,7 +46,7 @@ type CommitListMatch struct {
 type Gist struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
-	File map[string]any `json:"file"`
+	Files map[string]any `json:"files"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *string `json:"id,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
@@ -56,7 +60,7 @@ type Gist struct {
 type GistListMatch struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
-	File *map[string]any `json:"file,omitempty"`
+	Files *map[string]any `json:"files,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *string `json:"id,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
@@ -70,7 +74,7 @@ type GistListMatch struct {
 type GistCreateData struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
-	File map[string]any `json:"file"`
+	Files map[string]any `json:"files"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *string `json:"id,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
@@ -83,13 +87,14 @@ type GistCreateData struct {
 // Issue is the typed data model for the issue entity.
 type Issue struct {
 	Assignee *any `json:"assignee,omitempty"`
+	Assignees *[]any `json:"assignees,omitempty"`
 	Body *string `json:"body,omitempty"`
 	ClosedAt *string `json:"closed_at,omitempty"`
-	Comment *int `json:"comment,omitempty"`
+	Comments *int `json:"comments,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
-	Label *[]any `json:"label,omitempty"`
+	Labels *[]any `json:"labels,omitempty"`
 	Milestone *map[string]any `json:"milestone,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
 	Number *int `json:"number,omitempty"`
@@ -117,6 +122,23 @@ type IssueListMatch struct {
 type IssueCreateData struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Assignee *any `json:"assignee,omitempty"`
+	Assignees *[]any `json:"assignees,omitempty"`
+	Body *string `json:"body,omitempty"`
+	ClosedAt *string `json:"closed_at,omitempty"`
+	Comments *int `json:"comments,omitempty"`
+	CreatedAt *string `json:"created_at,omitempty"`
+	HtmlUrl *string `json:"html_url,omitempty"`
+	Id *int `json:"id,omitempty"`
+	Labels *[]any `json:"labels,omitempty"`
+	Milestone *map[string]any `json:"milestone,omitempty"`
+	NodeId *string `json:"node_id,omitempty"`
+	Number *int `json:"number,omitempty"`
+	State *string `json:"state,omitempty"`
+	Title *string `json:"title,omitempty"`
+	UpdatedAt *string `json:"updated_at,omitempty"`
+	Url *string `json:"url,omitempty"`
+	User *map[string]any `json:"user,omitempty"`
 }
 
 // IssueUpdateData is the typed request payload for Issue.UpdateTyped.
@@ -124,6 +146,22 @@ type IssueUpdateData struct {
 	Id int `json:"id"`
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Assignee *any `json:"assignee,omitempty"`
+	Assignees *[]any `json:"assignees,omitempty"`
+	Body *string `json:"body,omitempty"`
+	ClosedAt *string `json:"closed_at,omitempty"`
+	Comments *int `json:"comments,omitempty"`
+	CreatedAt *string `json:"created_at,omitempty"`
+	HtmlUrl *string `json:"html_url,omitempty"`
+	Labels *[]any `json:"labels,omitempty"`
+	Milestone *map[string]any `json:"milestone,omitempty"`
+	NodeId *string `json:"node_id,omitempty"`
+	Number *int `json:"number,omitempty"`
+	State *string `json:"state,omitempty"`
+	Title *string `json:"title,omitempty"`
+	UpdatedAt *string `json:"updated_at,omitempty"`
+	Url *string `json:"url,omitempty"`
+	User *map[string]any `json:"user,omitempty"`
 }
 
 // Notification is the typed data model for the notification entity.
@@ -157,7 +195,7 @@ type Org struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Email *string `json:"email,omitempty"`
-	Follower *int `json:"follower,omitempty"`
+	Followers *int `json:"followers,omitempty"`
 	Following *int `json:"following,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
@@ -165,8 +203,8 @@ type Org struct {
 	Login *string `json:"login,omitempty"`
 	Name *string `json:"name,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
-	PublicGist *int `json:"public_gist,omitempty"`
-	PublicRepo *int `json:"public_repo,omitempty"`
+	PublicGists *int `json:"public_gists,omitempty"`
+	PublicRepos *int `json:"public_repos,omitempty"`
 	UpdatedAt *string `json:"updated_at,omitempty"`
 	Url *string `json:"url,omitempty"`
 }
@@ -213,39 +251,67 @@ type PullListMatch struct {
 type PullCreateData struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Base *map[string]any `json:"base,omitempty"`
+	Body *string `json:"body,omitempty"`
+	ClosedAt *string `json:"closed_at,omitempty"`
+	CreatedAt *string `json:"created_at,omitempty"`
+	Draft *bool `json:"draft,omitempty"`
+	Head *map[string]any `json:"head,omitempty"`
+	HtmlUrl *string `json:"html_url,omitempty"`
+	Id *int `json:"id,omitempty"`
+	MergedAt *string `json:"merged_at,omitempty"`
+	NodeId *string `json:"node_id,omitempty"`
+	Number *int `json:"number,omitempty"`
+	State *string `json:"state,omitempty"`
+	Title *string `json:"title,omitempty"`
+	UpdatedAt *string `json:"updated_at,omitempty"`
+	Url *string `json:"url,omitempty"`
+	User *map[string]any `json:"user,omitempty"`
 }
 
 // RateLimit is the typed data model for the rate_limit entity.
 type RateLimit struct {
 	Rate *map[string]any `json:"rate,omitempty"`
-	Resource *map[string]any `json:"resource,omitempty"`
+	Resources *map[string]any `json:"resources,omitempty"`
 }
 
 // RateLimitLoadMatch is the typed request payload for RateLimit.LoadTyped.
 type RateLimitLoadMatch struct {
 	Rate *map[string]any `json:"rate,omitempty"`
-	Resource *map[string]any `json:"resource,omitempty"`
+	Resources *map[string]any `json:"resources,omitempty"`
 }
 
 // Repo is the typed data model for the repo entity.
 type Repo struct {
+	AvatarUrl *string `json:"avatar_url,omitempty"`
+	Bio *string `json:"bio,omitempty"`
+	Blog *string `json:"blog,omitempty"`
+	Company *string `json:"company,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
 	DefaultBranch *string `json:"default_branch,omitempty"`
 	Description *string `json:"description,omitempty"`
+	Email *string `json:"email,omitempty"`
+	Followers *int `json:"followers,omitempty"`
+	Following *int `json:"following,omitempty"`
 	Fork *bool `json:"fork,omitempty"`
 	ForksCount *int `json:"forks_count,omitempty"`
 	FullName *string `json:"full_name,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
 	Language *string `json:"language,omitempty"`
+	Location *string `json:"location,omitempty"`
+	Login *string `json:"login,omitempty"`
 	Name *string `json:"name,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
 	OpenIssuesCount *int `json:"open_issues_count,omitempty"`
 	Owner *map[string]any `json:"owner,omitempty"`
 	Private *bool `json:"private,omitempty"`
+	PublicGists *int `json:"public_gists,omitempty"`
+	PublicRepos *int `json:"public_repos,omitempty"`
 	PushedAt *string `json:"pushed_at,omitempty"`
 	Size *int `json:"size,omitempty"`
 	StargazersCount *int `json:"stargazers_count,omitempty"`
+	Type *string `json:"type,omitempty"`
 	UpdatedAt *string `json:"updated_at,omitempty"`
 	Url *string `json:"url,omitempty"`
 	Visibility *string `json:"visibility,omitempty"`
@@ -267,9 +333,10 @@ type RepoListMatch struct {
 // Search is the typed data model for the search entity.
 type Search struct {
 	Assignee *any `json:"assignee,omitempty"`
+	Assignees *[]any `json:"assignees,omitempty"`
 	Body *string `json:"body,omitempty"`
 	ClosedAt *string `json:"closed_at,omitempty"`
-	Comment *int `json:"comment,omitempty"`
+	Comments *int `json:"comments,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
 	DefaultBranch *string `json:"default_branch,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -278,7 +345,7 @@ type Search struct {
 	FullName *string `json:"full_name,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
-	Label *[]any `json:"label,omitempty"`
+	Labels *[]any `json:"labels,omitempty"`
 	Language *string `json:"language,omitempty"`
 	Milestone *map[string]any `json:"milestone,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -302,9 +369,10 @@ type Search struct {
 // SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
 	Assignee *any `json:"assignee,omitempty"`
+	Assignees *[]any `json:"assignees,omitempty"`
 	Body *string `json:"body,omitempty"`
 	ClosedAt *string `json:"closed_at,omitempty"`
-	Comment *int `json:"comment,omitempty"`
+	Comments *int `json:"comments,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
 	DefaultBranch *string `json:"default_branch,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -313,7 +381,7 @@ type SearchListMatch struct {
 	FullName *string `json:"full_name,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
-	Label *[]any `json:"label,omitempty"`
+	Labels *[]any `json:"labels,omitempty"`
 	Language *string `json:"language,omitempty"`
 	Milestone *map[string]any `json:"milestone,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -342,7 +410,7 @@ type User struct {
 	Company *string `json:"company,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
 	Email *string `json:"email,omitempty"`
-	Follower *int `json:"follower,omitempty"`
+	Followers *int `json:"followers,omitempty"`
 	Following *int `json:"following,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
 	Id *int `json:"id,omitempty"`
@@ -350,8 +418,8 @@ type User struct {
 	Login *string `json:"login,omitempty"`
 	Name *string `json:"name,omitempty"`
 	NodeId *string `json:"node_id,omitempty"`
-	PublicGist *int `json:"public_gist,omitempty"`
-	PublicRepo *int `json:"public_repo,omitempty"`
+	PublicGists *int `json:"public_gists,omitempty"`
+	PublicRepos *int `json:"public_repos,omitempty"`
 	Type *string `json:"type,omitempty"`
 	UpdatedAt *string `json:"updated_at,omitempty"`
 	Url *string `json:"url,omitempty"`
@@ -374,12 +442,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -391,12 +473,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

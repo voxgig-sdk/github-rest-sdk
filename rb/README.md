@@ -52,7 +52,7 @@ Issue is nested under owner, so provide the `owner`.
 
 ```ruby
 begin
-  # load returns the bare Issue record (raises on error).
+  # load returns the ENTITY — call data_get for the Issue record (raises on error).
   issue = client.Issue.load({ "owner" => "example_owner", "repo" => "example_repo", "id" => 1 })
   puts issue
 rescue => err
@@ -67,7 +67,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  branchs = client.Branch.list()
+  issues = client.Issue.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -130,14 +130,18 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = GithubRestSDK.test
+client = GithubRestSDK.test({
+  "entity" => { "issue" => { "test01" => { "id" => "test01" } } },
+})
 
-# Entity ops return the bare mock record (raises on error).
-branch = client.Branch.list()
-puts branch
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+issue = client.Issue.list()
+puts issue
 ```
 
 ### Use a custom fetch function
@@ -297,7 +301,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `created_at` |  |
 | `description` |  |
-| `file` |  |
+| `files` |  |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
@@ -315,13 +319,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `milestone` |  |
 | `node_id` |  |
 | `number` |  |
@@ -361,7 +366,7 @@ API path: `/notifications`
 | `created_at` |  |
 | `description` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -369,8 +374,8 @@ API path: `/notifications`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `updated_at` |  |
 | `url` |  |
 
@@ -408,7 +413,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `rate` |  |
-| `resource` |  |
+| `resources` |  |
 
 Operations: Load.
 
@@ -418,23 +423,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `avatar_url` |  |
+| `bio` |  |
+| `blog` |  |
+| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
+| `email` |  |
+| `followers` |  |
+| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
 | `language` |  |
+| `location` |  |
+| `login` |  |
 | `name` |  |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
+| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -449,9 +466,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
@@ -460,7 +478,7 @@ API path: `/users/{username}/repos`
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `language` |  |
 | `milestone` |  |
 | `name` |  |
@@ -494,7 +512,7 @@ API path: `/search/issues`
 | `company` |  |
 | `created_at` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -502,8 +520,8 @@ API path: `/search/issues`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `type` |  |
 | `updated_at` |  |
 | `url` |  |
@@ -590,7 +608,7 @@ Create an instance: `gist = client.Gist`
 | --- | --- | --- |
 | `created_at` | `String` |  |
 | `description` | `String` |  |
-| `file` | `Hash` |  |
+| `files` | `Hash` |  |
 | `html_url` | `String` |  |
 | `id` | `String` |  |
 | `node_id` | `String` |  |
@@ -610,7 +628,7 @@ gists = client.Gist.list
 
 ```ruby
 gist = client.Gist.create({
-  "file" => {}, # Hash
+  "files" => {}, # Hash
 })
 ```
 
@@ -633,13 +651,14 @@ Create an instance: `issue = client.Issue`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `Object` |  |
+| `assignees` | `Array` |  |
 | `body` | `String` |  |
 | `closed_at` | `String` |  |
-| `comment` | `Integer` |  |
+| `comments` | `Integer` |  |
 | `created_at` | `String` |  |
 | `html_url` | `String` |  |
 | `id` | `Integer` |  |
-| `label` | `Array` |  |
+| `labels` | `Array` |  |
 | `milestone` | `Hash` |  |
 | `node_id` | `String` |  |
 | `number` | `Integer` |  |
@@ -652,7 +671,7 @@ Create an instance: `issue = client.Issue`
 #### Example: Load
 
 ```ruby
-# load returns the bare Issue record (raises on error).
+# load returns the ENTITY — call data_get for the Issue record (raises on error).
 issue = client.Issue.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
@@ -723,7 +742,7 @@ Create an instance: `org = client.Org`
 | `created_at` | `String` |  |
 | `description` | `String` |  |
 | `email` | `String` |  |
-| `follower` | `Integer` |  |
+| `followers` | `Integer` |  |
 | `following` | `Integer` |  |
 | `html_url` | `String` |  |
 | `id` | `Integer` |  |
@@ -731,15 +750,15 @@ Create an instance: `org = client.Org`
 | `login` | `String` |  |
 | `name` | `String` |  |
 | `node_id` | `String` |  |
-| `public_gist` | `Integer` |  |
-| `public_repo` | `Integer` |  |
+| `public_gists` | `Integer` |  |
+| `public_repos` | `Integer` |  |
 | `updated_at` | `String` |  |
 | `url` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Org record (raises on error).
+# load returns the ENTITY — call data_get for the Org record (raises on error).
 org = client.Org.load({ "id" => "org_id" })
 ```
 
@@ -780,7 +799,7 @@ Create an instance: `pull = client.Pull`
 #### Example: Load
 
 ```ruby
-# load returns the bare Pull record (raises on error).
+# load returns the ENTITY — call data_get for the Pull record (raises on error).
 pull = client.Pull.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 ```
 
@@ -816,12 +835,12 @@ Create an instance: `rate_limit = client.RateLimit`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `Hash` |  |
-| `resource` | `Hash` |  |
+| `resources` | `Hash` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare RateLimit record (raises on error).
+# load returns the ENTITY — call data_get for the RateLimit record (raises on error).
 rate_limit = client.RateLimit.load()
 ```
 
@@ -841,23 +860,35 @@ Create an instance: `repo = client.Repo`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `String` |  |
+| `bio` | `String` |  |
+| `blog` | `String` |  |
+| `company` | `String` |  |
 | `created_at` | `String` |  |
 | `default_branch` | `String` |  |
 | `description` | `String` |  |
+| `email` | `String` |  |
+| `followers` | `Integer` |  |
+| `following` | `Integer` |  |
 | `fork` | `Boolean` |  |
 | `forks_count` | `Integer` |  |
 | `full_name` | `String` |  |
 | `html_url` | `String` |  |
 | `id` | `Integer` |  |
 | `language` | `String` |  |
+| `location` | `String` |  |
+| `login` | `String` |  |
 | `name` | `String` |  |
 | `node_id` | `String` |  |
 | `open_issues_count` | `Integer` |  |
 | `owner` | `Hash` |  |
 | `private` | `Boolean` |  |
+| `public_gists` | `Integer` |  |
+| `public_repos` | `Integer` |  |
 | `pushed_at` | `String` |  |
 | `size` | `Integer` |  |
 | `stargazers_count` | `Integer` |  |
+| `type` | `String` |  |
 | `updated_at` | `String` |  |
 | `url` | `String` |  |
 | `visibility` | `String` |  |
@@ -866,7 +897,7 @@ Create an instance: `repo = client.Repo`
 #### Example: Load
 
 ```ruby
-# load returns the bare Repo record (raises on error).
+# load returns the ENTITY — call data_get for the Repo record (raises on error).
 repo = client.Repo.load({ "owner" => "owner", "repo" => "repo" })
 ```
 
@@ -893,9 +924,10 @@ Create an instance: `search = client.Search`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `Object` |  |
+| `assignees` | `Array` |  |
 | `body` | `String` |  |
 | `closed_at` | `String` |  |
-| `comment` | `Integer` |  |
+| `comments` | `Integer` |  |
 | `created_at` | `String` |  |
 | `default_branch` | `String` |  |
 | `description` | `String` |  |
@@ -904,7 +936,7 @@ Create an instance: `search = client.Search`
 | `full_name` | `String` |  |
 | `html_url` | `String` |  |
 | `id` | `Integer` |  |
-| `label` | `Array` |  |
+| `labels` | `Array` |  |
 | `language` | `String` |  |
 | `milestone` | `Hash` |  |
 | `name` | `String` |  |
@@ -952,7 +984,7 @@ Create an instance: `user = client.User`
 | `company` | `String` |  |
 | `created_at` | `String` |  |
 | `email` | `String` |  |
-| `follower` | `Integer` |  |
+| `followers` | `Integer` |  |
 | `following` | `Integer` |  |
 | `html_url` | `String` |  |
 | `id` | `Integer` |  |
@@ -960,8 +992,8 @@ Create an instance: `user = client.User`
 | `login` | `String` |  |
 | `name` | `String` |  |
 | `node_id` | `String` |  |
-| `public_gist` | `Integer` |  |
-| `public_repo` | `Integer` |  |
+| `public_gists` | `Integer` |  |
+| `public_repos` | `Integer` |  |
 | `type` | `String` |  |
 | `updated_at` | `String` |  |
 | `url` | `String` |  |
@@ -969,7 +1001,7 @@ Create an instance: `user = client.User`
 #### Example: Load
 
 ```ruby
-# load returns the bare User record (raises on error).
+# load returns the ENTITY — call data_get for the User record (raises on error).
 user = client.User.load({ "id" => "user_id" })
 ```
 
@@ -1050,11 +1082,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-branch = client.Branch
-branch.list()
+issue = client.Issue
+issue.list()
 
-# branch.data_get now returns the branch data from the last list
-# branch.match_get returns the last match criteria
+# issue.data_get now returns the issue data from the last list
+# issue.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

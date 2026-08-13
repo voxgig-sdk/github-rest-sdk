@@ -26,8 +26,8 @@ import {
 describe('CommitEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -65,7 +65,7 @@ describe('CommitEntity', async () => {
     commit_ref01_match['owner'] = setup.idmap['owner01']
     commit_ref01_match['repo'] = setup.idmap['repo01']
 
-    const commit_ref01_list = await commit_ref01_ent.list(commit_ref01_match)
+    const commit_ref01_list = (await commit_ref01_ent.list(commit_ref01_match)).map((e: any) => e.data())
 
 
   })

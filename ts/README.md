@@ -37,10 +37,12 @@ const client = new GithubRestSDK({
 
 ### 2. List branch records
 
-`list()` resolves to an array of Branch objects — iterate it directly:
+`list()` resolves to an array of Branch ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
-const branchs = await client.Branch().list()
+const branchs = await client.Branch().list({ owner: "example", repo: "example" })
 
 for (const branch of branchs) {
   console.log(branch)
@@ -72,8 +74,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const branchs = await client.Branch().list()
-  console.log(branchs)
+  const issues = await client.Issue().list()
+  console.log(issues)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -139,9 +141,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const branch = await client.Branch().list()
-// branch is a bare entity populated with mock response data
-console.log(branch)
+const issue = await client.Issue().list()
+// issue is the entity, populated with mock response data
+// — call issue.data() for the record itself
+console.log(issue)
 ```
 
 You can also use the instance method:
@@ -156,14 +159,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Branch()
+const entity = client.Issue()
 
 // First call runs the operation and stores its result
 await entity.list()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -352,7 +355,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `created_at` |  |
 | `description` |  |
-| `file` |  |
+| `files` |  |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
@@ -370,13 +373,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `milestone` |  |
 | `node_id` |  |
 | `number` |  |
@@ -416,7 +420,7 @@ API path: `/notifications`
 | `created_at` |  |
 | `description` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -424,8 +428,8 @@ API path: `/notifications`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `updated_at` |  |
 | `url` |  |
 
@@ -463,7 +467,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `rate` |  |
-| `resource` |  |
+| `resources` |  |
 
 Operations: load.
 
@@ -473,23 +477,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `avatar_url` |  |
+| `bio` |  |
+| `blog` |  |
+| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
+| `email` |  |
+| `followers` |  |
+| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
 | `language` |  |
+| `location` |  |
+| `login` |  |
 | `name` |  |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
+| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -504,9 +520,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
@@ -515,7 +532,7 @@ API path: `/users/{username}/repos`
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `language` |  |
 | `milestone` |  |
 | `name` |  |
@@ -549,7 +566,7 @@ API path: `/search/issues`
 | `company` |  |
 | `created_at` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -557,8 +574,8 @@ API path: `/search/issues`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `type` |  |
 | `updated_at` |  |
 | `url` |  |
@@ -593,7 +610,7 @@ Create an instance: `const branch = client.Branch()`
 #### Example: List
 
 ```ts
-const branchs = await client.Branch().list()
+const branchs = await client.Branch().list({ owner: "example", repo: "example" })
 ```
 
 
@@ -622,7 +639,7 @@ Create an instance: `const commit = client.Commit()`
 #### Example: List
 
 ```ts
-const commits = await client.Commit().list()
+const commits = await client.Commit().list({ owner: "example", repo: "example" })
 ```
 
 
@@ -643,7 +660,7 @@ Create an instance: `const gist = client.Gist()`
 | --- | --- | --- |
 | `created_at` | `string` |  |
 | `description` | `string` |  |
-| `file` | `Record<string, any>` |  |
+| `files` | `Record<string, any>` |  |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
@@ -662,7 +679,7 @@ const gists = await client.Gist().list()
 
 ```ts
 const gist = await client.Gist().create({
-  file: {},
+  files: {},
 })
 ```
 
@@ -685,13 +702,14 @@ Create an instance: `const issue = client.Issue()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `any[]` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `number` |  |
+| `comments` | `number` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
-| `label` | `any[]` |  |
+| `labels` | `any[]` |  |
 | `milestone` | `Record<string, any>` |  |
 | `node_id` | `string` |  |
 | `number` | `number` |  |
@@ -710,7 +728,7 @@ const issue = await client.Issue().load({ id: 1, owner: 'owner', repo: 'repo' })
 #### Example: List
 
 ```ts
-const issues = await client.Issue().list()
+const issues = await client.Issue().list({ owner: "example", repo: "example" })
 ```
 
 #### Example: Create
@@ -772,7 +790,7 @@ Create an instance: `const org = client.Org()`
 | `created_at` | `string` |  |
 | `description` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `number` |  |
+| `followers` | `number` |  |
 | `following` | `number` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
@@ -780,8 +798,8 @@ Create an instance: `const org = client.Org()`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `number` |  |
-| `public_repo` | `number` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
@@ -834,7 +852,7 @@ const pull = await client.Pull().load({ id: 1, owner: 'owner', repo: 'repo' })
 #### Example: List
 
 ```ts
-const pulls = await client.Pull().list()
+const pulls = await client.Pull().list({ owner: "example", repo: "example" })
 ```
 
 #### Example: Create
@@ -862,7 +880,7 @@ Create an instance: `const rate_limit = client.RateLimit()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `Record<string, any>` |  |
-| `resource` | `Record<string, any>` |  |
+| `resources` | `Record<string, any>` |  |
 
 #### Example: Load
 
@@ -886,23 +904,35 @@ Create an instance: `const repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
+| `email` | `string` |  |
+| `followers` | `number` |  |
+| `following` | `number` |  |
 | `fork` | `boolean` |  |
 | `forks_count` | `number` |  |
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
 | `language` | `string` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `open_issues_count` | `number` |  |
 | `owner` | `Record<string, any>` |  |
 | `private` | `boolean` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `pushed_at` | `string` |  |
 | `size` | `number` |  |
 | `stargazers_count` | `number` |  |
+| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |
@@ -936,9 +966,10 @@ Create an instance: `const search = client.Search()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `any[]` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `number` |  |
+| `comments` | `number` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
@@ -947,7 +978,7 @@ Create an instance: `const search = client.Search()`
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
-| `label` | `any[]` |  |
+| `labels` | `any[]` |  |
 | `language` | `string` |  |
 | `milestone` | `Record<string, any>` |  |
 | `name` | `string` |  |
@@ -994,7 +1025,7 @@ Create an instance: `const user = client.User()`
 | `company` | `string` |  |
 | `created_at` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `number` |  |
+| `followers` | `number` |  |
 | `following` | `number` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
@@ -1002,8 +1033,8 @@ Create an instance: `const user = client.User()`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `number` |  |
-| `public_repo` | `number` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
@@ -1084,11 +1115,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const branch = client.Branch()
-await branch.list()
+const issue = client.Issue()
+await issue.list()
 
-// branch.data() now returns the branch data from the last `list`
-// branch.match() returns the last match criteria
+// issue.data() now returns the issue data from the last `list`
+// issue.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

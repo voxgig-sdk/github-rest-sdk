@@ -16,11 +16,11 @@
 import pytest
 
 from githubrest_sdk import GithubRestSDK
-from core.error import GithubRestError
-from core.result import GithubRestResult
-from core.response import GithubRestResponse
-from core.spec import GithubRestSpec
-from feature.base_feature import GithubRestBaseFeature
+from githubrest_sdk.core.error import GithubRestError
+from githubrest_sdk.core.result import GithubRestResult
+from githubrest_sdk.core.response import GithubRestResponse
+from githubrest_sdk.core.spec import GithubRestSpec
+from githubrest_sdk.feature.base_feature import GithubRestBaseFeature
 
 
 def _client():

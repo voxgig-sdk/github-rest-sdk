@@ -26,8 +26,8 @@ import {
 describe('PullEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -64,7 +64,7 @@ describe('PullEntity', async () => {
     pull_ref01_data['owner'] = setup.idmap['owner01']
     pull_ref01_data['repo'] = setup.idmap['repo01']
 
-    pull_ref01_data = await pull_ref01_ent.create(pull_ref01_data)
+    pull_ref01_data = (await pull_ref01_ent.create(pull_ref01_data)).data()
     assert(null != pull_ref01_data.id)
 
 
@@ -73,7 +73,7 @@ describe('PullEntity', async () => {
     pull_ref01_match['owner'] = setup.idmap['owner01']
     pull_ref01_match['repo'] = setup.idmap['repo01']
 
-    const pull_ref01_list = await pull_ref01_ent.list(pull_ref01_match)
+    const pull_ref01_list = (await pull_ref01_ent.list(pull_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(pull_ref01_list, { id: pull_ref01_data.id })))
 
@@ -81,7 +81,7 @@ describe('PullEntity', async () => {
     // LOAD
     const pull_ref01_match_dt0: any = {}
     pull_ref01_match_dt0.id = pull_ref01_data.id
-    const pull_ref01_data_dt0 = await pull_ref01_ent.load(pull_ref01_match_dt0)
+    const pull_ref01_data_dt0 = (await pull_ref01_ent.load(pull_ref01_match_dt0)).data()
     assert(pull_ref01_data_dt0.id === pull_ref01_data.id)
 
 

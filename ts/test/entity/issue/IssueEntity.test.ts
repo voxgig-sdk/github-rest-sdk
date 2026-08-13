@@ -26,8 +26,8 @@ import {
 describe('IssueEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = GithubRestSDK.test()
@@ -64,7 +64,7 @@ describe('IssueEntity', async () => {
     issue_ref01_data['owner'] = setup.idmap['owner01']
     issue_ref01_data['repo'] = setup.idmap['repo01']
 
-    issue_ref01_data = await issue_ref01_ent.create(issue_ref01_data)
+    issue_ref01_data = (await issue_ref01_ent.create(issue_ref01_data)).data()
     assert(null != issue_ref01_data.id)
 
 
@@ -73,7 +73,7 @@ describe('IssueEntity', async () => {
     issue_ref01_match['owner'] = setup.idmap['owner01']
     issue_ref01_match['repo'] = setup.idmap['repo01']
 
-    const issue_ref01_list = await issue_ref01_ent.list(issue_ref01_match)
+    const issue_ref01_list = (await issue_ref01_ent.list(issue_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(issue_ref01_list, { id: issue_ref01_data.id })))
 
@@ -87,7 +87,7 @@ describe('IssueEntity', async () => {
     const issue_ref01_markdef_up0 = { name: 'body', value: 'Mark01-issue_ref01_' + setup.now }
     ;(issue_ref01_data_up0 as any)[issue_ref01_markdef_up0.name] = issue_ref01_markdef_up0.value
 
-    const issue_ref01_resdata_up0 = await issue_ref01_ent.update(issue_ref01_data_up0)
+    const issue_ref01_resdata_up0 = (await issue_ref01_ent.update(issue_ref01_data_up0)).data()
     assert(issue_ref01_resdata_up0.id === issue_ref01_data_up0.id)
 
     assert((issue_ref01_resdata_up0 as any)[issue_ref01_markdef_up0.name] === issue_ref01_markdef_up0.value)
@@ -96,7 +96,7 @@ describe('IssueEntity', async () => {
     // LOAD
     const issue_ref01_match_dt0: any = {}
     issue_ref01_match_dt0.id = issue_ref01_data.id
-    const issue_ref01_data_dt0 = await issue_ref01_ent.load(issue_ref01_match_dt0)
+    const issue_ref01_data_dt0 = (await issue_ref01_ent.load(issue_ref01_match_dt0)).data()
     assert(issue_ref01_data_dt0.id === issue_ref01_data.id)
 
 

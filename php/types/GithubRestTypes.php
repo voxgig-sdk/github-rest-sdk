@@ -51,7 +51,7 @@ class Gist
 {
     public ?string $created_at = null;
     public ?string $description = null;
-    public array $file;
+    public array $files;
     public ?string $html_url = null;
     public ?string $id = null;
     public ?string $node_id = null;
@@ -66,7 +66,7 @@ class GistListMatch
 {
     public ?string $created_at = null;
     public ?string $description = null;
-    public ?array $file = null;
+    public ?array $files = null;
     public ?string $html_url = null;
     public ?string $id = null;
     public ?string $node_id = null;
@@ -81,7 +81,7 @@ class GistCreateData
 {
     public ?string $created_at = null;
     public ?string $description = null;
-    public array $file;
+    public array $files;
     public ?string $html_url = null;
     public ?string $id = null;
     public ?string $node_id = null;
@@ -95,13 +95,14 @@ class GistCreateData
 class Issue
 {
     public mixed $assignee = null;
+    public ?array $assignees = null;
     public ?string $body = null;
     public ?string $closed_at = null;
-    public ?int $comment = null;
+    public ?int $comments = null;
     public ?string $created_at = null;
     public ?string $html_url = null;
     public ?int $id = null;
-    public ?array $label = null;
+    public ?array $labels = null;
     public ?array $milestone = null;
     public ?string $node_id = null;
     public ?int $number = null;
@@ -132,6 +133,23 @@ class IssueCreateData
 {
     public string $owner;
     public string $repo;
+    public mixed $assignee = null;
+    public ?array $assignees = null;
+    public ?string $body = null;
+    public ?string $closed_at = null;
+    public ?int $comments = null;
+    public ?string $created_at = null;
+    public ?string $html_url = null;
+    public ?int $id = null;
+    public ?array $labels = null;
+    public ?array $milestone = null;
+    public ?string $node_id = null;
+    public ?int $number = null;
+    public ?string $state = null;
+    public ?string $title = null;
+    public ?string $updated_at = null;
+    public ?string $url = null;
+    public ?array $user = null;
 }
 
 /** Request payload for Issue#update. */
@@ -140,6 +158,22 @@ class IssueUpdateData
     public int $id;
     public string $owner;
     public string $repo;
+    public mixed $assignee = null;
+    public ?array $assignees = null;
+    public ?string $body = null;
+    public ?string $closed_at = null;
+    public ?int $comments = null;
+    public ?string $created_at = null;
+    public ?string $html_url = null;
+    public ?array $labels = null;
+    public ?array $milestone = null;
+    public ?string $node_id = null;
+    public ?int $number = null;
+    public ?string $state = null;
+    public ?string $title = null;
+    public ?string $updated_at = null;
+    public ?string $url = null;
+    public ?array $user = null;
 }
 
 /** Notification entity data model. */
@@ -176,7 +210,7 @@ class Org
     public ?string $created_at = null;
     public ?string $description = null;
     public ?string $email = null;
-    public ?int $follower = null;
+    public ?int $followers = null;
     public ?int $following = null;
     public ?string $html_url = null;
     public ?int $id = null;
@@ -184,8 +218,8 @@ class Org
     public ?string $login = null;
     public ?string $name = null;
     public ?string $node_id = null;
-    public ?int $public_gist = null;
-    public ?int $public_repo = null;
+    public ?int $public_gists = null;
+    public ?int $public_repos = null;
     public ?string $updated_at = null;
     public ?string $url = null;
 }
@@ -237,42 +271,70 @@ class PullCreateData
 {
     public string $owner;
     public string $repo;
+    public ?array $base = null;
+    public ?string $body = null;
+    public ?string $closed_at = null;
+    public ?string $created_at = null;
+    public ?bool $draft = null;
+    public ?array $head = null;
+    public ?string $html_url = null;
+    public ?int $id = null;
+    public ?string $merged_at = null;
+    public ?string $node_id = null;
+    public ?int $number = null;
+    public ?string $state = null;
+    public ?string $title = null;
+    public ?string $updated_at = null;
+    public ?string $url = null;
+    public ?array $user = null;
 }
 
 /** RateLimit entity data model. */
 class RateLimit
 {
     public ?array $rate = null;
-    public ?array $resource = null;
+    public ?array $resources = null;
 }
 
 /** Request payload for RateLimit#load. */
 class RateLimitLoadMatch
 {
     public ?array $rate = null;
-    public ?array $resource = null;
+    public ?array $resources = null;
 }
 
 /** Repo entity data model. */
 class Repo
 {
+    public ?string $avatar_url = null;
+    public ?string $bio = null;
+    public ?string $blog = null;
+    public ?string $company = null;
     public ?string $created_at = null;
     public ?string $default_branch = null;
     public ?string $description = null;
+    public ?string $email = null;
+    public ?int $followers = null;
+    public ?int $following = null;
     public ?bool $fork = null;
     public ?int $forks_count = null;
     public ?string $full_name = null;
     public ?string $html_url = null;
     public ?int $id = null;
     public ?string $language = null;
+    public ?string $location = null;
+    public ?string $login = null;
     public ?string $name = null;
     public ?string $node_id = null;
     public ?int $open_issues_count = null;
     public ?array $owner = null;
     public ?bool $private = null;
+    public ?int $public_gists = null;
+    public ?int $public_repos = null;
     public ?string $pushed_at = null;
     public ?int $size = null;
     public ?int $stargazers_count = null;
+    public ?string $type = null;
     public ?string $updated_at = null;
     public ?string $url = null;
     public ?string $visibility = null;
@@ -297,9 +359,10 @@ class RepoListMatch
 class Search
 {
     public mixed $assignee = null;
+    public ?array $assignees = null;
     public ?string $body = null;
     public ?string $closed_at = null;
-    public ?int $comment = null;
+    public ?int $comments = null;
     public ?string $created_at = null;
     public ?string $default_branch = null;
     public ?string $description = null;
@@ -308,7 +371,7 @@ class Search
     public ?string $full_name = null;
     public ?string $html_url = null;
     public ?int $id = null;
-    public ?array $label = null;
+    public ?array $labels = null;
     public ?string $language = null;
     public ?array $milestone = null;
     public ?string $name = null;
@@ -333,9 +396,10 @@ class Search
 class SearchListMatch
 {
     public mixed $assignee = null;
+    public ?array $assignees = null;
     public ?string $body = null;
     public ?string $closed_at = null;
-    public ?int $comment = null;
+    public ?int $comments = null;
     public ?string $created_at = null;
     public ?string $default_branch = null;
     public ?string $description = null;
@@ -344,7 +408,7 @@ class SearchListMatch
     public ?string $full_name = null;
     public ?string $html_url = null;
     public ?int $id = null;
-    public ?array $label = null;
+    public ?array $labels = null;
     public ?string $language = null;
     public ?array $milestone = null;
     public ?string $name = null;
@@ -374,7 +438,7 @@ class User
     public ?string $company = null;
     public ?string $created_at = null;
     public ?string $email = null;
-    public ?int $follower = null;
+    public ?int $followers = null;
     public ?int $following = null;
     public ?string $html_url = null;
     public ?int $id = null;
@@ -382,8 +446,8 @@ class User
     public ?string $login = null;
     public ?string $name = null;
     public ?string $node_id = null;
-    public ?int $public_gist = null;
-    public ?int $public_repo = null;
+    public ?int $public_gists = null;
+    public ?int $public_repos = null;
     public ?string $type = null;
     public ?string $updated_at = null;
     public ?string $url = null;

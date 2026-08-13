@@ -16,7 +16,7 @@ main: kit: entity: gist: {
       type: "`$STRING`"
     }
     {
-      name: "file"
+      name: "files"
       op: {
         list: {
           req: false

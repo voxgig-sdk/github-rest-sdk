@@ -19,11 +19,15 @@ import {
 describe('IssueDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when GITHUBREST_TEST_LIVE=TRUE.
-  afterEach(liveDelay('GITHUBREST_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when GITHUB_REST_TEST_LIVE=TRUE.
+  afterEach(liveDelay('GITHUB_REST_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new GithubRestSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -151,19 +155,19 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'GITHUBREST_TEST_ISSUE_ENTID': {},
-    'GITHUBREST_TEST_LIVE': 'FALSE',
-    'GITHUBREST_APIKEY': 'NONE',
+    'GITHUB_REST_TEST_ISSUE_ENTID': {},
+    'GITHUB_REST_TEST_LIVE': 'FALSE',
+    'GITHUB_REST_APIKEY': 'NONE',
   })
 
-  const live = 'TRUE' === env.GITHUBREST_TEST_LIVE
+  const live = 'TRUE' === env.GITHUB_REST_TEST_LIVE
 
   if (live) {
     const client = new GithubRestSDK({
-      apikey: env.GITHUBREST_APIKEY,
+      apikey: env.GITHUB_REST_APIKEY,
     })
 
-    let idmap: any = env['GITHUBREST_TEST_ISSUE_ENTID']
+    let idmap: any = env['GITHUB_REST_TEST_ISSUE_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

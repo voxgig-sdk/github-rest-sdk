@@ -245,7 +245,7 @@ local gist = client:Gist(nil)
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
-| `file` | `table` | Yes |  |
+| `files` | `table` | Yes |  |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
@@ -260,7 +260,7 @@ local gist = client:Gist(nil)
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -277,7 +277,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Gist():create({
-  file = --[[ table ]],
+  files = --[[ table ]],
 })
 ```
 
@@ -330,13 +330,14 @@ local issue = client:Issue(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `table` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `number` | No |  |
+| `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `label` | `table` | No |  |
+| `labels` | `table` | No |  |
 | `milestone` | `table` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `number` | No |  |
@@ -351,13 +352,14 @@ local issue = client:Issue(nil)
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -513,7 +515,7 @@ local org = client:Org(nil)
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `number` | No |  |
+| `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
@@ -521,8 +523,8 @@ local org = client:Org(nil)
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `number` | No |  |
-| `public_repo` | `number` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -684,7 +686,7 @@ local rate_limit = client:RateLimit(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `table` | No |  |
-| `resource` | `table` | No |  |
+| `resources` | `table` | No |  |
 
 ### Operations
 
@@ -736,23 +738,35 @@ local repo = client:Repo(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `followers` | `number` | No |  |
+| `following` | `number` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `language` | `string` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `table` | No |  |
 | `private` | `boolean` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `pushed_at` | `string` | No |  |
 | `size` | `number` | No |  |
 | `stargazers_count` | `number` | No |  |
+| `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `visibility` | `string` | No |  |
@@ -817,9 +831,10 @@ local search = client:Search(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `table` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `number` | No |  |
+| `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
@@ -828,7 +843,7 @@ local search = client:Search(nil)
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `label` | `table` | No |  |
+| `labels` | `table` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `table` | No |  |
 | `name` | `string` | No |  |
@@ -904,7 +919,7 @@ local user = client:User(nil)
 | `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `number` | No |  |
+| `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
@@ -912,8 +927,8 @@ local user = client:User(nil)
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `number` | No |  |
-| `public_repo` | `number` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |

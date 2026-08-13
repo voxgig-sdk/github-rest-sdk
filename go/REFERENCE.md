@@ -251,7 +251,7 @@ fmt.Println(gist.GetName()) // "gist"
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
-| `file` | `map[string]any` | Yes |  |
+| `files` | `map[string]any` | Yes |  |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
@@ -266,7 +266,7 @@ fmt.Println(gist.GetName()) // "gist"
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -295,7 +295,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Gist(nil).Create(map[string]any{
-    "file": map[string]any{},
+    "files": map[string]any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -339,13 +339,14 @@ fmt.Println(issue.GetName()) // "issue"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `[]any` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
-| `label` | `[]any` | No |  |
+| `labels` | `[]any` | No |  |
 | `milestone` | `map[string]any` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `int` | No |  |
@@ -360,13 +361,14 @@ fmt.Println(issue.GetName()) // "issue"
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -532,7 +534,7 @@ fmt.Println(org.GetName()) // "org"
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
@@ -540,8 +542,8 @@ fmt.Println(org.GetName()) // "org"
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -709,7 +711,7 @@ fmt.Println(rateLimit.GetName()) // "rate_limit"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `map[string]any` | No |  |
-| `resource` | `map[string]any` | No |  |
+| `resources` | `map[string]any` | No |  |
 
 ### Operations
 
@@ -760,23 +762,35 @@ fmt.Println(repo.GetName()) // "repo"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `followers` | `int` | No |  |
+| `following` | `int` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
 | `language` | `string` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `map[string]any` | No |  |
 | `private` | `bool` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `pushed_at` | `string` | No |  |
 | `size` | `int` | No |  |
 | `stargazers_count` | `int` | No |  |
+| `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `visibility` | `string` | No |  |
@@ -844,9 +858,10 @@ fmt.Println(search.GetName()) // "search"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `[]any` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
@@ -855,7 +870,7 @@ fmt.Println(search.GetName()) // "search"
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
-| `label` | `[]any` | No |  |
+| `labels` | `[]any` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `map[string]any` | No |  |
 | `name` | `string` | No |  |
@@ -930,7 +945,7 @@ fmt.Println(user.GetName()) // "user"
 | `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
@@ -938,8 +953,8 @@ fmt.Println(user.GetName()) // "user"
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |

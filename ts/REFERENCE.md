@@ -248,7 +248,7 @@ const branch = client.Branch()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Branch().list()
+const results = await client.Branch().list({ owner: "example", repo: "example" })
 ```
 
 ### Common Methods
@@ -304,7 +304,7 @@ const commit = client.Commit()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Commit().list()
+const results = await client.Commit().list({ owner: "example", repo: "example" })
 ```
 
 ### Common Methods
@@ -347,7 +347,7 @@ const gist = client.Gist()
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
-| `file` | `Record<string, any>` | Yes |  |
+| `files` | `Record<string, any>` | Yes |  |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
@@ -362,7 +362,7 @@ const gist = client.Gist()
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -379,7 +379,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Gist().create({
-  file: {},
+  files: {},
 })
 ```
 
@@ -430,13 +430,14 @@ const issue = client.Issue()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `any[]` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `number` | No |  |
+| `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `label` | `any[]` | No |  |
+| `labels` | `any[]` | No |  |
 | `milestone` | `Record<string, any>` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `number` | No |  |
@@ -451,13 +452,14 @@ const issue = client.Issue()
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -485,7 +487,7 @@ const result = await client.Issue().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Issue().list()
+const results = await client.Issue().list({ owner: "example", repo: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -609,7 +611,7 @@ const org = client.Org()
 | `created_at` | `string` | No |  |
 | `description` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `number` | No |  |
+| `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
@@ -617,8 +619,8 @@ const org = client.Org()
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `number` | No |  |
-| `public_repo` | `number` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -726,7 +728,7 @@ const result = await client.Pull().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Pull().list()
+const results = await client.Pull().list({ owner: "example", repo: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -776,7 +778,7 @@ const rate_limit = client.RateLimit()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `Record<string, any>` | No |  |
-| `resource` | `Record<string, any>` | No |  |
+| `resources` | `Record<string, any>` | No |  |
 
 ### Operations
 
@@ -826,23 +828,35 @@ const repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `string` | No |  |
+| `bio` | `string` | No |  |
+| `blog` | `string` | No |  |
+| `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
+| `email` | `string` | No |  |
+| `followers` | `number` | No |  |
+| `following` | `number` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `language` | `string` | No |  |
+| `location` | `string` | No |  |
+| `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `Record<string, any>` | No |  |
 | `private` | `boolean` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `pushed_at` | `string` | No |  |
 | `size` | `number` | No |  |
 | `stargazers_count` | `number` | No |  |
+| `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `visibility` | `string` | No |  |
@@ -905,9 +919,10 @@ const search = client.Search()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
+| `assignees` | `any[]` | No |  |
 | `body` | `string` | No |  |
 | `closed_at` | `string` | No |  |
-| `comment` | `number` | No |  |
+| `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
@@ -916,7 +931,7 @@ const search = client.Search()
 | `full_name` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `label` | `any[]` | No |  |
+| `labels` | `any[]` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `Record<string, any>` | No |  |
 | `name` | `string` | No |  |
@@ -935,6 +950,27 @@ const search = client.Search()
 | `user` | `Record<string, any>` | No |  |
 | `visibility` | `string` | No |  |
 | `watchers_count` | `number` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `issue` | `/search/issues` | `client.Search().list({ $action: 'issue', ... })` |
+| `repository` | `/search/repositories` | `client.Search().list({ $action: 'repository', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Search record — check the API definition for its shape.
+
+```ts
+const result = await client.Search().list({
+  $action: 'issue',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -990,7 +1026,7 @@ const user = client.User()
 | `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `email` | `string` | No |  |
-| `follower` | `number` | No |  |
+| `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
@@ -998,8 +1034,8 @@ const user = client.User()
 | `login` | `string` | No |  |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
-| `public_gist` | `number` | No |  |
-| `public_repo` | `number` | No |  |
+| `public_gists` | `number` | No |  |
+| `public_repos` | `number` | No |  |
 | `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |

@@ -79,16 +79,16 @@ def commit_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "GITHUBREST_TEST_COMMIT_ENTID" => {},
-    "GITHUBREST_TEST_LIVE" => "FALSE",
-    "GITHUBREST_APIKEY" => "NONE",
+    "GITHUB_REST_TEST_COMMIT_ENTID" => {},
+    "GITHUB_REST_TEST_LIVE" => "FALSE",
+    "GITHUB_REST_APIKEY" => "NONE",
   })
 
-  live = env["GITHUBREST_TEST_LIVE"] == "TRUE"
+  live = env["GITHUB_REST_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["GITHUBREST_APIKEY"],
+      "apikey" => env["GITHUB_REST_APIKEY"],
     }
     client = GithubRestSDK.new(merged_opts)
     return {

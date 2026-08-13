@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from githubrest_sdk.utility.voxgig_struct import voxgig_struct as vs
 from githubrest_sdk import GithubRestSDK
-from core import helpers
+from githubrest_sdk.core import helpers
 from test import runner
 
 
@@ -123,16 +123,16 @@ def _issue_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "GITHUBREST_TEST_ISSUE_ENTID": {},
-        "GITHUBREST_TEST_LIVE": "FALSE",
-        "GITHUBREST_APIKEY": "NONE",
+        "GITHUB_REST_TEST_ISSUE_ENTID": {},
+        "GITHUB_REST_TEST_LIVE": "FALSE",
+        "GITHUB_REST_APIKEY": "NONE",
     })
 
-    live = env.get("GITHUBREST_TEST_LIVE") == "TRUE"
+    live = env.get("GITHUB_REST_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("GITHUBREST_APIKEY"),
+            "apikey": env.get("GITHUB_REST_APIKEY"),
         }
         client = GithubRestSDK(merged_opts)
         return {

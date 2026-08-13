@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# GithubRest SDK exists test
 
 import pytest
 from githubrest_sdk import GithubRestSDK

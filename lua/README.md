@@ -66,7 +66,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local branchs, err = client:Branch():list()
+local issues, err = client:Issue():list()
 if err then error(err) end
 ```
 
@@ -124,7 +124,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Branch():list()
+local result, err = client:Issue():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -246,9 +246,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local branch, err = client:Branch():load()
+    local issue, err = client:Issue():load({ id = "example_id" })
     if err then error(err) end
-    -- branch is the loaded record
+    -- issue is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -289,7 +289,7 @@ API path: `/repos/{owner}/{repo}/commits`
 | --- | --- |
 | `created_at` |  |
 | `description` |  |
-| `file` |  |
+| `files` |  |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
@@ -307,13 +307,14 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `milestone` |  |
 | `node_id` |  |
 | `number` |  |
@@ -353,7 +354,7 @@ API path: `/notifications`
 | `created_at` |  |
 | `description` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -361,8 +362,8 @@ API path: `/notifications`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `updated_at` |  |
 | `url` |  |
 
@@ -400,7 +401,7 @@ API path: `/repos/{owner}/{repo}/pulls`
 | Field | Description |
 | --- | --- |
 | `rate` |  |
-| `resource` |  |
+| `resources` |  |
 
 Operations: Load.
 
@@ -410,23 +411,35 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
+| `avatar_url` |  |
+| `bio` |  |
+| `blog` |  |
+| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
+| `email` |  |
+| `followers` |  |
+| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
 | `language` |  |
+| `location` |  |
+| `login` |  |
 | `name` |  |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
+| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -441,9 +454,10 @@ API path: `/users/{username}/repos`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
+| `assignees` |  |
 | `body` |  |
 | `closed_at` |  |
-| `comment` |  |
+| `comments` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
@@ -452,7 +466,7 @@ API path: `/users/{username}/repos`
 | `full_name` |  |
 | `html_url` |  |
 | `id` |  |
-| `label` |  |
+| `labels` |  |
 | `language` |  |
 | `milestone` |  |
 | `name` |  |
@@ -486,7 +500,7 @@ API path: `/search/issues`
 | `company` |  |
 | `created_at` |  |
 | `email` |  |
-| `follower` |  |
+| `followers` |  |
 | `following` |  |
 | `html_url` |  |
 | `id` |  |
@@ -494,8 +508,8 @@ API path: `/search/issues`
 | `login` |  |
 | `name` |  |
 | `node_id` |  |
-| `public_gist` |  |
-| `public_repo` |  |
+| `public_gists` |  |
+| `public_repos` |  |
 | `type` |  |
 | `updated_at` |  |
 | `url` |  |
@@ -580,7 +594,7 @@ Create an instance: `local gist = client:Gist(nil)`
 | --- | --- | --- |
 | `created_at` | `string` |  |
 | `description` | `string` |  |
-| `file` | `table` |  |
+| `files` | `table` |  |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
@@ -599,7 +613,7 @@ local gists, err = client:Gist():list()
 
 ```lua
 local gist, err = client:Gist():create({
-  file = {}, -- table
+  files = {}, -- table
 })
 ```
 
@@ -622,13 +636,14 @@ Create an instance: `local issue = client:Issue(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `table` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `number` |  |
+| `comments` | `number` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
-| `label` | `table` |  |
+| `labels` | `table` |  |
 | `milestone` | `table` |  |
 | `node_id` | `string` |  |
 | `number` | `number` |  |
@@ -709,7 +724,7 @@ Create an instance: `local org = client:Org(nil)`
 | `created_at` | `string` |  |
 | `description` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `number` |  |
+| `followers` | `number` |  |
 | `following` | `number` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
@@ -717,8 +732,8 @@ Create an instance: `local org = client:Org(nil)`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `number` |  |
-| `public_repo` | `number` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
@@ -799,7 +814,7 @@ Create an instance: `local rate_limit = client:RateLimit(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `rate` | `table` |  |
-| `resource` | `table` |  |
+| `resources` | `table` |  |
 
 #### Example: Load
 
@@ -823,23 +838,35 @@ Create an instance: `local repo = client:Repo(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `avatar_url` | `string` |  |
+| `bio` | `string` |  |
+| `blog` | `string` |  |
+| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
+| `email` | `string` |  |
+| `followers` | `number` |  |
+| `following` | `number` |  |
 | `fork` | `boolean` |  |
 | `forks_count` | `number` |  |
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
 | `language` | `string` |  |
+| `location` | `string` |  |
+| `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `open_issues_count` | `number` |  |
 | `owner` | `table` |  |
 | `private` | `boolean` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `pushed_at` | `string` |  |
 | `size` | `number` |  |
 | `stargazers_count` | `number` |  |
+| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |
@@ -873,9 +900,10 @@ Create an instance: `local search = client:Search(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
+| `assignees` | `table` |  |
 | `body` | `string` |  |
 | `closed_at` | `string` |  |
-| `comment` | `number` |  |
+| `comments` | `number` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
@@ -884,7 +912,7 @@ Create an instance: `local search = client:Search(nil)`
 | `full_name` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
-| `label` | `table` |  |
+| `labels` | `table` |  |
 | `language` | `string` |  |
 | `milestone` | `table` |  |
 | `name` | `string` |  |
@@ -931,7 +959,7 @@ Create an instance: `local user = client:User(nil)`
 | `company` | `string` |  |
 | `created_at` | `string` |  |
 | `email` | `string` |  |
-| `follower` | `number` |  |
+| `followers` | `number` |  |
 | `following` | `number` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
@@ -939,8 +967,8 @@ Create an instance: `local user = client:User(nil)`
 | `login` | `string` |  |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
-| `public_gist` | `number` |  |
-| `public_repo` | `number` |  |
+| `public_gists` | `number` |  |
+| `public_repos` | `number` |  |
 | `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
@@ -1028,11 +1056,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local branch = client:Branch()
-branch:list()
+local issue = client:Issue()
+issue:list()
 
--- branch:data_get() now returns the branch data from the last list
--- branch:match_get() returns the last match criteria
+-- issue:data_get() now returns the issue data from the last list
+-- issue:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

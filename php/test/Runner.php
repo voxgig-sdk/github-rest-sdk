@@ -43,8 +43,8 @@ class GithubRestTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('GITHUBREST_TEST_LIVE');
-        $override = self::getenv('GITHUBREST_TEST_OVERRIDE');
+        $live = self::getenv('GITHUB_REST_TEST_LIVE');
+        $override = self::getenv('GITHUB_REST_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class GithubRestTestRunner
             }
         }
 
-        $explain = self::getenv('GITHUBREST_TEST_EXPLAIN');
+        $explain = self::getenv('GITHUB_REST_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['GITHUBREST_TEST_EXPLAIN'] = $explain;
+            $m['GITHUB_REST_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

@@ -37,7 +37,7 @@ class CommitEntity extends GithubRestEntityBase<Commit> {
 
 
 
-  async list(this: any, reqmatch?: CommitListMatch, ctrl?: Control): Promise<Commit[]> {
+  async list(this: any, reqmatch?: CommitListMatch, ctrl?: Control): Promise<CommitEntity[]> {
 
     const utility = this._utility
 

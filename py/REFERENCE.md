@@ -139,7 +139,7 @@ branch = client.Branch()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Branch().list()
+results = client.Branch().list({"owner": "example", "repo": "example"})
 for branch in results:
     print(branch)
 ```
@@ -198,7 +198,7 @@ commit = client.Commit()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Commit().list()
+results = client.Commit().list({"owner": "example", "repo": "example"})
 for commit in results:
     print(commit)
 ```
@@ -244,7 +244,7 @@ gist = client.Gist()
 | --- | --- | --- | --- |
 | `created_at` | `str` | No |  |
 | `description` | `str` | No |  |
-| `file` | `dict` | Yes |  |
+| `files` | `dict` | Yes |  |
 | `html_url` | `str` | No |  |
 | `id` | `str` | No |  |
 | `node_id` | `str` | No |  |
@@ -259,7 +259,7 @@ gist = client.Gist()
 | --- | --- | --- |
 | `created_at` | - | - |
 | `description` | - | - |
-| `file` | Yes | - |
+| `files` | Yes | - |
 | `html_url` | - | - |
 | `id` | - | - |
 | `node_id` | - | - |
@@ -276,7 +276,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Gist().create({
-    "file": {},  # dict
+    "files": {},  # dict
 })
 ```
 
@@ -330,13 +330,14 @@ issue = client.Issue()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `Any` | No |  |
+| `assignees` | `list` | No |  |
 | `body` | `str` | No |  |
 | `closed_at` | `str` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `str` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
-| `label` | `list` | No |  |
+| `labels` | `list` | No |  |
 | `milestone` | `dict` | No |  |
 | `node_id` | `str` | No |  |
 | `number` | `int` | No |  |
@@ -351,13 +352,14 @@ issue = client.Issue()
 | Field | load | list | create | update |
 | --- | --- | --- | --- | --- |
 | `assignee` | - | - | - | - |
+| `assignees` | - | - | - | - |
 | `body` | - | - | - | - |
 | `closed_at` | - | - | - | - |
-| `comment` | - | - | - | - |
+| `comments` | - | - | - | - |
 | `created_at` | - | - | - | - |
 | `html_url` | - | - | - | - |
 | `id` | - | - | - | - |
-| `label` | - | - | - | - |
+| `labels` | - | - | - | - |
 | `milestone` | - | - | - | - |
 | `node_id` | - | - | - | - |
 | `number` | - | - | - | - |
@@ -385,7 +387,7 @@ result = client.Issue().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Issue().list()
+results = client.Issue().list({"owner": "example", "repo": "example"})
 for issue in results:
     print(issue)
 ```
@@ -515,7 +517,7 @@ org = client.Org()
 | `created_at` | `str` | No |  |
 | `description` | `str` | No |  |
 | `email` | `str` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
@@ -523,8 +525,8 @@ org = client.Org()
 | `login` | `str` | No |  |
 | `name` | `str` | No |  |
 | `node_id` | `str` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 
@@ -633,7 +635,7 @@ result = client.Pull().create({
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Pull().list()
+results = client.Pull().list({"owner": "example", "repo": "example"})
 for pull in results:
     print(pull)
 ```
@@ -686,7 +688,7 @@ rate_limit = client.RateLimit()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `rate` | `dict` | No |  |
-| `resource` | `dict` | No |  |
+| `resources` | `dict` | No |  |
 
 ### Operations
 
@@ -737,23 +739,35 @@ repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `avatar_url` | `str` | No |  |
+| `bio` | `str` | No |  |
+| `blog` | `str` | No |  |
+| `company` | `str` | No |  |
 | `created_at` | `str` | No |  |
 | `default_branch` | `str` | No |  |
 | `description` | `str` | No |  |
+| `email` | `str` | No |  |
+| `followers` | `int` | No |  |
+| `following` | `int` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
 | `full_name` | `str` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
 | `language` | `str` | No |  |
+| `location` | `str` | No |  |
+| `login` | `str` | No |  |
 | `name` | `str` | No |  |
 | `node_id` | `str` | No |  |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `dict` | No |  |
 | `private` | `bool` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `pushed_at` | `str` | No |  |
 | `size` | `int` | No |  |
 | `stargazers_count` | `int` | No |  |
+| `type` | `str` | No |  |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 | `visibility` | `str` | No |  |
@@ -819,9 +833,10 @@ search = client.Search()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `Any` | No |  |
+| `assignees` | `list` | No |  |
 | `body` | `str` | No |  |
 | `closed_at` | `str` | No |  |
-| `comment` | `int` | No |  |
+| `comments` | `int` | No |  |
 | `created_at` | `str` | No |  |
 | `default_branch` | `str` | No |  |
 | `description` | `str` | No |  |
@@ -830,7 +845,7 @@ search = client.Search()
 | `full_name` | `str` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
-| `label` | `list` | No |  |
+| `labels` | `list` | No |  |
 | `language` | `str` | No |  |
 | `milestone` | `dict` | No |  |
 | `name` | `str` | No |  |
@@ -907,7 +922,7 @@ user = client.User()
 | `company` | `str` | No |  |
 | `created_at` | `str` | No |  |
 | `email` | `str` | No |  |
-| `follower` | `int` | No |  |
+| `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
@@ -915,8 +930,8 @@ user = client.User()
 | `login` | `str` | No |  |
 | `name` | `str` | No |  |
 | `node_id` | `str` | No |  |
-| `public_gist` | `int` | No |  |
-| `public_repo` | `int` | No |  |
+| `public_gists` | `int` | No |  |
+| `public_repos` | `int` | No |  |
 | `type` | `str` | No |  |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |

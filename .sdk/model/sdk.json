@@ -5,6 +5,10 @@
       "desc": ""
     },
     "kit": {
+      "author": {
+        "name": "",
+        "url": ""
+      },
       "config": {
         "docs_order": [
           "ts",
@@ -18,6 +22,7 @@
           "content-type": "application/json"
         }
       },
+      "contributor": {},
       "entity": {
         "branch": {
           "active": true,
@@ -92,6 +97,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/branches",
                   "parts": [
@@ -237,6 +243,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/commits",
                   "parts": [
@@ -291,7 +298,7 @@
             },
             {
               "active": true,
-              "name": "file",
+              "name": "files",
               "op": {
                 "list": {
                   "req": false,
@@ -357,6 +364,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/gists",
                   "parts": [
@@ -398,6 +406,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/gists",
                   "parts": [
@@ -435,6 +444,12 @@
             },
             {
               "active": true,
+              "name": "assignees",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
               "name": "body",
               "req": false,
               "type": "`$STRING`"
@@ -447,7 +462,7 @@
             },
             {
               "active": true,
-              "name": "comment",
+              "name": "comments",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -471,7 +486,7 @@
             },
             {
               "active": true,
-              "name": "label",
+              "name": "labels",
               "req": false,
               "type": "`$ARRAY`"
             },
@@ -562,6 +577,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/repos/{owner}/{repo}/issues",
                   "parts": [
@@ -664,6 +680,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/issues",
                   "parts": [
@@ -725,6 +742,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
                   "parts": [
@@ -787,6 +805,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "PATCH",
                   "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
                   "parts": [
@@ -931,6 +950,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/notifications",
                   "parts": [
@@ -994,7 +1014,7 @@
             },
             {
               "active": true,
-              "name": "follower",
+              "name": "followers",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -1042,13 +1062,13 @@
             },
             {
               "active": true,
-              "name": "public_gist",
+              "name": "public_gists",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "public_repo",
+              "name": "public_repos",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -1089,6 +1109,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/orgs/{org}",
                   "parts": [
@@ -1270,6 +1291,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "POST",
                   "orig": "/repos/{owner}/{repo}/pulls",
                   "parts": [
@@ -1364,6 +1386,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/pulls",
                   "parts": [
@@ -1424,6 +1447,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/pulls/{pull_number}",
                   "parts": [
@@ -1475,7 +1499,7 @@
             },
             {
               "active": true,
-              "name": "resource",
+              "name": "resources",
               "req": false,
               "type": "`$OBJECT`"
             }
@@ -1489,6 +1513,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/rate_limit",
                   "parts": [
@@ -1515,6 +1540,30 @@
           "fields": [
             {
               "active": true,
+              "name": "avatar_url",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "bio",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "blog",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "company",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -1530,6 +1579,24 @@
               "name": "description",
               "req": false,
               "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "email",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "followers",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "following",
+              "req": false,
+              "type": "`$INTEGER`"
             },
             {
               "active": true,
@@ -1569,6 +1636,18 @@
             },
             {
               "active": true,
+              "name": "location",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "login",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
               "name": "name",
               "req": false,
               "type": "`$STRING`"
@@ -1599,6 +1678,18 @@
             },
             {
               "active": true,
+              "name": "public_gists",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "public_repos",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
               "name": "pushed_at",
               "req": false,
               "type": "`$STRING`"
@@ -1614,6 +1705,12 @@
               "name": "stargazers_count",
               "req": false,
               "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "type",
+              "req": false,
+              "type": "`$STRING`"
             },
             {
               "active": true,
@@ -1711,6 +1808,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/users/{username}/repos",
                   "parts": [
@@ -1776,6 +1874,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/orgs/{org}/repos",
                   "parts": [
@@ -1829,6 +1928,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}",
                   "parts": [
@@ -1844,7 +1944,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.owner`"
                   }
                 }
               ]
@@ -1878,6 +1978,12 @@
             },
             {
               "active": true,
+              "name": "assignees",
+              "req": false,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
               "name": "body",
               "req": false,
               "type": "`$STRING`"
@@ -1890,7 +1996,7 @@
             },
             {
               "active": true,
-              "name": "comment",
+              "name": "comments",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -1944,7 +2050,7 @@
             },
             {
               "active": true,
-              "name": "label",
+              "name": "labels",
               "req": false,
               "type": "`$ARRAY`"
             },
@@ -2116,6 +2222,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/search/issues",
                   "parts": [
@@ -2134,7 +2241,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 },
                 {
@@ -2186,6 +2293,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/search/repositories",
                   "parts": [
@@ -2204,7 +2312,7 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
+                    "res": "`body.items`"
                   }
                 }
               ]
@@ -2258,7 +2366,7 @@
             },
             {
               "active": true,
-              "name": "follower",
+              "name": "followers",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -2306,13 +2414,13 @@
             },
             {
               "active": true,
-              "name": "public_gist",
+              "name": "public_gists",
               "req": false,
               "type": "`$INTEGER`"
             },
             {
               "active": true,
-              "name": "public_repo",
+              "name": "public_repos",
               "req": false,
               "type": "`$INTEGER`"
             },
@@ -2359,6 +2467,7 @@
                       }
                     ]
                   },
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/users/{username}",
                   "parts": [
@@ -2383,6 +2492,7 @@
                 {
                   "active": true,
                   "args": {},
+                  "kind": "http",
                   "method": "GET",
                   "orig": "/user",
                   "parts": [
@@ -2976,18 +3086,41 @@
         "website": "https://github.com"
       },
       "option": {},
+      "repo": {
+        "host": "github.com",
+        "path": ""
+      },
       "target": {
         "go": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [
+              "test/feature_test.go"
+            ],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "go",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3009,22 +3142,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Golang"
         },
         "go-cli": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "go-cli",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -3063,21 +3214,39 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go CLI"
         },
         "go-mcp": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "go",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "go-mcp",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "phase": {
             "agentguide": {
               "active": false
@@ -3116,12 +3285,17 @@
                 "recipe": "github"
               },
               "via": "root"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "Go MCP server"
         },
         "lua": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "--"
           },
@@ -3133,10 +3307,23 @@
             }
           },
           "ext": "lua",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "lua",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3158,22 +3345,40 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Lua"
         },
         "php": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "//"
           },
           "deps": {},
           "ext": "php",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "php",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3195,13 +3400,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "PHP"
         },
         "py": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -3213,10 +3423,23 @@
             }
           },
           "ext": "py",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "py",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3238,13 +3461,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Python"
         },
         "rb": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "comment": {
             "line": "#"
           },
@@ -3261,10 +3489,23 @@
             }
           },
           "ext": "rb",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "rb",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3286,13 +3527,18 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "srcfeature": false,
           "title": "Ruby"
         },
         "ts": {
           "active": true,
+          "author": {
+            "name": "",
+            "url": ""
+          },
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "comment": {
             "line": "//"
@@ -3315,10 +3561,23 @@
             }
           },
           "ext": "ts",
+          "feature": {
+            "fullset": [],
+            "trim": true
+          },
           "module": {
-            "name": "github-rest"
+            "goversion": "",
+            "name": "github-rest",
+            "package": "",
+            "path": ""
           },
           "name": "ts",
+          "output": {
+            "adopt": false,
+            "path": "",
+            "repo": "",
+            "sdkrel": ""
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3340,9 +3599,17 @@
                 "recipe": "github"
               },
               "via": "port"
-            }
+            },
+            "version": "0.0.1"
           },
           "title": "TypeScript"
+        }
+      },
+      "test": {
+        "live": {
+          "app": false,
+          "base": "",
+          "strict": false
         }
       }
     }

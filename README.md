@@ -23,7 +23,7 @@ support (`list`, `load`, `create`, `update`):
 
 ```ts
 const client = new GithubRestSDK()
-const items = await client.Branch().list()
+const items = await client.Branch().list({ owner: "example", repo: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = GithubRestSDK.test()
-const branchs = await client.Branch().list()
-// branchs is an array of bare Branch records populated with mock data
-console.log(branchs)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = GithubRestSDK.test({
+  entity: {
+    issue: {
+      test01: { id: 'test01', owner: 'example_owner', repo: 'example_repo' },
+    },
+  },
+})
+const issues = await client.Issue().list()
+// issues is an array of Issue entities, populated with mock data
+// — call issues[0].data() for the record itself
+console.log(issues)
 ```
 
 ### Python
 
 ```python
 client = GithubRestSDK.test()
-branchs = client.Branch().list()
-print(branchs)
+issues = client.Issue().list()
+print(issues)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(branchs)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = GithubRestSDK::test([
-    "entity" => ["branch" => ["test01" => []]],
+    "entity" => ["issue" => ["test01" => ["id" => "test01"]]],
 ]);
-$branchs = $client->Branch()->list();
+$issues = $client->Issue()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Branch(nil).List(
+result, err := client.Issue(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Branch(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = GithubRestSDK.test({
-  "entity" => { "branch" => { "test01" => {} } },
+  "entity" => { "issue" => { "test01" => { "id" => "test01" } } },
 })
-branchs = client.Branch.list()
+issues = client.Issue.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Branch():list()
+local results, err = client:Issue():list()
 ```
 
 ## Packages
@@ -112,8 +121,8 @@ const client = new GithubRestSDK({
   apikey: process.env.GITHUB_REST_APIKEY,
 })
 
-// List all branchs (returns Branch[])
-const branchs = await client.Branch().list()
+// List all branchs (returns BranchEntity[] — .data() for the record)
+const branchs = await client.Branch().list({ owner: "example", repo: "example" })
 for (const branch of branchs) {
   console.log(branch)
 }
@@ -193,7 +202,7 @@ client = GithubRestSDK({
 })
 
 # List all branchs (returns a list, raises on error)
-branchs = client.Branch().list()
+branchs = client.Branch().list({"owner": "example", "repo": "example"})
 for branch in branchs:
     print(branch)
 ```
@@ -383,6 +392,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://support.github.com](https://support.github.com)
 
