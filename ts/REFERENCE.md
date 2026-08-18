@@ -869,7 +869,7 @@ const repo = client.Repo()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Repo().list()
+const results = await client.Repo().list({ username: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`

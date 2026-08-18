@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from githubrest_sdk.config import make_config
+from githubrest_sdk.config import shared_config
 from githubrest_sdk.features import _make_feature
 from githubrest_sdk.core.control import GithubRestControl
 from githubrest_sdk.core.error import GithubRestError
@@ -24,7 +24,7 @@ from githubrest_sdk.core.spec import GithubRestSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

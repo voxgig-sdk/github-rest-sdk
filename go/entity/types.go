@@ -326,8 +326,7 @@ type RepoLoadMatch struct {
 
 // RepoListMatch is the typed request payload for Repo.ListTyped.
 type RepoListMatch struct {
-	Username *string `json:"username,omitempty"`
-	OrgId *string `json:"org_id,omitempty"`
+	Username string `json:"username"`
 }
 
 // Search is the typed data model for the search entity.
@@ -427,7 +426,7 @@ type User struct {
 
 // UserLoadMatch is the typed request payload for User.LoadTyped.
 type UserLoadMatch struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

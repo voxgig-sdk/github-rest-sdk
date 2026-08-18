@@ -780,7 +780,7 @@ repo = client.Repo()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Repo().list()
+results = client.Repo().list({"username": "example"})
 for repo in results:
     print(repo)
 ```

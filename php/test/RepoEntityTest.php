@@ -40,7 +40,7 @@ class RepoEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = GithubRestConfig::make_config();
+        $cfg = GithubRestConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = GithubRestSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

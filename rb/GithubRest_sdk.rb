@@ -28,7 +28,7 @@ class GithubRestSDK
     utility = GithubRestUtility.new
     @_utility = utility
 
-    config = GithubRestConfig.make_config
+    config = GithubRestConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

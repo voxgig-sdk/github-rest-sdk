@@ -23,7 +23,7 @@ func NewGithubRestSDK(options map[string]any) *GithubRestSDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

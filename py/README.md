@@ -896,7 +896,7 @@ repo = client.Repo().load({"owner": "owner", "repo": "repo"})
 #### Example: List
 
 ```python
-repos = client.Repo().list()
+repos = client.Repo().list({"username": "example"})
 ```
 
 

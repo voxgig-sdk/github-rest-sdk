@@ -319,9 +319,8 @@ class RepoLoadMatch(TypedDict):
     repo: str
 
 
-class RepoListMatch(TypedDict, total=False):
+class RepoListMatch(TypedDict):
     username: str
-    org_id: str
 
 
 class Search(TypedDict, total=False):
@@ -416,5 +415,5 @@ class User(TypedDict, total=False):
     url: str
 
 
-class UserLoadMatch(TypedDict, total=False):
+class UserLoadMatch(TypedDict):
     id: str

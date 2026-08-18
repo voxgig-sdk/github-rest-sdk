@@ -947,7 +947,7 @@ const repo = await client.Repo().load({ owner: 'owner', repo: 'repo' })
 #### Example: List
 
 ```ts
-const repos = await client.Repo().list()
+const repos = await client.Repo().list({ username: "example" })
 ```
 
 

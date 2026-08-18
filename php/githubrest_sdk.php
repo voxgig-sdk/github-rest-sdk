@@ -40,7 +40,7 @@ class GithubRestSDK
         $utility = new GithubRestUtility();
         $this->_utility = $utility;
 
-        $config = GithubRestConfig::make_config();
+        $config = GithubRestConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
