@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "GithubRest",
+			"slug": "github-rest",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -258,6 +261,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "description",
+						"short": "Description of the gist",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -268,6 +272,7 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"req": true,
+						"short": "Names and content for the files that make up the gist",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
@@ -288,6 +293,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "public",
+						"short": "Whether the gist is public",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -376,10 +382,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "assignees",
+						"short": "Logins for Users to assign to this issue",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "body",
+						"short": "The contents of the issue",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -404,10 +412,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "labels",
+						"short": "Labels to associate with this issue",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "milestone",
+						"short": "The number of the milestone to associate this issue with",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
@@ -416,10 +426,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "number",
+						"short": "The issue number",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "state",
+						"short": "State of the issue",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -430,6 +442,7 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "The issue title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -941,10 +954,12 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "The name of the branch you want the changes pulled into",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "body",
+						"short": "The contents of the pull request",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -957,6 +972,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "draft",
+						"short": "Indicates whether the pull request is a draft",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -967,6 +983,7 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "The name of the branch where your changes are implemented",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
@@ -1001,6 +1018,7 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "The title of the pull request",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1260,6 +1278,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "avatar_url",
+						"short": "URL to the user's avatar image",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1308,6 +1327,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "full_name",
+						"short": "The full name including owner",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1316,6 +1336,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "id",
+						"short": "The user's unique identifier",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
@@ -1328,10 +1349,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "login",
+						"short": "The user's GitHub username",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"short": "The name of the repository",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1348,6 +1371,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "private",
+						"short": "Whether the repository is private",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -1635,6 +1659,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "full_name",
+						"short": "The full name including owner",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1659,6 +1684,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "name",
+						"short": "The name of the repository",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1667,6 +1693,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "number",
+						"short": "The issue number",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
@@ -1679,6 +1706,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "private",
+						"short": "Whether the repository is private",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -1699,6 +1727,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "title",
+						"short": "The issue title",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1861,6 +1890,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "avatar_url",
+						"short": "URL to the user's avatar image",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -1897,6 +1927,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "id",
+						"short": "The user's unique identifier",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
@@ -1905,6 +1936,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "login",
+						"short": "The user's GitHub username",
 						"type": "`$STRING`",
 					},
 					map[string]any{

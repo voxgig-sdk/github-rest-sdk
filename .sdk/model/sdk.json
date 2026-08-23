@@ -296,6 +296,7 @@
               "active": true,
               "name": "description",
               "req": false,
+              "short": "Description of the gist",
               "type": "`$STRING`"
             },
             {
@@ -308,6 +309,7 @@
                 }
               },
               "req": true,
+              "short": "Names and content for the files that make up the gist",
               "type": "`$OBJECT`"
             },
             {
@@ -338,6 +340,7 @@
               "active": true,
               "name": "public",
               "req": false,
+              "short": "Whether the gist is public",
               "type": "`$BOOLEAN`"
             },
             {
@@ -448,12 +451,14 @@
               "active": true,
               "name": "assignees",
               "req": false,
+              "short": "Logins for Users to assign to this issue",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "body",
               "req": false,
+              "short": "The contents of the issue",
               "type": "`$STRING`"
             },
             {
@@ -490,12 +495,14 @@
               "active": true,
               "name": "labels",
               "req": false,
+              "short": "Labels to associate with this issue",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "milestone",
               "req": false,
+              "short": "The number of the milestone to associate this issue with",
               "type": "`$OBJECT`"
             },
             {
@@ -508,12 +515,14 @@
               "active": true,
               "name": "number",
               "req": false,
+              "short": "The issue number",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "state",
               "req": false,
+              "short": "State of the issue",
               "type": "`$STRING`"
             },
             {
@@ -526,6 +535,7 @@
                 }
               },
               "req": false,
+              "short": "The issue title",
               "type": "`$STRING`"
             },
             {
@@ -1156,12 +1166,14 @@
                 }
               },
               "req": false,
+              "short": "The name of the branch you want the changes pulled into",
               "type": "`$OBJECT`"
             },
             {
               "active": true,
               "name": "body",
               "req": false,
+              "short": "The contents of the pull request",
               "type": "`$STRING`"
             },
             {
@@ -1180,6 +1192,7 @@
               "active": true,
               "name": "draft",
               "req": false,
+              "short": "Indicates whether the pull request is a draft",
               "type": "`$BOOLEAN`"
             },
             {
@@ -1192,6 +1205,7 @@
                 }
               },
               "req": false,
+              "short": "The name of the branch where your changes are implemented",
               "type": "`$OBJECT`"
             },
             {
@@ -1240,6 +1254,7 @@
                 }
               },
               "req": false,
+              "short": "The title of the pull request",
               "type": "`$STRING`"
             },
             {
@@ -1544,6 +1559,7 @@
               "active": true,
               "name": "avatar_url",
               "req": false,
+              "short": "URL to the user's avatar image",
               "type": "`$STRING`"
             },
             {
@@ -1616,6 +1632,7 @@
               "active": true,
               "name": "full_name",
               "req": false,
+              "short": "The full name including owner",
               "type": "`$STRING`"
             },
             {
@@ -1628,6 +1645,7 @@
               "active": true,
               "name": "id",
               "req": false,
+              "short": "The user's unique identifier",
               "type": "`$INTEGER`"
             },
             {
@@ -1646,12 +1664,14 @@
               "active": true,
               "name": "login",
               "req": false,
+              "short": "The user's GitHub username",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "name",
               "req": false,
+              "short": "The name of the repository",
               "type": "`$STRING`"
             },
             {
@@ -1676,6 +1696,7 @@
               "active": true,
               "name": "private",
               "req": false,
+              "short": "Whether the repository is private",
               "type": "`$BOOLEAN`"
             },
             {
@@ -2036,6 +2057,7 @@
               "active": true,
               "name": "full_name",
               "req": false,
+              "short": "The full name including owner",
               "type": "`$STRING`"
             },
             {
@@ -2072,6 +2094,7 @@
               "active": true,
               "name": "name",
               "req": false,
+              "short": "The name of the repository",
               "type": "`$STRING`"
             },
             {
@@ -2084,6 +2107,7 @@
               "active": true,
               "name": "number",
               "req": false,
+              "short": "The issue number",
               "type": "`$INTEGER`"
             },
             {
@@ -2102,6 +2126,7 @@
               "active": true,
               "name": "private",
               "req": false,
+              "short": "Whether the repository is private",
               "type": "`$BOOLEAN`"
             },
             {
@@ -2132,6 +2157,7 @@
               "active": true,
               "name": "title",
               "req": false,
+              "short": "The issue title",
               "type": "`$STRING`"
             },
             {
@@ -2334,6 +2360,7 @@
               "active": true,
               "name": "avatar_url",
               "req": false,
+              "short": "URL to the user's avatar image",
               "type": "`$STRING`"
             },
             {
@@ -2388,6 +2415,7 @@
               "active": true,
               "name": "id",
               "req": false,
+              "short": "The user's unique identifier",
               "type": "`$INTEGER`"
             },
             {
@@ -2400,6 +2428,7 @@
               "active": true,
               "name": "login",
               "req": false,
+              "short": "The user's GitHub username",
               "type": "`$STRING`"
             },
             {

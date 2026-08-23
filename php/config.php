@@ -33,6 +33,9 @@ class GithubRestConfig
         return [
             "main" => [
                 "name" => "GithubRest",
+                "slug" => "github-rest",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -280,6 +283,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'description',
+              'short' => 'Description of the gist',
               'type' => '`$STRING`',
             ],
             [
@@ -290,6 +294,7 @@ class GithubRestConfig
                 ],
               ],
               'req' => true,
+              'short' => 'Names and content for the files that make up the gist',
               'type' => '`$OBJECT`',
             ],
             [
@@ -310,6 +315,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'public',
+              'short' => 'Whether the gist is public',
               'type' => '`$BOOLEAN`',
             ],
             [
@@ -398,10 +404,12 @@ class GithubRestConfig
             ],
             [
               'name' => 'assignees',
+              'short' => 'Logins for Users to assign to this issue',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'body',
+              'short' => 'The contents of the issue',
               'type' => '`$STRING`',
             ],
             [
@@ -426,10 +434,12 @@ class GithubRestConfig
             ],
             [
               'name' => 'labels',
+              'short' => 'Labels to associate with this issue',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'milestone',
+              'short' => 'The number of the milestone to associate this issue with',
               'type' => '`$OBJECT`',
             ],
             [
@@ -438,10 +448,12 @@ class GithubRestConfig
             ],
             [
               'name' => 'number',
+              'short' => 'The issue number',
               'type' => '`$INTEGER`',
             ],
             [
               'name' => 'state',
+              'short' => 'State of the issue',
               'type' => '`$STRING`',
             ],
             [
@@ -452,6 +464,7 @@ class GithubRestConfig
                   'type' => '`$STRING`',
                 ],
               ],
+              'short' => 'The issue title',
               'type' => '`$STRING`',
             ],
             [
@@ -963,10 +976,12 @@ class GithubRestConfig
                   'type' => '`$STRING`',
                 ],
               ],
+              'short' => 'The name of the branch you want the changes pulled into',
               'type' => '`$OBJECT`',
             ],
             [
               'name' => 'body',
+              'short' => 'The contents of the pull request',
               'type' => '`$STRING`',
             ],
             [
@@ -979,6 +994,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'draft',
+              'short' => 'Indicates whether the pull request is a draft',
               'type' => '`$BOOLEAN`',
             ],
             [
@@ -989,6 +1005,7 @@ class GithubRestConfig
                   'type' => '`$STRING`',
                 ],
               ],
+              'short' => 'The name of the branch where your changes are implemented',
               'type' => '`$OBJECT`',
             ],
             [
@@ -1023,6 +1040,7 @@ class GithubRestConfig
                   'type' => '`$STRING`',
                 ],
               ],
+              'short' => 'The title of the pull request',
               'type' => '`$STRING`',
             ],
             [
@@ -1282,6 +1300,7 @@ class GithubRestConfig
           'fields' => [
             [
               'name' => 'avatar_url',
+              'short' => 'URL to the user\'s avatar image',
               'type' => '`$STRING`',
             ],
             [
@@ -1330,6 +1349,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'full_name',
+              'short' => 'The full name including owner',
               'type' => '`$STRING`',
             ],
             [
@@ -1338,6 +1358,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'id',
+              'short' => 'The user\'s unique identifier',
               'type' => '`$INTEGER`',
             ],
             [
@@ -1350,10 +1371,12 @@ class GithubRestConfig
             ],
             [
               'name' => 'login',
+              'short' => 'The user\'s GitHub username',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'name',
+              'short' => 'The name of the repository',
               'type' => '`$STRING`',
             ],
             [
@@ -1370,6 +1393,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'private',
+              'short' => 'Whether the repository is private',
               'type' => '`$BOOLEAN`',
             ],
             [
@@ -1657,6 +1681,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'full_name',
+              'short' => 'The full name including owner',
               'type' => '`$STRING`',
             ],
             [
@@ -1681,6 +1706,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'name',
+              'short' => 'The name of the repository',
               'type' => '`$STRING`',
             ],
             [
@@ -1689,6 +1715,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'number',
+              'short' => 'The issue number',
               'type' => '`$INTEGER`',
             ],
             [
@@ -1701,6 +1728,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'private',
+              'short' => 'Whether the repository is private',
               'type' => '`$BOOLEAN`',
             ],
             [
@@ -1721,6 +1749,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'title',
+              'short' => 'The issue title',
               'type' => '`$STRING`',
             ],
             [
@@ -1883,6 +1912,7 @@ class GithubRestConfig
           'fields' => [
             [
               'name' => 'avatar_url',
+              'short' => 'URL to the user\'s avatar image',
               'type' => '`$STRING`',
             ],
             [
@@ -1919,6 +1949,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'id',
+              'short' => 'The user\'s unique identifier',
               'type' => '`$INTEGER`',
             ],
             [
@@ -1927,6 +1958,7 @@ class GithubRestConfig
             ],
             [
               'name' => 'login',
+              'short' => 'The user\'s GitHub username',
               'type' => '`$STRING`',
             ],
             [

@@ -346,13 +346,13 @@ const gist = client.Gist()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `description` | `string` | No |  |
-| `files` | `Record<string, any>` | Yes |  |
+| `description` | `string` | No | Description of the gist |
+| `files` | `Record<string, any>` | Yes | Names and content for the files that make up the gist |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `owner` | `Record<string, any>` | No |  |
-| `public` | `boolean` | No |  |
+| `public` | `boolean` | No | Whether the gist is public |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -430,19 +430,19 @@ const issue = client.Issue()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
-| `assignees` | `any[]` | No |  |
-| `body` | `string` | No |  |
+| `assignees` | `any[]` | No | Logins for Users to assign to this issue |
+| `body` | `string` | No | The contents of the issue |
 | `closed_at` | `string` | No |  |
 | `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `labels` | `any[]` | No |  |
-| `milestone` | `Record<string, any>` | No |  |
+| `labels` | `any[]` | No | Labels to associate with this issue |
+| `milestone` | `Record<string, any>` | No | The number of the milestone to associate this issue with |
 | `node_id` | `string` | No |  |
-| `number` | `number` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `number` | `number` | No | The issue number |
+| `state` | `string` | No | State of the issue |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `Record<string, any>` | No |  |
@@ -672,19 +672,19 @@ const pull = client.Pull()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | `Record<string, any>` | No |  |
-| `body` | `string` | No |  |
+| `base` | `Record<string, any>` | No | The name of the branch you want the changes pulled into |
+| `body` | `string` | No | The contents of the pull request |
 | `closed_at` | `string` | No |  |
 | `created_at` | `string` | No |  |
-| `draft` | `boolean` | No |  |
-| `head` | `Record<string, any>` | No |  |
+| `draft` | `boolean` | No | Indicates whether the pull request is a draft |
+| `head` | `Record<string, any>` | No | The name of the branch where your changes are implemented |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `merged_at` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `number` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The title of the pull request |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `Record<string, any>` | No |  |
@@ -828,7 +828,7 @@ const repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -840,17 +840,17 @@ const repo = client.Repo()
 | `following` | `number` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
+| `id` | `number` | No | The user's unique identifier |
 | `language` | `string` | No |  |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
-| `name` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `Record<string, any>` | No |  |
-| `private` | `boolean` | No |  |
+| `private` | `boolean` | No | Whether the repository is private |
 | `public_gists` | `number` | No |  |
 | `public_repos` | `number` | No |  |
 | `pushed_at` | `string` | No |  |
@@ -928,23 +928,23 @@ const search = client.Search()
 | `description` | `string` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `labels` | `any[]` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `Record<string, any>` | No |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
-| `number` | `number` | No |  |
+| `number` | `number` | No | The issue number |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `Record<string, any>` | No |  |
-| `private` | `boolean` | No |  |
+| `private` | `boolean` | No | Whether the repository is private |
 | `pushed_at` | `string` | No |  |
 | `size` | `number` | No |  |
 | `stargazers_count` | `number` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `Record<string, any>` | No |  |
@@ -1020,7 +1020,7 @@ const user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -1029,9 +1029,9 @@ const user = client.User()
 | `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
+| `id` | `number` | No | The user's unique identifier |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `public_gists` | `number` | No |  |

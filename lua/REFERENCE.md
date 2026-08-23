@@ -244,13 +244,13 @@ local gist = client:Gist(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `description` | `string` | No |  |
-| `files` | `table` | Yes |  |
+| `description` | `string` | No | Description of the gist |
+| `files` | `table` | Yes | Names and content for the files that make up the gist |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `owner` | `table` | No |  |
-| `public` | `boolean` | No |  |
+| `public` | `boolean` | No | Whether the gist is public |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -330,19 +330,19 @@ local issue = client:Issue(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `any` | No |  |
-| `assignees` | `table` | No |  |
-| `body` | `string` | No |  |
+| `assignees` | `table` | No | Logins for Users to assign to this issue |
+| `body` | `string` | No | The contents of the issue |
 | `closed_at` | `string` | No |  |
 | `comments` | `number` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
-| `labels` | `table` | No |  |
-| `milestone` | `table` | No |  |
+| `labels` | `table` | No | Labels to associate with this issue |
+| `milestone` | `table` | No | The number of the milestone to associate this issue with |
 | `node_id` | `string` | No |  |
-| `number` | `number` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `number` | `number` | No | The issue number |
+| `state` | `string` | No | State of the issue |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `table` | No |  |
@@ -578,19 +578,19 @@ local pull = client:Pull(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | `table` | No |  |
-| `body` | `string` | No |  |
+| `base` | `table` | No | The name of the branch you want the changes pulled into |
+| `body` | `string` | No | The contents of the pull request |
 | `closed_at` | `string` | No |  |
 | `created_at` | `string` | No |  |
-| `draft` | `boolean` | No |  |
-| `head` | `table` | No |  |
+| `draft` | `boolean` | No | Indicates whether the pull request is a draft |
+| `head` | `table` | No | The name of the branch where your changes are implemented |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `merged_at` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `number` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The title of the pull request |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `table` | No |  |
@@ -738,7 +738,7 @@ local repo = client:Repo(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -750,17 +750,17 @@ local repo = client:Repo(nil)
 | `following` | `number` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
+| `id` | `number` | No | The user's unique identifier |
 | `language` | `string` | No |  |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
-| `name` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `table` | No |  |
-| `private` | `boolean` | No |  |
+| `private` | `boolean` | No | Whether the repository is private |
 | `public_gists` | `number` | No |  |
 | `public_repos` | `number` | No |  |
 | `pushed_at` | `string` | No |  |
@@ -840,23 +840,23 @@ local search = client:Search(nil)
 | `description` | `string` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
 | `id` | `number` | No |  |
 | `labels` | `table` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `table` | No |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
-| `number` | `number` | No |  |
+| `number` | `number` | No | The issue number |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `table` | No |  |
-| `private` | `boolean` | No |  |
+| `private` | `boolean` | No | Whether the repository is private |
 | `pushed_at` | `string` | No |  |
 | `size` | `number` | No |  |
 | `stargazers_count` | `number` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `table` | No |  |
@@ -913,7 +913,7 @@ local user = client:User(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -922,9 +922,9 @@ local user = client:User(nil)
 | `followers` | `number` | No |  |
 | `following` | `number` | No |  |
 | `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
+| `id` | `number` | No | The user's unique identifier |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `public_gists` | `number` | No |  |

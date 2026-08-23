@@ -1,0 +1,13 @@
+# Entity Models
+
+@"branch.aon"
+@"commit.aon"
+@"gist.aon"
+@"issue.aon"
+@"notification.aon"
+@"org.aon"
+@"pull.aon"
+@"rate_limit.aon"
+@"repo.aon"
+@"search.aon"
+@"user.aon"

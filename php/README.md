@@ -310,13 +310,13 @@ API path: `/repos/{owner}/{repo}/commits`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `description` |  |
-| `files` |  |
+| `description` | Description of the gist |
+| `files` | Names and content for the files that make up the gist |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
 | `owner` |  |
-| `public` |  |
+| `public` | Whether the gist is public |
 | `updated_at` |  |
 | `url` |  |
 
@@ -329,19 +329,19 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
-| `assignees` |  |
-| `body` |  |
+| `assignees` | Logins for Users to assign to this issue |
+| `body` | The contents of the issue |
 | `closed_at` |  |
 | `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `labels` |  |
-| `milestone` |  |
+| `labels` | Labels to associate with this issue |
+| `milestone` | The number of the milestone to associate this issue with |
 | `node_id` |  |
-| `number` |  |
-| `state` |  |
-| `title` |  |
+| `number` | The issue number |
+| `state` | State of the issue |
+| `title` | The issue title |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -397,19 +397,19 @@ API path: `/orgs/{org}`
 
 | Field | Description |
 | --- | --- |
-| `base` |  |
-| `body` |  |
+| `base` | The name of the branch you want the changes pulled into |
+| `body` | The contents of the pull request |
 | `closed_at` |  |
 | `created_at` |  |
-| `draft` |  |
-| `head` |  |
+| `draft` | Indicates whether the pull request is a draft |
+| `head` | The name of the branch where your changes are implemented |
 | `html_url` |  |
 | `id` |  |
 | `merged_at` |  |
 | `node_id` |  |
 | `number` |  |
 | `state` |  |
-| `title` |  |
+| `title` | The title of the pull request |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -433,7 +433,7 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` |  |
+| `avatar_url` | URL to the user's avatar image |
 | `bio` |  |
 | `blog` |  |
 | `company` |  |
@@ -445,17 +445,17 @@ API path: `/rate_limit`
 | `following` |  |
 | `fork` |  |
 | `forks_count` |  |
-| `full_name` |  |
+| `full_name` | The full name including owner |
 | `html_url` |  |
-| `id` |  |
+| `id` | The user's unique identifier |
 | `language` |  |
 | `location` |  |
-| `login` |  |
-| `name` |  |
+| `login` | The user's GitHub username |
+| `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
-| `private` |  |
+| `private` | Whether the repository is private |
 | `public_gists` |  |
 | `public_repos` |  |
 | `pushed_at` |  |
@@ -485,23 +485,23 @@ API path: `/users/{username}/repos`
 | `description` |  |
 | `fork` |  |
 | `forks_count` |  |
-| `full_name` |  |
+| `full_name` | The full name including owner |
 | `html_url` |  |
 | `id` |  |
 | `labels` |  |
 | `language` |  |
 | `milestone` |  |
-| `name` |  |
+| `name` | The name of the repository |
 | `node_id` |  |
-| `number` |  |
+| `number` | The issue number |
 | `open_issues_count` |  |
 | `owner` |  |
-| `private` |  |
+| `private` | Whether the repository is private |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
 | `state` |  |
-| `title` |  |
+| `title` | The issue title |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -516,7 +516,7 @@ API path: `/search/issues`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` |  |
+| `avatar_url` | URL to the user's avatar image |
 | `bio` |  |
 | `blog` |  |
 | `company` |  |
@@ -525,9 +525,9 @@ API path: `/search/issues`
 | `followers` |  |
 | `following` |  |
 | `html_url` |  |
-| `id` |  |
+| `id` | The user's unique identifier |
 | `location` |  |
-| `login` |  |
+| `login` | The user's GitHub username |
 | `name` |  |
 | `node_id` |  |
 | `public_gists` |  |
@@ -617,13 +617,13 @@ Create an instance: `$gist = $client->Gist();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `description` | `string` |  |
-| `files` | `array` |  |
+| `description` | `string` | Description of the gist |
+| `files` | `array` | Names and content for the files that make up the gist |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
 | `owner` | `array` |  |
-| `public` | `bool` |  |
+| `public` | `bool` | Whether the gist is public |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
@@ -661,19 +661,19 @@ Create an instance: `$issue = $client->Issue();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `mixed` |  |
-| `assignees` | `array` |  |
-| `body` | `string` |  |
+| `assignees` | `array` | Logins for Users to assign to this issue |
+| `body` | `string` | The contents of the issue |
 | `closed_at` | `string` |  |
 | `comments` | `int` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
-| `labels` | `array` |  |
-| `milestone` | `array` |  |
+| `labels` | `array` | Labels to associate with this issue |
+| `milestone` | `array` | The number of the milestone to associate this issue with |
 | `node_id` | `string` |  |
-| `number` | `int` |  |
-| `state` | `string` |  |
-| `title` | `string` |  |
+| `number` | `int` | The issue number |
+| `state` | `string` | State of the issue |
+| `title` | `string` | The issue title |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `array` |  |
@@ -789,19 +789,19 @@ Create an instance: `$pull = $client->Pull();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | `array` |  |
-| `body` | `string` |  |
+| `base` | `array` | The name of the branch you want the changes pulled into |
+| `body` | `string` | The contents of the pull request |
 | `closed_at` | `string` |  |
 | `created_at` | `string` |  |
-| `draft` | `bool` |  |
-| `head` | `array` |  |
+| `draft` | `bool` | Indicates whether the pull request is a draft |
+| `head` | `array` | The name of the branch where your changes are implemented |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
 | `merged_at` | `string` |  |
 | `node_id` | `string` |  |
 | `number` | `int` |  |
 | `state` | `string` |  |
-| `title` | `string` |  |
+| `title` | `string` | The title of the pull request |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `array` |  |
@@ -870,7 +870,7 @@ Create an instance: `$repo = $client->Repo();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` |  |
+| `avatar_url` | `string` | URL to the user's avatar image |
 | `bio` | `string` |  |
 | `blog` | `string` |  |
 | `company` | `string` |  |
@@ -882,17 +882,17 @@ Create an instance: `$repo = $client->Repo();`
 | `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
-| `full_name` | `string` |  |
+| `full_name` | `string` | The full name including owner |
 | `html_url` | `string` |  |
-| `id` | `int` |  |
+| `id` | `int` | The user's unique identifier |
 | `language` | `string` |  |
 | `location` | `string` |  |
-| `login` | `string` |  |
-| `name` | `string` |  |
+| `login` | `string` | The user's GitHub username |
+| `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `array` |  |
-| `private` | `bool` |  |
+| `private` | `bool` | Whether the repository is private |
 | `public_gists` | `int` |  |
 | `public_repos` | `int` |  |
 | `pushed_at` | `string` |  |
@@ -943,23 +943,23 @@ Create an instance: `$search = $client->Search();`
 | `description` | `string` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
-| `full_name` | `string` |  |
+| `full_name` | `string` | The full name including owner |
 | `html_url` | `string` |  |
 | `id` | `int` |  |
 | `labels` | `array` |  |
 | `language` | `string` |  |
 | `milestone` | `array` |  |
-| `name` | `string` |  |
+| `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
-| `number` | `int` |  |
+| `number` | `int` | The issue number |
 | `open_issues_count` | `int` |  |
 | `owner` | `array` |  |
-| `private` | `bool` |  |
+| `private` | `bool` | Whether the repository is private |
 | `pushed_at` | `string` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
 | `state` | `string` |  |
-| `title` | `string` |  |
+| `title` | `string` | The issue title |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `array` |  |
@@ -988,7 +988,7 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` |  |
+| `avatar_url` | `string` | URL to the user's avatar image |
 | `bio` | `string` |  |
 | `blog` | `string` |  |
 | `company` | `string` |  |
@@ -997,9 +997,9 @@ Create an instance: `$user = $client->User();`
 | `followers` | `int` |  |
 | `following` | `int` |  |
 | `html_url` | `string` |  |
-| `id` | `int` |  |
+| `id` | `int` | The user's unique identifier |
 | `location` | `string` |  |
-| `login` | `string` |  |
+| `login` | `string` | The user's GitHub username |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `public_gists` | `int` |  |

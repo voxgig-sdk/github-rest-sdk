@@ -243,13 +243,13 @@ gist = client.Gist()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `str` | No |  |
-| `description` | `str` | No |  |
-| `files` | `dict` | Yes |  |
+| `description` | `str` | No | Description of the gist |
+| `files` | `dict` | Yes | Names and content for the files that make up the gist |
 | `html_url` | `str` | No |  |
 | `id` | `str` | No |  |
 | `node_id` | `str` | No |  |
 | `owner` | `dict` | No |  |
-| `public` | `bool` | No |  |
+| `public` | `bool` | No | Whether the gist is public |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 
@@ -330,19 +330,19 @@ issue = client.Issue()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `Any` | No |  |
-| `assignees` | `list` | No |  |
-| `body` | `str` | No |  |
+| `assignees` | `list` | No | Logins for Users to assign to this issue |
+| `body` | `str` | No | The contents of the issue |
 | `closed_at` | `str` | No |  |
 | `comments` | `int` | No |  |
 | `created_at` | `str` | No |  |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
-| `labels` | `list` | No |  |
-| `milestone` | `dict` | No |  |
+| `labels` | `list` | No | Labels to associate with this issue |
+| `milestone` | `dict` | No | The number of the milestone to associate this issue with |
 | `node_id` | `str` | No |  |
-| `number` | `int` | No |  |
-| `state` | `str` | No |  |
-| `title` | `str` | No |  |
+| `number` | `int` | No | The issue number |
+| `state` | `str` | No | State of the issue |
+| `title` | `str` | No | The issue title |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 | `user` | `dict` | No |  |
@@ -579,19 +579,19 @@ pull = client.Pull()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | `dict` | No |  |
-| `body` | `str` | No |  |
+| `base` | `dict` | No | The name of the branch you want the changes pulled into |
+| `body` | `str` | No | The contents of the pull request |
 | `closed_at` | `str` | No |  |
 | `created_at` | `str` | No |  |
-| `draft` | `bool` | No |  |
-| `head` | `dict` | No |  |
+| `draft` | `bool` | No | Indicates whether the pull request is a draft |
+| `head` | `dict` | No | The name of the branch where your changes are implemented |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
 | `merged_at` | `str` | No |  |
 | `node_id` | `str` | No |  |
 | `number` | `int` | No |  |
 | `state` | `str` | No |  |
-| `title` | `str` | No |  |
+| `title` | `str` | No | The title of the pull request |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 | `user` | `dict` | No |  |
@@ -739,7 +739,7 @@ repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `str` | No |  |
+| `avatar_url` | `str` | No | URL to the user's avatar image |
 | `bio` | `str` | No |  |
 | `blog` | `str` | No |  |
 | `company` | `str` | No |  |
@@ -751,17 +751,17 @@ repo = client.Repo()
 | `following` | `int` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
-| `full_name` | `str` | No |  |
+| `full_name` | `str` | No | The full name including owner |
 | `html_url` | `str` | No |  |
-| `id` | `int` | No |  |
+| `id` | `int` | No | The user's unique identifier |
 | `language` | `str` | No |  |
 | `location` | `str` | No |  |
-| `login` | `str` | No |  |
-| `name` | `str` | No |  |
+| `login` | `str` | No | The user's GitHub username |
+| `name` | `str` | No | The name of the repository |
 | `node_id` | `str` | No |  |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `dict` | No |  |
-| `private` | `bool` | No |  |
+| `private` | `bool` | No | Whether the repository is private |
 | `public_gists` | `int` | No |  |
 | `public_repos` | `int` | No |  |
 | `pushed_at` | `str` | No |  |
@@ -842,23 +842,23 @@ search = client.Search()
 | `description` | `str` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
-| `full_name` | `str` | No |  |
+| `full_name` | `str` | No | The full name including owner |
 | `html_url` | `str` | No |  |
 | `id` | `int` | No |  |
 | `labels` | `list` | No |  |
 | `language` | `str` | No |  |
 | `milestone` | `dict` | No |  |
-| `name` | `str` | No |  |
+| `name` | `str` | No | The name of the repository |
 | `node_id` | `str` | No |  |
-| `number` | `int` | No |  |
+| `number` | `int` | No | The issue number |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `dict` | No |  |
-| `private` | `bool` | No |  |
+| `private` | `bool` | No | Whether the repository is private |
 | `pushed_at` | `str` | No |  |
 | `size` | `int` | No |  |
 | `stargazers_count` | `int` | No |  |
 | `state` | `str` | No |  |
-| `title` | `str` | No |  |
+| `title` | `str` | No | The issue title |
 | `updated_at` | `str` | No |  |
 | `url` | `str` | No |  |
 | `user` | `dict` | No |  |
@@ -916,7 +916,7 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `str` | No |  |
+| `avatar_url` | `str` | No | URL to the user's avatar image |
 | `bio` | `str` | No |  |
 | `blog` | `str` | No |  |
 | `company` | `str` | No |  |
@@ -925,9 +925,9 @@ user = client.User()
 | `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `str` | No |  |
-| `id` | `int` | No |  |
+| `id` | `int` | No | The user's unique identifier |
 | `location` | `str` | No |  |
-| `login` | `str` | No |  |
+| `login` | `str` | No | The user's GitHub username |
 | `name` | `str` | No |  |
 | `node_id` | `str` | No |  |
 | `public_gists` | `int` | No |  |

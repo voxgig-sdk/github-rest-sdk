@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -354,13 +354,13 @@ API path: `/repos/{owner}/{repo}/commits`
 | Field | Description |
 | --- | --- |
 | `created_at` |  |
-| `description` |  |
-| `files` |  |
+| `description` | Description of the gist |
+| `files` | Names and content for the files that make up the gist |
 | `html_url` |  |
 | `id` |  |
 | `node_id` |  |
 | `owner` |  |
-| `public` |  |
+| `public` | Whether the gist is public |
 | `updated_at` |  |
 | `url` |  |
 
@@ -373,19 +373,19 @@ API path: `/gists`
 | Field | Description |
 | --- | --- |
 | `assignee` |  |
-| `assignees` |  |
-| `body` |  |
+| `assignees` | Logins for Users to assign to this issue |
+| `body` | The contents of the issue |
 | `closed_at` |  |
 | `comments` |  |
 | `created_at` |  |
 | `html_url` |  |
 | `id` |  |
-| `labels` |  |
-| `milestone` |  |
+| `labels` | Labels to associate with this issue |
+| `milestone` | The number of the milestone to associate this issue with |
 | `node_id` |  |
-| `number` |  |
-| `state` |  |
-| `title` |  |
+| `number` | The issue number |
+| `state` | State of the issue |
+| `title` | The issue title |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -441,19 +441,19 @@ API path: `/orgs/{org}`
 
 | Field | Description |
 | --- | --- |
-| `base` |  |
-| `body` |  |
+| `base` | The name of the branch you want the changes pulled into |
+| `body` | The contents of the pull request |
 | `closed_at` |  |
 | `created_at` |  |
-| `draft` |  |
-| `head` |  |
+| `draft` | Indicates whether the pull request is a draft |
+| `head` | The name of the branch where your changes are implemented |
 | `html_url` |  |
 | `id` |  |
 | `merged_at` |  |
 | `node_id` |  |
 | `number` |  |
 | `state` |  |
-| `title` |  |
+| `title` | The title of the pull request |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -477,7 +477,7 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` |  |
+| `avatar_url` | URL to the user's avatar image |
 | `bio` |  |
 | `blog` |  |
 | `company` |  |
@@ -489,17 +489,17 @@ API path: `/rate_limit`
 | `following` |  |
 | `fork` |  |
 | `forks_count` |  |
-| `full_name` |  |
+| `full_name` | The full name including owner |
 | `html_url` |  |
-| `id` |  |
+| `id` | The user's unique identifier |
 | `language` |  |
 | `location` |  |
-| `login` |  |
-| `name` |  |
+| `login` | The user's GitHub username |
+| `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
-| `private` |  |
+| `private` | Whether the repository is private |
 | `public_gists` |  |
 | `public_repos` |  |
 | `pushed_at` |  |
@@ -529,23 +529,23 @@ API path: `/users/{username}/repos`
 | `description` |  |
 | `fork` |  |
 | `forks_count` |  |
-| `full_name` |  |
+| `full_name` | The full name including owner |
 | `html_url` |  |
 | `id` |  |
 | `labels` |  |
 | `language` |  |
 | `milestone` |  |
-| `name` |  |
+| `name` | The name of the repository |
 | `node_id` |  |
-| `number` |  |
+| `number` | The issue number |
 | `open_issues_count` |  |
 | `owner` |  |
-| `private` |  |
+| `private` | Whether the repository is private |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
 | `state` |  |
-| `title` |  |
+| `title` | The issue title |
 | `updated_at` |  |
 | `url` |  |
 | `user` |  |
@@ -560,7 +560,7 @@ API path: `/search/issues`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` |  |
+| `avatar_url` | URL to the user's avatar image |
 | `bio` |  |
 | `blog` |  |
 | `company` |  |
@@ -569,9 +569,9 @@ API path: `/search/issues`
 | `followers` |  |
 | `following` |  |
 | `html_url` |  |
-| `id` |  |
+| `id` | The user's unique identifier |
 | `location` |  |
-| `login` |  |
+| `login` | The user's GitHub username |
 | `name` |  |
 | `node_id` |  |
 | `public_gists` |  |
@@ -659,13 +659,13 @@ Create an instance: `const gist = client.Gist()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `created_at` | `string` |  |
-| `description` | `string` |  |
-| `files` | `Record<string, any>` |  |
+| `description` | `string` | Description of the gist |
+| `files` | `Record<string, any>` | Names and content for the files that make up the gist |
 | `html_url` | `string` |  |
 | `id` | `string` |  |
 | `node_id` | `string` |  |
 | `owner` | `Record<string, any>` |  |
-| `public` | `boolean` |  |
+| `public` | `boolean` | Whether the gist is public |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 
@@ -702,19 +702,19 @@ Create an instance: `const issue = client.Issue()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `assignee` | `any` |  |
-| `assignees` | `any[]` |  |
-| `body` | `string` |  |
+| `assignees` | `any[]` | Logins for Users to assign to this issue |
+| `body` | `string` | The contents of the issue |
 | `closed_at` | `string` |  |
 | `comments` | `number` |  |
 | `created_at` | `string` |  |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
-| `labels` | `any[]` |  |
-| `milestone` | `Record<string, any>` |  |
+| `labels` | `any[]` | Labels to associate with this issue |
+| `milestone` | `Record<string, any>` | The number of the milestone to associate this issue with |
 | `node_id` | `string` |  |
-| `number` | `number` |  |
-| `state` | `string` |  |
-| `title` | `string` |  |
+| `number` | `number` | The issue number |
+| `state` | `string` | State of the issue |
+| `title` | `string` | The issue title |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `Record<string, any>` |  |
@@ -826,19 +826,19 @@ Create an instance: `const pull = client.Pull()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `base` | `Record<string, any>` |  |
-| `body` | `string` |  |
+| `base` | `Record<string, any>` | The name of the branch you want the changes pulled into |
+| `body` | `string` | The contents of the pull request |
 | `closed_at` | `string` |  |
 | `created_at` | `string` |  |
-| `draft` | `boolean` |  |
-| `head` | `Record<string, any>` |  |
+| `draft` | `boolean` | Indicates whether the pull request is a draft |
+| `head` | `Record<string, any>` | The name of the branch where your changes are implemented |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
 | `merged_at` | `string` |  |
 | `node_id` | `string` |  |
 | `number` | `number` |  |
 | `state` | `string` |  |
-| `title` | `string` |  |
+| `title` | `string` | The title of the pull request |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `Record<string, any>` |  |
@@ -904,7 +904,7 @@ Create an instance: `const repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` |  |
+| `avatar_url` | `string` | URL to the user's avatar image |
 | `bio` | `string` |  |
 | `blog` | `string` |  |
 | `company` | `string` |  |
@@ -916,17 +916,17 @@ Create an instance: `const repo = client.Repo()`
 | `following` | `number` |  |
 | `fork` | `boolean` |  |
 | `forks_count` | `number` |  |
-| `full_name` | `string` |  |
+| `full_name` | `string` | The full name including owner |
 | `html_url` | `string` |  |
-| `id` | `number` |  |
+| `id` | `number` | The user's unique identifier |
 | `language` | `string` |  |
 | `location` | `string` |  |
-| `login` | `string` |  |
-| `name` | `string` |  |
+| `login` | `string` | The user's GitHub username |
+| `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
 | `open_issues_count` | `number` |  |
 | `owner` | `Record<string, any>` |  |
-| `private` | `boolean` |  |
+| `private` | `boolean` | Whether the repository is private |
 | `public_gists` | `number` |  |
 | `public_repos` | `number` |  |
 | `pushed_at` | `string` |  |
@@ -975,23 +975,23 @@ Create an instance: `const search = client.Search()`
 | `description` | `string` |  |
 | `fork` | `boolean` |  |
 | `forks_count` | `number` |  |
-| `full_name` | `string` |  |
+| `full_name` | `string` | The full name including owner |
 | `html_url` | `string` |  |
 | `id` | `number` |  |
 | `labels` | `any[]` |  |
 | `language` | `string` |  |
 | `milestone` | `Record<string, any>` |  |
-| `name` | `string` |  |
+| `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
-| `number` | `number` |  |
+| `number` | `number` | The issue number |
 | `open_issues_count` | `number` |  |
 | `owner` | `Record<string, any>` |  |
-| `private` | `boolean` |  |
+| `private` | `boolean` | Whether the repository is private |
 | `pushed_at` | `string` |  |
 | `size` | `number` |  |
 | `stargazers_count` | `number` |  |
 | `state` | `string` |  |
-| `title` | `string` |  |
+| `title` | `string` | The issue title |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `user` | `Record<string, any>` |  |
@@ -1019,7 +1019,7 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` |  |
+| `avatar_url` | `string` | URL to the user's avatar image |
 | `bio` | `string` |  |
 | `blog` | `string` |  |
 | `company` | `string` |  |
@@ -1028,9 +1028,9 @@ Create an instance: `const user = client.User()`
 | `followers` | `number` |  |
 | `following` | `number` |  |
 | `html_url` | `string` |  |
-| `id` | `number` |  |
+| `id` | `number` | The user's unique identifier |
 | `location` | `string` |  |
-| `login` | `string` |  |
+| `login` | `string` | The user's GitHub username |
 | `name` | `string` |  |
 | `node_id` | `string` |  |
 | `public_gists` | `number` |  |

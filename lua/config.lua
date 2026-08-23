@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "GithubRest",
+      slug = "github-rest",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -254,6 +257,7 @@ local function make_config()
           },
           {
             ["name"] = "description",
+            ["short"] = "Description of the gist",
             ["type"] = "`$STRING`",
           },
           {
@@ -264,6 +268,7 @@ local function make_config()
               },
             },
             ["req"] = true,
+            ["short"] = "Names and content for the files that make up the gist",
             ["type"] = "`$OBJECT`",
           },
           {
@@ -284,6 +289,7 @@ local function make_config()
           },
           {
             ["name"] = "public",
+            ["short"] = "Whether the gist is public",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -372,10 +378,12 @@ local function make_config()
           },
           {
             ["name"] = "assignees",
+            ["short"] = "Logins for Users to assign to this issue",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "body",
+            ["short"] = "The contents of the issue",
             ["type"] = "`$STRING`",
           },
           {
@@ -400,10 +408,12 @@ local function make_config()
           },
           {
             ["name"] = "labels",
+            ["short"] = "Labels to associate with this issue",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "milestone",
+            ["short"] = "The number of the milestone to associate this issue with",
             ["type"] = "`$OBJECT`",
           },
           {
@@ -412,10 +422,12 @@ local function make_config()
           },
           {
             ["name"] = "number",
+            ["short"] = "The issue number",
             ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "state",
+            ["short"] = "State of the issue",
             ["type"] = "`$STRING`",
           },
           {
@@ -426,6 +438,7 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "The issue title",
             ["type"] = "`$STRING`",
           },
           {
@@ -937,10 +950,12 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "The name of the branch you want the changes pulled into",
             ["type"] = "`$OBJECT`",
           },
           {
             ["name"] = "body",
+            ["short"] = "The contents of the pull request",
             ["type"] = "`$STRING`",
           },
           {
@@ -953,6 +968,7 @@ local function make_config()
           },
           {
             ["name"] = "draft",
+            ["short"] = "Indicates whether the pull request is a draft",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -963,6 +979,7 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "The name of the branch where your changes are implemented",
             ["type"] = "`$OBJECT`",
           },
           {
@@ -997,6 +1014,7 @@ local function make_config()
                 ["type"] = "`$STRING`",
               },
             },
+            ["short"] = "The title of the pull request",
             ["type"] = "`$STRING`",
           },
           {
@@ -1256,6 +1274,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "avatar_url",
+            ["short"] = "URL to the user's avatar image",
             ["type"] = "`$STRING`",
           },
           {
@@ -1304,6 +1323,7 @@ local function make_config()
           },
           {
             ["name"] = "full_name",
+            ["short"] = "The full name including owner",
             ["type"] = "`$STRING`",
           },
           {
@@ -1312,6 +1332,7 @@ local function make_config()
           },
           {
             ["name"] = "id",
+            ["short"] = "The user's unique identifier",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -1324,10 +1345,12 @@ local function make_config()
           },
           {
             ["name"] = "login",
+            ["short"] = "The user's GitHub username",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "name",
+            ["short"] = "The name of the repository",
             ["type"] = "`$STRING`",
           },
           {
@@ -1344,6 +1367,7 @@ local function make_config()
           },
           {
             ["name"] = "private",
+            ["short"] = "Whether the repository is private",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -1631,6 +1655,7 @@ local function make_config()
           },
           {
             ["name"] = "full_name",
+            ["short"] = "The full name including owner",
             ["type"] = "`$STRING`",
           },
           {
@@ -1655,6 +1680,7 @@ local function make_config()
           },
           {
             ["name"] = "name",
+            ["short"] = "The name of the repository",
             ["type"] = "`$STRING`",
           },
           {
@@ -1663,6 +1689,7 @@ local function make_config()
           },
           {
             ["name"] = "number",
+            ["short"] = "The issue number",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -1675,6 +1702,7 @@ local function make_config()
           },
           {
             ["name"] = "private",
+            ["short"] = "Whether the repository is private",
             ["type"] = "`$BOOLEAN`",
           },
           {
@@ -1695,6 +1723,7 @@ local function make_config()
           },
           {
             ["name"] = "title",
+            ["short"] = "The issue title",
             ["type"] = "`$STRING`",
           },
           {
@@ -1857,6 +1886,7 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "avatar_url",
+            ["short"] = "URL to the user's avatar image",
             ["type"] = "`$STRING`",
           },
           {
@@ -1893,6 +1923,7 @@ local function make_config()
           },
           {
             ["name"] = "id",
+            ["short"] = "The user's unique identifier",
             ["type"] = "`$INTEGER`",
           },
           {
@@ -1901,6 +1932,7 @@ local function make_config()
           },
           {
             ["name"] = "login",
+            ["short"] = "The user's GitHub username",
             ["type"] = "`$STRING`",
           },
           {

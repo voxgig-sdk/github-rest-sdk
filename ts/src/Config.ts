@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'GithubRest',
+        slug: "github-rest",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -302,6 +313,7 @@ class Config {
         },
         {
           "name": "description",
+          "short": "Description of the gist",
           "type": "`$STRING`"
         },
         {
@@ -312,6 +324,7 @@ class Config {
             }
           },
           "req": true,
+          "short": "Names and content for the files that make up the gist",
           "type": "`$OBJECT`"
         },
         {
@@ -332,6 +345,7 @@ class Config {
         },
         {
           "name": "public",
+          "short": "Whether the gist is public",
           "type": "`$BOOLEAN`"
         },
         {
@@ -420,10 +434,12 @@ class Config {
         },
         {
           "name": "assignees",
+          "short": "Logins for Users to assign to this issue",
           "type": "`$ARRAY`"
         },
         {
           "name": "body",
+          "short": "The contents of the issue",
           "type": "`$STRING`"
         },
         {
@@ -448,10 +464,12 @@ class Config {
         },
         {
           "name": "labels",
+          "short": "Labels to associate with this issue",
           "type": "`$ARRAY`"
         },
         {
           "name": "milestone",
+          "short": "The number of the milestone to associate this issue with",
           "type": "`$OBJECT`"
         },
         {
@@ -460,10 +478,12 @@ class Config {
         },
         {
           "name": "number",
+          "short": "The issue number",
           "type": "`$INTEGER`"
         },
         {
           "name": "state",
+          "short": "State of the issue",
           "type": "`$STRING`"
         },
         {
@@ -474,6 +494,7 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "The issue title",
           "type": "`$STRING`"
         },
         {
@@ -985,10 +1006,12 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "The name of the branch you want the changes pulled into",
           "type": "`$OBJECT`"
         },
         {
           "name": "body",
+          "short": "The contents of the pull request",
           "type": "`$STRING`"
         },
         {
@@ -1001,6 +1024,7 @@ class Config {
         },
         {
           "name": "draft",
+          "short": "Indicates whether the pull request is a draft",
           "type": "`$BOOLEAN`"
         },
         {
@@ -1011,6 +1035,7 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "The name of the branch where your changes are implemented",
           "type": "`$OBJECT`"
         },
         {
@@ -1045,6 +1070,7 @@ class Config {
               "type": "`$STRING`"
             }
           },
+          "short": "The title of the pull request",
           "type": "`$STRING`"
         },
         {
@@ -1304,6 +1330,7 @@ class Config {
       "fields": [
         {
           "name": "avatar_url",
+          "short": "URL to the user's avatar image",
           "type": "`$STRING`"
         },
         {
@@ -1352,6 +1379,7 @@ class Config {
         },
         {
           "name": "full_name",
+          "short": "The full name including owner",
           "type": "`$STRING`"
         },
         {
@@ -1360,6 +1388,7 @@ class Config {
         },
         {
           "name": "id",
+          "short": "The user's unique identifier",
           "type": "`$INTEGER`"
         },
         {
@@ -1372,10 +1401,12 @@ class Config {
         },
         {
           "name": "login",
+          "short": "The user's GitHub username",
           "type": "`$STRING`"
         },
         {
           "name": "name",
+          "short": "The name of the repository",
           "type": "`$STRING`"
         },
         {
@@ -1392,6 +1423,7 @@ class Config {
         },
         {
           "name": "private",
+          "short": "Whether the repository is private",
           "type": "`$BOOLEAN`"
         },
         {
@@ -1679,6 +1711,7 @@ class Config {
         },
         {
           "name": "full_name",
+          "short": "The full name including owner",
           "type": "`$STRING`"
         },
         {
@@ -1703,6 +1736,7 @@ class Config {
         },
         {
           "name": "name",
+          "short": "The name of the repository",
           "type": "`$STRING`"
         },
         {
@@ -1711,6 +1745,7 @@ class Config {
         },
         {
           "name": "number",
+          "short": "The issue number",
           "type": "`$INTEGER`"
         },
         {
@@ -1723,6 +1758,7 @@ class Config {
         },
         {
           "name": "private",
+          "short": "Whether the repository is private",
           "type": "`$BOOLEAN`"
         },
         {
@@ -1743,6 +1779,7 @@ class Config {
         },
         {
           "name": "title",
+          "short": "The issue title",
           "type": "`$STRING`"
         },
         {
@@ -1905,6 +1942,7 @@ class Config {
       "fields": [
         {
           "name": "avatar_url",
+          "short": "URL to the user's avatar image",
           "type": "`$STRING`"
         },
         {
@@ -1941,6 +1979,7 @@ class Config {
         },
         {
           "name": "id",
+          "short": "The user's unique identifier",
           "type": "`$INTEGER`"
         },
         {
@@ -1949,6 +1988,7 @@ class Config {
         },
         {
           "name": "login",
+          "short": "The user's GitHub username",
           "type": "`$STRING`"
         },
         {

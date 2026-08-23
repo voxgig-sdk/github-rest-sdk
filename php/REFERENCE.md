@@ -246,13 +246,13 @@ $gist = $client->Gist();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `created_at` | `string` | No |  |
-| `description` | `string` | No |  |
-| `files` | `array` | Yes |  |
+| `description` | `string` | No | Description of the gist |
+| `files` | `array` | Yes | Names and content for the files that make up the gist |
 | `html_url` | `string` | No |  |
 | `id` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `owner` | `array` | No |  |
-| `public` | `bool` | No |  |
+| `public` | `bool` | No | Whether the gist is public |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 
@@ -332,19 +332,19 @@ $issue = $client->Issue();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `assignee` | `mixed` | No |  |
-| `assignees` | `array` | No |  |
-| `body` | `string` | No |  |
+| `assignees` | `array` | No | Logins for Users to assign to this issue |
+| `body` | `string` | No | The contents of the issue |
 | `closed_at` | `string` | No |  |
 | `comments` | `int` | No |  |
 | `created_at` | `string` | No |  |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
-| `labels` | `array` | No |  |
-| `milestone` | `array` | No |  |
+| `labels` | `array` | No | Labels to associate with this issue |
+| `milestone` | `array` | No | The number of the milestone to associate this issue with |
 | `node_id` | `string` | No |  |
-| `number` | `int` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `number` | `int` | No | The issue number |
+| `state` | `string` | No | State of the issue |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `array` | No |  |
@@ -580,19 +580,19 @@ $pull = $client->Pull();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `base` | `array` | No |  |
-| `body` | `string` | No |  |
+| `base` | `array` | No | The name of the branch you want the changes pulled into |
+| `body` | `string` | No | The contents of the pull request |
 | `closed_at` | `string` | No |  |
 | `created_at` | `string` | No |  |
-| `draft` | `bool` | No |  |
-| `head` | `array` | No |  |
+| `draft` | `bool` | No | Indicates whether the pull request is a draft |
+| `head` | `array` | No | The name of the branch where your changes are implemented |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
 | `merged_at` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `number` | `int` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The title of the pull request |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `array` | No |  |
@@ -740,7 +740,7 @@ $repo = $client->Repo();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -752,17 +752,17 @@ $repo = $client->Repo();
 | `following` | `int` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
-| `id` | `int` | No |  |
+| `id` | `int` | No | The user's unique identifier |
 | `language` | `string` | No |  |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
-| `name` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `array` | No |  |
-| `private` | `bool` | No |  |
+| `private` | `bool` | No | Whether the repository is private |
 | `public_gists` | `int` | No |  |
 | `public_repos` | `int` | No |  |
 | `pushed_at` | `string` | No |  |
@@ -842,23 +842,23 @@ $search = $client->Search();
 | `description` | `string` | No |  |
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
-| `full_name` | `string` | No |  |
+| `full_name` | `string` | No | The full name including owner |
 | `html_url` | `string` | No |  |
 | `id` | `int` | No |  |
 | `labels` | `array` | No |  |
 | `language` | `string` | No |  |
 | `milestone` | `array` | No |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
-| `number` | `int` | No |  |
+| `number` | `int` | No | The issue number |
 | `open_issues_count` | `int` | No |  |
 | `owner` | `array` | No |  |
-| `private` | `bool` | No |  |
+| `private` | `bool` | No | Whether the repository is private |
 | `pushed_at` | `string` | No |  |
 | `size` | `int` | No |  |
 | `stargazers_count` | `int` | No |  |
 | `state` | `string` | No |  |
-| `title` | `string` | No |  |
+| `title` | `string` | No | The issue title |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `user` | `array` | No |  |
@@ -915,7 +915,7 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No |  |
+| `avatar_url` | `string` | No | URL to the user's avatar image |
 | `bio` | `string` | No |  |
 | `blog` | `string` | No |  |
 | `company` | `string` | No |  |
@@ -924,9 +924,9 @@ $user = $client->User();
 | `followers` | `int` | No |  |
 | `following` | `int` | No |  |
 | `html_url` | `string` | No |  |
-| `id` | `int` | No |  |
+| `id` | `int` | No | The user's unique identifier |
 | `location` | `string` | No |  |
-| `login` | `string` | No |  |
+| `login` | `string` | No | The user's GitHub username |
 | `name` | `string` | No |  |
 | `node_id` | `string` | No |  |
 | `public_gists` | `int` | No |  |
