@@ -28,6 +28,7 @@ module GithubRestConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
