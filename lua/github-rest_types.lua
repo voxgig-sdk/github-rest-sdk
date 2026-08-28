@@ -14,6 +14,8 @@
 ---@class BranchListMatch
 ---@field owner string
 ---@field repo string
+---@field page? number
+---@field per_page? number
 
 ---@class Commit
 ---@field author? table
@@ -27,6 +29,10 @@
 ---@class CommitListMatch
 ---@field owner string
 ---@field repo string
+---@field page? number
+---@field path? string
+---@field per_page? number
+---@field sha? string
 
 ---@class Gist
 ---@field created_at? string
@@ -41,16 +47,8 @@
 ---@field url? string
 
 ---@class GistListMatch
----@field created_at? string
----@field description? string
----@field files? table
----@field html_url? string
----@field id? string
----@field node_id? string
----@field owner? table
----@field public? boolean
----@field updated_at? string
----@field url? string
+---@field page? number
+---@field per_page? number
 
 ---@class GistCreateData
 ---@field created_at? string
@@ -91,6 +89,12 @@
 ---@class IssueListMatch
 ---@field owner string
 ---@field repo string
+---@field direction? string
+---@field label? string
+---@field page? number
+---@field per_page? number
+---@field sort? string
+---@field state? string
 
 ---@class IssueCreateData
 ---@field owner string
@@ -145,14 +149,10 @@
 ---@field url? string
 
 ---@class NotificationListMatch
----@field id? string
----@field last_read_at? string
----@field reason? string
----@field repository? table
----@field subject? table
----@field unread? boolean
----@field updated_at? string
----@field url? string
+---@field all? boolean
+---@field page? number
+---@field participating? boolean
+---@field per_page? number
 
 ---@class Org
 ---@field avatar_url? string
@@ -202,6 +202,11 @@
 ---@class PullListMatch
 ---@field owner string
 ---@field repo string
+---@field direction? string
+---@field page? number
+---@field per_page? number
+---@field sort? string
+---@field state? string
 
 ---@class PullCreateData
 ---@field owner string
@@ -272,6 +277,11 @@
 
 ---@class RepoListMatch
 ---@field username string
+---@field direction? string
+---@field page? number
+---@field per_page? number
+---@field sort? string
+---@field type? string
 
 ---@class Search
 ---@field assignee? any
@@ -308,38 +318,11 @@
 ---@field watchers_count? number
 
 ---@class SearchListMatch
----@field assignee? any
----@field assignees? table
----@field body? string
----@field closed_at? string
----@field comments? number
----@field created_at? string
----@field default_branch? string
----@field description? string
----@field fork? boolean
----@field forks_count? number
----@field full_name? string
----@field html_url? string
----@field id? number
----@field labels? table
----@field language? string
----@field milestone? table
----@field name? string
----@field node_id? string
----@field number? number
----@field open_issues_count? number
----@field owner? table
----@field private? boolean
----@field pushed_at? string
----@field size? number
----@field stargazers_count? number
----@field state? string
----@field title? string
----@field updated_at? string
----@field url? string
----@field user? table
----@field visibility? string
----@field watchers_count? number
+---@field order? string
+---@field page? number
+---@field per_page? number
+---@field q string
+---@field sort? string
 
 ---@class User
 ---@field avatar_url? string

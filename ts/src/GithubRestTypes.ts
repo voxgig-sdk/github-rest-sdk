@@ -14,6 +14,8 @@ export interface Branch {
 export interface BranchListMatch {
   owner: string
   repo: string
+  page?: number
+  per_page?: number
 }
 
 export interface Commit {
@@ -29,6 +31,10 @@ export interface Commit {
 export interface CommitListMatch {
   owner: string
   repo: string
+  page?: number
+  path?: string
+  per_page?: number
+  sha?: string
 }
 
 export interface Gist {
@@ -45,16 +51,8 @@ export interface Gist {
 }
 
 export interface GistListMatch {
-  created_at?: string
-  description?: string
-  files?: Record<string, any>
-  html_url?: string
-  id?: string
-  node_id?: string
-  owner?: Record<string, any>
-  public?: boolean
-  updated_at?: string
-  url?: string
+  page?: number
+  per_page?: number
 }
 
 export interface GistCreateData {
@@ -99,6 +97,12 @@ export interface IssueLoadMatch {
 export interface IssueListMatch {
   owner: string
   repo: string
+  direction?: string
+  label?: string
+  page?: number
+  per_page?: number
+  sort?: string
+  state?: string
 }
 
 export interface IssueCreateData {
@@ -157,14 +161,10 @@ export interface Notification {
 }
 
 export interface NotificationListMatch {
-  id?: string
-  last_read_at?: string
-  reason?: string
-  repository?: Record<string, any>
-  subject?: Record<string, any>
-  unread?: boolean
-  updated_at?: string
-  url?: string
+  all?: boolean
+  page?: number
+  participating?: boolean
+  per_page?: number
 }
 
 export interface Org {
@@ -219,6 +219,11 @@ export interface PullLoadMatch {
 export interface PullListMatch {
   owner: string
   repo: string
+  direction?: string
+  page?: number
+  per_page?: number
+  sort?: string
+  state?: string
 }
 
 export interface PullCreateData {
@@ -295,6 +300,11 @@ export interface RepoLoadMatch {
 
 export interface RepoListMatch {
   username: string
+  direction?: string
+  page?: number
+  per_page?: number
+  sort?: string
+  type?: string
 }
 
 export interface Search {
@@ -333,38 +343,11 @@ export interface Search {
 }
 
 export interface SearchListMatch {
-  assignee?: any
-  assignees?: any[]
-  body?: string
-  closed_at?: string
-  comments?: number
-  created_at?: string
-  default_branch?: string
-  description?: string
-  fork?: boolean
-  forks_count?: number
-  full_name?: string
-  html_url?: string
-  id?: number
-  labels?: any[]
-  language?: string
-  milestone?: Record<string, any>
-  name?: string
-  node_id?: string
-  number?: number
-  open_issues_count?: number
-  owner?: Record<string, any>
-  private?: boolean
-  pushed_at?: string
-  size?: number
-  stargazers_count?: number
-  state?: string
-  title?: string
-  updated_at?: string
-  url?: string
-  user?: Record<string, any>
-  visibility?: string
-  watchers_count?: number
+  order?: string
+  page?: number
+  per_page?: number
+  q: string
+  sort?: string
 
   // Selects a custom action instead of the plain list:
   //   'issue' | 'repository'

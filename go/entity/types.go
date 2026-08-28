@@ -23,6 +23,8 @@ type Branch struct {
 type BranchListMatch struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // Commit is the typed data model for the commit entity.
@@ -40,6 +42,10 @@ type Commit struct {
 type CommitListMatch struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Page *int `json:"page,omitempty"`
+	Path *string `json:"path,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Sha *string `json:"sha,omitempty"`
 }
 
 // Gist is the typed data model for the gist entity.
@@ -58,16 +64,8 @@ type Gist struct {
 
 // GistListMatch is the typed request payload for Gist.ListTyped.
 type GistListMatch struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Files *map[string]any `json:"files,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *string `json:"id,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
-	Public *bool `json:"public,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // GistCreateData is the typed request payload for Gist.CreateTyped.
@@ -116,6 +114,12 @@ type IssueLoadMatch struct {
 type IssueListMatch struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Direction *string `json:"direction,omitempty"`
+	Label *string `json:"label,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Sort *string `json:"sort,omitempty"`
+	State *string `json:"state,omitempty"`
 }
 
 // IssueCreateData is the typed request payload for Issue.CreateTyped.
@@ -178,14 +182,10 @@ type Notification struct {
 
 // NotificationListMatch is the typed request payload for Notification.ListTyped.
 type NotificationListMatch struct {
-	Id *string `json:"id,omitempty"`
-	LastReadAt *string `json:"last_read_at,omitempty"`
-	Reason *string `json:"reason,omitempty"`
-	Repository *map[string]any `json:"repository,omitempty"`
-	Subject *map[string]any `json:"subject,omitempty"`
-	Unread *bool `json:"unread,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
+	All *bool `json:"all,omitempty"`
+	Page *int `json:"page,omitempty"`
+	Participating *bool `json:"participating,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
 }
 
 // Org is the typed data model for the org entity.
@@ -245,6 +245,11 @@ type PullLoadMatch struct {
 type PullListMatch struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
+	Direction *string `json:"direction,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Sort *string `json:"sort,omitempty"`
+	State *string `json:"state,omitempty"`
 }
 
 // PullCreateData is the typed request payload for Pull.CreateTyped.
@@ -327,6 +332,11 @@ type RepoLoadMatch struct {
 // RepoListMatch is the typed request payload for Repo.ListTyped.
 type RepoListMatch struct {
 	Username string `json:"username"`
+	Direction *string `json:"direction,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Sort *string `json:"sort,omitempty"`
+	Type *string `json:"type,omitempty"`
 }
 
 // Search is the typed data model for the search entity.
@@ -367,38 +377,11 @@ type Search struct {
 
 // SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
-	Assignee *any `json:"assignee,omitempty"`
-	Assignees *[]any `json:"assignees,omitempty"`
-	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	Comments *int `json:"comments,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	DefaultBranch *string `json:"default_branch,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Fork *bool `json:"fork,omitempty"`
-	ForksCount *int `json:"forks_count,omitempty"`
-	FullName *string `json:"full_name,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Labels *[]any `json:"labels,omitempty"`
-	Language *string `json:"language,omitempty"`
-	Milestone *map[string]any `json:"milestone,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	OpenIssuesCount *int `json:"open_issues_count,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
-	Private *bool `json:"private,omitempty"`
-	PushedAt *string `json:"pushed_at,omitempty"`
-	Size *int `json:"size,omitempty"`
-	StargazersCount *int `json:"stargazers_count,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
-	Visibility *string `json:"visibility,omitempty"`
-	WatchersCount *int `json:"watchers_count,omitempty"`
+	Order *string `json:"order,omitempty"`
+	Page *int `json:"page,omitempty"`
+	PerPage *int `json:"per_page,omitempty"`
+	Q string `json:"q"`
+	Sort *string `json:"sort,omitempty"`
 }
 
 // User is the typed data model for the user entity.

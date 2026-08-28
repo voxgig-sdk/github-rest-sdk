@@ -25,6 +25,8 @@ class BranchListMatch
 {
     public string $owner;
     public string $repo;
+    public ?int $page = null;
+    public ?int $per_page = null;
 }
 
 /** Commit entity data model. */
@@ -44,6 +46,10 @@ class CommitListMatch
 {
     public string $owner;
     public string $repo;
+    public ?int $page = null;
+    public ?string $path = null;
+    public ?int $per_page = null;
+    public ?string $sha = null;
 }
 
 /** Gist entity data model. */
@@ -64,16 +70,8 @@ class Gist
 /** Request payload for Gist#list. */
 class GistListMatch
 {
-    public ?string $created_at = null;
-    public ?string $description = null;
-    public ?array $files = null;
-    public ?string $html_url = null;
-    public ?string $id = null;
-    public ?string $node_id = null;
-    public ?array $owner = null;
-    public ?bool $public = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
 }
 
 /** Request payload for Gist#create. */
@@ -126,6 +124,12 @@ class IssueListMatch
 {
     public string $owner;
     public string $repo;
+    public ?string $direction = null;
+    public ?string $label = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
+    public ?string $sort = null;
+    public ?string $state = null;
 }
 
 /** Request payload for Issue#create. */
@@ -192,14 +196,10 @@ class Notification
 /** Request payload for Notification#list. */
 class NotificationListMatch
 {
-    public ?string $id = null;
-    public ?string $last_read_at = null;
-    public ?string $reason = null;
-    public ?array $repository = null;
-    public ?array $subject = null;
-    public ?bool $unread = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
+    public ?bool $all = null;
+    public ?int $page = null;
+    public ?bool $participating = null;
+    public ?int $per_page = null;
 }
 
 /** Org entity data model. */
@@ -264,6 +264,11 @@ class PullListMatch
 {
     public string $owner;
     public string $repo;
+    public ?string $direction = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
+    public ?string $sort = null;
+    public ?string $state = null;
 }
 
 /** Request payload for Pull#create. */
@@ -352,6 +357,11 @@ class RepoLoadMatch
 class RepoListMatch
 {
     public string $username;
+    public ?string $direction = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
+    public ?string $sort = null;
+    public ?string $type = null;
 }
 
 /** Search entity data model. */
@@ -394,38 +404,11 @@ class Search
 /** Request payload for Search#list. */
 class SearchListMatch
 {
-    public mixed $assignee = null;
-    public ?array $assignees = null;
-    public ?string $body = null;
-    public ?string $closed_at = null;
-    public ?int $comments = null;
-    public ?string $created_at = null;
-    public ?string $default_branch = null;
-    public ?string $description = null;
-    public ?bool $fork = null;
-    public ?int $forks_count = null;
-    public ?string $full_name = null;
-    public ?string $html_url = null;
-    public ?int $id = null;
-    public ?array $labels = null;
-    public ?string $language = null;
-    public ?array $milestone = null;
-    public ?string $name = null;
-    public ?string $node_id = null;
-    public ?int $number = null;
-    public ?int $open_issues_count = null;
-    public ?array $owner = null;
-    public ?bool $private = null;
-    public ?string $pushed_at = null;
-    public ?int $size = null;
-    public ?int $stargazers_count = null;
-    public ?string $state = null;
-    public ?string $title = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
-    public ?array $user = null;
-    public ?string $visibility = null;
-    public ?int $watchers_count = null;
+    public ?string $order = null;
+    public ?int $page = null;
+    public ?int $per_page = null;
+    public string $q;
+    public ?string $sort = null;
 }
 
 /** User entity data model. */

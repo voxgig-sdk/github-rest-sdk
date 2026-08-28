@@ -32,9 +32,17 @@ Branch = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 BranchListMatch = Struct.new(
   :owner,
   :repo,
+  :page,
+  :per_page,
   keyword_init: true
 )
 
@@ -78,9 +86,25 @@ Commit = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] path
+#   @return [String, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sha
+#   @return [String, nil]
 CommitListMatch = Struct.new(
   :owner,
   :repo,
+  :page,
+  :path,
+  :per_page,
+  :sha,
   keyword_init: true
 )
 
@@ -131,46 +155,14 @@ Gist = Struct.new(
 
 # Request payload for Gist#list.
 #
-# @!attribute [rw] created_at
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 #
-# @!attribute [rw] description
-#   @return [String, nil]
-#
-# @!attribute [rw] files
-#   @return [Hash, nil]
-#
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] owner
-#   @return [Hash, nil]
-#
-# @!attribute [rw] public
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 GistListMatch = Struct.new(
-  :created_at,
-  :description,
-  :files,
-  :html_url,
-  :id,
-  :node_id,
-  :owner,
-  :public,
-  :updated_at,
-  :url,
+  :page,
+  :per_page,
   keyword_init: true
 )
 
@@ -316,9 +308,33 @@ IssueLoadMatch = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] direction
+#   @return [String, nil]
+#
+# @!attribute [rw] label
+#   @return [String, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sort
+#   @return [String, nil]
+#
+# @!attribute [rw] state
+#   @return [String, nil]
 IssueListMatch = Struct.new(
   :owner,
   :repo,
+  :direction,
+  :label,
+  :page,
+  :per_page,
+  :sort,
+  :state,
   keyword_init: true
 )
 
@@ -523,38 +539,22 @@ Notification = Struct.new(
 
 # Request payload for Notification#list.
 #
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] last_read_at
-#   @return [String, nil]
-#
-# @!attribute [rw] reason
-#   @return [String, nil]
-#
-# @!attribute [rw] repository
-#   @return [Hash, nil]
-#
-# @!attribute [rw] subject
-#   @return [Hash, nil]
-#
-# @!attribute [rw] unread
+# @!attribute [rw] all
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] updated_at
-#   @return [String, nil]
+# @!attribute [rw] page
+#   @return [Integer, nil]
 #
-# @!attribute [rw] url
-#   @return [String, nil]
+# @!attribute [rw] participating
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
 NotificationListMatch = Struct.new(
-  :id,
-  :last_read_at,
-  :reason,
-  :repository,
-  :subject,
-  :unread,
-  :updated_at,
-  :url,
+  :all,
+  :page,
+  :participating,
+  :per_page,
   keyword_init: true
 )
 
@@ -733,9 +733,29 @@ PullLoadMatch = Struct.new(
 #
 # @!attribute [rw] repo
 #   @return [String]
+#
+# @!attribute [rw] direction
+#   @return [String, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sort
+#   @return [String, nil]
+#
+# @!attribute [rw] state
+#   @return [String, nil]
 PullListMatch = Struct.new(
   :owner,
   :repo,
+  :direction,
+  :page,
+  :per_page,
+  :sort,
+  :state,
   keyword_init: true
 )
 
@@ -996,8 +1016,28 @@ RepoLoadMatch = Struct.new(
 #
 # @!attribute [rw] username
 #   @return [String]
+#
+# @!attribute [rw] direction
+#   @return [String, nil]
+#
+# @!attribute [rw] page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] per_page
+#   @return [Integer, nil]
+#
+# @!attribute [rw] sort
+#   @return [String, nil]
+#
+# @!attribute [rw] type
+#   @return [String, nil]
 RepoListMatch = Struct.new(
   :username,
+  :direction,
+  :page,
+  :per_page,
+  :sort,
+  :type,
   keyword_init: true
 )
 
@@ -1136,134 +1176,26 @@ Search = Struct.new(
 
 # Request payload for Search#list.
 #
-# @!attribute [rw] assignee
-#   @return [Object, nil]
-#
-# @!attribute [rw] assignees
-#   @return [Array, nil]
-#
-# @!attribute [rw] body
+# @!attribute [rw] order
 #   @return [String, nil]
 #
-# @!attribute [rw] closed_at
-#   @return [String, nil]
-#
-# @!attribute [rw] comments
+# @!attribute [rw] page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] created_at
-#   @return [String, nil]
-#
-# @!attribute [rw] default_branch
-#   @return [String, nil]
-#
-# @!attribute [rw] description
-#   @return [String, nil]
-#
-# @!attribute [rw] fork
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] forks_count
+# @!attribute [rw] per_page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] full_name
+# @!attribute [rw] q
+#   @return [String]
+#
+# @!attribute [rw] sort
 #   @return [String, nil]
-#
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] labels
-#   @return [Array, nil]
-#
-# @!attribute [rw] language
-#   @return [String, nil]
-#
-# @!attribute [rw] milestone
-#   @return [Hash, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] number
-#   @return [Integer, nil]
-#
-# @!attribute [rw] open_issues_count
-#   @return [Integer, nil]
-#
-# @!attribute [rw] owner
-#   @return [Hash, nil]
-#
-# @!attribute [rw] private
-#   @return [Boolean, nil]
-#
-# @!attribute [rw] pushed_at
-#   @return [String, nil]
-#
-# @!attribute [rw] size
-#   @return [Integer, nil]
-#
-# @!attribute [rw] stargazers_count
-#   @return [Integer, nil]
-#
-# @!attribute [rw] state
-#   @return [String, nil]
-#
-# @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
-#
-# @!attribute [rw] visibility
-#   @return [String, nil]
-#
-# @!attribute [rw] watchers_count
-#   @return [Integer, nil]
 SearchListMatch = Struct.new(
-  :assignee,
-  :assignees,
-  :body,
-  :closed_at,
-  :comments,
-  :created_at,
-  :default_branch,
-  :description,
-  :fork,
-  :forks_count,
-  :full_name,
-  :html_url,
-  :id,
-  :labels,
-  :language,
-  :milestone,
-  :name,
-  :node_id,
-  :number,
-  :open_issues_count,
-  :owner,
-  :private,
-  :pushed_at,
-  :size,
-  :stargazers_count,
-  :state,
-  :title,
-  :updated_at,
-  :url,
-  :user,
-  :visibility,
-  :watchers_count,
+  :order,
+  :page,
+  :per_page,
+  :q,
+  :sort,
   keyword_init: true
 )
 

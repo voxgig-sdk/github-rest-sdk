@@ -22,9 +22,14 @@ class Branch(TypedDict, total=False):
     protected: bool
 
 
-class BranchListMatch(TypedDict):
+class BranchListMatchRequired(TypedDict):
     owner: str
     repo: str
+
+
+class BranchListMatch(BranchListMatchRequired, total=False):
+    page: int
+    per_page: int
 
 
 class Commit(TypedDict, total=False):
@@ -37,9 +42,16 @@ class Commit(TypedDict, total=False):
     url: str
 
 
-class CommitListMatch(TypedDict):
+class CommitListMatchRequired(TypedDict):
     owner: str
     repo: str
+
+
+class CommitListMatch(CommitListMatchRequired, total=False):
+    page: int
+    path: str
+    per_page: int
+    sha: str
 
 
 class GistRequired(TypedDict):
@@ -59,16 +71,8 @@ class Gist(GistRequired, total=False):
 
 
 class GistListMatch(TypedDict, total=False):
-    created_at: str
-    description: str
-    files: dict
-    html_url: str
-    id: str
-    node_id: str
-    owner: dict
-    public: bool
-    updated_at: str
-    url: str
+    page: int
+    per_page: int
 
 
 class GistCreateDataRequired(TypedDict):
@@ -113,9 +117,18 @@ class IssueLoadMatch(TypedDict):
     repo: str
 
 
-class IssueListMatch(TypedDict):
+class IssueListMatchRequired(TypedDict):
     owner: str
     repo: str
+
+
+class IssueListMatch(IssueListMatchRequired, total=False):
+    direction: str
+    label: str
+    page: int
+    per_page: int
+    sort: str
+    state: str
 
 
 class IssueCreateDataRequired(TypedDict):
@@ -180,14 +193,10 @@ class Notification(TypedDict, total=False):
 
 
 class NotificationListMatch(TypedDict, total=False):
-    id: str
-    last_read_at: str
-    reason: str
-    repository: dict
-    subject: dict
-    unread: bool
-    updated_at: str
-    url: str
+    all: bool
+    page: int
+    participating: bool
+    per_page: int
 
 
 class Org(TypedDict, total=False):
@@ -239,9 +248,17 @@ class PullLoadMatch(TypedDict):
     repo: str
 
 
-class PullListMatch(TypedDict):
+class PullListMatchRequired(TypedDict):
     owner: str
     repo: str
+
+
+class PullListMatch(PullListMatchRequired, total=False):
+    direction: str
+    page: int
+    per_page: int
+    sort: str
+    state: str
 
 
 class PullCreateDataRequired(TypedDict):
@@ -319,8 +336,16 @@ class RepoLoadMatch(TypedDict):
     repo: str
 
 
-class RepoListMatch(TypedDict):
+class RepoListMatchRequired(TypedDict):
     username: str
+
+
+class RepoListMatch(RepoListMatchRequired, total=False):
+    direction: str
+    page: int
+    per_page: int
+    sort: str
+    type: str
 
 
 class Search(TypedDict, total=False):
@@ -358,39 +383,15 @@ class Search(TypedDict, total=False):
     watchers_count: int
 
 
-class SearchListMatch(TypedDict, total=False):
-    assignee: Any
-    assignees: list
-    body: str
-    closed_at: str
-    comments: int
-    created_at: str
-    default_branch: str
-    description: str
-    fork: bool
-    forks_count: int
-    full_name: str
-    html_url: str
-    id: int
-    labels: list
-    language: str
-    milestone: dict
-    name: str
-    node_id: str
-    number: int
-    open_issues_count: int
-    owner: dict
-    private: bool
-    pushed_at: str
-    size: int
-    stargazers_count: int
-    state: str
-    title: str
-    updated_at: str
-    url: str
-    user: dict
-    visibility: str
-    watchers_count: int
+class SearchListMatchRequired(TypedDict):
+    q: str
+
+
+class SearchListMatch(SearchListMatchRequired, total=False):
+    order: str
+    page: int
+    per_page: int
+    sort: str
 
 
 class User(TypedDict, total=False):
