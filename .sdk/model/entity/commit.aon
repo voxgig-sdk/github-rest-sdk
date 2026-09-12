@@ -21,6 +21,7 @@ main: kit: entity: commit: {
       type: "`$OBJECT`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -36,6 +37,7 @@ main: kit: entity: commit: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -100,11 +102,19 @@ main: kit: entity: commit: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}/commits"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "commits"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "commits"
+            }
           ]
           select: {
             exist: [

@@ -24,11 +24,13 @@ main: kit: entity: pull: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "closed_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -52,6 +54,7 @@ main: kit: entity: pull: {
       type: "`$OBJECT`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -62,6 +65,7 @@ main: kit: entity: pull: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "merged_at"
       req: false
       type: "`$STRING`"
@@ -94,11 +98,13 @@ main: kit: entity: pull: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -141,11 +147,19 @@ main: kit: entity: pull: {
           }
           method: "POST"
           orig: "/repos/{owner}/{repo}/pulls"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "pulls"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "pulls"
+            }
           ]
           select: {
             exist: [
@@ -226,11 +240,19 @@ main: kit: entity: pull: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}/pulls"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "pulls"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "pulls"
+            }
           ]
           select: {
             exist: [
@@ -281,18 +303,28 @@ main: kit: entity: pull: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}/pulls/{pull_number}"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "pulls"
-            "{id}"
-          ]
           rename: {
             param: {
               pull_number: "id"
             }
           }
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "pulls"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

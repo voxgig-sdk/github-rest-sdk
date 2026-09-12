@@ -11,6 +11,7 @@ main: kit: entity: notification: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "last_read_at"
       req: false
       type: "`$STRING`"
@@ -36,11 +37,13 @@ main: kit: entity: notification: {
       type: "`$BOOLEAN`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -96,8 +99,10 @@ main: kit: entity: notification: {
           }
           method: "GET"
           orig: "/notifications"
-          parts: [
-            "notifications"
+          segments: [
+            {
+              lit: "notifications"
+            }
           ]
           select: {
             exist: [

@@ -325,7 +325,7 @@ class Repo
     public ?int $forks_count = null;
     public ?string $full_name = null;
     public ?string $html_url = null;
-    public ?int $id = null;
+    public ?string $id = null;
     public ?string $language = null;
     public ?string $location = null;
     public ?string $login = null;

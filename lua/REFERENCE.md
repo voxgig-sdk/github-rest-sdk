@@ -751,8 +751,9 @@ local repo = client:Repo(nil)
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
 | `full_name` | `string` | No | The full name including owner |
+| `github-rest_id` | `number` | No | The user's unique identifier |
 | `html_url` | `string` | No |  |
-| `id` | `number` | No | The user's unique identifier |
+| `id` | `string` | No | The user's unique identifier |
 | `language` | `string` | No |  |
 | `location` | `string` | No |  |
 | `login` | `string` | No | The user's GitHub username |

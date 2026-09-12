@@ -754,8 +754,9 @@ repo = client.Repo
 | `fork` | `Boolean` | No |  |
 | `forks_count` | `Integer` | No |  |
 | `full_name` | `String` | No | The full name including owner |
+| `github-rest_id` | `Integer` | No | The user's unique identifier |
 | `html_url` | `String` | No |  |
-| `id` | `Integer` | No | The user's unique identifier |
+| `id` | `String` | No | The user's unique identifier |
 | `language` | `String` | No |  |
 | `location` | `String` | No |  |
 | `login` | `String` | No | The user's GitHub username |

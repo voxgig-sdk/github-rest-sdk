@@ -271,8 +271,9 @@ export interface Repo {
   fork?: boolean
   forks_count?: number
   full_name?: string
+  "github-rest_id"?: number
   html_url?: string
-  id?: number
+  id?: string
   language?: string
   location?: string
   login?: string

@@ -113,11 +113,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/branches",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "branches",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "branches",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -131,6 +139,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "branches",
+                  ],
                 },
               ],
             },
@@ -158,6 +172,7 @@ module GithubRestConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -170,6 +185,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
@@ -230,11 +246,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/commits",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "commits",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "commits",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -250,6 +274,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "commits",
+                  ],
                 },
               ],
             },
@@ -265,6 +295,7 @@ module GithubRestConfig
         "gist" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -285,6 +316,7 @@ module GithubRestConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -306,14 +338,20 @@ module GithubRestConfig
               "type" => "`$BOOLEAN`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "gist",
           "op" => {
             "create" => {
@@ -325,14 +363,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/gists",
-                  "parts" => [
-                    "gists",
+                  "segments" => [
+                    {
+                      "lit" => "gists",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "gists",
+                  ],
                 },
               ],
             },
@@ -362,8 +405,10 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/gists",
-                  "parts" => [
-                    "gists",
+                  "segments" => [
+                    {
+                      "lit" => "gists",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -375,6 +420,9 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "gists",
+                  ],
                 },
               ],
             },
@@ -400,6 +448,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "closed_at",
               "type" => "`$STRING`",
             },
@@ -408,10 +457,12 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -455,10 +506,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
@@ -467,6 +520,10 @@ module GithubRestConfig
               "type" => "`$OBJECT`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "issue",
           "op" => {
             "create" => {
@@ -495,11 +552,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/repos/{owner}/{repo}/issues",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "issues",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -511,6 +576,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "issues",
+                  ],
                 },
               ],
             },
@@ -583,11 +654,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/issues",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "issues",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -605,6 +684,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "issues",
+                  ],
                 },
               ],
             },
@@ -641,18 +726,28 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/issues/{issue_number}",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "issue_number" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "issues",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -664,6 +759,13 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "issues",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -700,18 +802,28 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "PATCH",
                   "orig" => "/repos/{owner}/{repo}/issues/{issue_number}",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "issue_number" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "issues",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -723,6 +835,13 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "issues",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -742,6 +861,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "last_read_at",
               "type" => "`$STRING`",
             },
@@ -762,14 +882,20 @@ module GithubRestConfig
               "type" => "`$BOOLEAN`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "notification",
           "op" => {
             "list" => {
@@ -812,8 +938,10 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/notifications",
-                  "parts" => [
-                    "notifications",
+                  "segments" => [
+                    {
+                      "lit" => "notifications",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -827,6 +955,9 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "notifications",
+                  ],
                 },
               ],
             },
@@ -838,6 +969,7 @@ module GithubRestConfig
         "org" => {
           "fields" => [
             {
+              "format" => "uri",
               "name" => "avatar_url",
               "type" => "`$STRING`",
             },
@@ -846,6 +978,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -854,6 +987,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "type" => "`$STRING`",
             },
@@ -866,6 +1000,7 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -898,14 +1033,20 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "org",
           "op" => {
             "load" => {
@@ -927,15 +1068,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/orgs/{org}",
-                  "parts" => [
-                    "orgs",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "org" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "orgs",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -945,6 +1090,10 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "orgs",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -972,10 +1121,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "closed_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -996,6 +1147,7 @@ module GithubRestConfig
               "type" => "`$OBJECT`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -1004,6 +1156,7 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "merged_at",
               "type" => "`$STRING`",
             },
@@ -1031,10 +1184,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
@@ -1043,6 +1198,10 @@ module GithubRestConfig
               "type" => "`$OBJECT`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "pull",
           "op" => {
             "create" => {
@@ -1071,11 +1230,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/repos/{owner}/{repo}/pulls",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "pulls",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1087,6 +1254,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "pulls",
+                  ],
                 },
               ],
             },
@@ -1153,11 +1326,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/pulls",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "pulls",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1174,6 +1355,12 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "pulls",
+                  ],
                 },
               ],
             },
@@ -1210,18 +1397,28 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}/pulls/{pull_number}",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "pull_number" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
+                    {
+                      "lit" => "pulls",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -1233,6 +1430,13 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                    "pulls",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -1267,14 +1471,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/rate_limit",
-                  "parts" => [
-                    "rate_limit",
+                  "segments" => [
+                    {
+                      "lit" => "rate_limit",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "rate_limit",
+                  ],
                 },
               ],
             },
@@ -1286,6 +1495,7 @@ module GithubRestConfig
         "repo" => {
           "fields" => [
             {
+              "format" => "uri",
               "name" => "avatar_url",
               "short" => "URL to the user's avatar image",
               "type" => "`$STRING`",
@@ -1303,6 +1513,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -1315,6 +1526,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "type" => "`$STRING`",
             },
@@ -1340,13 +1552,19 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "name" => "github-rest_id",
+              "short" => "The user's unique identifier",
+              "type" => "`$INTEGER`",
+            },
+            {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
               "short" => "The user's unique identifier",
-              "type" => "`$INTEGER`",
+              "type" => "`$STRING`",
             },
             {
               "name" => "language",
@@ -1392,6 +1610,7 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "pushed_at",
               "type" => "`$STRING`",
             },
@@ -1408,10 +1627,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
@@ -1424,6 +1645,19 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "from" => {
+              "owner" => "owner.login",
+              "repo" => "name",
+            },
+            "name" => "id",
+            "parts" => [
+              "owner",
+              "repo",
+            ],
+            "sep" => "/",
+          },
           "name" => "repo",
           "op" => {
             "list" => {
@@ -1482,10 +1716,16 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users/{username}/repos",
-                  "parts" => [
-                    "users",
-                    "{username}",
-                    "repos",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "var" => "username",
+                    },
+                    {
+                      "lit" => "repos",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1501,6 +1741,11 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "{username}",
+                    "repos",
+                  ],
                 },
                 {
                   "args" => {
@@ -1540,16 +1785,22 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/orgs/{org}/repos",
-                  "parts" => [
-                    "orgs",
-                    "{org_id}",
-                    "repos",
-                  ],
                   "rename" => {
                     "param" => {
                       "org" => "org_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "orgs",
+                    },
+                    {
+                      "var" => "org_id",
+                    },
+                    {
+                      "lit" => "repos",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "org_id",
@@ -1562,6 +1813,11 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "orgs",
+                    "{org_id}",
+                    "repos",
+                  ],
                 },
               ],
             },
@@ -1591,10 +1847,16 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/repos/{owner}/{repo}",
-                  "parts" => [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
+                  "segments" => [
+                    {
+                      "lit" => "repos",
+                    },
+                    {
+                      "var" => "owner",
+                    },
+                    {
+                      "var" => "repo",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -1606,6 +1868,11 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.owner`",
                   },
+                  "parts" => [
+                    "repos",
+                    "{owner}",
+                    "{repo}",
+                  ],
                 },
               ],
             },
@@ -1639,6 +1906,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "closed_at",
               "type" => "`$STRING`",
             },
@@ -1647,6 +1915,7 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
@@ -1672,6 +1941,7 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -1719,6 +1989,7 @@ module GithubRestConfig
               "type" => "`$BOOLEAN`",
             },
             {
+              "format" => "date-time",
               "name" => "pushed_at",
               "type" => "`$STRING`",
             },
@@ -1740,10 +2011,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
@@ -1760,6 +2033,10 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "search",
           "op" => {
             "list" => {
@@ -1808,9 +2085,13 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search/issues",
-                  "parts" => [
-                    "search",
-                    "issues",
+                  "segments" => [
+                    {
+                      "lit" => "search",
+                    },
+                    {
+                      "lit" => "issues",
+                    },
                   ],
                   "select" => {
                     "$action" => "issue",
@@ -1826,6 +2107,10 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.items`",
                   },
+                  "parts" => [
+                    "search",
+                    "issues",
+                  ],
                 },
                 {
                   "args" => {
@@ -1869,9 +2154,13 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search/repositories",
-                  "parts" => [
-                    "search",
-                    "repositories",
+                  "segments" => [
+                    {
+                      "lit" => "search",
+                    },
+                    {
+                      "lit" => "repositories",
+                    },
                   ],
                   "select" => {
                     "$action" => "repository",
@@ -1887,6 +2176,10 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body.items`",
                   },
+                  "parts" => [
+                    "search",
+                    "repositories",
+                  ],
                 },
               ],
             },
@@ -1898,6 +2191,7 @@ module GithubRestConfig
         "user" => {
           "fields" => [
             {
+              "format" => "uri",
               "name" => "avatar_url",
               "short" => "URL to the user's avatar image",
               "type" => "`$STRING`",
@@ -1915,10 +2209,12 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "created_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "type" => "`$STRING`",
             },
@@ -1931,6 +2227,7 @@ module GithubRestConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "html_url",
               "type" => "`$STRING`",
             },
@@ -1969,14 +2266,20 @@ module GithubRestConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "updated_at",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "url",
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "user",
           "op" => {
             "load" => {
@@ -1998,15 +2301,19 @@ module GithubRestConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users/{username}",
-                  "parts" => [
-                    "users",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "username" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -2016,20 +2323,29 @@ module GithubRestConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "{id}",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/user",
-                  "parts" => [
-                    "user",
+                  "segments" => [
+                    {
+                      "lit" => "user",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "user",
+                  ],
                 },
               ],
             },

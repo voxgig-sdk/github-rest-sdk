@@ -102,11 +102,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/branches",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "branches"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "branches"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -158,6 +166,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -176,6 +185,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -248,11 +258,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/commits",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "commits"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "commits"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -288,6 +306,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -314,6 +333,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -345,12 +365,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -372,8 +394,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/gists",
-                  "parts": [
-                    "gists"
+                  "segments": [
+                    {
+                      "lit": "gists"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -414,8 +438,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/gists",
-                  "parts": [
-                    "gists"
+                  "segments": [
+                    {
+                      "lit": "gists"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -463,6 +489,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "closed_at",
               "req": false,
               "type": "`$STRING`"
@@ -475,12 +502,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -540,12 +569,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -592,11 +623,19 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/repos/{owner}/{repo}/issues",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "issues"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -695,11 +734,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/issues",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "issues"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -757,18 +804,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "issue_number": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "issues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -820,18 +877,28 @@
                   "kind": "http",
                   "method": "PATCH",
                   "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "issues",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "issue_number": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "issues"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -869,6 +936,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "last_read_at",
               "req": false,
               "type": "`$STRING`"
@@ -899,12 +967,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -965,8 +1035,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/notifications",
-                  "parts": [
-                    "notifications"
+                  "segments": [
+                    {
+                      "lit": "notifications"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -996,6 +1068,7 @@
           "fields": [
             {
               "active": true,
+              "format": "uri",
               "name": "avatar_url",
               "req": false,
               "type": "`$STRING`"
@@ -1008,6 +1081,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -1020,6 +1094,7 @@
             },
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "req": false,
               "type": "`$STRING`"
@@ -1038,6 +1113,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -1086,12 +1162,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -1124,15 +1202,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/orgs/{org}",
-                  "parts": [
-                    "orgs",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "org": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "orgs"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -1178,12 +1260,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "closed_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -1210,6 +1294,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -1222,6 +1307,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "merged_at",
               "req": false,
               "type": "`$STRING`"
@@ -1259,12 +1345,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -1311,11 +1399,19 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/repos/{owner}/{repo}/pulls",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "pulls"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1406,11 +1502,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/pulls",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "pulls"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1467,18 +1571,28 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}/pulls/{pull_number}",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}",
-                    "pulls",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "pull_number": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    },
+                    {
+                      "lit": "pulls"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id",
@@ -1533,8 +1647,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/rate_limit",
-                  "parts": [
-                    "rate_limit"
+                  "segments": [
+                    {
+                      "lit": "rate_limit"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -1552,11 +1668,14 @@
         "repo": {
           "active": true,
           "alias": {
-            "field": {}
+            "field": {
+              "github-rest_id": "id"
+            }
           },
           "fields": [
             {
               "active": true,
+              "format": "uri",
               "name": "avatar_url",
               "req": false,
               "short": "URL to the user's avatar image",
@@ -1582,6 +1701,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -1600,6 +1720,7 @@
             },
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "req": false,
               "type": "`$STRING`"
@@ -1637,6 +1758,14 @@
             },
             {
               "active": true,
+              "name": "github-rest_id",
+              "req": false,
+              "short": "The user's unique identifier",
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -1646,7 +1775,7 @@
               "name": "id",
               "req": false,
               "short": "The user's unique identifier",
-              "type": "`$INTEGER`"
+              "type": "`$STRING`"
             },
             {
               "active": true,
@@ -1713,6 +1842,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "pushed_at",
               "req": false,
               "type": "`$STRING`"
@@ -1737,12 +1867,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -1762,7 +1894,16 @@
           ],
           "id": {
             "field": "id",
-            "name": "id"
+            "from": {
+              "owner": "owner.login",
+              "repo": "name"
+            },
+            "name": "id",
+            "parts": [
+              "owner",
+              "repo"
+            ],
+            "sep": "/"
           },
           "name": "repo",
           "op": {
@@ -1834,10 +1975,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/users/{username}/repos",
-                  "parts": [
-                    "users",
-                    "{username}",
-                    "repos"
+                  "segments": [
+                    {
+                      "lit": "users"
+                    },
+                    {
+                      "var": "username"
+                    },
+                    {
+                      "lit": "repos"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -1900,16 +2047,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/orgs/{org}/repos",
-                  "parts": [
-                    "orgs",
-                    "{org_id}",
-                    "repos"
-                  ],
                   "rename": {
                     "param": {
                       "org": "org_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "orgs"
+                    },
+                    {
+                      "var": "org_id"
+                    },
+                    {
+                      "lit": "repos"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "org_id",
@@ -1954,10 +2107,16 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/repos/{owner}/{repo}",
-                  "parts": [
-                    "repos",
-                    "{owner}",
-                    "{repo}"
+                  "segments": [
+                    {
+                      "lit": "repos"
+                    },
+                    {
+                      "var": "owner"
+                    },
+                    {
+                      "var": "repo"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -2013,6 +2172,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "closed_at",
               "req": false,
               "type": "`$STRING`"
@@ -2025,6 +2185,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
@@ -2062,6 +2223,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -2131,6 +2293,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "pushed_at",
               "req": false,
               "type": "`$STRING`"
@@ -2162,12 +2325,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -2253,9 +2418,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/search/issues",
-                  "parts": [
-                    "search",
-                    "issues"
+                  "segments": [
+                    {
+                      "lit": "search"
+                    },
+                    {
+                      "lit": "issues"
+                    }
                   ],
                   "select": {
                     "$action": "issue",
@@ -2324,9 +2493,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/search/repositories",
-                  "parts": [
-                    "search",
-                    "repositories"
+                  "segments": [
+                    {
+                      "lit": "search"
+                    },
+                    {
+                      "lit": "repositories"
+                    }
                   ],
                   "select": {
                     "$action": "repository",
@@ -2358,6 +2531,7 @@
           "fields": [
             {
               "active": true,
+              "format": "uri",
               "name": "avatar_url",
               "req": false,
               "short": "URL to the user's avatar image",
@@ -2383,12 +2557,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "created_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "req": false,
               "type": "`$STRING`"
@@ -2407,6 +2583,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "html_url",
               "req": false,
               "type": "`$STRING`"
@@ -2463,12 +2640,14 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updated_at",
               "req": false,
               "type": "`$STRING`"
             },
             {
               "active": true,
+              "format": "uri",
               "name": "url",
               "req": false,
               "type": "`$STRING`"
@@ -2501,15 +2680,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/users/{username}",
-                  "parts": [
-                    "users",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "username": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "users"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -2526,8 +2709,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/user",
-                  "parts": [
-                    "user"
+                  "segments": [
+                    {
+                      "lit": "user"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -2607,8 +2792,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -3160,6 +3348,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3185,6 +3376,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -3236,6 +3431,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -3260,6 +3456,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -3311,6 +3508,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -3335,6 +3533,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -3375,6 +3574,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3400,6 +3602,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -3434,6 +3639,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3459,6 +3667,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -3499,6 +3710,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3524,6 +3738,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -3569,6 +3786,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3594,6 +3814,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -3611,11 +3834,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -3644,6 +3862,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -3668,6 +3889,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

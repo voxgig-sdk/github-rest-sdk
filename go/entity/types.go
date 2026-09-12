@@ -301,8 +301,9 @@ type Repo struct {
 	Fork *bool `json:"fork,omitempty"`
 	ForksCount *int `json:"forks_count,omitempty"`
 	FullName *string `json:"full_name,omitempty"`
+	GithubRestId *int `json:"github-rest_id,omitempty"`
 	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 	Language *string `json:"language,omitempty"`
 	Location *string `json:"location,omitempty"`
 	Login *string `json:"login,omitempty"`

@@ -100,7 +100,7 @@ func TestPullEntity(t *testing.T) {
 		// CREATE
 		pullRef01Ent := client.Pull(nil)
 		pullRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "pull"}, setup.data), "pull_ref01"))
+			vs.GetPath(setup.data, []any{"new", "pull"}), "pull_ref01"))
 		pullRef01Data["owner"] = setup.idmap["owner01"]
 		pullRef01Data["repo"] = setup.idmap["repo01"]
 
@@ -179,7 +179,7 @@ func pullBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"pull01", "pull02", "pull03", "repo01", "repo02", "repo03", "owner01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -199,7 +199,7 @@ func pullBasicSetup(extra map[string]any) *entityTestSetup {
 		"GITHUB_REST_TEST_PULL_ENTID": idmap,
 		"GITHUB_REST_TEST_LIVE":      "FALSE",
 		"GITHUB_REST_TEST_EXPLAIN":   "FALSE",
-		"GITHUB_REST_APIKEY":         "NONE",
+		"GITHUB_REST_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["GITHUB_REST_TEST_PULL_ENTID"])
@@ -208,11 +208,23 @@ func pullBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["GITHUB_REST_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["GITHUB_REST_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewGithubRestSDK(core.ToMapAny(mergedOpts))
 	}

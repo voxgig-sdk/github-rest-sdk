@@ -87,15 +87,17 @@ function commit_direct_setup($mockres)
     $env = Runner::env_override([
         "GITHUB_REST_TEST_COMMIT_ENTID" => [],
         "GITHUB_REST_TEST_LIVE" => "FALSE",
-        "GITHUB_REST_APIKEY" => "NONE",
+        "GITHUB_REST_APIKEY" => "",
     ]);
 
     $live = $env["GITHUB_REST_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["GITHUB_REST_APIKEY"],
-        ];
+        ]);
         $client = new GithubRestSDK($merged_opts);
         return [
             "client" => $client,

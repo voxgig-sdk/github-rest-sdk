@@ -436,6 +436,7 @@ API path: `/rate_limit`
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` | The full name including owner |
+| `github-rest_id` | The user's unique identifier |
 | `html_url` |  |
 | `id` | The user's unique identifier |
 | `language` |  |
@@ -873,8 +874,9 @@ Create an instance: `repo = client.Repo`
 | `fork` | `Boolean` |  |
 | `forks_count` | `Integer` |  |
 | `full_name` | `String` | The full name including owner |
+| `github-rest_id` | `Integer` | The user's unique identifier |
 | `html_url` | `String` |  |
-| `id` | `Integer` | The user's unique identifier |
+| `id` | `String` | The user's unique identifier |
 | `language` | `String` |  |
 | `location` | `String` |  |
 | `login` | `String` | The user's GitHub username |

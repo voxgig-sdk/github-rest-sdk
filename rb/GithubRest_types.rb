@@ -903,11 +903,14 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] full_name
 #   @return [String, nil]
 #
+# @!attribute [rw] github-rest_id
+#   @return [Integer, nil]
+#
 # @!attribute [rw] html_url
 #   @return [String, nil]
 #
 # @!attribute [rw] id
-#   @return [Integer, nil]
+#   @return [String, nil]
 #
 # @!attribute [rw] language
 #   @return [String, nil]
@@ -976,6 +979,7 @@ Repo = Struct.new(
   :fork,
   :forks_count,
   :full_name,
+  :"github-rest_id",
   :html_url,
   :id,
   :language,

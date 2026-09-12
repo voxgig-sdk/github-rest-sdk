@@ -6,6 +6,7 @@ main: kit: entity: user: {
 
   fields: [
     {
+      format: "uri"
       name: "avatar_url"
       req: false
       short: "URL to the user's avatar image"
@@ -27,11 +28,13 @@ main: kit: entity: user: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "email"
       req: false
       type: "`$STRING`"
@@ -47,6 +50,7 @@ main: kit: entity: user: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -94,11 +98,13 @@ main: kit: entity: user: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -129,15 +135,19 @@ main: kit: entity: user: {
           }
           method: "GET"
           orig: "/users/{username}"
-          parts: [
-            "users"
-            "{id}"
-          ]
           rename: {
             param: {
               username: "id"
             }
           }
+          segments: [
+            {
+              lit: "users"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -151,8 +161,10 @@ main: kit: entity: user: {
         {
           method: "GET"
           orig: "/user"
-          parts: [
-            "user"
+          segments: [
+            {
+              lit: "user"
+            }
           ]
           transform: {
             req: "`reqdata`"

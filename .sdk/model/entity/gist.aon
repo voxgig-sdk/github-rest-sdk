@@ -6,6 +6,7 @@ main: kit: entity: gist: {
 
   fields: [
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -29,6 +30,7 @@ main: kit: entity: gist: {
       type: "`$OBJECT`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -55,11 +57,13 @@ main: kit: entity: gist: {
       type: "`$BOOLEAN`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -79,8 +83,10 @@ main: kit: entity: gist: {
         {
           method: "POST"
           orig: "/gists"
-          parts: [
-            "gists"
+          segments: [
+            {
+              lit: "gists"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -115,8 +121,10 @@ main: kit: entity: gist: {
           }
           method: "GET"
           orig: "/gists"
-          parts: [
-            "gists"
+          segments: [
+            {
+              lit: "gists"
+            }
           ]
           select: {
             exist: [

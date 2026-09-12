@@ -21,6 +21,7 @@ main: kit: entity: search: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "closed_at"
       req: false
       type: "`$STRING`"
@@ -31,6 +32,7 @@ main: kit: entity: search: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -62,6 +64,7 @@ main: kit: entity: search: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -120,6 +123,7 @@ main: kit: entity: search: {
       type: "`$BOOLEAN`"
     }
     {
+      format: "date-time"
       name: "pushed_at"
       req: false
       type: "`$STRING`"
@@ -146,11 +150,13 @@ main: kit: entity: search: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -227,9 +233,13 @@ main: kit: entity: search: {
           }
           method: "GET"
           orig: "/search/issues"
-          parts: [
-            "search"
-            "issues"
+          segments: [
+            {
+              lit: "search"
+            }
+            {
+              lit: "issues"
+            }
           ]
           select: {
             "$action": "issue"
@@ -291,9 +301,13 @@ main: kit: entity: search: {
           }
           method: "GET"
           orig: "/search/repositories"
-          parts: [
-            "search"
-            "repositories"
+          segments: [
+            {
+              lit: "search"
+            }
+            {
+              lit: "repositories"
+            }
           ]
           select: {
             "$action": "repository"

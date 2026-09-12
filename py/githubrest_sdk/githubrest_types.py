@@ -310,7 +310,7 @@ class Repo(TypedDict, total=False):
     forks_count: int
     full_name: str
     html_url: str
-    id: int
+    id: str
     language: str
     location: str
     login: str

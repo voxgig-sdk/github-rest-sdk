@@ -4,8 +4,15 @@ main: kit: entity: repo: {
 
   alias: field: {}
 
+  alias: {
+    field: {
+      "github-rest_id": "id"
+    }
+  }
+
   fields: [
     {
+      format: "uri"
       name: "avatar_url"
       req: false
       short: "URL to the user's avatar image"
@@ -27,6 +34,7 @@ main: kit: entity: repo: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -42,6 +50,7 @@ main: kit: entity: repo: {
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "email"
       req: false
       type: "`$STRING`"
@@ -73,6 +82,13 @@ main: kit: entity: repo: {
       type: "`$STRING`"
     }
     {
+      name: "github-rest_id"
+      req: false
+      short: "The user's unique identifier"
+      type: "`$INTEGER`"
+    }
+    {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -81,7 +97,7 @@ main: kit: entity: repo: {
       name: "id"
       req: false
       short: "The user's unique identifier"
-      type: "`$INTEGER`"
+      type: "`$STRING`"
     }
     {
       name: "language"
@@ -137,6 +153,7 @@ main: kit: entity: repo: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "pushed_at"
       req: false
       type: "`$STRING`"
@@ -157,11 +174,13 @@ main: kit: entity: repo: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -180,7 +199,16 @@ main: kit: entity: repo: {
 
   id: {
     field: "id"
+    from: {
+      owner: "owner.login"
+      repo: "name"
+    }
     name: "id"
+    parts: [
+      "owner"
+      "repo"
+    ]
+    sep: "/"
   }
 
   name: "repo"
@@ -244,10 +272,16 @@ main: kit: entity: repo: {
           }
           method: "GET"
           orig: "/users/{username}/repos"
-          parts: [
-            "users"
-            "{username}"
-            "repos"
+          segments: [
+            {
+              lit: "users"
+            }
+            {
+              var: "username"
+            }
+            {
+              lit: "repos"
+            }
           ]
           select: {
             exist: [
@@ -304,16 +338,22 @@ main: kit: entity: repo: {
           }
           method: "GET"
           orig: "/orgs/{org}/repos"
-          parts: [
-            "orgs"
-            "{org_id}"
-            "repos"
-          ]
           rename: {
             param: {
               org: "org_id"
             }
           }
+          segments: [
+            {
+              lit: "orgs"
+            }
+            {
+              var: "org_id"
+            }
+            {
+              lit: "repos"
+            }
+          ]
           select: {
             exist: [
               "org_id"
@@ -353,10 +393,16 @@ main: kit: entity: repo: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
           ]
           select: {
             exist: [

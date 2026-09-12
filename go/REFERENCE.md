@@ -775,8 +775,9 @@ fmt.Println(repo.GetName()) // "repo"
 | `fork` | `bool` | No |  |
 | `forks_count` | `int` | No |  |
 | `full_name` | `string` | No | The full name including owner |
+| `github-rest_id` | `int` | No | The user's unique identifier |
 | `html_url` | `string` | No |  |
-| `id` | `int` | No | The user's unique identifier |
+| `id` | `string` | No | The user's unique identifier |
 | `language` | `string` | No |  |
 | `location` | `string` | No |  |
 | `login` | `string` | No | The user's GitHub username |

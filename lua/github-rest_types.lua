@@ -250,8 +250,9 @@
 ---@field fork? boolean
 ---@field forks_count? number
 ---@field full_name? string
+---@field ["github-rest_id"]? number
 ---@field html_url? string
----@field id? number
+---@field id? string
 ---@field language? string
 ---@field location? string
 ---@field login? string

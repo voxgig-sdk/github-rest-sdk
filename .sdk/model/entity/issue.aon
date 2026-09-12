@@ -23,6 +23,7 @@ main: kit: entity: issue: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "closed_at"
       req: false
       type: "`$STRING`"
@@ -33,11 +34,13 @@ main: kit: entity: issue: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -89,11 +92,13 @@ main: kit: entity: issue: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -136,11 +141,19 @@ main: kit: entity: issue: {
           }
           method: "POST"
           orig: "/repos/{owner}/{repo}/issues"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "issues"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "issues"
+            }
           ]
           select: {
             exist: [
@@ -228,11 +241,19 @@ main: kit: entity: issue: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}/issues"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "issues"
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "issues"
+            }
           ]
           select: {
             exist: [
@@ -284,18 +305,28 @@ main: kit: entity: issue: {
           }
           method: "GET"
           orig: "/repos/{owner}/{repo}/issues/{issue_number}"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "issues"
-            "{id}"
-          ]
           rename: {
             param: {
               issue_number: "id"
             }
           }
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "issues"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -341,18 +372,28 @@ main: kit: entity: issue: {
           }
           method: "PATCH"
           orig: "/repos/{owner}/{repo}/issues/{issue_number}"
-          parts: [
-            "repos"
-            "{owner}"
-            "{repo}"
-            "issues"
-            "{id}"
-          ]
           rename: {
             param: {
               issue_number: "id"
             }
           }
+          segments: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+            {
+              lit: "issues"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

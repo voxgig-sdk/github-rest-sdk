@@ -6,6 +6,7 @@ main: kit: entity: org: {
 
   fields: [
     {
+      format: "uri"
       name: "avatar_url"
       req: false
       type: "`$STRING`"
@@ -16,6 +17,7 @@ main: kit: entity: org: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "created_at"
       req: false
       type: "`$STRING`"
@@ -26,6 +28,7 @@ main: kit: entity: org: {
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "email"
       req: false
       type: "`$STRING`"
@@ -41,6 +44,7 @@ main: kit: entity: org: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "html_url"
       req: false
       type: "`$STRING`"
@@ -81,11 +85,13 @@ main: kit: entity: org: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "updated_at"
       req: false
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "url"
       req: false
       type: "`$STRING`"
@@ -116,15 +122,19 @@ main: kit: entity: org: {
           }
           method: "GET"
           orig: "/orgs/{org}"
-          parts: [
-            "orgs"
-            "{id}"
-          ]
           rename: {
             param: {
               org: "id"
             }
           }
+          segments: [
+            {
+              lit: "orgs"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

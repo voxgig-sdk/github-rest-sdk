@@ -101,11 +101,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/branches",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "branches",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "branches",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -118,6 +126,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "branches",
                 },
               },
             },
@@ -146,6 +160,7 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -158,6 +173,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
@@ -218,11 +234,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/commits",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "commits",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "commits",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -237,6 +261,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "commits",
                 },
               },
             },
@@ -253,6 +283,7 @@ local function make_config()
       ["gist"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -273,6 +304,7 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -294,13 +326,19 @@ local function make_config()
             ["type"] = "`$BOOLEAN`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "gist",
         ["op"] = {
@@ -313,13 +351,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/gists",
-                ["parts"] = {
-                  "gists",
+                ["segments"] = {
+                  {
+                    ["lit"] = "gists",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "gists",
                 },
               },
             },
@@ -350,8 +393,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/gists",
-                ["parts"] = {
-                  "gists",
+                ["segments"] = {
+                  {
+                    ["lit"] = "gists",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -362,6 +407,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "gists",
                 },
               },
             },
@@ -388,6 +436,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "closed_at",
             ["type"] = "`$STRING`",
           },
@@ -396,10 +445,12 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -443,10 +494,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
@@ -454,6 +507,10 @@ local function make_config()
             ["name"] = "user",
             ["type"] = "`$OBJECT`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "issue",
         ["op"] = {
@@ -483,11 +540,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/repos/{owner}/{repo}/issues",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "issues",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "issues",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -498,6 +563,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "issues",
                 },
               },
             },
@@ -571,11 +642,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/issues",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "issues",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "issues",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -592,6 +671,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "issues",
                 },
               },
             },
@@ -629,16 +714,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/issues/{issue_number}",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "issues",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["issue_number"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "issues",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -651,6 +746,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "issues",
+                  "{id}",
                 },
               },
             },
@@ -688,16 +790,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/repos/{owner}/{repo}/issues/{issue_number}",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "issues",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["issue_number"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "issues",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -710,6 +822,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "issues",
+                  "{id}",
                 },
               },
             },
@@ -730,6 +849,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "last_read_at",
             ["type"] = "`$STRING`",
           },
@@ -750,13 +870,19 @@ local function make_config()
             ["type"] = "`$BOOLEAN`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "notification",
         ["op"] = {
@@ -800,8 +926,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/notifications",
-                ["parts"] = {
-                  "notifications",
+                ["segments"] = {
+                  {
+                    ["lit"] = "notifications",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -815,6 +943,9 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "notifications",
+                },
               },
             },
           },
@@ -826,6 +957,7 @@ local function make_config()
       ["org"] = {
         ["fields"] = {
           {
+            ["format"] = "uri",
             ["name"] = "avatar_url",
             ["type"] = "`$STRING`",
           },
@@ -834,6 +966,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -842,6 +975,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["type"] = "`$STRING`",
           },
@@ -854,6 +988,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -886,13 +1021,19 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "org",
         ["op"] = {
@@ -915,13 +1056,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/orgs/{org}",
-                ["parts"] = {
-                  "orgs",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["org"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "orgs",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -932,6 +1077,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "orgs",
+                  "{id}",
                 },
               },
             },
@@ -960,10 +1109,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "closed_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -984,6 +1135,7 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -992,6 +1144,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "merged_at",
             ["type"] = "`$STRING`",
           },
@@ -1019,10 +1172,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
@@ -1030,6 +1185,10 @@ local function make_config()
             ["name"] = "user",
             ["type"] = "`$OBJECT`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "pull",
         ["op"] = {
@@ -1059,11 +1218,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/repos/{owner}/{repo}/pulls",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "pulls",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "pulls",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1074,6 +1241,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "pulls",
                 },
               },
             },
@@ -1141,11 +1314,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/pulls",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "pulls",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "pulls",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1161,6 +1342,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "pulls",
                 },
               },
             },
@@ -1198,16 +1385,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}/pulls/{pull_number}",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
-                  "pulls",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["pull_number"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
+                  {
+                    ["lit"] = "pulls",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -1220,6 +1417,13 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
+                  "pulls",
+                  "{id}",
                 },
               },
             },
@@ -1255,13 +1459,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/rate_limit",
-                ["parts"] = {
-                  "rate_limit",
+                ["segments"] = {
+                  {
+                    ["lit"] = "rate_limit",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "rate_limit",
                 },
               },
             },
@@ -1274,6 +1483,7 @@ local function make_config()
       ["repo"] = {
         ["fields"] = {
           {
+            ["format"] = "uri",
             ["name"] = "avatar_url",
             ["short"] = "URL to the user's avatar image",
             ["type"] = "`$STRING`",
@@ -1291,6 +1501,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -1303,6 +1514,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["type"] = "`$STRING`",
           },
@@ -1328,13 +1540,19 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["name"] = "github-rest_id",
+            ["short"] = "The user's unique identifier",
+            ["type"] = "`$INTEGER`",
+          },
+          {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
           {
             ["name"] = "id",
             ["short"] = "The user's unique identifier",
-            ["type"] = "`$INTEGER`",
+            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "language",
@@ -1380,6 +1598,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "pushed_at",
             ["type"] = "`$STRING`",
           },
@@ -1396,10 +1615,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
@@ -1411,6 +1632,19 @@ local function make_config()
             ["name"] = "watchers_count",
             ["type"] = "`$INTEGER`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["from"] = {
+            ["owner"] = "owner.login",
+            ["repo"] = "name",
+          },
+          ["name"] = "id",
+          ["parts"] = {
+            "owner",
+            "repo",
+          },
+          ["sep"] = "/",
         },
         ["name"] = "repo",
         ["op"] = {
@@ -1470,10 +1704,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users/{username}/repos",
-                ["parts"] = {
-                  "users",
-                  "{username}",
-                  "repos",
+                ["segments"] = {
+                  {
+                    ["lit"] = "users",
+                  },
+                  {
+                    ["var"] = "username",
+                  },
+                  {
+                    ["lit"] = "repos",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1488,6 +1728,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "users",
+                  "{username}",
+                  "repos",
                 },
               },
               {
@@ -1528,14 +1773,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/orgs/{org}/repos",
-                ["parts"] = {
-                  "orgs",
-                  "{org_id}",
-                  "repos",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["org"] = "org_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "orgs",
+                  },
+                  {
+                    ["var"] = "org_id",
+                  },
+                  {
+                    ["lit"] = "repos",
                   },
                 },
                 ["select"] = {
@@ -1549,6 +1800,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "orgs",
+                  "{org_id}",
+                  "repos",
                 },
               },
             },
@@ -1579,10 +1835,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/repos/{owner}/{repo}",
-                ["parts"] = {
-                  "repos",
-                  "{owner}",
-                  "{repo}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "repos",
+                  },
+                  {
+                    ["var"] = "owner",
+                  },
+                  {
+                    ["var"] = "repo",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -1593,6 +1855,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.owner`",
+                },
+                ["parts"] = {
+                  "repos",
+                  "{owner}",
+                  "{repo}",
                 },
               },
             },
@@ -1627,6 +1894,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "closed_at",
             ["type"] = "`$STRING`",
           },
@@ -1635,6 +1903,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
@@ -1660,6 +1929,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -1707,6 +1977,7 @@ local function make_config()
             ["type"] = "`$BOOLEAN`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "pushed_at",
             ["type"] = "`$STRING`",
           },
@@ -1728,10 +1999,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
@@ -1747,6 +2020,10 @@ local function make_config()
             ["name"] = "watchers_count",
             ["type"] = "`$INTEGER`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "search",
         ["op"] = {
@@ -1796,9 +2073,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search/issues",
-                ["parts"] = {
-                  "search",
-                  "issues",
+                ["segments"] = {
+                  {
+                    ["lit"] = "search",
+                  },
+                  {
+                    ["lit"] = "issues",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "issue",
@@ -1813,6 +2094,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.items`",
+                },
+                ["parts"] = {
+                  "search",
+                  "issues",
                 },
               },
               {
@@ -1857,9 +2142,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search/repositories",
-                ["parts"] = {
-                  "search",
-                  "repositories",
+                ["segments"] = {
+                  {
+                    ["lit"] = "search",
+                  },
+                  {
+                    ["lit"] = "repositories",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "repository",
@@ -1875,6 +2164,10 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.items`",
                 },
+                ["parts"] = {
+                  "search",
+                  "repositories",
+                },
               },
             },
           },
@@ -1886,6 +2179,7 @@ local function make_config()
       ["user"] = {
         ["fields"] = {
           {
+            ["format"] = "uri",
             ["name"] = "avatar_url",
             ["short"] = "URL to the user's avatar image",
             ["type"] = "`$STRING`",
@@ -1903,10 +2197,12 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "created_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["type"] = "`$STRING`",
           },
@@ -1919,6 +2215,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "html_url",
             ["type"] = "`$STRING`",
           },
@@ -1957,13 +2254,19 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updated_at",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "url",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "user",
         ["op"] = {
@@ -1986,13 +2289,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users/{username}",
-                ["parts"] = {
-                  "users",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["username"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "users",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -2004,19 +2311,28 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "users",
+                  "{id}",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/user",
-                ["parts"] = {
-                  "user",
+                ["segments"] = {
+                  {
+                    ["lit"] = "user",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "user",
                 },
               },
             },

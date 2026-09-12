@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -157,11 +168,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/branches",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "branches"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "branches"
+                }
               ],
               "select": {
                 "exist": [
@@ -174,7 +193,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "branches"
+              ]
             }
           ]
         }
@@ -202,6 +227,7 @@ class Config {
           "type": "`$OBJECT`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -214,6 +240,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         }
@@ -274,11 +301,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/commits",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "commits"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "commits"
+                }
               ],
               "select": {
                 "exist": [
@@ -293,7 +328,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "commits"
+              ]
             }
           ]
         }
@@ -309,6 +350,7 @@ class Config {
     "gist": {
       "fields": [
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
@@ -329,6 +371,7 @@ class Config {
           "type": "`$OBJECT`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -350,14 +393,20 @@ class Config {
           "type": "`$BOOLEAN`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "gist",
       "op": {
         "create": {
@@ -369,14 +418,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/gists",
-              "parts": [
-                "gists"
+              "segments": [
+                {
+                  "lit": "gists"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "gists"
+              ]
             }
           ]
         },
@@ -406,8 +460,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/gists",
-              "parts": [
-                "gists"
+              "segments": [
+                {
+                  "lit": "gists"
+                }
               ],
               "select": {
                 "exist": [
@@ -418,7 +474,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "gists"
+              ]
             }
           ]
         }
@@ -444,6 +503,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "closed_at",
           "type": "`$STRING`"
         },
@@ -452,10 +512,12 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -499,10 +561,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         },
@@ -511,6 +575,10 @@ class Config {
           "type": "`$OBJECT`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "issue",
       "op": {
         "create": {
@@ -539,11 +607,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/repos/{owner}/{repo}/issues",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "issues"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "issues"
+                }
               ],
               "select": {
                 "exist": [
@@ -554,7 +630,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "issues"
+              ]
             }
           ]
         },
@@ -627,11 +709,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/issues",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "issues"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "issues"
+                }
               ],
               "select": {
                 "exist": [
@@ -648,7 +738,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "issues"
+              ]
             }
           ]
         },
@@ -685,18 +781,28 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "issues",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "issue_number": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "issues"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id",
@@ -707,7 +813,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "issues",
+                "{id}"
+              ]
             }
           ]
         },
@@ -744,18 +857,28 @@ class Config {
               "kind": "http",
               "method": "PATCH",
               "orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "issues",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "issue_number": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "issues"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id",
@@ -766,7 +889,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "issues",
+                "{id}"
+              ]
             }
           ]
         }
@@ -786,6 +916,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "last_read_at",
           "type": "`$STRING`"
         },
@@ -806,14 +937,20 @@ class Config {
           "type": "`$BOOLEAN`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "notification",
       "op": {
         "list": {
@@ -856,8 +993,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/notifications",
-              "parts": [
-                "notifications"
+              "segments": [
+                {
+                  "lit": "notifications"
+                }
               ],
               "select": {
                 "exist": [
@@ -870,7 +1009,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "notifications"
+              ]
             }
           ]
         }
@@ -882,6 +1024,7 @@ class Config {
     "org": {
       "fields": [
         {
+          "format": "uri",
           "name": "avatar_url",
           "type": "`$STRING`"
         },
@@ -890,6 +1033,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
@@ -898,6 +1042,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "email",
           "name": "email",
           "type": "`$STRING`"
         },
@@ -910,6 +1055,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -942,14 +1088,20 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "org",
       "op": {
         "load": {
@@ -971,15 +1123,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/orgs/{org}",
-              "parts": [
-                "orgs",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "org": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "orgs"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -988,7 +1144,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "orgs",
+                "{id}"
+              ]
             }
           ]
         }
@@ -1016,10 +1176,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "closed_at",
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
@@ -1040,6 +1202,7 @@ class Config {
           "type": "`$OBJECT`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -1048,6 +1211,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "merged_at",
           "type": "`$STRING`"
         },
@@ -1075,10 +1239,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         },
@@ -1087,6 +1253,10 @@ class Config {
           "type": "`$OBJECT`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "pull",
       "op": {
         "create": {
@@ -1115,11 +1285,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/repos/{owner}/{repo}/pulls",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "pulls"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "pulls"
+                }
               ],
               "select": {
                 "exist": [
@@ -1130,7 +1308,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "pulls"
+              ]
             }
           ]
         },
@@ -1197,11 +1381,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/pulls",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "pulls"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "pulls"
+                }
               ],
               "select": {
                 "exist": [
@@ -1217,7 +1409,13 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "pulls"
+              ]
             }
           ]
         },
@@ -1254,18 +1452,28 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}/pulls/{pull_number}",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}",
-                "pulls",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "pull_number": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                },
+                {
+                  "lit": "pulls"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id",
@@ -1276,7 +1484,14 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}",
+                "pulls",
+                "{id}"
+              ]
             }
           ]
         }
@@ -1311,14 +1526,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/rate_limit",
-              "parts": [
-                "rate_limit"
+              "segments": [
+                {
+                  "lit": "rate_limit"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "rate_limit"
+              ]
             }
           ]
         }
@@ -1330,6 +1550,7 @@ class Config {
     "repo": {
       "fields": [
         {
+          "format": "uri",
           "name": "avatar_url",
           "short": "URL to the user's avatar image",
           "type": "`$STRING`"
@@ -1347,6 +1568,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
@@ -1359,6 +1581,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "email",
           "name": "email",
           "type": "`$STRING`"
         },
@@ -1384,13 +1607,19 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "name": "github-rest_id",
+          "short": "The user's unique identifier",
+          "type": "`$INTEGER`"
+        },
+        {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
         {
           "name": "id",
           "short": "The user's unique identifier",
-          "type": "`$INTEGER`"
+          "type": "`$STRING`"
         },
         {
           "name": "language",
@@ -1436,6 +1665,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "pushed_at",
           "type": "`$STRING`"
         },
@@ -1452,10 +1682,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         },
@@ -1468,6 +1700,19 @@ class Config {
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "from": {
+          "owner": "owner.login",
+          "repo": "name"
+        },
+        "name": "id",
+        "parts": [
+          "owner",
+          "repo"
+        ],
+        "sep": "/"
+      },
       "name": "repo",
       "op": {
         "list": {
@@ -1526,10 +1771,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/users/{username}/repos",
-              "parts": [
-                "users",
-                "{username}",
-                "repos"
+              "segments": [
+                {
+                  "lit": "users"
+                },
+                {
+                  "var": "username"
+                },
+                {
+                  "lit": "repos"
+                }
               ],
               "select": {
                 "exist": [
@@ -1544,7 +1795,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "users",
+                "{username}",
+                "repos"
+              ]
             },
             {
               "args": {
@@ -1584,16 +1840,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/orgs/{org}/repos",
-              "parts": [
-                "orgs",
-                "{org_id}",
-                "repos"
-              ],
               "rename": {
                 "param": {
                   "org": "org_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "orgs"
+                },
+                {
+                  "var": "org_id"
+                },
+                {
+                  "lit": "repos"
+                }
+              ],
               "select": {
                 "exist": [
                   "org_id",
@@ -1605,7 +1867,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "orgs",
+                "{org_id}",
+                "repos"
+              ]
             }
           ]
         },
@@ -1635,10 +1902,16 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/repos/{owner}/{repo}",
-              "parts": [
-                "repos",
-                "{owner}",
-                "{repo}"
+              "segments": [
+                {
+                  "lit": "repos"
+                },
+                {
+                  "var": "owner"
+                },
+                {
+                  "var": "repo"
+                }
               ],
               "select": {
                 "exist": [
@@ -1649,7 +1922,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.owner`"
-              }
+              },
+              "parts": [
+                "repos",
+                "{owner}",
+                "{repo}"
+              ]
             }
           ]
         }
@@ -1683,6 +1961,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "closed_at",
           "type": "`$STRING`"
         },
@@ -1691,6 +1970,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
@@ -1716,6 +1996,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -1763,6 +2044,7 @@ class Config {
           "type": "`$BOOLEAN`"
         },
         {
+          "format": "date-time",
           "name": "pushed_at",
           "type": "`$STRING`"
         },
@@ -1784,10 +2066,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         },
@@ -1804,6 +2088,10 @@ class Config {
           "type": "`$INTEGER`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "search",
       "op": {
         "list": {
@@ -1852,9 +2140,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/search/issues",
-              "parts": [
-                "search",
-                "issues"
+              "segments": [
+                {
+                  "lit": "search"
+                },
+                {
+                  "lit": "issues"
+                }
               ],
               "select": {
                 "$action": "issue",
@@ -1869,7 +2161,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              }
+              },
+              "parts": [
+                "search",
+                "issues"
+              ]
             },
             {
               "args": {
@@ -1913,9 +2209,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/search/repositories",
-              "parts": [
-                "search",
-                "repositories"
+              "segments": [
+                {
+                  "lit": "search"
+                },
+                {
+                  "lit": "repositories"
+                }
               ],
               "select": {
                 "$action": "repository",
@@ -1930,7 +2230,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.items`"
-              }
+              },
+              "parts": [
+                "search",
+                "repositories"
+              ]
             }
           ]
         }
@@ -1942,6 +2246,7 @@ class Config {
     "user": {
       "fields": [
         {
+          "format": "uri",
           "name": "avatar_url",
           "short": "URL to the user's avatar image",
           "type": "`$STRING`"
@@ -1959,10 +2264,12 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "created_at",
           "type": "`$STRING`"
         },
         {
+          "format": "email",
           "name": "email",
           "type": "`$STRING`"
         },
@@ -1975,6 +2282,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "uri",
           "name": "html_url",
           "type": "`$STRING`"
         },
@@ -2013,14 +2321,20 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "updated_at",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "url",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "user",
       "op": {
         "load": {
@@ -2042,15 +2356,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/users/{username}",
-              "parts": [
-                "users",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "username": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "users"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -2059,21 +2377,30 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "users",
+                "{id}"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/user",
-              "parts": [
-                "user"
+              "segments": [
+                {
+                  "lit": "user"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "user"
+              ]
             }
           ]
         }
@@ -2089,6 +2416,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 
