@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GithubRestSDK } from '@voxgig-sdk/github-rest'
+import { GithubRestSDK } from '@voxgig-sdk/github-rest-sdk'
 
 const client = new GithubRestSDK({
   apikey: process.env.GITHUB_REST_APIKEY,
@@ -1130,7 +1130,7 @@ github-rest/
 Import the SDK from the package root:
 
 ```ts
-import { GithubRestSDK } from '@voxgig-sdk/github-rest'
+import { GithubRestSDK } from '@voxgig-sdk/github-rest-sdk'
 ```
 
 ### Entity state

@@ -105,7 +105,7 @@ local results, err = client:Issue():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
+| TypeScript | `@voxgig-sdk/github-rest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
 | Python | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
 | PHP | `voxgig-sdk/github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/github-rest-sdk/go` | `go get github.com/voxgig-sdk/github-rest-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Issue():list()
 ### TypeScript
 
 ```ts
-import { GithubRestSDK } from '@voxgig-sdk/github-rest'
+import { GithubRestSDK } from '@voxgig-sdk/github-rest-sdk'
 
 const client = new GithubRestSDK({
   apikey: process.env.GITHUB_REST_APIKEY,
