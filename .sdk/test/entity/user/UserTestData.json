@@ -8,16 +8,16 @@
         "company": "sc1",
         "created_at": "sc2",
         "email": "sc3",
-        "followers": "sc4",
-        "following": "sc5",
+        "followers": 196,
+        "following": 197,
         "html_url": "sc6",
         "id": "USER00",
         "location": "sc8",
         "login": "sc9",
         "name": "sca",
         "node_id": "NODE01",
-        "public_gists": "scc",
-        "public_repos": "scd",
+        "public_gists": 204,
+        "public_repos": 205,
         "type": "sce",
         "updated_at": "scf",
         "url": "sd0"
@@ -29,16 +29,16 @@
         "company": "s17f",
         "created_at": "s180",
         "email": "s181",
-        "followers": "s182",
-        "following": "s183",
+        "followers": 386,
+        "following": 387,
         "html_url": "s184",
         "id": "USER01",
         "location": "s186",
         "login": "s187",
         "name": "s188",
         "node_id": "NODE01",
-        "public_gists": "s18a",
-        "public_repos": "s18b",
+        "public_gists": 394,
+        "public_repos": 395,
         "type": "s18c",
         "updated_at": "s18d",
         "url": "s18e"
@@ -50,16 +50,16 @@
         "company": "s23d",
         "created_at": "s23e",
         "email": "s23f",
-        "followers": "s240",
-        "following": "s241",
+        "followers": 576,
+        "following": 577,
         "html_url": "s242",
         "id": "USER02",
         "location": "s244",
         "login": "s245",
         "name": "s246",
         "node_id": "NODE01",
-        "public_gists": "s248",
-        "public_repos": "s249",
+        "public_gists": 584,
+        "public_repos": 585,
         "type": "s24a",
         "updated_at": "s24b",
         "url": "s24c"
@@ -75,18 +75,373 @@
         "company": "s2fb",
         "created_at": "s2fc",
         "email": "s2fd",
-        "followers": "s2fe",
-        "following": "s2ff",
+        "followers": 766,
+        "following": 767,
         "html_url": "s300",
         "location": "s302",
         "login": "s303",
         "name": "s304",
         "node_id": "NODE01",
-        "public_gists": "s306",
-        "public_repos": "s307",
+        "public_gists": 774,
+        "public_repos": 775,
         "type": "s308",
         "updated_at": "s309",
         "url": "s30a"
+      }
+    }
+  },
+  "requests": {
+    "GET /users/{username}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "description": "The handle for the GitHub user account",
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "avatar_url": {
+                      "description": "URL to the user's avatar image",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "bio": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "blog": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "company": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "followers": {
+                      "type": "integer"
+                    },
+                    "following": {
+                      "type": "integer"
+                    },
+                    "html_url": {
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The user's unique identifier",
+                      "type": "integer"
+                    },
+                    "location": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "login": {
+                      "description": "The user's GitHub username",
+                      "type": "string"
+                    },
+                    "name": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "node_id": {
+                      "type": "string"
+                    },
+                    "public_gists": {
+                      "type": "integer"
+                    },
+                    "public_repos": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "enum": [
+                        "User",
+                        "Organization"
+                      ],
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Resource not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /user": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getAuthenticatedUser",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "avatar_url": {
+                      "description": "URL to the user's avatar image",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "bio": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "blog": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "company": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "email": {
+                      "format": "email",
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "followers": {
+                      "type": "integer"
+                    },
+                    "following": {
+                      "type": "integer"
+                    },
+                    "html_url": {
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The user's unique identifier",
+                      "type": "integer"
+                    },
+                    "location": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "login": {
+                      "description": "The user's GitHub username",
+                      "type": "string"
+                    },
+                    "name": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "node_id": {
+                      "type": "string"
+                    },
+                    "public_gists": {
+                      "type": "integer"
+                    },
+                    "public_repos": {
+                      "type": "integer"
+                    },
+                    "type": {
+                      "enum": [
+                        "User",
+                        "Organization"
+                      ],
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Requires authentication"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "operation"
       }
     }
   }

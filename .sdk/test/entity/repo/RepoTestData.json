@@ -10,10 +10,10 @@
         "default_branch": "s159",
         "description": "s15a",
         "email": "s15b",
-        "followers": "s15c",
-        "following": "s15d",
+        "followers": 348,
+        "following": 349,
         "fork": true,
-        "forks_count": "s15f",
+        "forks_count": 351,
         "full_name": "s160",
         "github-rest_id": "GITHUB-REST01",
         "html_url": "s162",
@@ -23,19 +23,19 @@
         "login": "s166",
         "name": "s167",
         "node_id": "NODE01",
-        "open_issues_count": "s169",
+        "open_issues_count": 361,
         "owner": {},
         "private": false,
-        "public_gists": "s16c",
-        "public_repos": "s16d",
+        "public_gists": 364,
+        "public_repos": 365,
         "pushed_at": "s16e",
-        "size": "s16f",
-        "stargazers_count": "s170",
+        "size": 367,
+        "stargazers_count": 368,
         "type": "s171",
         "updated_at": "s172",
         "url": "s173",
         "visibility": "s174",
-        "watchers_count": "s175",
+        "watchers_count": 373,
         "username": "USERNAME01",
         "org_id": "ORG01",
         "repo": "REPO01"
@@ -49,10 +49,10 @@
         "default_branch": "s2ad",
         "description": "s2ae",
         "email": "s2af",
-        "followers": "s2b0",
-        "following": "s2b1",
+        "followers": 688,
+        "following": 689,
         "fork": true,
-        "forks_count": "s2b3",
+        "forks_count": 691,
         "full_name": "s2b4",
         "github-rest_id": "GITHUB-REST01",
         "html_url": "s2b6",
@@ -62,19 +62,19 @@
         "login": "s2ba",
         "name": "s2bb",
         "node_id": "NODE01",
-        "open_issues_count": "s2bd",
+        "open_issues_count": 701,
         "owner": {},
         "private": false,
-        "public_gists": "s2c0",
-        "public_repos": "s2c1",
+        "public_gists": 704,
+        "public_repos": 705,
         "pushed_at": "s2c2",
-        "size": "s2c3",
-        "stargazers_count": "s2c4",
+        "size": 707,
+        "stargazers_count": 708,
         "type": "s2c5",
         "updated_at": "s2c6",
         "url": "s2c7",
         "visibility": "s2c8",
-        "watchers_count": "s2c9",
+        "watchers_count": 713,
         "username": "USERNAME01",
         "org_id": "ORG01",
         "repo": "REPO01"
@@ -88,10 +88,10 @@
         "default_branch": "s401",
         "description": "s402",
         "email": "s403",
-        "followers": "s404",
-        "following": "s405",
+        "followers": 1028,
+        "following": 1029,
         "fork": true,
-        "forks_count": "s407",
+        "forks_count": 1031,
         "full_name": "s408",
         "github-rest_id": "GITHUB-REST01",
         "html_url": "s40a",
@@ -101,19 +101,19 @@
         "login": "s40e",
         "name": "s40f",
         "node_id": "NODE01",
-        "open_issues_count": "s411",
+        "open_issues_count": 1041,
         "owner": {},
         "private": false,
-        "public_gists": "s414",
-        "public_repos": "s415",
+        "public_gists": 1044,
+        "public_repos": 1045,
         "pushed_at": "s416",
-        "size": "s417",
-        "stargazers_count": "s418",
+        "size": 1047,
+        "stargazers_count": 1048,
         "type": "s419",
         "updated_at": "s41a",
         "url": "s41b",
         "visibility": "s41c",
-        "watchers_count": "s41d",
+        "watchers_count": 1053,
         "username": "USERNAME01",
         "org_id": "ORG01",
         "repo": "REPO01"
@@ -131,10 +131,10 @@
         "default_branch": "s555",
         "description": "s556",
         "email": "s557",
-        "followers": "s558",
-        "following": "s559",
+        "followers": 1368,
+        "following": 1369,
         "fork": true,
-        "forks_count": "s55b",
+        "forks_count": 1371,
         "full_name": "s55c",
         "github-rest_id": "GITHUB-REST01",
         "html_url": "s55e",
@@ -143,19 +143,895 @@
         "login": "s562",
         "name": "s563",
         "node_id": "NODE01",
-        "open_issues_count": "s565",
+        "open_issues_count": 1381,
         "owner": {},
         "private": false,
-        "public_gists": "s568",
-        "public_repos": "s569",
+        "public_gists": 1384,
+        "public_repos": 1385,
         "pushed_at": "s56a",
-        "size": "s56b",
-        "stargazers_count": "s56c",
+        "size": 1387,
+        "stargazers_count": 1388,
         "type": "s56d",
         "updated_at": "s56e",
         "url": "s56f",
         "visibility": "s570",
-        "watchers_count": "s571"
+        "watchers_count": 1393
+      }
+    }
+  },
+  "requests": {
+    "GET /users/{username}/repos": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listUserRepos",
+        "parameters": [
+          {
+            "description": "The handle for the GitHub user account",
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Limit results to repositories of the specified type",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "default": "owner",
+              "enum": [
+                "all",
+                "owner",
+                "member"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The property to sort the results by",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "default": "full_name",
+              "enum": [
+                "created",
+                "updated",
+                "pushed",
+                "full_name"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The order to sort by",
+            "in": "query",
+            "name": "direction",
+            "schema": {
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number of the results to fetch",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "default_branch": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "fork": {
+                        "type": "boolean"
+                      },
+                      "forks_count": {
+                        "type": "integer"
+                      },
+                      "full_name": {
+                        "description": "The full name including owner",
+                        "type": "string"
+                      },
+                      "html_url": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "language": {
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The name of the repository",
+                        "type": "string"
+                      },
+                      "node_id": {
+                        "type": "string"
+                      },
+                      "open_issues_count": {
+                        "type": "integer"
+                      },
+                      "owner": {
+                        "properties": {
+                          "avatar_url": {
+                            "description": "URL to the user's avatar image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "bio": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "blog": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "company": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "email": {
+                            "format": "email",
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "followers": {
+                            "type": "integer"
+                          },
+                          "following": {
+                            "type": "integer"
+                          },
+                          "html_url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "The user's unique identifier",
+                            "type": "integer"
+                          },
+                          "location": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "login": {
+                            "description": "The user's GitHub username",
+                            "type": "string"
+                          },
+                          "name": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "node_id": {
+                            "type": "string"
+                          },
+                          "public_gists": {
+                            "type": "integer"
+                          },
+                          "public_repos": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "enum": [
+                              "User",
+                              "Organization"
+                            ],
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "url": {
+                            "format": "uri",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "private": {
+                        "description": "Whether the repository is private",
+                        "type": "boolean"
+                      },
+                      "pushed_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "stargazers_count": {
+                        "type": "integer"
+                      },
+                      "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "url": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "visibility": {
+                        "enum": [
+                          "public",
+                          "private",
+                          "internal"
+                        ],
+                        "type": "string"
+                      },
+                      "watchers_count": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Resource not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /orgs/{org}/repos": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "listOrgRepos",
+        "parameters": [
+          {
+            "description": "The organization name",
+            "in": "path",
+            "name": "org",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Specifies the types of repositories you want returned",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "default": "all",
+              "enum": [
+                "all",
+                "public",
+                "private",
+                "forks",
+                "sources",
+                "member"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number of the results to fetch",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "default_branch": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "fork": {
+                        "type": "boolean"
+                      },
+                      "forks_count": {
+                        "type": "integer"
+                      },
+                      "full_name": {
+                        "description": "The full name including owner",
+                        "type": "string"
+                      },
+                      "html_url": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "integer"
+                      },
+                      "language": {
+                        "nullable": true,
+                        "type": "string"
+                      },
+                      "name": {
+                        "description": "The name of the repository",
+                        "type": "string"
+                      },
+                      "node_id": {
+                        "type": "string"
+                      },
+                      "open_issues_count": {
+                        "type": "integer"
+                      },
+                      "owner": {
+                        "properties": {
+                          "avatar_url": {
+                            "description": "URL to the user's avatar image",
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "bio": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "blog": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "company": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "email": {
+                            "format": "email",
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "followers": {
+                            "type": "integer"
+                          },
+                          "following": {
+                            "type": "integer"
+                          },
+                          "html_url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "The user's unique identifier",
+                            "type": "integer"
+                          },
+                          "location": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "login": {
+                            "description": "The user's GitHub username",
+                            "type": "string"
+                          },
+                          "name": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "node_id": {
+                            "type": "string"
+                          },
+                          "public_gists": {
+                            "type": "integer"
+                          },
+                          "public_repos": {
+                            "type": "integer"
+                          },
+                          "type": {
+                            "enum": [
+                              "User",
+                              "Organization"
+                            ],
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "url": {
+                            "format": "uri",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "private": {
+                        "description": "Whether the repository is private",
+                        "type": "boolean"
+                      },
+                      "pushed_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "stargazers_count": {
+                        "type": "integer"
+                      },
+                      "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "url": {
+                        "format": "uri",
+                        "type": "string"
+                      },
+                      "visibility": {
+                        "enum": [
+                          "public",
+                          "private",
+                          "internal"
+                        ],
+                        "type": "string"
+                      },
+                      "watchers_count": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Resource not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /repos/{owner}/{repo}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getRepository",
+        "parameters": [
+          {
+            "description": "The account owner of the repository. The name is not case sensitive.",
+            "in": "path",
+            "name": "owner",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The name of the repository. The name is not case sensitive.",
+            "in": "path",
+            "name": "repo",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "created_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "default_branch": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "fork": {
+                      "type": "boolean"
+                    },
+                    "forks_count": {
+                      "type": "integer"
+                    },
+                    "full_name": {
+                      "description": "The full name including owner",
+                      "type": "string"
+                    },
+                    "html_url": {
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "integer"
+                    },
+                    "language": {
+                      "nullable": true,
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "The name of the repository",
+                      "type": "string"
+                    },
+                    "node_id": {
+                      "type": "string"
+                    },
+                    "open_issues_count": {
+                      "type": "integer"
+                    },
+                    "owner": {
+                      "properties": {
+                        "avatar_url": {
+                          "description": "URL to the user's avatar image",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "bio": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "blog": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "company": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "email": {
+                          "format": "email",
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "followers": {
+                          "type": "integer"
+                        },
+                        "following": {
+                          "type": "integer"
+                        },
+                        "html_url": {
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "id": {
+                          "description": "The user's unique identifier",
+                          "type": "integer"
+                        },
+                        "location": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "login": {
+                          "description": "The user's GitHub username",
+                          "type": "string"
+                        },
+                        "name": {
+                          "nullable": true,
+                          "type": "string"
+                        },
+                        "node_id": {
+                          "type": "string"
+                        },
+                        "public_gists": {
+                          "type": "integer"
+                        },
+                        "public_repos": {
+                          "type": "integer"
+                        },
+                        "type": {
+                          "enum": [
+                            "User",
+                            "Organization"
+                          ],
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "url": {
+                          "format": "uri",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "private": {
+                      "description": "Whether the repository is private",
+                      "type": "boolean"
+                    },
+                    "pushed_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "stargazers_count": {
+                      "type": "integer"
+                    },
+                    "updated_at": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "url": {
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "visibility": {
+                      "enum": [
+                        "public",
+                        "private",
+                        "internal"
+                      ],
+                      "type": "string"
+                    },
+                    "watchers_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "documentation_url": {
+                      "description": "URL to documentation about this error",
+                      "format": "uri",
+                      "type": "string"
+                    },
+                    "message": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Resource not found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }

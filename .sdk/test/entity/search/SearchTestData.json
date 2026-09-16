@@ -6,12 +6,12 @@
         "assignees": [],
         "body": "s142",
         "closed_at": "s143",
-        "comments": "s144",
+        "comments": 324,
         "created_at": "s145",
         "default_branch": "s146",
         "description": "s147",
         "fork": true,
-        "forks_count": "s149",
+        "forks_count": 329,
         "full_name": "s14a",
         "html_url": "s14b",
         "id": "SEARCH00",
@@ -20,32 +20,32 @@
         "milestone": {},
         "name": "s150",
         "node_id": "NODE01",
-        "number": "s152",
-        "open_issues_count": "s153",
+        "number": 338,
+        "open_issues_count": 339,
         "owner": {},
         "private": false,
         "pushed_at": "s156",
-        "size": "s157",
-        "stargazers_count": "s158",
+        "size": 343,
+        "stargazers_count": 344,
         "state": "s159",
         "title": "s15a",
         "updated_at": "s15b",
         "url": "s15c",
         "user": {},
         "visibility": "s15e",
-        "watchers_count": "s15f"
+        "watchers_count": 351
       },
       "SEARCH01": {
         "assignee": "s280",
         "assignees": [],
         "body": "s282",
         "closed_at": "s283",
-        "comments": "s284",
+        "comments": 644,
         "created_at": "s285",
         "default_branch": "s286",
         "description": "s287",
         "fork": true,
-        "forks_count": "s289",
+        "forks_count": 649,
         "full_name": "s28a",
         "html_url": "s28b",
         "id": "SEARCH01",
@@ -54,32 +54,32 @@
         "milestone": {},
         "name": "s290",
         "node_id": "NODE01",
-        "number": "s292",
-        "open_issues_count": "s293",
+        "number": 658,
+        "open_issues_count": 659,
         "owner": {},
         "private": false,
         "pushed_at": "s296",
-        "size": "s297",
-        "stargazers_count": "s298",
+        "size": 663,
+        "stargazers_count": 664,
         "state": "s299",
         "title": "s29a",
         "updated_at": "s29b",
         "url": "s29c",
         "user": {},
         "visibility": "s29e",
-        "watchers_count": "s29f"
+        "watchers_count": 671
       },
       "SEARCH02": {
         "assignee": "s3c0",
         "assignees": [],
         "body": "s3c2",
         "closed_at": "s3c3",
-        "comments": "s3c4",
+        "comments": 964,
         "created_at": "s3c5",
         "default_branch": "s3c6",
         "description": "s3c7",
         "fork": true,
-        "forks_count": "s3c9",
+        "forks_count": 969,
         "full_name": "s3ca",
         "html_url": "s3cb",
         "id": "SEARCH02",
@@ -88,20 +88,20 @@
         "milestone": {},
         "name": "s3d0",
         "node_id": "NODE01",
-        "number": "s3d2",
-        "open_issues_count": "s3d3",
+        "number": 978,
+        "open_issues_count": 979,
         "owner": {},
         "private": false,
         "pushed_at": "s3d6",
-        "size": "s3d7",
-        "stargazers_count": "s3d8",
+        "size": 983,
+        "stargazers_count": 984,
         "state": "s3d9",
         "title": "s3da",
         "updated_at": "s3db",
         "url": "s3dc",
         "user": {},
         "visibility": "s3de",
-        "watchers_count": "s3df"
+        "watchers_count": 991
       }
     }
   },
@@ -112,12 +112,12 @@
         "assignees": [],
         "body": "s502",
         "closed_at": "s503",
-        "comments": "s504",
+        "comments": 1284,
         "created_at": "s505",
         "default_branch": "s506",
         "description": "s507",
         "fork": true,
-        "forks_count": "s509",
+        "forks_count": 1289,
         "full_name": "s50a",
         "html_url": "s50b",
         "labels": [],
@@ -125,20 +125,784 @@
         "milestone": {},
         "name": "s510",
         "node_id": "NODE01",
-        "number": "s512",
-        "open_issues_count": "s513",
+        "number": 1298,
+        "open_issues_count": 1299,
         "owner": {},
         "private": false,
         "pushed_at": "s516",
-        "size": "s517",
-        "stargazers_count": "s518",
+        "size": 1303,
+        "stargazers_count": 1304,
         "state": "s519",
         "title": "s51a",
         "updated_at": "s51b",
         "url": "s51c",
         "user": {},
         "visibility": "s51e",
-        "watchers_count": "s51f"
+        "watchers_count": 1311
+      }
+    }
+  },
+  "requests": {
+    "GET /search/issues": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "searchIssues",
+        "parameters": [
+          {
+            "description": "The query contains one or more search keywords and qualifiers",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sorts the results of your query",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "enum": [
+                "comments",
+                "reactions",
+                "interactions",
+                "created",
+                "updated"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Determines whether the first search result returned is the highest or lowest number of matches",
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "default": "desc",
+              "enum": [
+                "desc",
+                "asc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number of the results to fetch",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "incomplete_results": {
+                      "type": "boolean"
+                    },
+                    "items": {
+                      "items": {
+                        "properties": {
+                          "assignee": {
+                            "allOf": [
+                              {
+                                "properties": {
+                                  "avatar_url": {
+                                    "description": "URL to the user's avatar image",
+                                    "format": "uri",
+                                    "type": "string"
+                                  },
+                                  "bio": {
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "blog": {
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "company": {
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "created_at": {
+                                    "format": "date-time",
+                                    "type": "string"
+                                  },
+                                  "email": {
+                                    "format": "email",
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "followers": {
+                                    "type": "integer"
+                                  },
+                                  "following": {
+                                    "type": "integer"
+                                  },
+                                  "html_url": {
+                                    "format": "uri",
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "description": "The user's unique identifier",
+                                    "type": "integer"
+                                  },
+                                  "location": {
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "login": {
+                                    "description": "The user's GitHub username",
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "node_id": {
+                                    "type": "string"
+                                  },
+                                  "public_gists": {
+                                    "type": "integer"
+                                  },
+                                  "public_repos": {
+                                    "type": "integer"
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "User",
+                                      "Organization"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "updated_at": {
+                                    "format": "date-time",
+                                    "type": "string"
+                                  },
+                                  "url": {
+                                    "format": "uri",
+                                    "type": "string"
+                                  }
+                                },
+                                "type": "object"
+                              }
+                            ],
+                            "nullable": true
+                          },
+                          "assignees": {
+                            "items": {
+                              "properties": {
+                                "avatar_url": {
+                                  "description": "URL to the user's avatar image",
+                                  "format": "uri",
+                                  "type": "string"
+                                },
+                                "bio": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "blog": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "company": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "format": "email",
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "followers": {
+                                  "type": "integer"
+                                },
+                                "following": {
+                                  "type": "integer"
+                                },
+                                "html_url": {
+                                  "format": "uri",
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "description": "The user's unique identifier",
+                                  "type": "integer"
+                                },
+                                "location": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "login": {
+                                  "description": "The user's GitHub username",
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "node_id": {
+                                  "type": "string"
+                                },
+                                "public_gists": {
+                                  "type": "integer"
+                                },
+                                "public_repos": {
+                                  "type": "integer"
+                                },
+                                "type": {
+                                  "enum": [
+                                    "User",
+                                    "Organization"
+                                  ],
+                                  "type": "string"
+                                },
+                                "updated_at": {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "url": {
+                                  "format": "uri",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "body": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "closed_at": {
+                            "format": "date-time",
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "comments": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "html_url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "labels": {
+                            "items": {
+                              "properties": {
+                                "color": {
+                                  "type": "string"
+                                },
+                                "default": {
+                                  "type": "boolean"
+                                },
+                                "description": {
+                                  "nullable": true,
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "node_id": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "milestone": {
+                            "nullable": true,
+                            "type": "object"
+                          },
+                          "node_id": {
+                            "type": "string"
+                          },
+                          "number": {
+                            "description": "The issue number",
+                            "type": "integer"
+                          },
+                          "state": {
+                            "enum": [
+                              "open",
+                              "closed"
+                            ],
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "The issue title",
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "user": {
+                            "properties": {
+                              "avatar_url": {
+                                "description": "URL to the user's avatar image",
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "bio": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "blog": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "company": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "email": {
+                                "format": "email",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "followers": {
+                                "type": "integer"
+                              },
+                              "following": {
+                                "type": "integer"
+                              },
+                              "html_url": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "id": {
+                                "description": "The user's unique identifier",
+                                "type": "integer"
+                              },
+                              "location": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "login": {
+                                "description": "The user's GitHub username",
+                                "type": "string"
+                              },
+                              "name": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "node_id": {
+                                "type": "string"
+                              },
+                              "public_gists": {
+                                "type": "integer"
+                              },
+                              "public_repos": {
+                                "type": "integer"
+                              },
+                              "type": {
+                                "enum": [
+                                  "User",
+                                  "Organization"
+                                ],
+                                "type": "string"
+                              },
+                              "updated_at": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "url": {
+                                "format": "uri",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /search/repositories": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "searchRepositories",
+        "parameters": [
+          {
+            "description": "The query contains one or more search keywords and qualifiers",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sorts the results of your query",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "enum": [
+                "stars",
+                "forks",
+                "help-wanted-issues",
+                "updated"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Determines whether the first search result returned is the highest or lowest number of matches",
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "default": "desc",
+              "enum": [
+                "desc",
+                "asc"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "The number of results per page",
+            "in": "query",
+            "name": "per_page",
+            "schema": {
+              "default": 30,
+              "maximum": 100,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Page number of the results to fetch",
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "incomplete_results": {
+                      "type": "boolean"
+                    },
+                    "items": {
+                      "items": {
+                        "properties": {
+                          "created_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "default_branch": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "fork": {
+                            "type": "boolean"
+                          },
+                          "forks_count": {
+                            "type": "integer"
+                          },
+                          "full_name": {
+                            "description": "The full name including owner",
+                            "type": "string"
+                          },
+                          "html_url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "integer"
+                          },
+                          "language": {
+                            "nullable": true,
+                            "type": "string"
+                          },
+                          "name": {
+                            "description": "The name of the repository",
+                            "type": "string"
+                          },
+                          "node_id": {
+                            "type": "string"
+                          },
+                          "open_issues_count": {
+                            "type": "integer"
+                          },
+                          "owner": {
+                            "properties": {
+                              "avatar_url": {
+                                "description": "URL to the user's avatar image",
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "bio": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "blog": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "company": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "email": {
+                                "format": "email",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "followers": {
+                                "type": "integer"
+                              },
+                              "following": {
+                                "type": "integer"
+                              },
+                              "html_url": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "id": {
+                                "description": "The user's unique identifier",
+                                "type": "integer"
+                              },
+                              "location": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "login": {
+                                "description": "The user's GitHub username",
+                                "type": "string"
+                              },
+                              "name": {
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "node_id": {
+                                "type": "string"
+                              },
+                              "public_gists": {
+                                "type": "integer"
+                              },
+                              "public_repos": {
+                                "type": "integer"
+                              },
+                              "type": {
+                                "enum": [
+                                  "User",
+                                  "Organization"
+                                ],
+                                "type": "string"
+                              },
+                              "updated_at": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "url": {
+                                "format": "uri",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "private": {
+                            "description": "Whether the repository is private",
+                            "type": "boolean"
+                          },
+                          "pushed_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "integer"
+                          },
+                          "stargazers_count": {
+                            "type": "integer"
+                          },
+                          "updated_at": {
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "url": {
+                            "format": "uri",
+                            "type": "string"
+                          },
+                          "visibility": {
+                            "enum": [
+                              "public",
+                              "private",
+                              "internal"
+                            ],
+                            "type": "string"
+                          },
+                          "watchers_count": {
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "total_count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          },
+          {
+            "BasicAuth": []
+          },
+          {
+            "OAuth2": []
+          }
+        ],
+        "securitySchemes": {
+          "BasicAuth": {
+            "description": "Username and password authentication",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "Personal access token or OAuth token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "OAuth2": {
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://github.com/login/oauth/authorize",
+                "scopes": {
+                  "gist": "Create gists",
+                  "notifications": "Access notifications",
+                  "public_repo": "Access public repositories",
+                  "read:org": "Read org and team membership",
+                  "read:user": "Read all user profile data",
+                  "repo": "Full control of private repositories",
+                  "user": "Update all user data",
+                  "user:email": "Access user email addresses",
+                  "workflow": "Update GitHub Action workflows"
+                },
+                "tokenUrl": "https://github.com/login/oauth/access_token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "definition"
       }
     }
   }
