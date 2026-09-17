@@ -968,26 +968,7 @@ declare class Config {
             };
         };
         search: {
-            fields: ({
-                name: string;
-                type: string;
-                format?: undefined;
-                short?: undefined;
-            } | {
-                format: string;
-                name: string;
-                type: string;
-                short?: undefined;
-            } | {
-                name: string;
-                short: string;
-                type: string;
-                format?: undefined;
-            })[];
-            id: {
-                field: string;
-                name: string;
-            };
+            fields: never[];
             name: string;
             op: {
                 list: {

@@ -74,8 +74,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const issues = await client.Issue().list()
-  console.log(issues)
+  const gists = await client.Gist().list()
+  console.log(gists)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -141,10 +141,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const issue = await client.Issue().list()
-// issue is the entity, populated with mock response data
-// — call issue.data() for the record itself
-console.log(issue)
+const gist = await client.Gist().list()
+// gist is the entity, populated with mock response data
+// — call gist.data() for the record itself
+console.log(gist)
 ```
 
 You can also use the instance method:
@@ -159,7 +159,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Issue()
+const entity = client.Gist()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -525,38 +525,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `assignee` |  |
-| `assignees` |  |
-| `body` |  |
-| `closed_at` |  |
-| `comments` |  |
-| `created_at` |  |
-| `default_branch` |  |
-| `description` |  |
-| `fork` |  |
-| `forks_count` |  |
-| `full_name` | The full name including owner |
-| `html_url` |  |
-| `id` |  |
-| `labels` |  |
-| `language` |  |
-| `milestone` |  |
-| `name` | The name of the repository |
-| `node_id` |  |
-| `number` | The issue number |
-| `open_issues_count` |  |
-| `owner` |  |
-| `private` | Whether the repository is private |
-| `pushed_at` |  |
-| `size` |  |
-| `stargazers_count` |  |
-| `state` |  |
-| `title` | The issue title |
-| `updated_at` |  |
-| `url` |  |
-| `user` |  |
-| `visibility` |  |
-| `watchers_count` |  |
 
 Operations: list.
 
@@ -968,43 +936,6 @@ Create an instance: `const search = client.Search()`
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `any` |  |
-| `assignees` | `any[]` |  |
-| `body` | `string` |  |
-| `closed_at` | `string` |  |
-| `comments` | `number` |  |
-| `created_at` | `string` |  |
-| `default_branch` | `string` |  |
-| `description` | `string` |  |
-| `fork` | `boolean` |  |
-| `forks_count` | `number` |  |
-| `full_name` | `string` | The full name including owner |
-| `html_url` | `string` |  |
-| `id` | `number` |  |
-| `labels` | `any[]` |  |
-| `language` | `string` |  |
-| `milestone` | `Record<string, any>` |  |
-| `name` | `string` | The name of the repository |
-| `node_id` | `string` |  |
-| `number` | `number` | The issue number |
-| `open_issues_count` | `number` |  |
-| `owner` | `Record<string, any>` |  |
-| `private` | `boolean` | Whether the repository is private |
-| `pushed_at` | `string` |  |
-| `size` | `number` |  |
-| `stargazers_count` | `number` |  |
-| `state` | `string` |  |
-| `title` | `string` | The issue title |
-| `updated_at` | `string` |  |
-| `url` | `string` |  |
-| `user` | `Record<string, any>` |  |
-| `visibility` | `string` |  |
-| `watchers_count` | `number` |  |
-
 #### Example: List
 
 ```ts
@@ -1206,11 +1137,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const issue = client.Issue()
-await issue.list()
+const gist = client.Gist()
+await gist.list()
 
-// issue.data() now returns the issue data from the last `list`
-// issue.match() returns the last match criteria
+// gist.data() now returns the gist data from the last `list`
+// gist.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

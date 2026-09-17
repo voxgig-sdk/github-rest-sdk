@@ -827,43 +827,6 @@ Return the entity name.
 local search = client:Search(nil)
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `assignee` | `any` | No |  |
-| `assignees` | `table` | No |  |
-| `body` | `string` | No |  |
-| `closed_at` | `string` | No |  |
-| `comments` | `number` | No |  |
-| `created_at` | `string` | No |  |
-| `default_branch` | `string` | No |  |
-| `description` | `string` | No |  |
-| `fork` | `boolean` | No |  |
-| `forks_count` | `number` | No |  |
-| `full_name` | `string` | No | The full name including owner |
-| `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
-| `labels` | `table` | No |  |
-| `language` | `string` | No |  |
-| `milestone` | `table` | No |  |
-| `name` | `string` | No | The name of the repository |
-| `node_id` | `string` | No |  |
-| `number` | `number` | No | The issue number |
-| `open_issues_count` | `number` | No |  |
-| `owner` | `table` | No |  |
-| `private` | `boolean` | No | Whether the repository is private |
-| `pushed_at` | `string` | No |  |
-| `size` | `number` | No |  |
-| `stargazers_count` | `number` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No | The issue title |
-| `updated_at` | `string` | No |  |
-| `url` | `string` | No |  |
-| `user` | `table` | No |  |
-| `visibility` | `string` | No |  |
-| `watchers_count` | `number` | No |  |
-
 ### Operations
 
 #### `list(reqmatch, ctrl) -> any, err`

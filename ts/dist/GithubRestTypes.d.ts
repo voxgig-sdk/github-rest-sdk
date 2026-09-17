@@ -277,38 +277,6 @@ export interface RepoListMatch {
     type?: string;
 }
 export interface Search {
-    assignee?: any;
-    assignees?: any[];
-    body?: string;
-    closed_at?: string;
-    comments?: number;
-    created_at?: string;
-    default_branch?: string;
-    description?: string;
-    fork?: boolean;
-    forks_count?: number;
-    full_name?: string;
-    html_url?: string;
-    id?: number;
-    labels?: any[];
-    language?: string;
-    milestone?: Record<string, any>;
-    name?: string;
-    node_id?: string;
-    number?: number;
-    open_issues_count?: number;
-    owner?: Record<string, any>;
-    private?: boolean;
-    pushed_at?: string;
-    size?: number;
-    stargazers_count?: number;
-    state?: string;
-    title?: string;
-    updated_at?: string;
-    url?: string;
-    user?: Record<string, any>;
-    visibility?: string;
-    watchers_count?: number;
 }
 export interface SearchListMatch {
     order?: string;

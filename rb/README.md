@@ -67,7 +67,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  issues = client.Issue.list()
+  gists = client.Gist.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -130,18 +130,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = GithubRestSDK.test({
-  "entity" => { "issue" => { "test01" => { "id" => "test01" } } },
-})
+client = GithubRestSDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-issue = client.Issue.list()
-puts issue
+gist = client.Gist.list()
+puts gist
 ```
 
 ### Use a custom fetch function
@@ -466,38 +463,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `assignee` |  |
-| `assignees` |  |
-| `body` |  |
-| `closed_at` |  |
-| `comments` |  |
-| `created_at` |  |
-| `default_branch` |  |
-| `description` |  |
-| `fork` |  |
-| `forks_count` |  |
-| `full_name` | The full name including owner |
-| `html_url` |  |
-| `id` |  |
-| `labels` |  |
-| `language` |  |
-| `milestone` |  |
-| `name` | The name of the repository |
-| `node_id` |  |
-| `number` | The issue number |
-| `open_issues_count` |  |
-| `owner` |  |
-| `private` | Whether the repository is private |
-| `pushed_at` |  |
-| `size` |  |
-| `stargazers_count` |  |
-| `state` |  |
-| `title` | The issue title |
-| `updated_at` |  |
-| `url` |  |
-| `user` |  |
-| `visibility` |  |
-| `watchers_count` |  |
 
 Operations: List.
 
@@ -921,43 +886,6 @@ Create an instance: `search = client.Search`
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `Object` |  |
-| `assignees` | `Array` |  |
-| `body` | `String` |  |
-| `closed_at` | `String` |  |
-| `comments` | `Integer` |  |
-| `created_at` | `String` |  |
-| `default_branch` | `String` |  |
-| `description` | `String` |  |
-| `fork` | `Boolean` |  |
-| `forks_count` | `Integer` |  |
-| `full_name` | `String` | The full name including owner |
-| `html_url` | `String` |  |
-| `id` | `Integer` |  |
-| `labels` | `Array` |  |
-| `language` | `String` |  |
-| `milestone` | `Hash` |  |
-| `name` | `String` | The name of the repository |
-| `node_id` | `String` |  |
-| `number` | `Integer` | The issue number |
-| `open_issues_count` | `Integer` |  |
-| `owner` | `Hash` |  |
-| `private` | `Boolean` | Whether the repository is private |
-| `pushed_at` | `String` |  |
-| `size` | `Integer` |  |
-| `stargazers_count` | `Integer` |  |
-| `state` | `String` |  |
-| `title` | `String` | The issue title |
-| `updated_at` | `String` |  |
-| `url` | `String` |  |
-| `user` | `Hash` |  |
-| `visibility` | `String` |  |
-| `watchers_count` | `Integer` |  |
-
 #### Example: List
 
 ```ruby
@@ -1150,6 +1078,7 @@ Use `Helpers.to_map()` to safely validate that a value is a hash.
 rb/
 ├── GithubRest_sdk.rb       -- Main SDK module
 ├── config.rb                  -- Configuration
+├── schema.rb                  -- Generated option + entity specs
 ├── features.rb                -- Feature factory
 ├── core/                      -- Core types and context
 ├── entity/                    -- Entity implementations
@@ -1168,11 +1097,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-issue = client.Issue
-issue.list()
+gist = client.Gist
+gist.list()
 
-# issue.data_get now returns the issue data from the last list
-# issue.match_get returns the last match criteria
+# gist.data_get now returns the gist data from the last list
+# gist.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

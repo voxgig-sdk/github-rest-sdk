@@ -342,38 +342,6 @@ type RepoListMatch struct {
 
 // Search is the typed data model for the search entity.
 type Search struct {
-	Assignee *any `json:"assignee,omitempty"`
-	Assignees *[]any `json:"assignees,omitempty"`
-	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	Comments *int `json:"comments,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	DefaultBranch *string `json:"default_branch,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Fork *bool `json:"fork,omitempty"`
-	ForksCount *int `json:"forks_count,omitempty"`
-	FullName *string `json:"full_name,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Labels *[]any `json:"labels,omitempty"`
-	Language *string `json:"language,omitempty"`
-	Milestone *map[string]any `json:"milestone,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	OpenIssuesCount *int `json:"open_issues_count,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
-	Private *bool `json:"private,omitempty"`
-	PushedAt *string `json:"pushed_at,omitempty"`
-	Size *int `json:"size,omitempty"`
-	StargazersCount *int `json:"stargazers_count,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
-	Visibility *string `json:"visibility,omitempty"`
-	WatchersCount *int `json:"watchers_count,omitempty"`
 }
 
 // SearchListMatch is the typed request payload for Search.ListTyped.

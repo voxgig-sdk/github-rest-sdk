@@ -70,7 +70,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $issues = $client->Issue()->list();
+    $gists = $client->Gist()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -477,38 +477,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `assignee` |  |
-| `assignees` |  |
-| `body` |  |
-| `closed_at` |  |
-| `comments` |  |
-| `created_at` |  |
-| `default_branch` |  |
-| `description` |  |
-| `fork` |  |
-| `forks_count` |  |
-| `full_name` | The full name including owner |
-| `html_url` |  |
-| `id` |  |
-| `labels` |  |
-| `language` |  |
-| `milestone` |  |
-| `name` | The name of the repository |
-| `node_id` |  |
-| `number` | The issue number |
-| `open_issues_count` |  |
-| `owner` |  |
-| `private` | Whether the repository is private |
-| `pushed_at` |  |
-| `size` |  |
-| `stargazers_count` |  |
-| `state` |  |
-| `title` | The issue title |
-| `updated_at` |  |
-| `url` |  |
-| `user` |  |
-| `visibility` |  |
-| `watchers_count` |  |
 
 Operations: List.
 
@@ -932,43 +900,6 @@ Create an instance: `$search = $client->Search();`
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `mixed` |  |
-| `assignees` | `array` |  |
-| `body` | `string` |  |
-| `closed_at` | `string` |  |
-| `comments` | `int` |  |
-| `created_at` | `string` |  |
-| `default_branch` | `string` |  |
-| `description` | `string` |  |
-| `fork` | `bool` |  |
-| `forks_count` | `int` |  |
-| `full_name` | `string` | The full name including owner |
-| `html_url` | `string` |  |
-| `id` | `int` |  |
-| `labels` | `array` |  |
-| `language` | `string` |  |
-| `milestone` | `array` |  |
-| `name` | `string` | The name of the repository |
-| `node_id` | `string` |  |
-| `number` | `int` | The issue number |
-| `open_issues_count` | `int` |  |
-| `owner` | `array` |  |
-| `private` | `bool` | Whether the repository is private |
-| `pushed_at` | `string` |  |
-| `size` | `int` |  |
-| `stargazers_count` | `int` |  |
-| `state` | `string` |  |
-| `title` | `string` | The issue title |
-| `updated_at` | `string` |  |
-| `url` | `string` |  |
-| `user` | `array` |  |
-| `visibility` | `string` |  |
-| `watchers_count` | `int` |  |
-
 #### Example: List
 
 ```php
@@ -1161,6 +1092,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── githubrest_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations
@@ -1179,11 +1111,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$issue = $client->Issue();
-$issue->list();
+$gist = $client->Gist();
+$gist->list();
 
-// $issue->data_get() now returns the issue data from the last list
-// $issue->match_get() returns the last match criteria
+// $gist->data_get() now returns the gist data from the last list
+// $gist->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

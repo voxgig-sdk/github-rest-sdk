@@ -71,12 +71,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-issues, err := client.Issue(nil).List(nil, nil)
+gists, err := client.Gist(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = issues
+_ = gists
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -140,13 +140,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-issue, err := client.Issue(nil).List(
+gist, err := client.Gist(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(issue) // the returned mock data
+fmt.Println(gist) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -474,38 +474,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `"assignee"` |  |
-| `"assignees"` |  |
-| `"body"` |  |
-| `"closed_at"` |  |
-| `"comments"` |  |
-| `"created_at"` |  |
-| `"default_branch"` |  |
-| `"description"` |  |
-| `"fork"` |  |
-| `"forks_count"` |  |
-| `"full_name"` | The full name including owner |
-| `"html_url"` |  |
-| `"id"` |  |
-| `"labels"` |  |
-| `"language"` |  |
-| `"milestone"` |  |
-| `"name"` | The name of the repository |
-| `"node_id"` |  |
-| `"number"` | The issue number |
-| `"open_issues_count"` |  |
-| `"owner"` |  |
-| `"private"` | Whether the repository is private |
-| `"pushed_at"` |  |
-| `"size"` |  |
-| `"stargazers_count"` |  |
-| `"state"` |  |
-| `"title"` | The issue title |
-| `"updated_at"` |  |
-| `"url"` |  |
-| `"user"` |  |
-| `"visibility"` |  |
-| `"watchers_count"` |  |
 
 Operations: List.
 
@@ -977,43 +945,6 @@ Create an instance: `search := client.Search(nil)`
 | --- | --- |
 | `List(match, ctrl)` | List entities matching the criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `any` |  |
-| `assignees` | `[]any` |  |
-| `body` | `string` |  |
-| `closed_at` | `string` |  |
-| `comments` | `int` |  |
-| `created_at` | `string` |  |
-| `default_branch` | `string` |  |
-| `description` | `string` |  |
-| `fork` | `bool` |  |
-| `forks_count` | `int` |  |
-| `full_name` | `string` | The full name including owner |
-| `html_url` | `string` |  |
-| `id` | `int` |  |
-| `labels` | `[]any` |  |
-| `language` | `string` |  |
-| `milestone` | `map[string]any` |  |
-| `name` | `string` | The name of the repository |
-| `node_id` | `string` |  |
-| `number` | `int` | The issue number |
-| `open_issues_count` | `int` |  |
-| `owner` | `map[string]any` |  |
-| `private` | `bool` | Whether the repository is private |
-| `pushed_at` | `string` |  |
-| `size` | `int` |  |
-| `stargazers_count` | `int` |  |
-| `state` | `string` |  |
-| `title` | `string` | The issue title |
-| `updated_at` | `string` |  |
-| `url` | `string` |  |
-| `user` | `map[string]any` |  |
-| `visibility` | `string` |  |
-| `watchers_count` | `int` |  |
-
 #### Example: List
 
 ```go
@@ -1227,11 +1158,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-issue := client.Issue(nil)
-issue.List(nil, nil)
+gist := client.Gist(nil)
+gist.List(nil, nil)
 
-// issue.Data() now returns the issue data from the last list
-// issue.Match() returns the last match criteria
+// gist.Data() now returns the gist data from the last list
+// gist.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

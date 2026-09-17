@@ -854,43 +854,6 @@ search := client.Search(nil)
 fmt.Println(search.GetName()) // "search"
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `assignee` | `any` | No |  |
-| `assignees` | `[]any` | No |  |
-| `body` | `string` | No |  |
-| `closed_at` | `string` | No |  |
-| `comments` | `int` | No |  |
-| `created_at` | `string` | No |  |
-| `default_branch` | `string` | No |  |
-| `description` | `string` | No |  |
-| `fork` | `bool` | No |  |
-| `forks_count` | `int` | No |  |
-| `full_name` | `string` | No | The full name including owner |
-| `html_url` | `string` | No |  |
-| `id` | `int` | No |  |
-| `labels` | `[]any` | No |  |
-| `language` | `string` | No |  |
-| `milestone` | `map[string]any` | No |  |
-| `name` | `string` | No | The name of the repository |
-| `node_id` | `string` | No |  |
-| `number` | `int` | No | The issue number |
-| `open_issues_count` | `int` | No |  |
-| `owner` | `map[string]any` | No |  |
-| `private` | `bool` | No | Whether the repository is private |
-| `pushed_at` | `string` | No |  |
-| `size` | `int` | No |  |
-| `stargazers_count` | `int` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No | The issue title |
-| `updated_at` | `string` | No |  |
-| `url` | `string` | No |  |
-| `user` | `map[string]any` | No |  |
-| `visibility` | `string` | No |  |
-| `watchers_count` | `int` | No |  |
-
 ### Operations
 
 #### `List(reqmatch, ctrl map[string]any) (any, error)`

@@ -46,23 +46,23 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = GithubRestSDK.test({
   entity: {
-    issue: {
-      test01: { id: 'test01', owner: 'example_owner', repo: 'example_repo' },
+    gist: {
+      test01: { id: 'test01', files: {} },
     },
   },
 })
-const issues = await client.Issue().list()
-// issues is an array of Issue entities, populated with mock data
-// — call issues[0].data() for the record itself
-console.log(issues)
+const gists = await client.Gist().list()
+// gists is an array of Gist entities, populated with mock data
+// — call gists[0].data() for the record itself
+console.log(gists)
 ```
 
 ### Python
 
 ```python
 client = GithubRestSDK.test()
-issues = client.Issue().list()
-print(issues)
+gists = client.Gist().list()
+print(gists)
 ```
 
 ### PHP
@@ -70,16 +70,16 @@ print(issues)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = GithubRestSDK::test([
-    "entity" => ["issue" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["gist" => ["test01" => []]],
 ]);
-$issues = $client->Issue()->list();
+$gists = $client->Gist()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Issue(nil).List(
+result, err := client.Gist(nil).List(
     nil, nil,
 )
 ```
@@ -89,28 +89,28 @@ result, err := client.Issue(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = GithubRestSDK.test({
-  "entity" => { "issue" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "gist" => { "test01" => {} } },
 })
-issues = client.Issue.list()
+gists = client.Gist.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Issue():list()
+local results, err = client:Gist():list()
 ```
 
 ## Packages
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/github-rest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
-| Python | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
-| PHP | `voxgig-sdk/github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
+| TypeScript | `@voxgig-sdk/github-rest-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/tags) |
+| Python | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/tags) |
+| PHP | `voxgig-sdk/github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/github-rest-sdk/go` | `go get github.com/voxgig-sdk/github-rest-sdk/go@latest` |
-| Ruby | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
-| Lua | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/releases) |
+| Ruby | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/tags) |
+| Lua | `voxgig-sdk-github-rest` | publish pending — [install from git tag](https://github.com/voxgig-sdk/github-rest-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/github-rest-sdk/go-cli` | `go install github.com/voxgig-sdk/github-rest-sdk/go-cli/cmd/github-rest@latest` |
 | Go MCP server | `github.com/voxgig-sdk/github-rest-sdk/go-mcp` | `go get github.com/voxgig-sdk/github-rest-sdk/go-mcp@latest` |
 

@@ -73,8 +73,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    issues = client.Issue().list()
-    print(issues)
+    gists = client.Gist().list()
+    print(gists)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -142,8 +142,8 @@ client = GithubRestSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-issue = client.Issue().list()
-# issue contains the mock response record
+gist = client.Gist().list()
+# gist contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -469,38 +469,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `assignee` |  |
-| `assignees` |  |
-| `body` |  |
-| `closed_at` |  |
-| `comments` |  |
-| `created_at` |  |
-| `default_branch` |  |
-| `description` |  |
-| `fork` |  |
-| `forks_count` |  |
-| `full_name` | The full name including owner |
-| `html_url` |  |
-| `id` |  |
-| `labels` |  |
-| `language` |  |
-| `milestone` |  |
-| `name` | The name of the repository |
-| `node_id` |  |
-| `number` | The issue number |
-| `open_issues_count` |  |
-| `owner` |  |
-| `private` | Whether the repository is private |
-| `pushed_at` |  |
-| `size` |  |
-| `stargazers_count` |  |
-| `state` |  |
-| `title` | The issue title |
-| `updated_at` |  |
-| `url` |  |
-| `user` |  |
-| `visibility` |  |
-| `watchers_count` |  |
 
 Operations: List.
 
@@ -912,43 +880,6 @@ Create an instance: `search = client.Search()`
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `Any` |  |
-| `assignees` | `list` |  |
-| `body` | `str` |  |
-| `closed_at` | `str` |  |
-| `comments` | `int` |  |
-| `created_at` | `str` |  |
-| `default_branch` | `str` |  |
-| `description` | `str` |  |
-| `fork` | `bool` |  |
-| `forks_count` | `int` |  |
-| `full_name` | `str` | The full name including owner |
-| `html_url` | `str` |  |
-| `id` | `int` |  |
-| `labels` | `list` |  |
-| `language` | `str` |  |
-| `milestone` | `dict` |  |
-| `name` | `str` | The name of the repository |
-| `node_id` | `str` |  |
-| `number` | `int` | The issue number |
-| `open_issues_count` | `int` |  |
-| `owner` | `dict` |  |
-| `private` | `bool` | Whether the repository is private |
-| `pushed_at` | `str` |  |
-| `size` | `int` |  |
-| `stargazers_count` | `int` |  |
-| `state` | `str` |  |
-| `title` | `str` | The issue title |
-| `updated_at` | `str` |  |
-| `url` | `str` |  |
-| `user` | `dict` |  |
-| `visibility` | `str` |  |
-| `watchers_count` | `int` |  |
-
 #### Example: List
 
 ```python
@@ -1139,6 +1070,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── githubrest_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations
@@ -1156,11 +1088,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-issue = client.Issue()
-issue.list()
+gist = client.Gist()
+gist.list()
 
-# issue.data_get() now returns the issue data from the last list
-# issue.match_get() returns the last match criteria
+# gist.data_get() now returns the gist data from the last list
+# gist.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

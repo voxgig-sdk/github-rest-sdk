@@ -66,7 +66,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local issues, err = client:Issue():list()
+local gists, err = client:Gist():list()
 if err then error(err) end
 ```
 
@@ -124,7 +124,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Issue():list()
+local result, err = client:Gist():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -454,38 +454,6 @@ API path: `/users/{username}/repos`
 
 | Field | Description |
 | --- | --- |
-| `assignee` |  |
-| `assignees` |  |
-| `body` |  |
-| `closed_at` |  |
-| `comments` |  |
-| `created_at` |  |
-| `default_branch` |  |
-| `description` |  |
-| `fork` |  |
-| `forks_count` |  |
-| `full_name` | The full name including owner |
-| `html_url` |  |
-| `id` |  |
-| `labels` |  |
-| `language` |  |
-| `milestone` |  |
-| `name` | The name of the repository |
-| `node_id` |  |
-| `number` | The issue number |
-| `open_issues_count` |  |
-| `owner` |  |
-| `private` | Whether the repository is private |
-| `pushed_at` |  |
-| `size` |  |
-| `stargazers_count` |  |
-| `state` |  |
-| `title` | The issue title |
-| `updated_at` |  |
-| `url` |  |
-| `user` |  |
-| `visibility` |  |
-| `watchers_count` |  |
 
 Operations: List.
 
@@ -897,43 +865,6 @@ Create an instance: `local search = client:Search(nil)`
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
 
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `assignee` | `any` |  |
-| `assignees` | `table` |  |
-| `body` | `string` |  |
-| `closed_at` | `string` |  |
-| `comments` | `number` |  |
-| `created_at` | `string` |  |
-| `default_branch` | `string` |  |
-| `description` | `string` |  |
-| `fork` | `boolean` |  |
-| `forks_count` | `number` |  |
-| `full_name` | `string` | The full name including owner |
-| `html_url` | `string` |  |
-| `id` | `number` |  |
-| `labels` | `table` |  |
-| `language` | `string` |  |
-| `milestone` | `table` |  |
-| `name` | `string` | The name of the repository |
-| `node_id` | `string` |  |
-| `number` | `number` | The issue number |
-| `open_issues_count` | `number` |  |
-| `owner` | `table` |  |
-| `private` | `boolean` | Whether the repository is private |
-| `pushed_at` | `string` |  |
-| `size` | `number` |  |
-| `stargazers_count` | `number` |  |
-| `state` | `string` |  |
-| `title` | `string` | The issue title |
-| `updated_at` | `string` |  |
-| `url` | `string` |  |
-| `user` | `table` |  |
-| `visibility` | `string` |  |
-| `watchers_count` | `number` |  |
-
 #### Example: List
 
 ```lua
@@ -1124,6 +1055,7 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 lua/
 ├── github-rest_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations
@@ -1142,11 +1074,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local issue = client:Issue()
-issue:list()
+local gist = client:Gist()
+gist:list()
 
--- issue:data_get() now returns the issue data from the last list
--- issue:match_get() returns the last match criteria
+-- gist:data_get() now returns the gist data from the last list
+-- gist:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

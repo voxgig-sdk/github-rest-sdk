@@ -348,39 +348,8 @@ class RepoListMatch(RepoListMatchRequired, total=False):
     type: str
 
 
-class Search(TypedDict, total=False):
-    assignee: Any
-    assignees: list
-    body: str
-    closed_at: str
-    comments: int
-    created_at: str
-    default_branch: str
-    description: str
-    fork: bool
-    forks_count: int
-    full_name: str
-    html_url: str
-    id: int
-    labels: list
-    language: str
-    milestone: dict
-    name: str
-    node_id: str
-    number: int
-    open_issues_count: int
-    owner: dict
-    private: bool
-    pushed_at: str
-    size: int
-    stargazers_count: int
-    state: str
-    title: str
-    updated_at: str
-    url: str
-    user: dict
-    visibility: str
-    watchers_count: int
+class Search(TypedDict):
+    pass
 
 
 class SearchListMatchRequired(TypedDict):

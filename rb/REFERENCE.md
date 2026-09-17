@@ -830,43 +830,6 @@ Return the entity name.
 search = client.Search
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `assignee` | `Object` | No |  |
-| `assignees` | `Array` | No |  |
-| `body` | `String` | No |  |
-| `closed_at` | `String` | No |  |
-| `comments` | `Integer` | No |  |
-| `created_at` | `String` | No |  |
-| `default_branch` | `String` | No |  |
-| `description` | `String` | No |  |
-| `fork` | `Boolean` | No |  |
-| `forks_count` | `Integer` | No |  |
-| `full_name` | `String` | No | The full name including owner |
-| `html_url` | `String` | No |  |
-| `id` | `Integer` | No |  |
-| `labels` | `Array` | No |  |
-| `language` | `String` | No |  |
-| `milestone` | `Hash` | No |  |
-| `name` | `String` | No | The name of the repository |
-| `node_id` | `String` | No |  |
-| `number` | `Integer` | No | The issue number |
-| `open_issues_count` | `Integer` | No |  |
-| `owner` | `Hash` | No |  |
-| `private` | `Boolean` | No | Whether the repository is private |
-| `pushed_at` | `String` | No |  |
-| `size` | `Integer` | No |  |
-| `stargazers_count` | `Integer` | No |  |
-| `state` | `String` | No |  |
-| `title` | `String` | No | The issue title |
-| `updated_at` | `String` | No |  |
-| `url` | `String` | No |  |
-| `user` | `Hash` | No |  |
-| `visibility` | `String` | No |  |
-| `watchers_count` | `Integer` | No |  |
-
 ### Operations
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`

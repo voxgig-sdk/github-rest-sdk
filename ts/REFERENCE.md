@@ -915,43 +915,6 @@ Return a copy of the entity options.
 const search = client.Search()
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `assignee` | `any` | No |  |
-| `assignees` | `any[]` | No |  |
-| `body` | `string` | No |  |
-| `closed_at` | `string` | No |  |
-| `comments` | `number` | No |  |
-| `created_at` | `string` | No |  |
-| `default_branch` | `string` | No |  |
-| `description` | `string` | No |  |
-| `fork` | `boolean` | No |  |
-| `forks_count` | `number` | No |  |
-| `full_name` | `string` | No | The full name including owner |
-| `html_url` | `string` | No |  |
-| `id` | `number` | No |  |
-| `labels` | `any[]` | No |  |
-| `language` | `string` | No |  |
-| `milestone` | `Record<string, any>` | No |  |
-| `name` | `string` | No | The name of the repository |
-| `node_id` | `string` | No |  |
-| `number` | `number` | No | The issue number |
-| `open_issues_count` | `number` | No |  |
-| `owner` | `Record<string, any>` | No |  |
-| `private` | `boolean` | No | Whether the repository is private |
-| `pushed_at` | `string` | No |  |
-| `size` | `number` | No |  |
-| `stargazers_count` | `number` | No |  |
-| `state` | `string` | No |  |
-| `title` | `string` | No | The issue title |
-| `updated_at` | `string` | No |  |
-| `url` | `string` | No |  |
-| `user` | `Record<string, any>` | No |  |
-| `visibility` | `string` | No |  |
-| `watchers_count` | `number` | No |  |
-
 ### Actions
 
 This entity exposes custom API actions in addition to the standard

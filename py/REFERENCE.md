@@ -829,43 +829,6 @@ Return the entity name.
 search = client.Search()
 ```
 
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `assignee` | `Any` | No |  |
-| `assignees` | `list` | No |  |
-| `body` | `str` | No |  |
-| `closed_at` | `str` | No |  |
-| `comments` | `int` | No |  |
-| `created_at` | `str` | No |  |
-| `default_branch` | `str` | No |  |
-| `description` | `str` | No |  |
-| `fork` | `bool` | No |  |
-| `forks_count` | `int` | No |  |
-| `full_name` | `str` | No | The full name including owner |
-| `html_url` | `str` | No |  |
-| `id` | `int` | No |  |
-| `labels` | `list` | No |  |
-| `language` | `str` | No |  |
-| `milestone` | `dict` | No |  |
-| `name` | `str` | No | The name of the repository |
-| `node_id` | `str` | No |  |
-| `number` | `int` | No | The issue number |
-| `open_issues_count` | `int` | No |  |
-| `owner` | `dict` | No |  |
-| `private` | `bool` | No | Whether the repository is private |
-| `pushed_at` | `str` | No |  |
-| `size` | `int` | No |  |
-| `stargazers_count` | `int` | No |  |
-| `state` | `str` | No |  |
-| `title` | `str` | No | The issue title |
-| `updated_at` | `str` | No |  |
-| `url` | `str` | No |  |
-| `user` | `dict` | No |  |
-| `visibility` | `str` | No |  |
-| `watchers_count` | `int` | No |  |
-
 ### Operations
 
 #### `list(reqmatch=None, ctrl=None) -> list`
