@@ -1,0 +1,22 @@
+# BasicNotificationFlow
+
+main: kit: flow: BasicNotificationFlow:
+{
+  entity: "notification",
+  kind: "basic",
+  name: "BasicNotificationFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "notification_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicNotificationFlow"
+}

@@ -19,7 +19,6 @@ import type {
   NotificationListMatch,
 } from '../GithubRestTypes'
 
-// TODO: needs Entity superclass
 class NotificationEntity extends GithubRestEntityBase<Notification> {
 
   constructor(client: GithubRestSDK, entopts: any) {

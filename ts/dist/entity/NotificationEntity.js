@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationEntity = void 0;
 const GithubRestEntityBase_1 = require("../GithubRestEntityBase");
-// TODO: needs Entity superclass
 class NotificationEntity extends GithubRestEntityBase_1.GithubRestEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

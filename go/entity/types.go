@@ -1,7 +1,7 @@
 // Typed models for the GithubRest SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,9 +14,6 @@ import (
 
 // Branch is the typed data model for the branch entity.
 type Branch struct {
-	Commit *map[string]any `json:"commit,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Protected *bool `json:"protected,omitempty"`
 }
 
 // BranchListMatch is the typed request payload for Branch.ListTyped.
@@ -29,13 +26,6 @@ type BranchListMatch struct {
 
 // Commit is the typed data model for the commit entity.
 type Commit struct {
-	Author *map[string]any `json:"author,omitempty"`
-	Commit *map[string]any `json:"commit,omitempty"`
-	Committer *map[string]any `json:"committer,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Sha *string `json:"sha,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // CommitListMatch is the typed request payload for Commit.ListTyped.
@@ -50,16 +40,6 @@ type CommitListMatch struct {
 
 // Gist is the typed data model for the gist entity.
 type Gist struct {
-	CreatedAt *string `json:"created_at,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Files map[string]any `json:"files"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *string `json:"id,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
-	Public *bool `json:"public,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // GistListMatch is the typed request payload for Gist.ListTyped.
@@ -84,23 +64,6 @@ type GistCreateData struct {
 
 // Issue is the typed data model for the issue entity.
 type Issue struct {
-	Assignee *any `json:"assignee,omitempty"`
-	Assignees *[]any `json:"assignees,omitempty"`
-	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	Comments *int `json:"comments,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Labels *[]any `json:"labels,omitempty"`
-	Milestone *map[string]any `json:"milestone,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
 }
 
 // IssueLoadMatch is the typed request payload for Issue.LoadTyped.
@@ -170,14 +133,6 @@ type IssueUpdateData struct {
 
 // Notification is the typed data model for the notification entity.
 type Notification struct {
-	Id *string `json:"id,omitempty"`
-	LastReadAt *string `json:"last_read_at,omitempty"`
-	Reason *string `json:"reason,omitempty"`
-	Repository *map[string]any `json:"repository,omitempty"`
-	Subject *map[string]any `json:"subject,omitempty"`
-	Unread *bool `json:"unread,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // NotificationListMatch is the typed request payload for Notification.ListTyped.
@@ -190,23 +145,6 @@ type NotificationListMatch struct {
 
 // Org is the typed data model for the org entity.
 type Org struct {
-	AvatarUrl *string `json:"avatar_url,omitempty"`
-	Blog *string `json:"blog,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Followers *int `json:"followers,omitempty"`
-	Following *int `json:"following,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Location *string `json:"location,omitempty"`
-	Login *string `json:"login,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	PublicGists *int `json:"public_gists,omitempty"`
-	PublicRepos *int `json:"public_repos,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // OrgLoadMatch is the typed request payload for Org.LoadTyped.
@@ -216,22 +154,6 @@ type OrgLoadMatch struct {
 
 // Pull is the typed data model for the pull entity.
 type Pull struct {
-	Base *map[string]any `json:"base,omitempty"`
-	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	Draft *bool `json:"draft,omitempty"`
-	Head *map[string]any `json:"head,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	MergedAt *string `json:"merged_at,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
 }
 
 // PullLoadMatch is the typed request payload for Pull.LoadTyped.
@@ -276,8 +198,6 @@ type PullCreateData struct {
 
 // RateLimit is the typed data model for the rate_limit entity.
 type RateLimit struct {
-	Rate *map[string]any `json:"rate,omitempty"`
-	Resources *map[string]any `json:"resources,omitempty"`
 }
 
 // RateLimitLoadMatch is the typed request payload for RateLimit.LoadTyped.
@@ -288,40 +208,6 @@ type RateLimitLoadMatch struct {
 
 // Repo is the typed data model for the repo entity.
 type Repo struct {
-	AvatarUrl *string `json:"avatar_url,omitempty"`
-	Bio *string `json:"bio,omitempty"`
-	Blog *string `json:"blog,omitempty"`
-	Company *string `json:"company,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	DefaultBranch *string `json:"default_branch,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Followers *int `json:"followers,omitempty"`
-	Following *int `json:"following,omitempty"`
-	Fork *bool `json:"fork,omitempty"`
-	ForksCount *int `json:"forks_count,omitempty"`
-	FullName *string `json:"full_name,omitempty"`
-	GithubRestId *int `json:"github-rest_id,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Language *string `json:"language,omitempty"`
-	Location *string `json:"location,omitempty"`
-	Login *string `json:"login,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	OpenIssuesCount *int `json:"open_issues_count,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
-	Private *bool `json:"private,omitempty"`
-	PublicGists *int `json:"public_gists,omitempty"`
-	PublicRepos *int `json:"public_repos,omitempty"`
-	PushedAt *string `json:"pushed_at,omitempty"`
-	Size *int `json:"size,omitempty"`
-	StargazersCount *int `json:"stargazers_count,omitempty"`
-	Type *string `json:"type,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	Visibility *string `json:"visibility,omitempty"`
-	WatchersCount *int `json:"watchers_count,omitempty"`
 }
 
 // RepoLoadMatch is the typed request payload for Repo.LoadTyped.
@@ -355,25 +241,6 @@ type SearchListMatch struct {
 
 // User is the typed data model for the user entity.
 type User struct {
-	AvatarUrl *string `json:"avatar_url,omitempty"`
-	Bio *string `json:"bio,omitempty"`
-	Blog *string `json:"blog,omitempty"`
-	Company *string `json:"company,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	Email *string `json:"email,omitempty"`
-	Followers *int `json:"followers,omitempty"`
-	Following *int `json:"following,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Location *string `json:"location,omitempty"`
-	Login *string `json:"login,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	PublicGists *int `json:"public_gists,omitempty"`
-	PublicRepos *int `json:"public_repos,omitempty"`
-	Type *string `json:"type,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // UserLoadMatch is the typed request payload for User.LoadTyped.

@@ -45,7 +45,7 @@ local branchs, err = client:Branch():list()
 if err then error(err) end
 
 for _, item in ipairs(branchs) do
-  print(item["name"])
+  print(item)
 end
 ```
 

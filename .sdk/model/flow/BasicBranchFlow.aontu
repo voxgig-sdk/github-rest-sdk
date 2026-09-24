@@ -1,0 +1,27 @@
+# BasicBranchFlow
+
+main: kit: flow: BasicBranchFlow:
+{
+  entity: "branch",
+  kind: "basic",
+  name: "BasicBranchFlow",
+  step: [
+    {
+      m: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "branch_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicBranchFlow"
+}

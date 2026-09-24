@@ -1,0 +1,27 @@
+# BasicCommitFlow
+
+main: kit: flow: BasicCommitFlow:
+{
+  entity: "commit",
+  kind: "basic",
+  name: "BasicCommitFlow",
+  step: [
+    {
+      m: {
+        owner: "owner01",
+        repo: "repo01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "commit_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicCommitFlow"
+}

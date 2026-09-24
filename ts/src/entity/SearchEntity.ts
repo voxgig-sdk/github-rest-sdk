@@ -19,7 +19,6 @@ import type {
   SearchListMatch,
 } from '../GithubRestTypes'
 
-// TODO: needs Entity superclass
 class SearchEntity extends GithubRestEntityBase<Search> {
 
   constructor(client: GithubRestSDK, entopts: any) {

@@ -19,7 +19,6 @@ import type {
   CommitListMatch,
 } from '../GithubRestTypes'
 
-// TODO: needs Entity superclass
 class CommitEntity extends GithubRestEntityBase<Commit> {
 
   constructor(client: GithubRestSDK, entopts: any) {

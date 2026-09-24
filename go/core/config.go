@@ -104,14 +104,17 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "commit",
+						"title": "Commit",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "protected",
+						"title": "Protected",
 						"type": "`$BOOLEAN`",
 					},
 				},
@@ -122,40 +125,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/branches",
@@ -173,6 +142,51 @@ func MakeConfig() map[string]any {
 										"lit": "branches",
 									},
 								},
+								"parts": []any{
+									"repos",
+									"{owner}",
+									"{repo}",
+									"branches",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"owner",
@@ -181,16 +195,6 @@ func MakeConfig() map[string]any {
 										"repo",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"repos",
-									"{owner}",
-									"{repo}",
-									"branches",
-								},
 							},
 						},
 					},
@@ -198,7 +202,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"repo",
+							"$.main.kit.entity.repo",
 						},
 					},
 				},
@@ -207,33 +211,40 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "author",
+						"title": "Author",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "commit",
+						"title": "Commit",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "committer",
+						"title": "Committer",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "sha",
+						"title": "Sha",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 				},
 				"name": "commit",
@@ -243,52 +254,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "path",
-											"orig": "path",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sha",
-											"orig": "sha",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/commits",
@@ -306,6 +271,63 @@ func MakeConfig() map[string]any {
 										"lit": "commits",
 									},
 								},
+								"parts": []any{
+									"repos",
+									"{owner}",
+									"{repo}",
+									"commits",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "path",
+											"orig": "path",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "sha",
+											"orig": "sha",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"owner",
@@ -316,16 +338,6 @@ func MakeConfig() map[string]any {
 										"sha",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"repos",
-									"{owner}",
-									"{repo}",
-									"commits",
-								},
 							},
 						},
 					},
@@ -333,7 +345,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"repo",
+							"$.main.kit.entity.repo",
 						},
 					},
 				},
@@ -341,57 +353,67 @@ func MakeConfig() map[string]any {
 			"gist": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "description",
-						"short": "Description of the gist",
+						"title": "Description",
 						"type": "`$STRING`",
+						"short": "Description of the gist",
 					},
 					map[string]any{
 						"name": "files",
+						"title": "Files",
+						"type": "`$OBJECT`",
+						"req": true,
 						"op": map[string]any{
 							"list": map[string]any{
 								"type": "`$OBJECT`",
 							},
 						},
-						"req": true,
 						"short": "Names and content for the files that make up the gist",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "owner",
+						"title": "Owner",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "public",
-						"short": "Whether the gist is public",
+						"title": "Public",
 						"type": "`$BOOLEAN`",
+						"short": "Whether the gist is public",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 				},
 				"id": map[string]any{
@@ -405,7 +427,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/gists",
@@ -414,14 +435,16 @@ func MakeConfig() map[string]any {
 										"lit": "gists",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"gists",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"gists",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -430,24 +453,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/gists",
@@ -456,18 +461,37 @@ func MakeConfig() map[string]any {
 										"lit": "gists",
 									},
 								},
+								"parts": []any{
+									"gists",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"page",
 										"per_page",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"gists",
 								},
 							},
 						},
@@ -481,67 +505,82 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "assignee",
+						"title": "Assignee",
 						"type": "`$ANY`",
 					},
 					map[string]any{
 						"name": "assignees",
-						"short": "Logins for Users to assign to this issue",
+						"title": "Assignees",
 						"type": "`$ARRAY`",
+						"short": "Logins for Users to assign to this issue",
 					},
 					map[string]any{
 						"name": "body",
-						"short": "The contents of the issue",
+						"title": "Body",
 						"type": "`$STRING`",
+						"short": "The contents of the issue",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "closed_at",
+						"title": "Closed At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "comments",
+						"title": "Comments",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "labels",
-						"short": "Labels to associate with this issue",
+						"title": "Labels",
 						"type": "`$ARRAY`",
+						"short": "Labels to associate with this issue",
 					},
 					map[string]any{
 						"name": "milestone",
-						"short": "The number of the milestone to associate this issue with",
+						"title": "Milestone",
 						"type": "`$OBJECT`",
+						"short": "The number of the milestone to associate this issue with",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "number",
-						"short": "The issue number",
+						"title": "Number",
 						"type": "`$INTEGER`",
+						"short": "The issue number",
 					},
 					map[string]any{
 						"name": "state",
-						"short": "State of the issue",
+						"title": "State",
 						"type": "`$STRING`",
+						"short": "State of the issue",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"op": map[string]any{
 							"create": map[string]any{
 								"req": true,
@@ -549,20 +588,22 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"short": "The issue title",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "user",
+						"title": "User",
 						"type": "`$OBJECT`",
 					},
 				},
@@ -577,24 +618,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/repos/{owner}/{repo}/issues",
@@ -612,21 +635,40 @@ func MakeConfig() map[string]any {
 										"lit": "issues",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"owner",
-										"repo",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"repos",
 									"{owner}",
 									"{repo}",
 									"issues",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"owner",
+										"repo",
+									},
 								},
 							},
 						},
@@ -636,67 +678,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "desc",
-											"kind": "query",
-											"name": "direction",
-											"orig": "direction",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "label",
-											"orig": "label",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "created",
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "open",
-											"kind": "query",
-											"name": "state",
-											"orig": "state",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/issues",
@@ -712,6 +693,78 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "issues",
+									},
+								},
+								"parts": []any{
+									"repos",
+									"{owner}",
+									"{repo}",
+									"issues",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "direction",
+											"orig": "direction",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "desc",
+										},
+										map[string]any{
+											"name": "label",
+											"orig": "label",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "created",
+										},
+										map[string]any{
+											"name": "state",
+											"orig": "state",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "open",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -726,16 +779,6 @@ func MakeConfig() map[string]any {
 										"state",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"repos",
-									"{owner}",
-									"{repo}",
-									"issues",
-								},
 							},
 						},
 					},
@@ -744,39 +787,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "issue_number",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"issue_number": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "repos",
@@ -794,23 +807,53 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"owner",
-										"repo",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"repos",
 									"{owner}",
 									"{repo}",
 									"issues",
 									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"issue_number": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "issue_number",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"owner",
+										"repo",
+									},
 								},
 							},
 						},
@@ -820,39 +863,9 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "issue_number",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PATCH",
 								"orig": "/repos/{owner}/{repo}/issues/{issue_number}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"issue_number": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "repos",
@@ -870,23 +883,53 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"owner",
-										"repo",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"repos",
 									"{owner}",
 									"{repo}",
 									"issues",
 									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"issue_number": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "issue_number",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"owner",
+										"repo",
+									},
 								},
 							},
 						},
@@ -895,7 +938,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"repo",
+							"$.main.kit.entity.repo",
 						},
 					},
 				},
@@ -904,38 +947,46 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "last_read_at",
+						"title": "Last Read At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "reason",
+						"title": "Reason",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "repository",
+						"title": "Repository",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "subject",
+						"title": "Subject",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "unread",
+						"title": "Unread",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 				},
 				"id": map[string]any{
@@ -949,44 +1000,52 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "all",
-											"orig": "all",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "participating",
-											"orig": "participating",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/notifications",
 								"segments": []any{
 									map[string]any{
 										"lit": "notifications",
+									},
+								},
+								"parts": []any{
+									"notifications",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "all",
+											"orig": "all",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "participating",
+											"orig": "participating",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
 									},
 								},
 								"select": map[string]any{
@@ -996,13 +1055,6 @@ func MakeConfig() map[string]any {
 										"participating",
 										"per_page",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"notifications",
 								},
 							},
 						},
@@ -1015,78 +1067,95 @@ func MakeConfig() map[string]any {
 			"org": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "uri",
 						"name": "avatar_url",
+						"title": "Avatar Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "blog",
+						"title": "Blog",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "description",
+						"title": "Description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "email",
 						"name": "email",
+						"title": "Email",
 						"type": "`$STRING`",
+						"format": "email",
 					},
 					map[string]any{
 						"name": "followers",
+						"title": "Followers",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "following",
+						"title": "Following",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "location",
+						"title": "Location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "login",
+						"title": "Login",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "public_gists",
+						"title": "Public Gists",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "public_repos",
+						"title": "Public Repos",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 				},
 				"id": map[string]any{
@@ -1100,25 +1169,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "org",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/orgs/{org}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"org": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "orgs",
@@ -1127,18 +1180,34 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"orgs",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"org": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"orgs",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "org",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -1152,6 +1221,8 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "base",
+						"title": "Base",
+						"type": "`$OBJECT`",
 						"op": map[string]any{
 							"create": map[string]any{
 								"req": true,
@@ -1159,30 +1230,35 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"short": "The name of the branch you want the changes pulled into",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "body",
+						"title": "Body",
+						"type": "`$STRING`",
 						"short": "The contents of the pull request",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "closed_at",
+						"title": "Closed At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "draft",
-						"short": "Indicates whether the pull request is a draft",
+						"title": "Draft",
 						"type": "`$BOOLEAN`",
+						"short": "Indicates whether the pull request is a draft",
 					},
 					map[string]any{
 						"name": "head",
+						"title": "Head",
+						"type": "`$OBJECT`",
 						"op": map[string]any{
 							"create": map[string]any{
 								"req": true,
@@ -1190,36 +1266,43 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"short": "The name of the branch where your changes are implemented",
-						"type": "`$OBJECT`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "merged_at",
+						"title": "Merged At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "number",
+						"title": "Number",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "state",
+						"title": "State",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"title": "Title",
+						"type": "`$STRING`",
 						"op": map[string]any{
 							"create": map[string]any{
 								"req": true,
@@ -1227,20 +1310,22 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"short": "The title of the pull request",
-						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "user",
+						"title": "User",
 						"type": "`$OBJECT`",
 					},
 				},
@@ -1255,24 +1340,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/repos/{owner}/{repo}/pulls",
@@ -1290,21 +1357,40 @@ func MakeConfig() map[string]any {
 										"lit": "pulls",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"owner",
-										"repo",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"repos",
 									"{owner}",
 									"{repo}",
 									"pulls",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"owner",
+										"repo",
+									},
 								},
 							},
 						},
@@ -1314,61 +1400,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "desc",
-											"kind": "query",
-											"name": "direction",
-											"orig": "direction",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "created",
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "open",
-											"kind": "query",
-											"name": "state",
-											"orig": "state",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/pulls",
@@ -1386,6 +1417,72 @@ func MakeConfig() map[string]any {
 										"lit": "pulls",
 									},
 								},
+								"parts": []any{
+									"repos",
+									"{owner}",
+									"{repo}",
+									"pulls",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "direction",
+											"orig": "direction",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "desc",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "created",
+										},
+										map[string]any{
+											"name": "state",
+											"orig": "state",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "open",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"direction",
@@ -1397,16 +1494,6 @@ func MakeConfig() map[string]any {
 										"state",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"repos",
-									"{owner}",
-									"{repo}",
-									"pulls",
-								},
 							},
 						},
 					},
@@ -1415,39 +1502,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "pull_number",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}/pulls/{pull_number}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"pull_number": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "repos",
@@ -1465,23 +1522,53 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"owner",
-										"repo",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"repos",
 									"{owner}",
 									"{repo}",
 									"pulls",
 									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"pull_number": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "pull_number",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"owner",
+										"repo",
+									},
 								},
 							},
 						},
@@ -1490,7 +1577,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"repo",
+							"$.main.kit.entity.repo",
 						},
 					},
 				},
@@ -1499,10 +1586,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "rate",
+						"title": "Rate",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "resources",
+						"title": "Resources",
 						"type": "`$OBJECT`",
 					},
 				},
@@ -1513,7 +1602,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/rate_limit",
@@ -1522,14 +1610,16 @@ func MakeConfig() map[string]any {
 										"lit": "rate_limit",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"rate_limit",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"rate_limit",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -1541,153 +1631,187 @@ func MakeConfig() map[string]any {
 			"repo": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "uri",
 						"name": "avatar_url",
-						"short": "URL to the user's avatar image",
+						"title": "Avatar Url",
 						"type": "`$STRING`",
+						"short": "URL to the user's avatar image",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "bio",
+						"title": "Bio",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "blog",
+						"title": "Blog",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "company",
+						"title": "Company",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "default_branch",
+						"title": "Default Branch",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "description",
+						"title": "Description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "email",
 						"name": "email",
+						"title": "Email",
 						"type": "`$STRING`",
+						"format": "email",
 					},
 					map[string]any{
 						"name": "followers",
+						"title": "Followers",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "following",
+						"title": "Following",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "fork",
+						"title": "Fork",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "forks_count",
+						"title": "Forks Count",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "full_name",
-						"short": "The full name including owner",
+						"title": "Full Name",
 						"type": "`$STRING`",
+						"short": "The full name including owner",
 					},
 					map[string]any{
 						"name": "github-rest_id",
-						"short": "The user's unique identifier",
+						"title": "Github Rest Id",
 						"type": "`$INTEGER`",
+						"short": "The user's unique identifier",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "The user's unique identifier",
+						"title": "Id",
 						"type": "`$STRING`",
+						"short": "The user's unique identifier",
 					},
 					map[string]any{
 						"name": "language",
+						"title": "Language",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "location",
+						"title": "Location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "login",
-						"short": "The user's GitHub username",
+						"title": "Login",
 						"type": "`$STRING`",
+						"short": "The user's GitHub username",
 					},
 					map[string]any{
 						"name": "name",
-						"short": "The name of the repository",
+						"title": "Name",
 						"type": "`$STRING`",
+						"short": "The name of the repository",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "open_issues_count",
+						"title": "Open Issues Count",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "owner",
+						"title": "Owner",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "private",
-						"short": "Whether the repository is private",
+						"title": "Private",
 						"type": "`$BOOLEAN`",
+						"short": "Whether the repository is private",
 					},
 					map[string]any{
 						"name": "public_gists",
+						"title": "Public Gists",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "public_repos",
+						"title": "Public Repos",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "pushed_at",
+						"title": "Pushed At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "size",
+						"title": "Size",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "stargazers_count",
+						"title": "Stargazers Count",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "type",
+						"title": "Type",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "visibility",
+						"title": "Visibility",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "watchers_count",
+						"title": "Watchers Count",
 						"type": "`$INTEGER`",
 					},
 				},
@@ -1711,54 +1835,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "username",
-											"orig": "username",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "asc",
-											"kind": "query",
-											"name": "direction",
-											"orig": "direction",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "full_name",
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "owner",
-											"kind": "query",
-											"name": "type",
-											"orig": "type",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/users/{username}/repos",
@@ -1773,6 +1849,64 @@ func MakeConfig() map[string]any {
 										"lit": "repos",
 									},
 								},
+								"parts": []any{
+									"users",
+									"{username}",
+									"repos",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "username",
+											"orig": "username",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "direction",
+											"orig": "direction",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "asc",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "full_name",
+										},
+										map[string]any{
+											"name": "type",
+											"orig": "type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "owner",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"direction",
@@ -1783,59 +1917,11 @@ func MakeConfig() map[string]any {
 										"username",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"users",
-									"{username}",
-									"repos",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "org_id",
-											"orig": "org",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": "all",
-											"kind": "query",
-											"name": "type",
-											"orig": "type",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/orgs/{org}/repos",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"org": "org_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "orgs",
@@ -1847,6 +1933,54 @@ func MakeConfig() map[string]any {
 										"lit": "repos",
 									},
 								},
+								"parts": []any{
+									"orgs",
+									"{org_id}",
+									"repos",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"org": "org_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "org_id",
+											"orig": "org",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "type",
+											"orig": "type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "all",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"org_id",
@@ -1854,15 +1988,6 @@ func MakeConfig() map[string]any {
 										"per_page",
 										"type",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"orgs",
-									"{org_id}",
-									"repos",
 								},
 							},
 						},
@@ -1872,24 +1997,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "owner",
-											"orig": "owner",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "repo",
-											"orig": "repo",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/repos/{owner}/{repo}",
@@ -1904,20 +2011,39 @@ func MakeConfig() map[string]any {
 										"var": "repo",
 									},
 								},
+								"parts": []any{
+									"repos",
+									"{owner}",
+									"{repo}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.owner`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "owner",
+											"orig": "owner",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "repo",
+											"orig": "repo",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"owner",
 										"repo",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.owner`",
-								},
-								"parts": []any{
-									"repos",
-									"{owner}",
-									"{repo}",
 								},
 							},
 						},
@@ -1926,13 +2052,10 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"org",
+							"$.main.kit.entity.org",
 						},
 						[]any{
-							"repo",
-						},
-						[]any{
-							"user",
+							"$.main.kit.entity.user",
 						},
 					},
 				},
@@ -1946,44 +2069,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "desc",
-											"kind": "query",
-											"name": "order",
-											"orig": "order",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "q",
-											"orig": "q",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/search/issues",
@@ -1993,6 +2078,53 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "issues",
+									},
+								},
+								"parts": []any{
+									"search",
+									"issues",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.items`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "order",
+											"orig": "order",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "desc",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "q",
+											"orig": "q",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -2005,54 +2137,8 @@ func MakeConfig() map[string]any {
 										"sort",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.items`",
-								},
-								"parts": []any{
-									"search",
-									"issues",
-								},
 							},
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "desc",
-											"kind": "query",
-											"name": "order",
-											"orig": "order",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 30,
-											"kind": "query",
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "q",
-											"orig": "q",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "sort",
-											"orig": "sort",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/search/repositories",
@@ -2062,6 +2148,53 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "repositories",
+									},
+								},
+								"parts": []any{
+									"search",
+									"repositories",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.items`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "order",
+											"orig": "order",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "desc",
+										},
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "q",
+											"orig": "q",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "sort",
+											"orig": "sort",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -2074,14 +2207,6 @@ func MakeConfig() map[string]any {
 										"sort",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.items`",
-								},
-								"parts": []any{
-									"search",
-									"repositories",
-								},
 							},
 						},
 					},
@@ -2093,89 +2218,108 @@ func MakeConfig() map[string]any {
 			"user": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"format": "uri",
 						"name": "avatar_url",
-						"short": "URL to the user's avatar image",
+						"title": "Avatar Url",
 						"type": "`$STRING`",
+						"short": "URL to the user's avatar image",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "bio",
+						"title": "Bio",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "blog",
+						"title": "Blog",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "company",
+						"title": "Company",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "created_at",
+						"title": "Created At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "email",
 						"name": "email",
+						"title": "Email",
 						"type": "`$STRING`",
+						"format": "email",
 					},
 					map[string]any{
 						"name": "followers",
+						"title": "Followers",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "following",
+						"title": "Following",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "html_url",
+						"title": "Html Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "The user's unique identifier",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "The user's unique identifier",
 					},
 					map[string]any{
 						"name": "location",
+						"title": "Location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "login",
-						"short": "The user's GitHub username",
+						"title": "Login",
 						"type": "`$STRING`",
+						"short": "The user's GitHub username",
 					},
 					map[string]any{
 						"name": "name",
+						"title": "Name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "node_id",
+						"title": "Node Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "public_gists",
+						"title": "Public Gists",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "public_repos",
+						"title": "Public Repos",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "type",
+						"title": "Type",
 						"type": "`$STRING`",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "updated_at",
+						"title": "Updated At",
 						"type": "`$STRING`",
+						"format": "date-time",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "url",
+						"title": "Url",
 						"type": "`$STRING`",
+						"format": "uri",
 					},
 				},
 				"id": map[string]any{
@@ -2189,25 +2333,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "username",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/users/{username}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"username": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "users",
@@ -2216,22 +2344,37 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
+								"parts": []any{
+									"users",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"username": "id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"users",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "username",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/user",
@@ -2240,14 +2383,16 @@ func MakeConfig() map[string]any {
 										"lit": "user",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"user",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"user",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},

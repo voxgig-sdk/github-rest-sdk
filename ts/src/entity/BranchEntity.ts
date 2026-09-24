@@ -19,7 +19,6 @@ import type {
   BranchListMatch,
 } from '../GithubRestTypes'
 
-// TODO: needs Entity superclass
 class BranchEntity extends GithubRestEntityBase<Branch> {
 
   constructor(client: GithubRestSDK, entopts: any) {

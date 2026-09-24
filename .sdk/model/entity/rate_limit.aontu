@@ -1,0 +1,51 @@
+# Entity: rate_limit
+
+main: kit: entity: rate_limit: {
+
+  alias: field: {}
+
+  fields: {
+    rate: {
+      h: "Rate"
+      n: "rate"
+      r: false
+      t: "`$OBJECT`"
+    }
+    resources: {
+      h: "Resources"
+      n: "resources"
+      r: false
+      t: "`$OBJECT`"
+    }
+  }
+
+  name: "rate_limit"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /rate_limit"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/rate_limit"
+          s: [
+            {
+              lit: "rate_limit"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

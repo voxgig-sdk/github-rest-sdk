@@ -1,0 +1,49 @@
+# BasicRepoFlow
+
+main: kit: flow: BasicRepoFlow:
+{
+  entity: "repo",
+  kind: "basic",
+  name: "BasicRepoFlow",
+  step: [
+    {
+      m: {
+        org_id: "org01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "repo_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      i: {
+        ref: "repo_ref01",
+        srcdatavar: "repo_ref01_data",
+        suffix: "_dt0"
+      }
+
+      m: {
+        id: "repo01",
+        owner: "owner01"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-repo_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRepoFlow"
+}

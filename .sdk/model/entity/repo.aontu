@@ -1,0 +1,477 @@
+# Entity: repo
+
+main: kit: entity: repo: {
+
+  alias: field: {}
+
+  alias: {
+    field: {
+      "github-rest_id": "id"
+    }
+  }
+
+  fields: {
+    avatar_url: {
+      fo: "uri"
+      h: "Avatar Url"
+      n: "avatar_url"
+      r: false
+      sh: "URL to the user's avatar image"
+      t: "`$STRING`"
+    }
+    bio: {
+      h: "Bio"
+      n: "bio"
+      r: false
+      t: "`$STRING`"
+    }
+    blog: {
+      h: "Blog"
+      n: "blog"
+      r: false
+      t: "`$STRING`"
+    }
+    company: {
+      h: "Company"
+      n: "company"
+      r: false
+      t: "`$STRING`"
+    }
+    created_at: {
+      fo: "date-time"
+      h: "Created At"
+      n: "created_at"
+      r: false
+      t: "`$STRING`"
+    }
+    default_branch: {
+      h: "Default Branch"
+      n: "default_branch"
+      r: false
+      t: "`$STRING`"
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      t: "`$STRING`"
+    }
+    email: {
+      fo: "email"
+      h: "Email"
+      n: "email"
+      r: false
+      t: "`$STRING`"
+    }
+    followers: {
+      h: "Followers"
+      n: "followers"
+      r: false
+      t: "`$INTEGER`"
+    }
+    following: {
+      h: "Following"
+      n: "following"
+      r: false
+      t: "`$INTEGER`"
+    }
+    fork: {
+      h: "Fork"
+      n: "fork"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    forks_count: {
+      h: "Forks Count"
+      n: "forks_count"
+      r: false
+      t: "`$INTEGER`"
+    }
+    full_name: {
+      h: "Full Name"
+      n: "full_name"
+      r: false
+      sh: "The full name including owner"
+      t: "`$STRING`"
+    }
+    "github-rest_id": {
+      h: "Github Rest Id"
+      n: "github-rest_id"
+      r: false
+      sh: "The user's unique identifier"
+      t: "`$INTEGER`"
+    }
+    html_url: {
+      fo: "uri"
+      h: "Html Url"
+      n: "html_url"
+      r: false
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "The user's unique identifier"
+      t: "`$STRING`"
+    }
+    language: {
+      h: "Language"
+      n: "language"
+      r: false
+      t: "`$STRING`"
+    }
+    location: {
+      h: "Location"
+      n: "location"
+      r: false
+      t: "`$STRING`"
+    }
+    login: {
+      h: "Login"
+      n: "login"
+      r: false
+      sh: "The user's GitHub username"
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      sh: "The name of the repository"
+      t: "`$STRING`"
+    }
+    node_id: {
+      h: "Node Id"
+      n: "node_id"
+      r: false
+      t: "`$STRING`"
+    }
+    open_issues_count: {
+      h: "Open Issues Count"
+      n: "open_issues_count"
+      r: false
+      t: "`$INTEGER`"
+    }
+    owner: {
+      h: "Owner"
+      n: "owner"
+      r: false
+      t: "`$OBJECT`"
+    }
+    private: {
+      h: "Private"
+      n: "private"
+      r: false
+      sh: "Whether the repository is private"
+      t: "`$BOOLEAN`"
+    }
+    public_gists: {
+      h: "Public Gists"
+      n: "public_gists"
+      r: false
+      t: "`$INTEGER`"
+    }
+    public_repos: {
+      h: "Public Repos"
+      n: "public_repos"
+      r: false
+      t: "`$INTEGER`"
+    }
+    pushed_at: {
+      fo: "date-time"
+      h: "Pushed At"
+      n: "pushed_at"
+      r: false
+      t: "`$STRING`"
+    }
+    size: {
+      h: "Size"
+      n: "size"
+      r: false
+      t: "`$INTEGER`"
+    }
+    stargazers_count: {
+      h: "Stargazers Count"
+      n: "stargazers_count"
+      r: false
+      t: "`$INTEGER`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      t: "`$STRING`"
+    }
+    updated_at: {
+      fo: "date-time"
+      h: "Updated At"
+      n: "updated_at"
+      r: false
+      t: "`$STRING`"
+    }
+    url: {
+      fo: "uri"
+      h: "Url"
+      n: "url"
+      r: false
+      t: "`$STRING`"
+    }
+    visibility: {
+      h: "Visibility"
+      n: "visibility"
+      r: false
+      t: "`$STRING`"
+    }
+    watchers_count: {
+      h: "Watchers Count"
+      n: "watchers_count"
+      r: false
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    from: {
+      owner: "owner.login"
+      repo: "name"
+    }
+    name: "id"
+    parts: [
+      "owner"
+      "repo"
+    ]
+    sep: "/"
+  }
+
+  name: "repo"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /users/{username}/repos"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "username"
+                or: "username"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: "asc"
+                k: "query"
+                n: "direction"
+                or: "direction"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 30
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "full_name"
+                k: "query"
+                n: "sort"
+                or: "sort"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "owner"
+                k: "query"
+                n: "type"
+                or: "type"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/users/{username}/repos"
+          q: {
+            exist: [
+              "direction"
+              "page"
+              "per_page"
+              "sort"
+              "type"
+              "username"
+            ]
+          }
+          s: [
+            {
+              lit: "users"
+            }
+            {
+              var: "username"
+            }
+            {
+              lit: "repos"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /orgs/{org}/repos"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "org_id"
+                or: "org"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 30
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "all"
+                k: "query"
+                n: "type"
+                or: "type"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/orgs/{org}/repos"
+          q: {
+            exist: [
+              "org_id"
+              "page"
+              "per_page"
+              "type"
+            ]
+          }
+          r: {
+            param: {
+              org: "org_id"
+            }
+          }
+          s: [
+            {
+              lit: "orgs"
+            }
+            {
+              var: "org_id"
+            }
+            {
+              lit: "repos"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /repos/{owner}/{repo}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "owner"
+                or: "owner"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "repo"
+                or: "repo"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/repos/{owner}/{repo}"
+          q: {
+            exist: [
+              "owner"
+              "repo"
+            ]
+          }
+          s: [
+            {
+              lit: "repos"
+            }
+            {
+              var: "owner"
+            }
+            {
+              var: "repo"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.owner`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.org")]
+    [path("$.main.kit.entity.user")]
+  ]
+
+}

@@ -1,0 +1,139 @@
+# Entity: notification
+
+main: kit: entity: notification: {
+
+  alias: field: {}
+
+  fields: {
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    last_read_at: {
+      fo: "date-time"
+      h: "Last Read At"
+      n: "last_read_at"
+      r: false
+      t: "`$STRING`"
+    }
+    reason: {
+      h: "Reason"
+      n: "reason"
+      r: false
+      t: "`$STRING`"
+    }
+    repository: {
+      h: "Repository"
+      n: "repository"
+      r: false
+      t: "`$OBJECT`"
+    }
+    subject: {
+      h: "Subject"
+      n: "subject"
+      r: false
+      t: "`$OBJECT`"
+    }
+    unread: {
+      h: "Unread"
+      n: "unread"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    updated_at: {
+      fo: "date-time"
+      h: "Updated At"
+      n: "updated_at"
+      r: false
+      t: "`$STRING`"
+    }
+    url: {
+      fo: "uri"
+      h: "Url"
+      n: "url"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "notification"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /notifications"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: false
+                k: "query"
+                n: "all"
+                or: "all"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "page"
+                or: "page"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: false
+                k: "query"
+                n: "participating"
+                or: "participating"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+              {
+                ex: 30
+                k: "query"
+                n: "per_page"
+                or: "per_page"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/notifications"
+          q: {
+            exist: [
+              "all"
+              "page"
+              "participating"
+              "per_page"
+            ]
+          }
+          s: [
+            {
+              lit: "notifications"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
