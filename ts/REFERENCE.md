@@ -828,36 +828,24 @@ const repo = client.Repo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `string` | No | URL to the user's avatar image |
-| `bio` | `string` | No |  |
-| `blog` | `string` | No |  |
-| `company` | `string` | No |  |
 | `created_at` | `string` | No |  |
 | `default_branch` | `string` | No |  |
 | `description` | `string` | No |  |
-| `email` | `string` | No |  |
-| `followers` | `number` | No |  |
-| `following` | `number` | No |  |
 | `fork` | `boolean` | No |  |
 | `forks_count` | `number` | No |  |
 | `full_name` | `string` | No | The full name including owner |
-| `github-rest_id` | `number` | No | The user's unique identifier |
+| `github-rest_id` | `number` | No |  |
 | `html_url` | `string` | No |  |
-| `id` | `string` | No | The user's unique identifier |
+| `id` | `string` | No |  |
 | `language` | `string` | No |  |
-| `location` | `string` | No |  |
-| `login` | `string` | No | The user's GitHub username |
 | `name` | `string` | No | The name of the repository |
 | `node_id` | `string` | No |  |
 | `open_issues_count` | `number` | No |  |
 | `owner` | `Record<string, any>` | No |  |
 | `private` | `boolean` | No | Whether the repository is private |
-| `public_gists` | `number` | No |  |
-| `public_repos` | `number` | No |  |
 | `pushed_at` | `string` | No |  |
 | `size` | `number` | No |  |
 | `stargazers_count` | `number` | No |  |
-| `type` | `string` | No |  |
 | `updated_at` | `string` | No |  |
 | `url` | `string` | No |  |
 | `visibility` | `string` | No |  |

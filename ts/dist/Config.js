@@ -749,7 +749,7 @@ class Config {
                                     },
                                     {
                                         "name": "label",
-                                        "orig": "label",
+                                        "orig": "labels",
                                         "type": "`$STRING`",
                                         "kind": "query"
                                     },
@@ -1647,28 +1647,6 @@ class Config {
         "repo": {
             "fields": [
                 {
-                    "name": "avatar_url",
-                    "title": "Avatar Url",
-                    "type": "`$STRING`",
-                    "short": "URL to the user's avatar image",
-                    "format": "uri"
-                },
-                {
-                    "name": "bio",
-                    "title": "Bio",
-                    "type": "`$STRING`"
-                },
-                {
-                    "name": "blog",
-                    "title": "Blog",
-                    "type": "`$STRING`"
-                },
-                {
-                    "name": "company",
-                    "title": "Company",
-                    "type": "`$STRING`"
-                },
-                {
                     "name": "created_at",
                     "title": "Created At",
                     "type": "`$STRING`",
@@ -1683,22 +1661,6 @@ class Config {
                     "name": "description",
                     "title": "Description",
                     "type": "`$STRING`"
-                },
-                {
-                    "name": "email",
-                    "title": "Email",
-                    "type": "`$STRING`",
-                    "format": "email"
-                },
-                {
-                    "name": "followers",
-                    "title": "Followers",
-                    "type": "`$INTEGER`"
-                },
-                {
-                    "name": "following",
-                    "title": "Following",
-                    "type": "`$INTEGER`"
                 },
                 {
                     "name": "fork",
@@ -1719,8 +1681,7 @@ class Config {
                 {
                     "name": "github-rest_id",
                     "title": "Github Rest Id",
-                    "type": "`$INTEGER`",
-                    "short": "The user's unique identifier"
+                    "type": "`$INTEGER`"
                 },
                 {
                     "name": "html_url",
@@ -1731,24 +1692,12 @@ class Config {
                 {
                     "name": "id",
                     "title": "Id",
-                    "type": "`$STRING`",
-                    "short": "The user's unique identifier"
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "language",
                     "title": "Language",
                     "type": "`$STRING`"
-                },
-                {
-                    "name": "location",
-                    "title": "Location",
-                    "type": "`$STRING`"
-                },
-                {
-                    "name": "login",
-                    "title": "Login",
-                    "type": "`$STRING`",
-                    "short": "The user's GitHub username"
                 },
                 {
                     "name": "name",
@@ -1778,16 +1727,6 @@ class Config {
                     "short": "Whether the repository is private"
                 },
                 {
-                    "name": "public_gists",
-                    "title": "Public Gists",
-                    "type": "`$INTEGER`"
-                },
-                {
-                    "name": "public_repos",
-                    "title": "Public Repos",
-                    "type": "`$INTEGER`"
-                },
-                {
                     "name": "pushed_at",
                     "title": "Pushed At",
                     "type": "`$STRING`",
@@ -1802,11 +1741,6 @@ class Config {
                     "name": "stargazers_count",
                     "title": "Stargazers Count",
                     "type": "`$INTEGER`"
-                },
-                {
-                    "name": "type",
-                    "title": "Type",
-                    "type": "`$STRING`"
                 },
                 {
                     "name": "updated_at",
@@ -2035,7 +1969,7 @@ class Config {
                             "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
-                                "res": "`body.owner`"
+                                "res": "`body`"
                             },
                             "args": {
                                 "params": [

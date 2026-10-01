@@ -95,11 +95,10 @@ SDK operations: `list`, `load`.
 
 Key fields to recognise:
 
-- `avatar_url`: URL to the user&#39;s avatar image
 - `full_name`: The full name including owner
-- `github-rest_id`: The user&#39;s unique identifier
 - `id`: The user&#39;s unique identifier
-- `login`: The user&#39;s GitHub username
+- `name`: The name of the repository
+- `private`: Whether the repository is private
 
 ### Search
 

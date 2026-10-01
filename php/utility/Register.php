@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 GithubRestUtility::setRegistrar(function (GithubRestUtility $u): void {
     $u->clean = [GithubRestClean::class, 'call'];
+    $u->clean_add = [GithubRestClean::class, 'add'];
+    $u->clean_explain = [GithubRestDone::class, 'clean_explain'];
     $u->done = [GithubRestDone::class, 'call'];
     $u->make_error = [GithubRestMakeError::class, 'call'];
     $u->feature_add = [GithubRestFeatureAdd::class, 'call'];

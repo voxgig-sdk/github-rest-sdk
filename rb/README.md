@@ -12,9 +12,18 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`):
+GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or
+from a clone:
 
-- Releases: [https://github.com/voxgig-sdk/github-rest-sdk/releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/github-rest-sdk
+```
+
+Then add it to your `Gemfile` by path, and run `bundle install`:
+
+```ruby
+gem "voxgig-sdk-github-rest-sdk", path: "./github-rest-sdk/rb"
+```
 
 
 ## Tutorial: your first API call
@@ -420,36 +429,24 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` | URL to the user's avatar image |
-| `bio` |  |
-| `blog` |  |
-| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
-| `email` |  |
-| `followers` |  |
-| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` | The full name including owner |
-| `github-rest_id` | The user's unique identifier |
+| `github-rest_id` |  |
 | `html_url` |  |
-| `id` | The user's unique identifier |
+| `id` |  |
 | `language` |  |
-| `location` |  |
-| `login` | The user's GitHub username |
 | `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` | Whether the repository is private |
-| `public_gists` |  |
-| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
-| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -826,36 +823,24 @@ Create an instance: `repo = client.Repo`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `String` | URL to the user's avatar image |
-| `bio` | `String` |  |
-| `blog` | `String` |  |
-| `company` | `String` |  |
 | `created_at` | `String` |  |
 | `default_branch` | `String` |  |
 | `description` | `String` |  |
-| `email` | `String` |  |
-| `followers` | `Integer` |  |
-| `following` | `Integer` |  |
 | `fork` | `Boolean` |  |
 | `forks_count` | `Integer` |  |
 | `full_name` | `String` | The full name including owner |
-| `github-rest_id` | `Integer` | The user's unique identifier |
+| `github-rest_id` | `Integer` |  |
 | `html_url` | `String` |  |
-| `id` | `String` | The user's unique identifier |
+| `id` | `String` |  |
 | `language` | `String` |  |
-| `location` | `String` |  |
-| `login` | `String` | The user's GitHub username |
 | `name` | `String` | The name of the repository |
 | `node_id` | `String` |  |
 | `open_issues_count` | `Integer` |  |
 | `owner` | `Hash` |  |
 | `private` | `Boolean` | Whether the repository is private |
-| `public_gists` | `Integer` |  |
-| `public_repos` | `Integer` |  |
 | `pushed_at` | `String` |  |
 | `size` | `Integer` |  |
 | `stargazers_count` | `Integer` |  |
-| `type` | `String` |  |
 | `updated_at` | `String` |  |
 | `url` | `String` |  |
 | `visibility` | `String` |  |

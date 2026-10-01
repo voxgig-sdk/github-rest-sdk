@@ -729,7 +729,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "label",
-                      ["orig"] = "label",
+                      ["orig"] = "labels",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                     },
@@ -1627,28 +1627,6 @@ local function make_config()
       ["repo"] = {
         ["fields"] = {
           {
-            ["name"] = "avatar_url",
-            ["title"] = "Avatar Url",
-            ["type"] = "`$STRING`",
-            ["short"] = "URL to the user's avatar image",
-            ["format"] = "uri",
-          },
-          {
-            ["name"] = "bio",
-            ["title"] = "Bio",
-            ["type"] = "`$STRING`",
-          },
-          {
-            ["name"] = "blog",
-            ["title"] = "Blog",
-            ["type"] = "`$STRING`",
-          },
-          {
-            ["name"] = "company",
-            ["title"] = "Company",
-            ["type"] = "`$STRING`",
-          },
-          {
             ["name"] = "created_at",
             ["title"] = "Created At",
             ["type"] = "`$STRING`",
@@ -1663,22 +1641,6 @@ local function make_config()
             ["name"] = "description",
             ["title"] = "Description",
             ["type"] = "`$STRING`",
-          },
-          {
-            ["name"] = "email",
-            ["title"] = "Email",
-            ["type"] = "`$STRING`",
-            ["format"] = "email",
-          },
-          {
-            ["name"] = "followers",
-            ["title"] = "Followers",
-            ["type"] = "`$INTEGER`",
-          },
-          {
-            ["name"] = "following",
-            ["title"] = "Following",
-            ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "fork",
@@ -1700,7 +1662,6 @@ local function make_config()
             ["name"] = "github-rest_id",
             ["title"] = "Github Rest Id",
             ["type"] = "`$INTEGER`",
-            ["short"] = "The user's unique identifier",
           },
           {
             ["name"] = "html_url",
@@ -1712,23 +1673,11 @@ local function make_config()
             ["name"] = "id",
             ["title"] = "Id",
             ["type"] = "`$STRING`",
-            ["short"] = "The user's unique identifier",
           },
           {
             ["name"] = "language",
             ["title"] = "Language",
             ["type"] = "`$STRING`",
-          },
-          {
-            ["name"] = "location",
-            ["title"] = "Location",
-            ["type"] = "`$STRING`",
-          },
-          {
-            ["name"] = "login",
-            ["title"] = "Login",
-            ["type"] = "`$STRING`",
-            ["short"] = "The user's GitHub username",
           },
           {
             ["name"] = "name",
@@ -1758,16 +1707,6 @@ local function make_config()
             ["short"] = "Whether the repository is private",
           },
           {
-            ["name"] = "public_gists",
-            ["title"] = "Public Gists",
-            ["type"] = "`$INTEGER`",
-          },
-          {
-            ["name"] = "public_repos",
-            ["title"] = "Public Repos",
-            ["type"] = "`$INTEGER`",
-          },
-          {
             ["name"] = "pushed_at",
             ["title"] = "Pushed At",
             ["type"] = "`$STRING`",
@@ -1782,11 +1721,6 @@ local function make_config()
             ["name"] = "stargazers_count",
             ["title"] = "Stargazers Count",
             ["type"] = "`$INTEGER`",
-          },
-          {
-            ["name"] = "type",
-            ["title"] = "Type",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "updated_at",
@@ -2015,7 +1949,7 @@ local function make_config()
                 ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body.owner`",
+                  ["res"] = "`body`",
                 },
                 ["args"] = {
                   ["params"] = {

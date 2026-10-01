@@ -837,19 +837,13 @@ declare class Config {
                 name: string;
                 title: string;
                 type: string;
-                short: string;
                 format: string;
-            } | {
-                name: string;
-                title: string;
-                type: string;
                 short?: undefined;
-                format?: undefined;
             } | {
                 name: string;
                 title: string;
                 type: string;
-                format: string;
+                format?: undefined;
                 short?: undefined;
             } | {
                 name: string;

@@ -15,9 +15,13 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`):
+release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or from a
+clone, which carries the compiled `dist/`:
 
-- Releases: [https://github.com/voxgig-sdk/github-rest-sdk/releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/github-rest-sdk
+npm install ./github-rest-sdk/ts
+```
 
 
 ## Tutorial: your first API call
@@ -482,36 +486,24 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` | URL to the user's avatar image |
-| `bio` |  |
-| `blog` |  |
-| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
-| `email` |  |
-| `followers` |  |
-| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` | The full name including owner |
-| `github-rest_id` | The user's unique identifier |
+| `github-rest_id` |  |
 | `html_url` |  |
-| `id` | The user's unique identifier |
+| `id` |  |
 | `language` |  |
-| `location` |  |
-| `login` | The user's GitHub username |
 | `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` | Whether the repository is private |
-| `public_gists` |  |
-| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
-| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -878,36 +870,24 @@ Create an instance: `const repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` | URL to the user's avatar image |
-| `bio` | `string` |  |
-| `blog` | `string` |  |
-| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
-| `email` | `string` |  |
-| `followers` | `number` |  |
-| `following` | `number` |  |
 | `fork` | `boolean` |  |
 | `forks_count` | `number` |  |
 | `full_name` | `string` | The full name including owner |
-| `github-rest_id` | `number` | The user's unique identifier |
+| `github-rest_id` | `number` |  |
 | `html_url` | `string` |  |
-| `id` | `string` | The user's unique identifier |
+| `id` | `string` |  |
 | `language` | `string` |  |
-| `location` | `string` |  |
-| `login` | `string` | The user's GitHub username |
 | `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
 | `open_issues_count` | `number` |  |
 | `owner` | `Record<string, any>` |  |
 | `private` | `boolean` | Whether the repository is private |
-| `public_gists` | `number` |  |
-| `public_repos` | `number` |  |
 | `pushed_at` | `string` |  |
 | `size` | `number` |  |
 | `stargazers_count` | `number` |  |
-| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |

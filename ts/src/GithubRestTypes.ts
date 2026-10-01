@@ -258,16 +258,9 @@ export interface RateLimitLoadMatch {
 }
 
 export interface Repo {
-  avatar_url?: string
-  bio?: string
-  blog?: string
-  company?: string
   created_at?: string
   default_branch?: string
   description?: string
-  email?: string
-  followers?: number
-  following?: number
   fork?: boolean
   forks_count?: number
   full_name?: string
@@ -275,19 +268,14 @@ export interface Repo {
   html_url?: string
   id?: string
   language?: string
-  location?: string
-  login?: string
   name?: string
   node_id?: string
   open_issues_count?: number
   owner?: Record<string, any>
   private?: boolean
-  public_gists?: number
-  public_repos?: number
   pushed_at?: string
   size?: number
   stargazers_count?: number
-  type?: string
   updated_at?: string
   url?: string
   visibility?: string

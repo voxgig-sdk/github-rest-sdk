@@ -733,7 +733,7 @@ func MakeConfig() map[string]any {
 										},
 										map[string]any{
 											"name": "label",
-											"orig": "label",
+											"orig": "labels",
 											"type": "`$STRING`",
 											"kind": "query",
 										},
@@ -1631,28 +1631,6 @@ func MakeConfig() map[string]any {
 			"repo": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "avatar_url",
-						"title": "Avatar Url",
-						"type": "`$STRING`",
-						"short": "URL to the user's avatar image",
-						"format": "uri",
-					},
-					map[string]any{
-						"name": "bio",
-						"title": "Bio",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "blog",
-						"title": "Blog",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "company",
-						"title": "Company",
-						"type": "`$STRING`",
-					},
-					map[string]any{
 						"name": "created_at",
 						"title": "Created At",
 						"type": "`$STRING`",
@@ -1667,22 +1645,6 @@ func MakeConfig() map[string]any {
 						"name": "description",
 						"title": "Description",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "email",
-						"title": "Email",
-						"type": "`$STRING`",
-						"format": "email",
-					},
-					map[string]any{
-						"name": "followers",
-						"title": "Followers",
-						"type": "`$INTEGER`",
-					},
-					map[string]any{
-						"name": "following",
-						"title": "Following",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "fork",
@@ -1704,7 +1666,6 @@ func MakeConfig() map[string]any {
 						"name": "github-rest_id",
 						"title": "Github Rest Id",
 						"type": "`$INTEGER`",
-						"short": "The user's unique identifier",
 					},
 					map[string]any{
 						"name": "html_url",
@@ -1716,23 +1677,11 @@ func MakeConfig() map[string]any {
 						"name": "id",
 						"title": "Id",
 						"type": "`$STRING`",
-						"short": "The user's unique identifier",
 					},
 					map[string]any{
 						"name": "language",
 						"title": "Language",
 						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "location",
-						"title": "Location",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"name": "login",
-						"title": "Login",
-						"type": "`$STRING`",
-						"short": "The user's GitHub username",
 					},
 					map[string]any{
 						"name": "name",
@@ -1762,16 +1711,6 @@ func MakeConfig() map[string]any {
 						"short": "Whether the repository is private",
 					},
 					map[string]any{
-						"name": "public_gists",
-						"title": "Public Gists",
-						"type": "`$INTEGER`",
-					},
-					map[string]any{
-						"name": "public_repos",
-						"title": "Public Repos",
-						"type": "`$INTEGER`",
-					},
-					map[string]any{
 						"name": "pushed_at",
 						"title": "Pushed At",
 						"type": "`$STRING`",
@@ -1786,11 +1725,6 @@ func MakeConfig() map[string]any {
 						"name": "stargazers_count",
 						"title": "Stargazers Count",
 						"type": "`$INTEGER`",
-					},
-					map[string]any{
-						"name": "type",
-						"title": "Type",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "updated_at",
@@ -2019,7 +1953,7 @@ func MakeConfig() map[string]any {
 								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.owner`",
+									"res": "`body`",
 								},
 								"args": map[string]any{
 									"params": []any{

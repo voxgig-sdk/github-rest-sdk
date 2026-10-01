@@ -864,18 +864,6 @@ RateLimitLoadMatch = Struct.new(
 
 # Repo entity data model.
 #
-# @!attribute [rw] avatar_url
-#   @return [String, nil]
-#
-# @!attribute [rw] bio
-#   @return [String, nil]
-#
-# @!attribute [rw] blog
-#   @return [String, nil]
-#
-# @!attribute [rw] company
-#   @return [String, nil]
-#
 # @!attribute [rw] created_at
 #   @return [String, nil]
 #
@@ -884,15 +872,6 @@ RateLimitLoadMatch = Struct.new(
 #
 # @!attribute [rw] description
 #   @return [String, nil]
-#
-# @!attribute [rw] email
-#   @return [String, nil]
-#
-# @!attribute [rw] followers
-#   @return [Integer, nil]
-#
-# @!attribute [rw] following
-#   @return [Integer, nil]
 #
 # @!attribute [rw] fork
 #   @return [Boolean, nil]
@@ -915,12 +894,6 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] language
 #   @return [String, nil]
 #
-# @!attribute [rw] location
-#   @return [String, nil]
-#
-# @!attribute [rw] login
-#   @return [String, nil]
-#
 # @!attribute [rw] name
 #   @return [String, nil]
 #
@@ -936,12 +909,6 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] private
 #   @return [Boolean, nil]
 #
-# @!attribute [rw] public_gists
-#   @return [Integer, nil]
-#
-# @!attribute [rw] public_repos
-#   @return [Integer, nil]
-#
 # @!attribute [rw] pushed_at
 #   @return [String, nil]
 #
@@ -950,9 +917,6 @@ RateLimitLoadMatch = Struct.new(
 #
 # @!attribute [rw] stargazers_count
 #   @return [Integer, nil]
-#
-# @!attribute [rw] type
-#   @return [String, nil]
 #
 # @!attribute [rw] updated_at
 #   @return [String, nil]
@@ -966,16 +930,9 @@ RateLimitLoadMatch = Struct.new(
 # @!attribute [rw] watchers_count
 #   @return [Integer, nil]
 Repo = Struct.new(
-  :avatar_url,
-  :bio,
-  :blog,
-  :company,
   :created_at,
   :default_branch,
   :description,
-  :email,
-  :followers,
-  :following,
   :fork,
   :forks_count,
   :full_name,
@@ -983,19 +940,14 @@ Repo = Struct.new(
   :html_url,
   :id,
   :language,
-  :location,
-  :login,
   :name,
   :node_id,
   :open_issues_count,
   :owner,
   :private,
-  :public_gists,
-  :public_repos,
   :pushed_at,
   :size,
   :stargazers_count,
-  :type,
   :updated_at,
   :url,
   :visibility,

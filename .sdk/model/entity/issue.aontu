@@ -228,7 +228,7 @@ main: kit: entity: issue: {
               {
                 k: "query"
                 n: "label"
-                or: "label"
+                or: "labels"
                 r: false
                 t: "`$STRING`"
               }

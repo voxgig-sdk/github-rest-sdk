@@ -296,35 +296,23 @@ class RateLimitLoadMatch(TypedDict, total=False):
 
 
 class Repo(TypedDict, total=False):
-    avatar_url: str
-    bio: str
-    blog: str
-    company: str
     created_at: str
     default_branch: str
     description: str
-    email: str
-    followers: int
-    following: int
     fork: bool
     forks_count: int
     full_name: str
     html_url: str
     id: str
     language: str
-    location: str
-    login: str
     name: str
     node_id: str
     open_issues_count: int
     owner: dict
     private: bool
-    public_gists: int
-    public_repos: int
     pushed_at: str
     size: int
     stargazers_count: int
-    type: str
     updated_at: str
     url: str
     visibility: str

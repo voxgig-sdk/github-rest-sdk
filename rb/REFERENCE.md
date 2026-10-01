@@ -741,36 +741,24 @@ repo = client.Repo
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `avatar_url` | `String` | No | URL to the user's avatar image |
-| `bio` | `String` | No |  |
-| `blog` | `String` | No |  |
-| `company` | `String` | No |  |
 | `created_at` | `String` | No |  |
 | `default_branch` | `String` | No |  |
 | `description` | `String` | No |  |
-| `email` | `String` | No |  |
-| `followers` | `Integer` | No |  |
-| `following` | `Integer` | No |  |
 | `fork` | `Boolean` | No |  |
 | `forks_count` | `Integer` | No |  |
 | `full_name` | `String` | No | The full name including owner |
-| `github-rest_id` | `Integer` | No | The user's unique identifier |
+| `github-rest_id` | `Integer` | No |  |
 | `html_url` | `String` | No |  |
-| `id` | `String` | No | The user's unique identifier |
+| `id` | `String` | No |  |
 | `language` | `String` | No |  |
-| `location` | `String` | No |  |
-| `login` | `String` | No | The user's GitHub username |
 | `name` | `String` | No | The name of the repository |
 | `node_id` | `String` | No |  |
 | `open_issues_count` | `Integer` | No |  |
 | `owner` | `Hash` | No |  |
 | `private` | `Boolean` | No | Whether the repository is private |
-| `public_gists` | `Integer` | No |  |
-| `public_repos` | `Integer` | No |  |
 | `pushed_at` | `String` | No |  |
 | `size` | `Integer` | No |  |
 | `stargazers_count` | `Integer` | No |  |
-| `type` | `String` | No |  |
 | `updated_at` | `String` | No |  |
 | `url` | `String` | No |  |
 | `visibility` | `String` | No |  |

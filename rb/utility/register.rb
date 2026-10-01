@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 GithubRestUtility.registrar = ->(u) {
   u.clean = GithubRestUtilities::Clean
+  u.clean_add = GithubRestUtilities::CleanAdd
+  u.clean_explain = GithubRestUtilities::CleanExplain
   u.done = GithubRestUtilities::Done
   u.make_error = GithubRestUtilities::MakeError
   u.feature_add = GithubRestUtilities::FeatureAdd

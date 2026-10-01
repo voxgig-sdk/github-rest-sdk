@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/github-rest-sdk/releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/github-rest-sdk
+composer config repositories.github-rest-sdk path ./github-rest-sdk/php
+composer require voxgig-sdk/github-rest-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
@@ -434,36 +439,24 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` | URL to the user's avatar image |
-| `bio` |  |
-| `blog` |  |
-| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
-| `email` |  |
-| `followers` |  |
-| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` | The full name including owner |
-| `github-rest_id` | The user's unique identifier |
+| `github-rest_id` |  |
 | `html_url` |  |
-| `id` | The user's unique identifier |
+| `id` |  |
 | `language` |  |
-| `location` |  |
-| `login` | The user's GitHub username |
 | `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` | Whether the repository is private |
-| `public_gists` |  |
-| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
-| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -840,36 +833,24 @@ Create an instance: `$repo = $client->Repo();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `string` | URL to the user's avatar image |
-| `bio` | `string` |  |
-| `blog` | `string` |  |
-| `company` | `string` |  |
 | `created_at` | `string` |  |
 | `default_branch` | `string` |  |
 | `description` | `string` |  |
-| `email` | `string` |  |
-| `followers` | `int` |  |
-| `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
 | `full_name` | `string` | The full name including owner |
-| `github-rest_id` | `int` | The user's unique identifier |
+| `github-rest_id` | `int` |  |
 | `html_url` | `string` |  |
-| `id` | `string` | The user's unique identifier |
+| `id` | `string` |  |
 | `language` | `string` |  |
-| `location` | `string` |  |
-| `login` | `string` | The user's GitHub username |
 | `name` | `string` | The name of the repository |
 | `node_id` | `string` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `array` |  |
 | `private` | `bool` | Whether the repository is private |
-| `public_gists` | `int` |  |
-| `public_repos` | `int` |  |
 | `pushed_at` | `string` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
-| `type` | `string` |  |
 | `updated_at` | `string` |  |
 | `url` | `string` |  |
 | `visibility` | `string` |  |

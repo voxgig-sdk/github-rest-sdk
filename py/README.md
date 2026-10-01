@@ -426,36 +426,24 @@ API path: `/rate_limit`
 
 | Field | Description |
 | --- | --- |
-| `avatar_url` | URL to the user's avatar image |
-| `bio` |  |
-| `blog` |  |
-| `company` |  |
 | `created_at` |  |
 | `default_branch` |  |
 | `description` |  |
-| `email` |  |
-| `followers` |  |
-| `following` |  |
 | `fork` |  |
 | `forks_count` |  |
 | `full_name` | The full name including owner |
-| `github-rest_id` | The user's unique identifier |
+| `github-rest_id` |  |
 | `html_url` |  |
-| `id` | The user's unique identifier |
+| `id` |  |
 | `language` |  |
-| `location` |  |
-| `login` | The user's GitHub username |
 | `name` | The name of the repository |
 | `node_id` |  |
 | `open_issues_count` |  |
 | `owner` |  |
 | `private` | Whether the repository is private |
-| `public_gists` |  |
-| `public_repos` |  |
 | `pushed_at` |  |
 | `size` |  |
 | `stargazers_count` |  |
-| `type` |  |
 | `updated_at` |  |
 | `url` |  |
 | `visibility` |  |
@@ -822,36 +810,24 @@ Create an instance: `repo = client.Repo()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `avatar_url` | `str` | URL to the user's avatar image |
-| `bio` | `str` |  |
-| `blog` | `str` |  |
-| `company` | `str` |  |
 | `created_at` | `str` |  |
 | `default_branch` | `str` |  |
 | `description` | `str` |  |
-| `email` | `str` |  |
-| `followers` | `int` |  |
-| `following` | `int` |  |
 | `fork` | `bool` |  |
 | `forks_count` | `int` |  |
 | `full_name` | `str` | The full name including owner |
-| `github-rest_id` | `int` | The user's unique identifier |
+| `github-rest_id` | `int` |  |
 | `html_url` | `str` |  |
-| `id` | `str` | The user's unique identifier |
+| `id` | `str` |  |
 | `language` | `str` |  |
-| `location` | `str` |  |
-| `login` | `str` | The user's GitHub username |
 | `name` | `str` | The name of the repository |
 | `node_id` | `str` |  |
 | `open_issues_count` | `int` |  |
 | `owner` | `dict` |  |
 | `private` | `bool` | Whether the repository is private |
-| `public_gists` | `int` |  |
-| `public_repos` | `int` |  |
 | `pushed_at` | `str` |  |
 | `size` | `int` |  |
 | `stargazers_count` | `int` |  |
-| `type` | `str` |  |
 | `updated_at` | `str` |  |
 | `url` | `str` |  |
 | `visibility` | `str` |  |

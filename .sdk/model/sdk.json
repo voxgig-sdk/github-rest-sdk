@@ -826,7 +826,7 @@
                         "a": true,
                         "k": "query",
                         "n": "label",
-                        "or": "label",
+                        "or": "labels",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -1898,36 +1898,6 @@
             }
           },
           "fields": {
-            "avatar_url": {
-              "a": true,
-              "fo": "uri",
-              "h": "Avatar Url",
-              "n": "avatar_url",
-              "r": false,
-              "sh": "URL to the user's avatar image",
-              "t": "`$STRING`"
-            },
-            "bio": {
-              "a": true,
-              "h": "Bio",
-              "n": "bio",
-              "r": false,
-              "t": "`$STRING`"
-            },
-            "blog": {
-              "a": true,
-              "h": "Blog",
-              "n": "blog",
-              "r": false,
-              "t": "`$STRING`"
-            },
-            "company": {
-              "a": true,
-              "h": "Company",
-              "n": "company",
-              "r": false,
-              "t": "`$STRING`"
-            },
             "created_at": {
               "a": true,
               "fo": "date-time",
@@ -1949,28 +1919,6 @@
               "n": "description",
               "r": false,
               "t": "`$STRING`"
-            },
-            "email": {
-              "a": true,
-              "fo": "email",
-              "h": "Email",
-              "n": "email",
-              "r": false,
-              "t": "`$STRING`"
-            },
-            "followers": {
-              "a": true,
-              "h": "Followers",
-              "n": "followers",
-              "r": false,
-              "t": "`$INTEGER`"
-            },
-            "following": {
-              "a": true,
-              "h": "Following",
-              "n": "following",
-              "r": false,
-              "t": "`$INTEGER`"
             },
             "fork": {
               "a": true,
@@ -1999,7 +1947,6 @@
               "h": "Github Rest Id",
               "n": "github-rest_id",
               "r": false,
-              "sh": "The user's unique identifier",
               "t": "`$INTEGER`"
             },
             "html_url": {
@@ -2015,7 +1962,6 @@
               "h": "Id",
               "n": "id",
               "r": false,
-              "sh": "The user's unique identifier",
               "t": "`$STRING`"
             },
             "language": {
@@ -2023,21 +1969,6 @@
               "h": "Language",
               "n": "language",
               "r": false,
-              "t": "`$STRING`"
-            },
-            "location": {
-              "a": true,
-              "h": "Location",
-              "n": "location",
-              "r": false,
-              "t": "`$STRING`"
-            },
-            "login": {
-              "a": true,
-              "h": "Login",
-              "n": "login",
-              "r": false,
-              "sh": "The user's GitHub username",
               "t": "`$STRING`"
             },
             "name": {
@@ -2077,20 +2008,6 @@
               "sh": "Whether the repository is private",
               "t": "`$BOOLEAN`"
             },
-            "public_gists": {
-              "a": true,
-              "h": "Public Gists",
-              "n": "public_gists",
-              "r": false,
-              "t": "`$INTEGER`"
-            },
-            "public_repos": {
-              "a": true,
-              "h": "Public Repos",
-              "n": "public_repos",
-              "r": false,
-              "t": "`$INTEGER`"
-            },
             "pushed_at": {
               "a": true,
               "fo": "date-time",
@@ -2112,13 +2029,6 @@
               "n": "stargazers_count",
               "r": false,
               "t": "`$INTEGER`"
-            },
-            "type": {
-              "a": true,
-              "h": "Type",
-              "n": "type",
-              "r": false,
-              "t": "`$STRING`"
             },
             "updated_at": {
               "a": true,
@@ -2402,7 +2312,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.owner`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -3740,7 +3650,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {

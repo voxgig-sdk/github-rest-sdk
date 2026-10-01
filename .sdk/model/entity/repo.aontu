@@ -11,32 +11,6 @@ main: kit: entity: repo: {
   }
 
   fields: {
-    avatar_url: {
-      fo: "uri"
-      h: "Avatar Url"
-      n: "avatar_url"
-      r: false
-      sh: "URL to the user's avatar image"
-      t: "`$STRING`"
-    }
-    bio: {
-      h: "Bio"
-      n: "bio"
-      r: false
-      t: "`$STRING`"
-    }
-    blog: {
-      h: "Blog"
-      n: "blog"
-      r: false
-      t: "`$STRING`"
-    }
-    company: {
-      h: "Company"
-      n: "company"
-      r: false
-      t: "`$STRING`"
-    }
     created_at: {
       fo: "date-time"
       h: "Created At"
@@ -55,25 +29,6 @@ main: kit: entity: repo: {
       n: "description"
       r: false
       t: "`$STRING`"
-    }
-    email: {
-      fo: "email"
-      h: "Email"
-      n: "email"
-      r: false
-      t: "`$STRING`"
-    }
-    followers: {
-      h: "Followers"
-      n: "followers"
-      r: false
-      t: "`$INTEGER`"
-    }
-    following: {
-      h: "Following"
-      n: "following"
-      r: false
-      t: "`$INTEGER`"
     }
     fork: {
       h: "Fork"
@@ -98,7 +53,6 @@ main: kit: entity: repo: {
       h: "Github Rest Id"
       n: "github-rest_id"
       r: false
-      sh: "The user's unique identifier"
       t: "`$INTEGER`"
     }
     html_url: {
@@ -112,26 +66,12 @@ main: kit: entity: repo: {
       h: "Id"
       n: "id"
       r: false
-      sh: "The user's unique identifier"
       t: "`$STRING`"
     }
     language: {
       h: "Language"
       n: "language"
       r: false
-      t: "`$STRING`"
-    }
-    location: {
-      h: "Location"
-      n: "location"
-      r: false
-      t: "`$STRING`"
-    }
-    login: {
-      h: "Login"
-      n: "login"
-      r: false
-      sh: "The user's GitHub username"
       t: "`$STRING`"
     }
     name: {
@@ -166,18 +106,6 @@ main: kit: entity: repo: {
       sh: "Whether the repository is private"
       t: "`$BOOLEAN`"
     }
-    public_gists: {
-      h: "Public Gists"
-      n: "public_gists"
-      r: false
-      t: "`$INTEGER`"
-    }
-    public_repos: {
-      h: "Public Repos"
-      n: "public_repos"
-      r: false
-      t: "`$INTEGER`"
-    }
     pushed_at: {
       fo: "date-time"
       h: "Pushed At"
@@ -196,12 +124,6 @@ main: kit: entity: repo: {
       n: "stargazers_count"
       r: false
       t: "`$INTEGER`"
-    }
-    type: {
-      h: "Type"
-      n: "type"
-      r: false
-      t: "`$STRING`"
     }
     updated_at: {
       fo: "date-time"
@@ -461,7 +383,7 @@ main: kit: entity: repo: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.owner`"
+            res: "`body`"
           }
         }
       ]
