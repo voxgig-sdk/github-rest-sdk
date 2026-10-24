@@ -178,12 +178,14 @@
                   "q": {
                     "exist": [
                       "owner",
-                      "page",
-                      "per_page",
                       "repo"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -347,14 +349,14 @@
                   "q": {
                     "exist": [
                       "owner",
-                      "page",
-                      "path",
-                      "per_page",
-                      "repo",
-                      "sha"
+                      "repo"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -487,6 +489,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "description",
+                    "files",
+                    "public"
+                  ],
                   "co": {
                     "id": "POST /gists",
                     "source": "openapi3",
@@ -498,6 +505,10 @@
                   "o": "/gists",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "gists"
@@ -546,13 +557,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/gists",
-                  "q": {
-                    "exist": [
-                      "page",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "gists"
@@ -726,6 +736,13 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "assignees",
+                    "body",
+                    "labels",
+                    "milestone",
+                    "title"
+                  ],
                   "co": {
                     "id": "POST /repos/{owner}/{repo}/issues",
                     "source": "openapi3",
@@ -761,6 +778,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -873,17 +894,15 @@
                   "o": "/repos/{owner}/{repo}/issues",
                   "q": {
                     "exist": [
-                      "direction",
-                      "label",
                       "owner",
-                      "page",
-                      "per_page",
-                      "repo",
-                      "sort",
-                      "state"
+                      "repo"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -959,6 +978,10 @@
                       "issue_number": "id"
                     }
                   },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -989,6 +1012,13 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "assignees",
+                    "body",
+                    "labels",
+                    "state",
+                    "title"
+                  ],
                   "co": {
                     "id": "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
                     "source": "openapi3",
@@ -1036,6 +1066,10 @@
                     "param": {
                       "issue_number": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -1196,15 +1230,12 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/notifications",
-                  "q": {
-                    "exist": [
-                      "all",
-                      "page",
-                      "participating",
-                      "per_page"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "notifications"
@@ -1396,6 +1427,10 @@
                       "org": "id"
                     }
                   },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "orgs"
@@ -1576,6 +1611,13 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "base",
+                    "body",
+                    "draft",
+                    "head",
+                    "title"
+                  ],
                   "co": {
                     "id": "POST /repos/{owner}/{repo}/pulls",
                     "source": "openapi3",
@@ -1611,6 +1653,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -1715,16 +1761,15 @@
                   "o": "/repos/{owner}/{repo}/pulls",
                   "q": {
                     "exist": [
-                      "direction",
                       "owner",
-                      "page",
-                      "per_page",
-                      "repo",
-                      "sort",
-                      "state"
+                      "repo"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -1800,6 +1845,10 @@
                       "pull_number": "id"
                     }
                   },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -1873,6 +1922,10 @@
                   "o": "/rate_limit",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "rate_limit"
@@ -2083,6 +2136,87 @@
                 {
                   "a": true,
                   "co": {
+                    "id": "GET /orgs/{org}/repos",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "org_id",
+                        "or": "org",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ],
+                    "query": [
+                      {
+                        "a": true,
+                        "ex": 1,
+                        "k": "query",
+                        "n": "page",
+                        "or": "page",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 30,
+                        "k": "query",
+                        "n": "per_page",
+                        "or": "per_page",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "all",
+                        "k": "query",
+                        "n": "type",
+                        "or": "type",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/orgs/{org}/repos",
+                  "q": {
+                    "exist": [
+                      "org_id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "org": "org_id"
+                    }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "orgs"
+                    },
+                    {
+                      "var": "org_id"
+                    },
+                    {
+                      "lit": "repos"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
                     "id": "GET /users/{username}/repos",
                     "source": "openapi3",
                     "version": 2
@@ -2151,101 +2285,20 @@
                   "o": "/users/{username}/repos",
                   "q": {
                     "exist": [
-                      "direction",
-                      "page",
-                      "per_page",
-                      "sort",
-                      "type",
                       "username"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "users"
                     },
                     {
                       "var": "username"
-                    },
-                    {
-                      "lit": "repos"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                },
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /orgs/{org}/repos",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "org_id",
-                        "or": "org",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ],
-                    "query": [
-                      {
-                        "a": true,
-                        "ex": 1,
-                        "k": "query",
-                        "n": "page",
-                        "or": "page",
-                        "r": false,
-                        "t": "`$INTEGER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": 30,
-                        "k": "query",
-                        "n": "per_page",
-                        "or": "per_page",
-                        "r": false,
-                        "t": "`$INTEGER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": "all",
-                        "k": "query",
-                        "n": "type",
-                        "or": "type",
-                        "r": false,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/orgs/{org}/repos",
-                  "q": {
-                    "exist": [
-                      "org_id",
-                      "page",
-                      "per_page",
-                      "type"
-                    ]
-                  },
-                  "r": {
-                    "param": {
-                      "org": "org_id"
-                    }
-                  },
-                  "s": [
-                    {
-                      "lit": "orgs"
-                    },
-                    {
-                      "var": "org_id"
                     },
                     {
                       "lit": "repos"
@@ -2299,6 +2352,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "repos"
@@ -2401,14 +2458,14 @@
                   "q": {
                     "$action": "issue",
                     "exist": [
-                      "order",
-                      "page",
-                      "per_page",
-                      "q",
-                      "sort"
+                      "q"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "search"
@@ -2482,14 +2539,14 @@
                   "q": {
                     "$action": "repository",
                     "exist": [
-                      "order",
-                      "page",
-                      "per_page",
-                      "q",
-                      "sort"
+                      "q"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "search"
@@ -2701,6 +2758,10 @@
                       "username": "id"
                     }
                   },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "users"
@@ -2727,6 +2788,10 @@
                   "o": "/user",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "user"
@@ -3067,6 +3132,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -3510,7 +3576,7 @@
               "d": {},
               "i": {},
               "m": {
-                "org_id": "org01"
+                "username": "username01"
               },
               "o": "list",
               "s": [],
@@ -3617,6 +3683,26 @@
         },
         "meta_source": "https://www.freepublicapis.com",
         "security": {
+          "alternatives": [
+            [
+              {
+                "in": "header",
+                "name": "Authorization",
+                "prefix": "Basic",
+                "scheme": "BasicAuth",
+                "type": "http"
+              }
+            ],
+            [
+              {
+                "in": "header",
+                "name": "Authorization",
+                "prefix": "Bearer",
+                "scheme": "OAuth2",
+                "type": "oauth2"
+              }
+            ]
+          ],
           "in": "header",
           "name": "Authorization",
           "prefix": "Bearer",
@@ -3639,7 +3725,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -3692,6 +3778,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -3922,7 +4013,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -4299,6 +4393,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

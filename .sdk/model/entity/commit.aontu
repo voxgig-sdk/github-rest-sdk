@@ -117,12 +117,12 @@ main: kit: entity: commit: {
           q: {
             exist: [
               "owner"
-              "page"
-              "path"
-              "per_page"
               "repo"
-              "sha"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

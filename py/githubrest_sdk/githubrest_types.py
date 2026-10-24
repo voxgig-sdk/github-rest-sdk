@@ -80,15 +80,8 @@ class GistCreateDataRequired(TypedDict):
 
 
 class GistCreateData(GistCreateDataRequired, total=False):
-    created_at: str
     description: str
-    html_url: str
-    id: str
-    node_id: str
-    owner: dict
     public: bool
-    updated_at: str
-    url: str
 
 
 class Issue(TypedDict, total=False):
@@ -134,26 +127,14 @@ class IssueListMatch(IssueListMatchRequired, total=False):
 class IssueCreateDataRequired(TypedDict):
     owner: str
     repo: str
+    title: str
 
 
 class IssueCreateData(IssueCreateDataRequired, total=False):
-    assignee: Any
     assignees: list
     body: str
-    closed_at: str
-    comments: int
-    created_at: str
-    html_url: str
-    id: int
     labels: list
     milestone: dict
-    node_id: str
-    number: int
-    state: str
-    title: str
-    updated_at: str
-    url: str
-    user: dict
 
 
 class IssueUpdateDataRequired(TypedDict):
@@ -163,22 +144,11 @@ class IssueUpdateDataRequired(TypedDict):
 
 
 class IssueUpdateData(IssueUpdateDataRequired, total=False):
-    assignee: Any
     assignees: list
     body: str
-    closed_at: str
-    comments: int
-    created_at: str
-    html_url: str
     labels: list
-    milestone: dict
-    node_id: str
-    number: int
     state: str
     title: str
-    updated_at: str
-    url: str
-    user: dict
 
 
 class Notification(TypedDict, total=False):
@@ -264,25 +234,14 @@ class PullListMatch(PullListMatchRequired, total=False):
 class PullCreateDataRequired(TypedDict):
     owner: str
     repo: str
+    base: dict
+    head: dict
+    title: str
 
 
 class PullCreateData(PullCreateDataRequired, total=False):
-    base: dict
     body: str
-    closed_at: str
-    created_at: str
     draft: bool
-    head: dict
-    html_url: str
-    id: int
-    merged_at: str
-    node_id: str
-    number: int
-    state: str
-    title: str
-    updated_at: str
-    url: str
-    user: dict
 
 
 class RateLimit(TypedDict, total=False):
@@ -295,28 +254,30 @@ class RateLimitLoadMatch(TypedDict, total=False):
     resources: dict
 
 
-class Repo(TypedDict, total=False):
-    created_at: str
-    default_branch: str
-    description: str
-    fork: bool
-    forks_count: int
-    full_name: str
-    html_url: str
-    id: str
-    language: str
-    name: str
-    node_id: str
-    open_issues_count: int
-    owner: dict
-    private: bool
-    pushed_at: str
-    size: int
-    stargazers_count: int
-    updated_at: str
-    url: str
-    visibility: str
-    watchers_count: int
+Repo = TypedDict('Repo', {
+    "created_at": str,
+    "default_branch": str,
+    "description": str,
+    "fork": bool,
+    "forks_count": int,
+    "full_name": str,
+    "github-rest_id": int,
+    "html_url": str,
+    "id": str,
+    "language": str,
+    "name": str,
+    "node_id": str,
+    "open_issues_count": int,
+    "owner": dict,
+    "private": bool,
+    "pushed_at": str,
+    "size": int,
+    "stargazers_count": int,
+    "updated_at": str,
+    "url": str,
+    "visibility": str,
+    "watchers_count": int,
+}, total=False)
 
 
 class RepoLoadMatch(TypedDict):
@@ -325,14 +286,12 @@ class RepoLoadMatch(TypedDict):
 
 
 class RepoListMatchRequired(TypedDict):
-    username: str
+    org_id: str
 
 
 class RepoListMatch(RepoListMatchRequired, total=False):
-    direction: str
     page: int
     per_page: int
-    sort: str
     type: str
 
 

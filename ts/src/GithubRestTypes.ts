@@ -56,16 +56,9 @@ export interface GistListMatch {
 }
 
 export interface GistCreateData {
-  created_at?: string
   description?: string
   files: Record<string, any>
-  html_url?: string
-  id?: string
-  node_id?: string
-  owner?: Record<string, any>
   public?: boolean
-  updated_at?: string
-  url?: string
 }
 
 export interface Issue {
@@ -108,45 +101,22 @@ export interface IssueListMatch {
 export interface IssueCreateData {
   owner: string
   repo: string
-  assignee?: any
   assignees?: any[]
   body?: string
-  closed_at?: string
-  comments?: number
-  created_at?: string
-  html_url?: string
-  id?: number
   labels?: any[]
   milestone?: Record<string, any>
-  node_id?: string
-  number?: number
-  state?: string
-  title?: string
-  updated_at?: string
-  url?: string
-  user?: Record<string, any>
+  title: string
 }
 
 export interface IssueUpdateData {
   id: number
   owner: string
   repo: string
-  assignee?: any
   assignees?: any[]
   body?: string
-  closed_at?: string
-  comments?: number
-  created_at?: string
-  html_url?: string
   labels?: any[]
-  milestone?: Record<string, any>
-  node_id?: string
-  number?: number
   state?: string
   title?: string
-  updated_at?: string
-  url?: string
-  user?: Record<string, any>
 }
 
 export interface Notification {
@@ -229,22 +199,11 @@ export interface PullListMatch {
 export interface PullCreateData {
   owner: string
   repo: string
-  base?: Record<string, any>
+  base: Record<string, any>
   body?: string
-  closed_at?: string
-  created_at?: string
   draft?: boolean
-  head?: Record<string, any>
-  html_url?: string
-  id?: number
-  merged_at?: string
-  node_id?: string
-  number?: number
-  state?: string
-  title?: string
-  updated_at?: string
-  url?: string
-  user?: Record<string, any>
+  head: Record<string, any>
+  title: string
 }
 
 export interface RateLimit {
@@ -288,11 +247,9 @@ export interface RepoLoadMatch {
 }
 
 export interface RepoListMatch {
-  username: string
-  direction?: string
+  org_id: string
   page?: number
   per_page?: number
-  sort?: string
   type?: string
 }
 

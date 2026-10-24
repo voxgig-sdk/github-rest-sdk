@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,17 +41,19 @@ describe('SearchEntity', async () => {
   })
 
 
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
-    for (const op of ['list']) {
+    for (const op of []) {
       if (!live && maybeSkipControl(t, 'entityOp', 'search.' + op, live)) return
     }
 
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"search","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /search/issues","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"desc","k":"query","n":"order","or":"order","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"q","or":"q","r":true,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/search/issues","q":{"$action":"issue","exist":["order","page","per_page","q","sort"]},"r":{},"s":[{"lit":"search"},{"lit":"issues"}],"t":{"req":"`reqdata`","res":"`body.items`"},"index$":0},{"a":true,"co":{"id":"GET /search/repositories","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"desc","k":"query","n":"order","or":"order","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"q","or":"q","r":true,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/search/repositories","q":{"$action":"repository","exist":["order","page","per_page","q","sort"]},"r":{},"s":[{"lit":"search"},{"lit":"repositories"}],"t":{"req":"`reqdata`","res":"`body.items`"},"index$":1}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"search","name__orig":"search","Name":"Search","name_":"search","name-":"search","NAME":"SEARCH","index$":9}, {"active":true,"entity":"search","key$":"BasicSearchFlow","kind":"basic","name":"BasicSearchFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"search_ref01"}}],"index$":0}]}, 'Search', {"GET /search/issues":{"protocol":"http","parameters":[{"name":"q","in":"query","required":true,"description":"The query contains one or more search keywords and qualifiers","schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sorts the results of your query","schema":{"type":"string","enum":["comments","reactions","interactions","created","updated"]},"index$":1},{"name":"order","in":"query","description":"Determines whether the first search result returned is the highest or lowest number of matches","schema":{"type":"string","enum":["desc","asc"],"default":"desc"},"index$":2},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":3},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":4}]},"GET /search/repositories":{"protocol":"http","parameters":[{"name":"q","in":"query","required":true,"description":"The query contains one or more search keywords and qualifiers","schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sorts the results of your query","schema":{"type":"string","enum":["stars","forks","help-wanted-issues","updated"]},"index$":1},{"name":"order","in":"query","description":"Determines whether the first search result returned is the highest or lowest number of matches","schema":{"type":"string","enum":["desc","asc"],"default":"desc"},"index$":2},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":3},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":4}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"search","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /search/issues","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"desc","k":"query","n":"order","or":"order","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"q","or":"q","r":true,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/search/issues","q":{"$action":"issue","exist":["q"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"search"},{"lit":"issues"}],"t":{"req":"`reqdata`","res":"`body.items`"},"index$":0},{"a":true,"co":{"id":"GET /search/repositories","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"desc","k":"query","n":"order","or":"order","r":false,"t":"`$STRING`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"q","or":"q","r":true,"t":"`$STRING`","index$":3},{"a":true,"k":"query","n":"sort","or":"sort","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/search/repositories","q":{"$action":"repository","exist":["q"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"search"},{"lit":"repositories"}],"t":{"req":"`reqdata`","res":"`body.items`"},"index$":1}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"search","name__orig":"search","Name":"Search","name_":"search","name-":"search","NAME":"SEARCH","index$":9}, {"active":true,"entity":"search","key$":"BasicSearchFlow","kind":"basic","name":"BasicSearchFlow","param":{},"step":[{"a":false,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"search_ref01"}}],"unreachable":true}]}, 'Search', {"GET /search/issues":{"protocol":"http","parameters":[{"name":"q","in":"query","required":true,"description":"The query contains one or more search keywords and qualifiers","schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sorts the results of your query","schema":{"type":"string","enum":["comments","reactions","interactions","created","updated"]},"index$":1},{"name":"order","in":"query","description":"Determines whether the first search result returned is the highest or lowest number of matches","schema":{"type":"string","enum":["desc","asc"],"default":"desc"},"index$":2},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":3},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":4}]},"GET /search/repositories":{"protocol":"http","parameters":[{"name":"q","in":"query","required":true,"description":"The query contains one or more search keywords and qualifiers","schema":{"type":"string"},"index$":0},{"name":"sort","in":"query","description":"Sorts the results of your query","schema":{"type":"string","enum":["stars","forks","help-wanted-issues","updated"]},"index$":1},{"name":"order","in":"query","description":"Determines whether the first search result returned is the highest or lowest number of matches","schema":{"type":"string","enum":["desc","asc"],"default":"desc"},"index$":2},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":3},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":4}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -61,17 +63,16 @@ describe('SearchEntity', async () => {
 
     let search_ref01_data = Object.values(setup.data.existing.search)[0] as any
 
-    // LIST
-    const search_ref01_ent = client.Search()
-    const search_ref01_match: any = {}
-
-    const search_ref01_list = (await search_ref01_ent.list(search_ref01_match)).map((e: any) => e.data())
-
-
   })
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

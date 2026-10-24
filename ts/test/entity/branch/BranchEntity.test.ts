@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('BranchEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GithubRestSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Branch().list({"owner":1,"repo":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
@@ -51,7 +63,7 @@ describe('BranchEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"commit":{"a":true,"h":"Commit","n":"commit","r":false,"t":"`$OBJECT`","key$":"commit","index$":0},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":1},"protected":{"a":true,"h":"Protected","n":"protected","r":false,"t":"`$BOOLEAN`","key$":"protected","index$":2}},"name":"branch","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /repos/{owner}/{repo}/branches","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"owner","or":"owner","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"repo","or":"repo","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":1}]},"k":"http","m":"GET","o":"/repos/{owner}/{repo}/branches","q":{"exist":["owner","page","per_page","repo"]},"r":{},"s":[{"lit":"repos"},{"var":"owner"},{"var":"repo"},{"lit":"branches"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.repo"]]},"key$":"branch","name__orig":"branch","Name":"Branch","name_":"branch","name-":"branch","NAME":"BRANCH","index$":0}, {"active":true,"entity":"branch","key$":"BasicBranchFlow","kind":"basic","name":"BasicBranchFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"owner":"owner01","repo":"repo01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"branch_ref01"}}],"index$":0}]}, 'Branch', {"GET /repos/{owner}/{repo}/branches":{"protocol":"http","parameters":[{"name":"owner","in":"path","required":true,"description":"The account owner of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/owner","index$":0},{"name":"repo","in":"path","required":true,"description":"The name of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/repo","index$":1},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":2},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":3}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"commit":{"a":true,"h":"Commit","n":"commit","r":false,"t":"`$OBJECT`","key$":"commit","index$":0},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":1},"protected":{"a":true,"h":"Protected","n":"protected","r":false,"t":"`$BOOLEAN`","key$":"protected","index$":2}},"name":"branch","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /repos/{owner}/{repo}/branches","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"owner","or":"owner","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"repo","or":"repo","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":1}]},"k":"http","m":"GET","o":"/repos/{owner}/{repo}/branches","q":{"exist":["owner","repo"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"repos"},{"var":"owner"},{"var":"repo"},{"lit":"branches"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.repo"]]},"key$":"branch","name__orig":"branch","Name":"Branch","name_":"branch","name-":"branch","NAME":"BRANCH","index$":0}, {"active":true,"entity":"branch","key$":"BasicBranchFlow","kind":"basic","name":"BasicBranchFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"owner":"owner01","repo":"repo01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"branch_ref01"}}],"index$":0}]}, 'Branch', {"GET /repos/{owner}/{repo}/branches":{"protocol":"http","parameters":[{"name":"owner","in":"path","required":true,"description":"The account owner of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/owner","index$":0},{"name":"repo","in":"path","required":true,"description":"The name of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/repo","index$":1},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":2},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":3}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -74,6 +86,12 @@ describe('BranchEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

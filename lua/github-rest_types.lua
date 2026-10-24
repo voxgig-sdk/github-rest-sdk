@@ -51,16 +51,9 @@
 ---@field per_page? number
 
 ---@class GistCreateData
----@field created_at? string
 ---@field description? string
 ---@field files table
----@field html_url? string
----@field id? string
----@field node_id? string
----@field owner? table
 ---@field public? boolean
----@field updated_at? string
----@field url? string
 
 ---@class Issue
 ---@field assignee? any
@@ -99,44 +92,21 @@
 ---@class IssueCreateData
 ---@field owner string
 ---@field repo string
----@field assignee? any
 ---@field assignees? table
 ---@field body? string
----@field closed_at? string
----@field comments? number
----@field created_at? string
----@field html_url? string
----@field id? number
 ---@field labels? table
 ---@field milestone? table
----@field node_id? string
----@field number? number
----@field state? string
----@field title? string
----@field updated_at? string
----@field url? string
----@field user? table
+---@field title string
 
 ---@class IssueUpdateData
 ---@field id number
 ---@field owner string
 ---@field repo string
----@field assignee? any
 ---@field assignees? table
 ---@field body? string
----@field closed_at? string
----@field comments? number
----@field created_at? string
----@field html_url? string
 ---@field labels? table
----@field milestone? table
----@field node_id? string
----@field number? number
 ---@field state? string
 ---@field title? string
----@field updated_at? string
----@field url? string
----@field user? table
 
 ---@class Notification
 ---@field id? string
@@ -211,22 +181,11 @@
 ---@class PullCreateData
 ---@field owner string
 ---@field repo string
----@field base? table
+---@field base table
 ---@field body? string
----@field closed_at? string
----@field created_at? string
 ---@field draft? boolean
----@field head? table
----@field html_url? string
----@field id? number
----@field merged_at? string
----@field node_id? string
----@field number? number
----@field state? string
----@field title? string
----@field updated_at? string
----@field url? string
----@field user? table
+---@field head table
+---@field title string
 
 ---@class RateLimit
 ---@field rate? table
@@ -265,11 +224,9 @@
 ---@field repo string
 
 ---@class RepoListMatch
----@field username string
----@field direction? string
+---@field org_id string
 ---@field page? number
 ---@field per_page? number
----@field sort? string
 ---@field type? string
 
 ---@class Search

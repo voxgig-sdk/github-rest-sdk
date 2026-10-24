@@ -3,5 +3,35 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Description of the gist",
+      "Gist created",
+      "GitHub REST API v3",
+      "Indicates whether the pull request is a draft",
+      "Issue created",
+      "Issue updated",
+      "Labels to associate with this issue",
+      "Logins for Users to assign to this issue",
+      "Names and content for the files that make up the gist",
+      "Personal access token or OAuth token",
+      "Pull request created",
+      "Successful response",
+      "The GitHub REST API allows developers to create integrations, retrieve data, and automate workflows on the GitHub platform. It provides access to various functionalities, enabling interaction with repositories, issues, pull requests, and user accounts among others.",
+      "The contents of the issue",
+      "The contents of the pull request",
+      "The full name including owner",
+      "The name of the branch where your changes are implemented",
+      "The name of the branch you want the changes pulled into",
+      "The name of the repository",
+      "The number of the milestone to associate this issue with",
+      "The user&#39;s GitHub username",
+      "The user&#39;s unique identifier",
+      "URL to the user&#39;s avatar image",
+      "Username and password authentication",
+      "Whether the gist is public",
+      "Whether the repository is private"
+    ]
+  }
 }

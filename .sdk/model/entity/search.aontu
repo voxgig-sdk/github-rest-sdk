@@ -62,12 +62,12 @@ main: kit: entity: search: {
           q: {
             "$action": "issue"
             exist: [
-              "order"
-              "page"
-              "per_page"
               "q"
-              "sort"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -135,12 +135,12 @@ main: kit: entity: search: {
           q: {
             "$action": "repository"
             exist: [
-              "order"
-              "page"
-              "per_page"
               "q"
-              "sort"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

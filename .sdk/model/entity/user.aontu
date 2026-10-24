@@ -169,6 +169,10 @@ main: kit: entity: user: {
               username: "id"
             }
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "users"
@@ -190,6 +194,10 @@ main: kit: entity: user: {
           }
           m: "GET"
           o: "/user"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "user"

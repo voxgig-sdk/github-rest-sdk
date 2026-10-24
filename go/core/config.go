@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -190,10 +191,12 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{
 									"exist": []any{
 										"owner",
-										"page",
-										"per_page",
 										"repo",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -325,18 +328,19 @@ func MakeConfig() map[string]any {
 											"orig": "sha",
 											"type": "`$STRING`",
 											"kind": "query",
+											"field": true,
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
 										"owner",
-										"page",
-										"path",
-										"per_page",
 										"repo",
-										"sha",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -445,6 +449,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -487,11 +495,10 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"page",
-										"per_page",
-									},
+								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -670,6 +677,10 @@ func MakeConfig() map[string]any {
 										"repo",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -764,20 +775,19 @@ func MakeConfig() map[string]any {
 											"type": "`$STRING`",
 											"kind": "query",
 											"example": "open",
+											"field": true,
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"direction",
-										"label",
 										"owner",
-										"page",
-										"per_page",
 										"repo",
-										"sort",
-										"state",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -855,6 +865,10 @@ func MakeConfig() map[string]any {
 										"repo",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -930,6 +944,10 @@ func MakeConfig() map[string]any {
 										"owner",
 										"repo",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1048,13 +1066,10 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"all",
-										"page",
-										"participating",
-										"per_page",
-									},
+								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1208,6 +1223,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"id",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1392,6 +1411,10 @@ func MakeConfig() map[string]any {
 										"repo",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1480,19 +1503,19 @@ func MakeConfig() map[string]any {
 											"type": "`$STRING`",
 											"kind": "query",
 											"example": "open",
+											"field": true,
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"direction",
 										"owner",
-										"page",
-										"per_page",
 										"repo",
-										"sort",
-										"state",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1570,6 +1593,10 @@ func MakeConfig() map[string]any {
 										"repo",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1620,6 +1647,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -1771,6 +1802,79 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"kind": "http",
 								"method": "GET",
+								"orig": "/orgs/{org}/repos",
+								"segments": []any{
+									map[string]any{
+										"lit": "orgs",
+									},
+									map[string]any{
+										"var": "org_id",
+									},
+									map[string]any{
+										"lit": "repos",
+									},
+								},
+								"parts": []any{
+									"orgs",
+									"{org_id}",
+									"repos",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"org": "org_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "org_id",
+											"orig": "org",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "page",
+											"orig": "page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "per_page",
+											"orig": "per_page",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 30,
+										},
+										map[string]any{
+											"name": "type",
+											"orig": "type",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "all",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"org_id",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
 								"orig": "/users/{username}/repos",
 								"segments": []any{
 									map[string]any{
@@ -1843,85 +1947,12 @@ func MakeConfig() map[string]any {
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"direction",
-										"page",
-										"per_page",
-										"sort",
-										"type",
 										"username",
 									},
 								},
-							},
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/orgs/{org}/repos",
-								"segments": []any{
-									map[string]any{
-										"lit": "orgs",
-									},
-									map[string]any{
-										"var": "org_id",
-									},
-									map[string]any{
-										"lit": "repos",
-									},
-								},
-								"parts": []any{
-									"orgs",
-									"{org_id}",
-									"repos",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"org": "org_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "org_id",
-											"orig": "org",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"name": "page",
-											"orig": "page",
-											"type": "`$INTEGER`",
-											"kind": "query",
-											"example": 1,
-										},
-										map[string]any{
-											"name": "per_page",
-											"orig": "per_page",
-											"type": "`$INTEGER`",
-											"kind": "query",
-											"example": 30,
-										},
-										map[string]any{
-											"name": "type",
-											"orig": "type",
-											"type": "`$STRING`",
-											"kind": "query",
-											"example": "all",
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"org_id",
-										"page",
-										"per_page",
-										"type",
-									},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -1978,6 +2009,10 @@ func MakeConfig() map[string]any {
 										"owner",
 										"repo",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -2064,12 +2099,12 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{
 									"$action": "issue",
 									"exist": []any{
-										"order",
-										"page",
-										"per_page",
 										"q",
-										"sort",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 							map[string]any{
@@ -2134,12 +2169,12 @@ func MakeConfig() map[string]any {
 								"select": map[string]any{
 									"$action": "repository",
 									"exist": []any{
-										"order",
-										"page",
-										"per_page",
 										"q",
-										"sort",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},
@@ -2307,6 +2342,10 @@ func MakeConfig() map[string]any {
 										"id",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -2327,6 +2366,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},

@@ -10,6 +10,12 @@ import (
 	"github.com/voxgig-sdk/github-rest-sdk/go/core"
 )
 
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const repoDirectLiveStrict = true
+
 func TestRepoDirect(t *testing.T) {
 	t.Run("direct-list-repo", func(t *testing.T) {
 		setup := repoDirectSetup([]any{
@@ -28,9 +34,9 @@ func TestRepoDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"username01"} {
+			for _, _liveKey := range []string{"org01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, repoDirectLiveStrict, "Live test blocked: needs %s via GITHUB_REST_TEST_REPO_ENTID", _liveKey)
 					return
 				}
 			}
@@ -39,30 +45,25 @@ func TestRepoDirect(t *testing.T) {
 
 		params := map[string]any{}
 		if setup.live {
-			params["username"] = setup.idmap["username01"]
+			params["org_id"] = setup.idmap["org01"]
 		} else {
-			params["username"] = "direct01"
+			params["org_id"] = "direct01"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "users/{username}/repos",
+			"path":   "orgs/{org_id}/repos",
 			"method": "GET",
 			"params": params,
 		})
 		if setup.live {
-			// Live-mode leniency is a model decision
-			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
-			// against an arbitrary public API, so the default SKIPS here.
-			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
-				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, repoDirectLiveStrict, "Live list failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, repoDirectLiveStrict, "Live list failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if _, ok := liveList(result["data"]); !ok {
+				liveMiss(t, repoDirectLiveStrict, "Live list returned no list: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {
@@ -116,9 +117,9 @@ func TestRepoDirect(t *testing.T) {
 			return
 		}
 		if setup.live {
-			for _, _liveKey := range []string{"username01"} {
+			for _, _liveKey := range []string{"org01", "owner01", "repo01"} {
 				if v := setup.idmap[_liveKey]; v == nil {
-					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					liveMiss(t, repoDirectLiveStrict, "Live test blocked: needs %s via GITHUB_REST_TEST_REPO_ENTID", _liveKey)
 					return
 				}
 			}
@@ -129,25 +130,29 @@ func TestRepoDirect(t *testing.T) {
 		query := map[string]any{}
 		if setup.live {
 			listParams := map[string]any{}
-			listParams["username"] = setup.idmap["username01"]
+			listParams["org_id"] = setup.idmap["org01"]
 			listResult, listErr := client.Direct(map[string]any{
-				"path":   "users/{username}/repos",
+				"path":   "orgs/{org_id}/repos",
 				"method": "GET",
 				"params": listParams,
 			})
 			if listErr != nil {
-				t.Fatalf("list call failed (likely synthetic IDs against live API): %v", listErr)
+				liveMiss(t, repoDirectLiveStrict, "Live list discovery failed: %v", listErr)
 			}
 			if listResult["ok"] != true {
-				t.Fatalf("list call not ok (likely synthetic IDs against live API): %v", listResult)
+				liveMiss(t, repoDirectLiveStrict, "Live list discovery failed: %s", liveDescribe(listResult))
 			}
-
-			// Get first entity ID from list
-			listData, _ := listResult["data"].([]any)
+			listData, listOk := liveList(listResult["data"])
+			if !listOk {
+				liveMiss(t, repoDirectLiveStrict, "Live list discovery returned no list: %s", liveDescribe(listResult))
+			}
 			if len(listData) == 0 {
-				t.Skip("no entities to load in live mode")
+				liveEmpty(t, "The account has no repo record to load")
 			}
 			firstEnt := core.ToMapAny(listData[0])
+			if firstEnt["id"] == nil {
+				liveMiss(t, repoDirectLiveStrict, "Live load blocked: discovery returned no usable identity")
+			}
 			params["id"] = firstEnt["id"]
 			params["owner"] = setup.idmap["owner01"]
 			params["repo"] = setup.idmap["repo01"]
@@ -163,19 +168,14 @@ func TestRepoDirect(t *testing.T) {
 			"query":  query,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
-			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap — unless the model
-			// sets main.kit.test.live.strict.
 			if err != nil {
-				t.Fatalf("load call failed (likely synthetic IDs against live API): %v", err)
+				liveMiss(t, repoDirectLiveStrict, "Live load failed: %v", err)
 			}
-			if result["ok"] != true {
-				t.Fatalf("load call not ok (likely synthetic IDs against live API): %v", result)
+			if status := core.ToInt(result["status"]); result["ok"] != true || status < 200 || status >= 300 {
+				liveMiss(t, repoDirectLiveStrict, "Live load failed: %s", liveDescribe(result))
 			}
-			status := core.ToInt(result["status"])
-			if status < 200 || status >= 300 {
-				t.Fatalf("expected 2xx status, got %v", result["status"])
+			if result["data"] == nil {
+				liveMiss(t, repoDirectLiveStrict, "Live load returned no data: %s", liveDescribe(result))
 			}
 		} else {
 			if err != nil {

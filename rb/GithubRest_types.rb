@@ -168,46 +168,18 @@ GistListMatch = Struct.new(
 
 # Request payload for Gist#create.
 #
-# @!attribute [rw] created_at
-#   @return [String, nil]
-#
 # @!attribute [rw] description
 #   @return [String, nil]
 #
 # @!attribute [rw] files
 #   @return [Hash]
 #
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [String, nil]
-#
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] owner
-#   @return [Hash, nil]
-#
 # @!attribute [rw] public
 #   @return [Boolean, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
 GistCreateData = Struct.new(
-  :created_at,
   :description,
   :files,
-  :html_url,
-  :id,
-  :node_id,
-  :owner,
   :public,
-  :updated_at,
-  :url,
   keyword_init: true
 )
 
@@ -346,29 +318,11 @@ IssueListMatch = Struct.new(
 # @!attribute [rw] repo
 #   @return [String]
 #
-# @!attribute [rw] assignee
-#   @return [Object, nil]
-#
 # @!attribute [rw] assignees
 #   @return [Array, nil]
 #
 # @!attribute [rw] body
 #   @return [String, nil]
-#
-# @!attribute [rw] closed_at
-#   @return [String, nil]
-#
-# @!attribute [rw] comments
-#   @return [Integer, nil]
-#
-# @!attribute [rw] created_at
-#   @return [String, nil]
-#
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
 #
 # @!attribute [rw] labels
 #   @return [Array, nil]
@@ -376,46 +330,16 @@ IssueListMatch = Struct.new(
 # @!attribute [rw] milestone
 #   @return [Hash, nil]
 #
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] number
-#   @return [Integer, nil]
-#
-# @!attribute [rw] state
-#   @return [String, nil]
-#
 # @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
+#   @return [String]
 IssueCreateData = Struct.new(
   :owner,
   :repo,
-  :assignee,
   :assignees,
   :body,
-  :closed_at,
-  :comments,
-  :created_at,
-  :html_url,
-  :id,
   :labels,
   :milestone,
-  :node_id,
-  :number,
-  :state,
   :title,
-  :updated_at,
-  :url,
-  :user,
   keyword_init: true
 )
 
@@ -430,73 +354,29 @@ IssueCreateData = Struct.new(
 # @!attribute [rw] repo
 #   @return [String]
 #
-# @!attribute [rw] assignee
-#   @return [Object, nil]
-#
 # @!attribute [rw] assignees
 #   @return [Array, nil]
 #
 # @!attribute [rw] body
 #   @return [String, nil]
 #
-# @!attribute [rw] closed_at
-#   @return [String, nil]
-#
-# @!attribute [rw] comments
-#   @return [Integer, nil]
-#
-# @!attribute [rw] created_at
-#   @return [String, nil]
-#
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
 # @!attribute [rw] labels
 #   @return [Array, nil]
-#
-# @!attribute [rw] milestone
-#   @return [Hash, nil]
-#
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] number
-#   @return [Integer, nil]
 #
 # @!attribute [rw] state
 #   @return [String, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
 IssueUpdateData = Struct.new(
   :id,
   :owner,
   :repo,
-  :assignee,
   :assignees,
   :body,
-  :closed_at,
-  :comments,
-  :created_at,
-  :html_url,
   :labels,
-  :milestone,
-  :node_id,
-  :number,
   :state,
   :title,
-  :updated_at,
-  :url,
-  :user,
   keyword_init: true
 )
 
@@ -768,71 +648,27 @@ PullListMatch = Struct.new(
 #   @return [String]
 #
 # @!attribute [rw] base
-#   @return [Hash, nil]
+#   @return [Hash]
 #
 # @!attribute [rw] body
-#   @return [String, nil]
-#
-# @!attribute [rw] closed_at
-#   @return [String, nil]
-#
-# @!attribute [rw] created_at
 #   @return [String, nil]
 #
 # @!attribute [rw] draft
 #   @return [Boolean, nil]
 #
 # @!attribute [rw] head
-#   @return [Hash, nil]
-#
-# @!attribute [rw] html_url
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] merged_at
-#   @return [String, nil]
-#
-# @!attribute [rw] node_id
-#   @return [String, nil]
-#
-# @!attribute [rw] number
-#   @return [Integer, nil]
-#
-# @!attribute [rw] state
-#   @return [String, nil]
+#   @return [Hash]
 #
 # @!attribute [rw] title
-#   @return [String, nil]
-#
-# @!attribute [rw] updated_at
-#   @return [String, nil]
-#
-# @!attribute [rw] url
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
+#   @return [String]
 PullCreateData = Struct.new(
   :owner,
   :repo,
   :base,
   :body,
-  :closed_at,
-  :created_at,
   :draft,
   :head,
-  :html_url,
-  :id,
-  :merged_at,
-  :node_id,
-  :number,
-  :state,
   :title,
-  :updated_at,
-  :url,
-  :user,
   keyword_init: true
 )
 
@@ -970,11 +806,8 @@ RepoLoadMatch = Struct.new(
 
 # Request payload for Repo#list.
 #
-# @!attribute [rw] username
+# @!attribute [rw] org_id
 #   @return [String]
-#
-# @!attribute [rw] direction
-#   @return [String, nil]
 #
 # @!attribute [rw] page
 #   @return [Integer, nil]
@@ -982,17 +815,12 @@ RepoLoadMatch = Struct.new(
 # @!attribute [rw] per_page
 #   @return [Integer, nil]
 #
-# @!attribute [rw] sort
-#   @return [String, nil]
-#
 # @!attribute [rw] type
 #   @return [String, nil]
 RepoListMatch = Struct.new(
-  :username,
-  :direction,
+  :org_id,
   :page,
   :per_page,
-  :sort,
   :type,
   keyword_init: true
 )

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('UserEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GithubRestSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.User().load({"id":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
@@ -51,7 +63,7 @@ describe('UserEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"avatar_url":{"a":true,"fo":"uri","h":"Avatar Url","n":"avatar_url","r":false,"sh":"URL to the user's avatar image","t":"`$STRING`","key$":"avatar_url","index$":0},"bio":{"a":true,"h":"Bio","n":"bio","r":false,"t":"`$STRING`","key$":"bio","index$":1},"blog":{"a":true,"h":"Blog","n":"blog","r":false,"t":"`$STRING`","key$":"blog","index$":2},"company":{"a":true,"h":"Company","n":"company","r":false,"t":"`$STRING`","key$":"company","index$":3},"created_at":{"a":true,"fo":"date-time","h":"Created At","n":"created_at","r":false,"t":"`$STRING`","key$":"created_at","index$":4},"email":{"a":true,"fo":"email","h":"Email","n":"email","r":false,"t":"`$STRING`","key$":"email","index$":5},"followers":{"a":true,"h":"Followers","n":"followers","r":false,"t":"`$INTEGER`","key$":"followers","index$":6},"following":{"a":true,"h":"Following","n":"following","r":false,"t":"`$INTEGER`","key$":"following","index$":7},"html_url":{"a":true,"fo":"uri","h":"Html Url","n":"html_url","r":false,"t":"`$STRING`","key$":"html_url","index$":8},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"The user's unique identifier","t":"`$INTEGER`","key$":"id","index$":9},"location":{"a":true,"h":"Location","n":"location","r":false,"t":"`$STRING`","key$":"location","index$":10},"login":{"a":true,"h":"Login","n":"login","r":false,"sh":"The user's GitHub username","t":"`$STRING`","key$":"login","index$":11},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":12},"node_id":{"a":true,"h":"Node Id","n":"node_id","r":false,"t":"`$STRING`","key$":"node_id","index$":13},"public_gists":{"a":true,"h":"Public Gists","n":"public_gists","r":false,"t":"`$INTEGER`","key$":"public_gists","index$":14},"public_repos":{"a":true,"h":"Public Repos","n":"public_repos","r":false,"t":"`$INTEGER`","key$":"public_repos","index$":15},"type":{"a":true,"h":"Type","n":"type","r":false,"t":"`$STRING`","key$":"type","index$":16},"updated_at":{"a":true,"fo":"date-time","h":"Updated At","n":"updated_at","r":false,"t":"`$STRING`","key$":"updated_at","index$":17},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":18}},"id":{"field":"id","name":"id"},"name":"user","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /users/{username}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"username","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/users/{username}","q":{"exist":["id"]},"r":{"param":{"username":"id"}},"s":[{"lit":"users"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /user","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/user","q":{},"r":{},"s":[{"lit":"user"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"user","name__orig":"user","Name":"User","name_":"user","name-":"user","NAME":"USER","index$":10}, {"active":true,"entity":"user","key$":"BasicUserFlow","kind":"basic","name":"BasicUserFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"user_ref01","srcdatavar":"user_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-user_ref01"}}],"index$":0}]}, 'User', {"GET /users/{username}":{"protocol":"http","parameters":[{"name":"username","in":"path","required":true,"description":"The handle for the GitHub user account","schema":{"type":"string"},"index$":0}]},"GET /user":{"protocol":"http","parameters":[]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"avatar_url":{"a":true,"fo":"uri","h":"Avatar Url","n":"avatar_url","r":false,"sh":"URL to the user's avatar image","t":"`$STRING`","key$":"avatar_url","index$":0},"bio":{"a":true,"h":"Bio","n":"bio","r":false,"t":"`$STRING`","key$":"bio","index$":1},"blog":{"a":true,"h":"Blog","n":"blog","r":false,"t":"`$STRING`","key$":"blog","index$":2},"company":{"a":true,"h":"Company","n":"company","r":false,"t":"`$STRING`","key$":"company","index$":3},"created_at":{"a":true,"fo":"date-time","h":"Created At","n":"created_at","r":false,"t":"`$STRING`","key$":"created_at","index$":4},"email":{"a":true,"fo":"email","h":"Email","n":"email","r":false,"t":"`$STRING`","key$":"email","index$":5},"followers":{"a":true,"h":"Followers","n":"followers","r":false,"t":"`$INTEGER`","key$":"followers","index$":6},"following":{"a":true,"h":"Following","n":"following","r":false,"t":"`$INTEGER`","key$":"following","index$":7},"html_url":{"a":true,"fo":"uri","h":"Html Url","n":"html_url","r":false,"t":"`$STRING`","key$":"html_url","index$":8},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"The user's unique identifier","t":"`$INTEGER`","key$":"id","index$":9},"location":{"a":true,"h":"Location","n":"location","r":false,"t":"`$STRING`","key$":"location","index$":10},"login":{"a":true,"h":"Login","n":"login","r":false,"sh":"The user's GitHub username","t":"`$STRING`","key$":"login","index$":11},"name":{"a":true,"h":"Name","n":"name","r":false,"t":"`$STRING`","key$":"name","index$":12},"node_id":{"a":true,"h":"Node Id","n":"node_id","r":false,"t":"`$STRING`","key$":"node_id","index$":13},"public_gists":{"a":true,"h":"Public Gists","n":"public_gists","r":false,"t":"`$INTEGER`","key$":"public_gists","index$":14},"public_repos":{"a":true,"h":"Public Repos","n":"public_repos","r":false,"t":"`$INTEGER`","key$":"public_repos","index$":15},"type":{"a":true,"h":"Type","n":"type","r":false,"t":"`$STRING`","key$":"type","index$":16},"updated_at":{"a":true,"fo":"date-time","h":"Updated At","n":"updated_at","r":false,"t":"`$STRING`","key$":"updated_at","index$":17},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":18}},"id":{"field":"id","name":"id"},"name":"user","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /users/{username}","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"id","or":"username","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/users/{username}","q":{"exist":["id"]},"r":{"param":{"username":"id"}},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"users"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0},{"a":true,"co":{"id":"GET /user","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/user","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"user"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":1}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"user","name__orig":"user","Name":"User","name_":"user","name-":"user","NAME":"USER","index$":10}, {"active":true,"entity":"user","key$":"BasicUserFlow","kind":"basic","name":"BasicUserFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"user_ref01","srcdatavar":"user_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-user_ref01"}}],"index$":0}]}, 'User', {"GET /users/{username}":{"protocol":"http","parameters":[{"name":"username","in":"path","required":true,"description":"The handle for the GitHub user account","schema":{"type":"string"},"index$":0}]},"GET /user":{"protocol":"http","parameters":[]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -73,6 +85,12 @@ describe('UserEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

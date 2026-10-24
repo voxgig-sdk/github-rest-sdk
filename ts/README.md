@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/github-rest-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -49,14 +49,14 @@ resolves to entities, not raw records. Iterate them directly, and call
 const branchs = await client.Branch().list({ owner: "example", repo: "example" })
 
 for (const branch of branchs) {
-  console.log(branch)
+  console.log(branch.data())
 }
 ```
 
 ### 3. Load an issue
 
 Issue is nested under owner, so provide the `owner`.
-`load()` returns the entity directly and throws on failure:
+`load()` returns the entity and throws on failure; `.data()` reads its record:
 
 ```ts
 try {
@@ -65,7 +65,7 @@ try {
     repo: 'example_repo',
     id: 1,
   })
-  console.log(issue)
+  console.log(issue.data())
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -79,14 +79,15 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 ```ts
 try {
   const gists = await client.Gist().list()
-  console.log(gists)
+  console.log(gists.map((item) => item.data()))
 } catch (err) {
   console.error('list failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -95,8 +96,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -114,9 +115,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -145,10 +143,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubRestSDK.test()
 
-const gist = await client.Gist().list()
-// gist is the entity, populated with mock response data
-// — call gist.data() for the record itself
-console.log(gist)
+const gists = await client.Gist().list()
+// gists is an array of Gist entities, one per mock record
+console.log(gists.map((gist) => gist.data()))
 ```
 
 You can also use the instance method:
@@ -277,10 +274,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria, and return it. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria, one per record. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity, and return it. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity, and return it. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -289,8 +286,8 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
 - `load`, `create` and `update` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
@@ -511,7 +508,7 @@ API path: `/rate_limit`
 
 Operations: list, load.
 
-API path: `/users/{username}/repos`
+API path: `/orgs/{org}/repos`
 
 #### Search
 
@@ -703,6 +700,7 @@ const issues = await client.Issue().list({ owner: "example", repo: "example" })
 const issue = await client.Issue().create({
   owner: 'example_owner',
   repo: 'example_repo',
+  title: 'example_title',
 })
 ```
 
@@ -827,6 +825,9 @@ const pulls = await client.Pull().list({ owner: "example", repo: "example" })
 const pull = await client.Pull().create({
   owner: 'example_owner',
   repo: 'example_repo',
+  base: {},
+  head: {},
+  title: 'example_title',
 })
 ```
 
@@ -902,7 +903,7 @@ const repo = await client.Repo().load({ owner: 'owner', repo: 'repo' })
 #### Example: List
 
 ```ts
-const repos = await client.Repo().list({ username: "example" })
+const repos = await client.Repo().list({ org_id: "example" })
 ```
 
 
@@ -915,12 +916,6 @@ Create an instance: `const search = client.Search()`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Example: List
-
-```ts
-const searchs = await client.Search().list({ q: "example" })
-```
 
 
 ### User

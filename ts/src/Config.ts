@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -252,10 +253,12 @@ class Config {
               "select": {
                 "exist": [
                   "owner",
-                  "page",
-                  "per_page",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -386,19 +389,20 @@ class Config {
                     "name": "sha",
                     "orig": "sha",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   }
                 ]
               },
               "select": {
                 "exist": [
                   "owner",
-                  "page",
-                  "path",
-                  "per_page",
-                  "repo",
-                  "sha"
+                  "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -506,7 +510,11 @@ class Config {
                 "res": "`body`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         },
@@ -549,11 +557,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "page",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -731,6 +738,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -825,21 +836,20 @@ class Config {
                     "orig": "state",
                     "type": "`$STRING`",
                     "kind": "query",
-                    "example": "open"
+                    "example": "open",
+                    "field": true
                   }
                 ]
               },
               "select": {
                 "exist": [
-                  "direction",
-                  "label",
                   "owner",
-                  "page",
-                  "per_page",
-                  "repo",
-                  "sort",
-                  "state"
+                  "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -916,6 +926,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -992,6 +1006,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1110,13 +1128,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "all",
-                  "page",
-                  "participating",
-                  "per_page"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1270,6 +1285,10 @@ class Config {
                 "exist": [
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1453,6 +1472,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1541,20 +1564,20 @@ class Config {
                     "orig": "state",
                     "type": "`$STRING`",
                     "kind": "query",
-                    "example": "open"
+                    "example": "open",
+                    "field": true
                   }
                 ]
               },
               "select": {
                 "exist": [
-                  "direction",
                   "owner",
-                  "page",
-                  "per_page",
-                  "repo",
-                  "sort",
-                  "state"
+                  "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1631,6 +1654,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -1681,7 +1708,11 @@ class Config {
                 "res": "`body`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         }
@@ -1833,6 +1864,79 @@ class Config {
             {
               "kind": "http",
               "method": "GET",
+              "orig": "/orgs/{org}/repos",
+              "segments": [
+                {
+                  "lit": "orgs"
+                },
+                {
+                  "var": "org_id"
+                },
+                {
+                  "lit": "repos"
+                }
+              ],
+              "parts": [
+                "orgs",
+                "{org_id}",
+                "repos"
+              ],
+              "rename": {
+                "param": {
+                  "org": "org_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "org_id",
+                    "orig": "org",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "page",
+                    "orig": "page",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 1
+                  },
+                  {
+                    "name": "per_page",
+                    "orig": "per_page",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 30
+                  },
+                  {
+                    "name": "type",
+                    "orig": "type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "all"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "org_id"
+                ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
+            },
+            {
+              "kind": "http",
+              "method": "GET",
               "orig": "/users/{username}/repos",
               "segments": [
                 {
@@ -1905,85 +2009,12 @@ class Config {
               },
               "select": {
                 "exist": [
-                  "direction",
-                  "page",
-                  "per_page",
-                  "sort",
-                  "type",
                   "username"
                 ]
-              }
-            },
-            {
-              "kind": "http",
-              "method": "GET",
-              "orig": "/orgs/{org}/repos",
-              "segments": [
-                {
-                  "lit": "orgs"
-                },
-                {
-                  "var": "org_id"
-                },
-                {
-                  "lit": "repos"
-                }
-              ],
-              "parts": [
-                "orgs",
-                "{org_id}",
-                "repos"
-              ],
-              "rename": {
-                "param": {
-                  "org": "org_id"
-                }
               },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "args": {
-                "params": [
-                  {
-                    "name": "org_id",
-                    "orig": "org",
-                    "type": "`$STRING`",
-                    "kind": "param",
-                    "reqd": true
-                  }
-                ],
-                "query": [
-                  {
-                    "name": "page",
-                    "orig": "page",
-                    "type": "`$INTEGER`",
-                    "kind": "query",
-                    "example": 1
-                  },
-                  {
-                    "name": "per_page",
-                    "orig": "per_page",
-                    "type": "`$INTEGER`",
-                    "kind": "query",
-                    "example": 30
-                  },
-                  {
-                    "name": "type",
-                    "orig": "type",
-                    "type": "`$STRING`",
-                    "kind": "query",
-                    "example": "all"
-                  }
-                ]
-              },
-              "select": {
-                "exist": [
-                  "org_id",
-                  "page",
-                  "per_page",
-                  "type"
-                ]
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -2040,6 +2071,10 @@ class Config {
                   "owner",
                   "repo"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -2126,12 +2161,12 @@ class Config {
               "select": {
                 "$action": "issue",
                 "exist": [
-                  "order",
-                  "page",
-                  "per_page",
-                  "q",
-                  "sort"
+                  "q"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -2196,12 +2231,12 @@ class Config {
               "select": {
                 "$action": "repository",
                 "exist": [
-                  "order",
-                  "page",
-                  "per_page",
-                  "q",
-                  "sort"
+                  "q"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -2368,6 +2403,10 @@ class Config {
                 "exist": [
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             },
             {
@@ -2388,7 +2427,11 @@ class Config {
                 "res": "`body`"
               },
               "args": {},
-              "select": {}
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
+              }
             }
           ]
         }

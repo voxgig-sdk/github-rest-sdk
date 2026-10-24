@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -215,10 +216,12 @@ def make_config():
                 "select": {
                   "exist": [
                     "owner",
-                    "page",
-                    "per_page",
                     "repo",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -350,18 +353,19 @@ def make_config():
                       "orig": "sha",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
                     "owner",
-                    "page",
-                    "path",
-                    "per_page",
                     "repo",
-                    "sha",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -470,6 +474,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -512,11 +520,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "page",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -695,6 +702,10 @@ def make_config():
                     "repo",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -789,20 +800,19 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "open",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
-                    "direction",
-                    "label",
                     "owner",
-                    "page",
-                    "per_page",
                     "repo",
-                    "sort",
-                    "state",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -880,6 +890,10 @@ def make_config():
                     "repo",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -955,6 +969,10 @@ def make_config():
                     "owner",
                     "repo",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1073,13 +1091,10 @@ def make_config():
                     },
                   ],
                 },
-                "select": {
-                  "exist": [
-                    "all",
-                    "page",
-                    "participating",
-                    "per_page",
-                  ],
+                "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1233,6 +1248,10 @@ def make_config():
                   "exist": [
                     "id",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1417,6 +1436,10 @@ def make_config():
                     "repo",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -1505,19 +1528,19 @@ def make_config():
                       "type": "`$STRING`",
                       "kind": "query",
                       "example": "open",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
-                    "direction",
                     "owner",
-                    "page",
-                    "per_page",
                     "repo",
-                    "sort",
-                    "state",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -1595,6 +1618,10 @@ def make_config():
                     "repo",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -1645,6 +1672,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -1796,6 +1827,79 @@ def make_config():
               {
                 "kind": "http",
                 "method": "GET",
+                "orig": "/orgs/{org}/repos",
+                "segments": [
+                  {
+                    "lit": "orgs",
+                  },
+                  {
+                    "var": "org_id",
+                  },
+                  {
+                    "lit": "repos",
+                  },
+                ],
+                "parts": [
+                  "orgs",
+                  "{org_id}",
+                  "repos",
+                ],
+                "rename": {
+                  "param": {
+                    "org": "org_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "org_id",
+                      "orig": "org",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "page",
+                      "orig": "page",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 1,
+                    },
+                    {
+                      "name": "per_page",
+                      "orig": "per_page",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 30,
+                    },
+                    {
+                      "name": "type",
+                      "orig": "type",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "example": "all",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "org_id",
+                  ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
+              },
+              {
+                "kind": "http",
+                "method": "GET",
                 "orig": "/users/{username}/repos",
                 "segments": [
                   {
@@ -1868,85 +1972,12 @@ def make_config():
                 },
                 "select": {
                   "exist": [
-                    "direction",
-                    "page",
-                    "per_page",
-                    "sort",
-                    "type",
                     "username",
                   ],
                 },
-              },
-              {
-                "kind": "http",
-                "method": "GET",
-                "orig": "/orgs/{org}/repos",
-                "segments": [
-                  {
-                    "lit": "orgs",
-                  },
-                  {
-                    "var": "org_id",
-                  },
-                  {
-                    "lit": "repos",
-                  },
-                ],
-                "parts": [
-                  "orgs",
-                  "{org_id}",
-                  "repos",
-                ],
-                "rename": {
-                  "param": {
-                    "org": "org_id",
-                  },
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "args": {
-                  "params": [
-                    {
-                      "name": "org_id",
-                      "orig": "org",
-                      "type": "`$STRING`",
-                      "kind": "param",
-                      "reqd": True,
-                    },
-                  ],
-                  "query": [
-                    {
-                      "name": "page",
-                      "orig": "page",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                      "example": 1,
-                    },
-                    {
-                      "name": "per_page",
-                      "orig": "per_page",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                      "example": 30,
-                    },
-                    {
-                      "name": "type",
-                      "orig": "type",
-                      "type": "`$STRING`",
-                      "kind": "query",
-                      "example": "all",
-                    },
-                  ],
-                },
-                "select": {
-                  "exist": [
-                    "org_id",
-                    "page",
-                    "per_page",
-                    "type",
-                  ],
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2003,6 +2034,10 @@ def make_config():
                     "owner",
                     "repo",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2089,12 +2124,12 @@ def make_config():
                 "select": {
                   "$action": "issue",
                   "exist": [
-                    "order",
-                    "page",
-                    "per_page",
                     "q",
-                    "sort",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
               {
@@ -2159,12 +2194,12 @@ def make_config():
                 "select": {
                   "$action": "repository",
                   "exist": [
-                    "order",
-                    "page",
-                    "per_page",
                     "q",
-                    "sort",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],
@@ -2332,6 +2367,10 @@ def make_config():
                     "id",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
               {
                 "kind": "http",
@@ -2352,6 +2391,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },

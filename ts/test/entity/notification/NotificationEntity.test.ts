@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('NotificationEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('notification hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of GithubRestSDK.test(offline).Notification().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of GithubRestSDK.test(offline).Notification()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = GithubRestSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Notification().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of GithubRestSDK.test().Notification().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new GithubRestSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Notification().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Notification().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GithubRestSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Notification().list({"all":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
@@ -51,7 +109,7 @@ describe('NotificationEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0},"last_read_at":{"a":true,"fo":"date-time","h":"Last Read At","n":"last_read_at","r":false,"t":"`$STRING`","key$":"last_read_at","index$":1},"reason":{"a":true,"h":"Reason","n":"reason","r":false,"t":"`$STRING`","key$":"reason","index$":2},"repository":{"a":true,"h":"Repository","n":"repository","r":false,"t":"`$OBJECT`","key$":"repository","index$":3},"subject":{"a":true,"h":"Subject","n":"subject","r":false,"t":"`$OBJECT`","key$":"subject","index$":4},"unread":{"a":true,"h":"Unread","n":"unread","r":false,"t":"`$BOOLEAN`","key$":"unread","index$":5},"updated_at":{"a":true,"fo":"date-time","h":"Updated At","n":"updated_at","r":false,"t":"`$STRING`","key$":"updated_at","index$":6},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":7}},"id":{"field":"id","name":"id"},"name":"notification","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /notifications","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":false,"k":"query","n":"all","or":"all","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":false,"k":"query","n":"participating","or":"participating","r":false,"t":"`$BOOLEAN`","index$":2},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":3}]},"k":"http","m":"GET","o":"/notifications","q":{"exist":["all","page","participating","per_page"]},"r":{},"s":[{"lit":"notifications"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"notification","name__orig":"notification","Name":"Notification","name_":"notification","name-":"notification","NAME":"NOTIFICATION","index$":4}, {"active":true,"entity":"notification","key$":"BasicNotificationFlow","kind":"basic","name":"BasicNotificationFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"notification_ref01"}}],"index$":0}]}, 'Notification', {"GET /notifications":{"protocol":"http","parameters":[{"name":"all","in":"query","description":"If true, show notifications marked as read","schema":{"type":"boolean","default":false},"index$":0},{"name":"participating","in":"query","description":"If true, only shows notifications in which the user is directly participating or mentioned","schema":{"type":"boolean","default":false},"index$":1},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":2},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":3}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"id":{"a":true,"h":"Id","n":"id","r":false,"t":"`$STRING`","key$":"id","index$":0},"last_read_at":{"a":true,"fo":"date-time","h":"Last Read At","n":"last_read_at","r":false,"t":"`$STRING`","key$":"last_read_at","index$":1},"reason":{"a":true,"h":"Reason","n":"reason","r":false,"t":"`$STRING`","key$":"reason","index$":2},"repository":{"a":true,"h":"Repository","n":"repository","r":false,"t":"`$OBJECT`","key$":"repository","index$":3},"subject":{"a":true,"h":"Subject","n":"subject","r":false,"t":"`$OBJECT`","key$":"subject","index$":4},"unread":{"a":true,"h":"Unread","n":"unread","r":false,"t":"`$BOOLEAN`","key$":"unread","index$":5},"updated_at":{"a":true,"fo":"date-time","h":"Updated At","n":"updated_at","r":false,"t":"`$STRING`","key$":"updated_at","index$":6},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":7}},"id":{"field":"id","name":"id"},"name":"notification","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /notifications","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":false,"k":"query","n":"all","or":"all","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":1},{"a":true,"ex":false,"k":"query","n":"participating","or":"participating","r":false,"t":"`$BOOLEAN`","index$":2},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":3}]},"k":"http","m":"GET","o":"/notifications","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"notifications"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"notification","name__orig":"notification","Name":"Notification","name_":"notification","name-":"notification","NAME":"NOTIFICATION","index$":4}, {"active":true,"entity":"notification","key$":"BasicNotificationFlow","kind":"basic","name":"BasicNotificationFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"notification_ref01"}}],"index$":0}]}, 'Notification', {"GET /notifications":{"protocol":"http","parameters":[{"name":"all","in":"query","description":"If true, show notifications marked as read","schema":{"type":"boolean","default":false},"index$":0},{"name":"participating","in":"query","description":"If true, only shows notifications in which the user is directly participating or mentioned","schema":{"type":"boolean","default":false},"index$":1},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":2},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":3}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('NotificationEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

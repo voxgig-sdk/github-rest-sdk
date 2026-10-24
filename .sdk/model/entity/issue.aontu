@@ -138,6 +138,13 @@ main: kit: entity: issue: {
       name: "create"
       points: [
         {
+          bf: [
+            "assignees"
+            "body"
+            "labels"
+            "milestone"
+            "title"
+          ]
           co: {
             id: "POST /repos/{owner}/{repo}/issues"
             source: "openapi3"
@@ -168,6 +175,10 @@ main: kit: entity: issue: {
               "owner"
               "repo"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -270,15 +281,13 @@ main: kit: entity: issue: {
           o: "/repos/{owner}/{repo}/issues"
           q: {
             exist: [
-              "direction"
-              "label"
               "owner"
-              "page"
-              "per_page"
               "repo"
-              "sort"
-              "state"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -349,6 +358,10 @@ main: kit: entity: issue: {
               issue_number: "id"
             }
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "repos"
@@ -377,6 +390,13 @@ main: kit: entity: issue: {
       name: "update"
       points: [
         {
+          bf: [
+            "assignees"
+            "body"
+            "labels"
+            "state"
+            "title"
+          ]
           co: {
             id: "PATCH /repos/{owner}/{repo}/issues/{issue_number}"
             source: "openapi3"
@@ -420,6 +440,10 @@ main: kit: entity: issue: {
             param: {
               issue_number: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('CommitEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = GithubRestSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Commit().list({"owner":1,"repo":"x"} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
@@ -51,7 +63,7 @@ describe('CommitEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"author":{"a":true,"h":"Author","n":"author","r":false,"t":"`$OBJECT`","key$":"author","index$":0},"commit":{"a":true,"h":"Commit","n":"commit","r":false,"t":"`$OBJECT`","key$":"commit","index$":1},"committer":{"a":true,"h":"Committer","n":"committer","r":false,"t":"`$OBJECT`","key$":"committer","index$":2},"html_url":{"a":true,"fo":"uri","h":"Html Url","n":"html_url","r":false,"t":"`$STRING`","key$":"html_url","index$":3},"node_id":{"a":true,"h":"Node Id","n":"node_id","r":false,"t":"`$STRING`","key$":"node_id","index$":4},"sha":{"a":true,"h":"Sha","n":"sha","r":false,"t":"`$STRING`","key$":"sha","index$":5},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":6}},"name":"commit","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /repos/{owner}/{repo}/commits","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"owner","or":"owner","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"repo","or":"repo","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"k":"query","n":"path","or":"path","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"sha","or":"sha","r":false,"t":"`$STRING`","index$":3}]},"k":"http","m":"GET","o":"/repos/{owner}/{repo}/commits","q":{"exist":["owner","page","path","per_page","repo","sha"]},"r":{},"s":[{"lit":"repos"},{"var":"owner"},{"var":"repo"},{"lit":"commits"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.repo"]]},"key$":"commit","name__orig":"commit","Name":"Commit","name_":"commit","name-":"commit","NAME":"COMMIT","index$":1}, {"active":true,"entity":"commit","key$":"BasicCommitFlow","kind":"basic","name":"BasicCommitFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"owner":"owner01","repo":"repo01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"commit_ref01"}}],"index$":0}]}, 'Commit', {"GET /repos/{owner}/{repo}/commits":{"protocol":"http","parameters":[{"name":"owner","in":"path","required":true,"description":"The account owner of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/owner","index$":0},{"name":"repo","in":"path","required":true,"description":"The name of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/repo","index$":1},{"name":"sha","in":"query","description":"SHA or branch to start listing commits from","schema":{"type":"string"},"index$":2},{"name":"path","in":"query","description":"Only commits containing this file path will be returned","schema":{"type":"string"},"index$":3},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":4},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":5}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"author":{"a":true,"h":"Author","n":"author","r":false,"t":"`$OBJECT`","key$":"author","index$":0},"commit":{"a":true,"h":"Commit","n":"commit","r":false,"t":"`$OBJECT`","key$":"commit","index$":1},"committer":{"a":true,"h":"Committer","n":"committer","r":false,"t":"`$OBJECT`","key$":"committer","index$":2},"html_url":{"a":true,"fo":"uri","h":"Html Url","n":"html_url","r":false,"t":"`$STRING`","key$":"html_url","index$":3},"node_id":{"a":true,"h":"Node Id","n":"node_id","r":false,"t":"`$STRING`","key$":"node_id","index$":4},"sha":{"a":true,"h":"Sha","n":"sha","r":false,"t":"`$STRING`","key$":"sha","index$":5},"url":{"a":true,"fo":"uri","h":"Url","n":"url","r":false,"t":"`$STRING`","key$":"url","index$":6}},"name":"commit","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /repos/{owner}/{repo}/commits","source":"openapi3","version":2},"g":{"params":[{"a":true,"k":"param","n":"owner","or":"owner","r":true,"t":"`$STRING`","index$":0},{"a":true,"k":"param","n":"repo","or":"repo","r":true,"t":"`$STRING`","index$":1}],"query":[{"a":true,"ex":1,"k":"query","n":"page","or":"page","r":false,"t":"`$INTEGER`","index$":0},{"a":true,"k":"query","n":"path","or":"path","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":30,"k":"query","n":"per_page","or":"per_page","r":false,"t":"`$INTEGER`","index$":2},{"a":true,"k":"query","n":"sha","or":"sha","r":false,"t":"`$STRING`","index$":3}]},"k":"http","m":"GET","o":"/repos/{owner}/{repo}/commits","q":{"exist":["owner","repo"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"repos"},{"var":"owner"},{"var":"repo"},{"lit":"commits"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["$.main.kit.entity.repo"]]},"key$":"commit","name__orig":"commit","Name":"Commit","name_":"commit","name-":"commit","NAME":"COMMIT","index$":1}, {"active":true,"entity":"commit","key$":"BasicCommitFlow","kind":"basic","name":"BasicCommitFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{"owner":"owner01","repo":"repo01"},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"commit_ref01"}}],"index$":0}]}, 'Commit', {"GET /repos/{owner}/{repo}/commits":{"protocol":"http","parameters":[{"name":"owner","in":"path","required":true,"description":"The account owner of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/owner","index$":0},{"name":"repo","in":"path","required":true,"description":"The name of the repository. The name is not case sensitive.","schema":{"type":"string"},"x-ref":"#/components/parameters/repo","index$":1},{"name":"sha","in":"query","description":"SHA or branch to start listing commits from","schema":{"type":"string"},"index$":2},{"name":"path","in":"query","description":"Only commits containing this file path will be returned","schema":{"type":"string"},"index$":3},{"name":"per_page","in":"query","description":"The number of results per page","schema":{"type":"integer","default":30,"maximum":100},"index$":4},{"name":"page","in":"query","description":"Page number of the results to fetch","schema":{"type":"integer","default":1},"index$":5}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -74,6 +86,12 @@ describe('CommitEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/github-rest-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -45,10 +45,11 @@ client = GithubRestSDK.new({
 
 ```ruby
 begin
-  # list returns an Array of Branch records — iterate directly.
-  branchs = client.Branch.list
+  # list returns an Array of Branch entities, one per record; data_get reads the record.
+  branchs = client.Branch.list({ "owner" => "example", "repo" => "example" })
   branchs.each do |item|
-    puts "#{item["commit"]}"
+    record = item.data_get
+    puts "#{record["commit"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -63,7 +64,7 @@ Issue is nested under owner, so provide the `owner`.
 begin
   # load returns the ENTITY — call data_get for the Issue record (raises on error).
   issue = client.Issue.load({ "owner" => "example_owner", "repo" => "example_repo", "id" => 1 })
-  puts issue
+  puts issue.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -144,10 +145,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GithubRestSDK.test
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-gist = client.Gist.list()
-puts gist
+# list returns an Array of Gist entities, one per mock record (raises on
+# error); data_get reads each record.
+gists = client.Gist.list()
+gists.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -243,10 +244,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity, and return it. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -256,9 +257,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `GithubRestError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`GithubRestError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -454,7 +456,7 @@ API path: `/rate_limit`
 
 Operations: List, Load.
 
-API path: `/users/{username}/repos`
+API path: `/orgs/{org}/repos`
 
 #### Search
 
@@ -519,8 +521,9 @@ Create an instance: `branch = client.Branch`
 #### Example: List
 
 ```ruby
-# list returns an Array of Branch records (raises on error).
-branchs = client.Branch.list
+# list returns an Array of Branch entities, one per record (raises on error).
+branchs = client.Branch.list({ "owner" => "example", "repo" => "example" })
+branchs.each { |item| puts item.data_get }
 ```
 
 
@@ -549,8 +552,9 @@ Create an instance: `commit = client.Commit`
 #### Example: List
 
 ```ruby
-# list returns an Array of Commit records (raises on error).
-commits = client.Commit.list
+# list returns an Array of Commit entities, one per record (raises on error).
+commits = client.Commit.list({ "owner" => "example", "repo" => "example" })
+commits.each { |item| puts item.data_get }
 ```
 
 
@@ -583,8 +587,9 @@ Create an instance: `gist = client.Gist`
 #### Example: List
 
 ```ruby
-# list returns an Array of Gist records (raises on error).
+# list returns an Array of Gist entities, one per record (raises on error).
 gists = client.Gist.list
+gists.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -641,8 +646,9 @@ issue = client.Issue.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 #### Example: List
 
 ```ruby
-# list returns an Array of Issue records (raises on error).
-issues = client.Issue.list
+# list returns an Array of Issue entities, one per record (raises on error).
+issues = client.Issue.list({ "owner" => "example", "repo" => "example" })
+issues.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -651,6 +657,7 @@ issues = client.Issue.list
 issue = client.Issue.create({
   "owner" => "example_owner", # String
   "repo" => "example_repo", # String
+  "title" => "example_title", # String
 })
 ```
 
@@ -681,8 +688,9 @@ Create an instance: `notification = client.Notification`
 #### Example: List
 
 ```ruby
-# list returns an Array of Notification records (raises on error).
+# list returns an Array of Notification entities, one per record (raises on error).
 notifications = client.Notification.list
+notifications.each { |item| puts item.data_get }
 ```
 
 
@@ -769,8 +777,9 @@ pull = client.Pull.load({ "id" => 1, "owner" => "owner", "repo" => "repo" })
 #### Example: List
 
 ```ruby
-# list returns an Array of Pull records (raises on error).
-pulls = client.Pull.list
+# list returns an Array of Pull entities, one per record (raises on error).
+pulls = client.Pull.list({ "owner" => "example", "repo" => "example" })
+pulls.each { |item| puts item.data_get }
 ```
 
 #### Example: Create
@@ -779,6 +788,9 @@ pulls = client.Pull.list
 pull = client.Pull.create({
   "owner" => "example_owner", # String
   "repo" => "example_repo", # String
+  "base" => {}, # Hash
+  "head" => {}, # Hash
+  "title" => "example_title", # String
 })
 ```
 
@@ -856,8 +868,9 @@ repo = client.Repo.load({ "owner" => "owner", "repo" => "repo" })
 #### Example: List
 
 ```ruby
-# list returns an Array of Repo records (raises on error).
-repos = client.Repo.list
+# list returns an Array of Repo entities, one per record (raises on error).
+repos = client.Repo.list({ "org_id" => "example" })
+repos.each { |item| puts item.data_get }
 ```
 
 
@@ -870,13 +883,6 @@ Create an instance: `search = client.Search`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Example: List
-
-```ruby
-# list returns an Array of Search records (raises on error).
-searchs = client.Search.list
-```
 
 
 ### User

@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/github-rest-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -41,14 +41,14 @@ client = GithubRestSDK({
 
 ### 2. List branch records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
     branchs = client.Branch().list({"owner": "example", "repo": "example"})
     for branch in branchs:
-        print(branch)
+        print(branch.data_get())
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -61,7 +61,7 @@ Issue is nested under owner, so provide the `owner`.
 ```python
 try:
     issue = client.Issue().load({"owner": "example_owner", "repo": "example_repo", "id": 1})
-    print(issue)
+    print(issue.data_get())
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -74,7 +74,7 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 ```python
 try:
     gists = client.Gist().list()
-    print(gists)
+    print([item.data_get() for item in gists])
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -140,10 +140,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubRestSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
+# Entity ops return the entity, and list one per record; they raise on error.
 gist = client.Gist().list()
-# gist contains the mock response record
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -239,10 +238,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity, and return it. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -252,9 +251,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -451,7 +450,7 @@ API path: `/rate_limit`
 
 Operations: List, Load.
 
-API path: `/users/{username}/repos`
+API path: `/orgs/{org}/repos`
 
 #### Search
 
@@ -643,6 +642,7 @@ issues = client.Issue().list({"owner": "example", "repo": "example"})
 issue = client.Issue().create({
     "owner": "example_owner",  # str
     "repo": "example_repo",  # str
+    "title": "example_title",  # str
 })
 ```
 
@@ -767,6 +767,9 @@ pulls = client.Pull().list({"owner": "example", "repo": "example"})
 pull = client.Pull().create({
     "owner": "example_owner",  # str
     "repo": "example_repo",  # str
+    "base": {},  # dict
+    "head": {},  # dict
+    "title": "example_title",  # str
 })
 ```
 
@@ -842,7 +845,7 @@ repo = client.Repo().load({"owner": "owner", "repo": "repo"})
 #### Example: List
 
 ```python
-repos = client.Repo().list({"username": "example"})
+repos = client.Repo().list({"org_id": "example"})
 ```
 
 
@@ -855,12 +858,6 @@ Create an instance: `search = client.Search()`
 | Method | Description |
 | --- | --- |
 | `list()` | List entities, optionally matching the given criteria. |
-
-#### Example: List
-
-```python
-searchs = client.Search().list({"q": "example"})
-```
 
 
 ### User

@@ -91,6 +91,11 @@ main: kit: entity: gist: {
       name: "create"
       points: [
         {
+          bf: [
+            "description"
+            "files"
+            "public"
+          ]
           co: {
             id: "POST /gists"
             source: "openapi3"
@@ -98,6 +103,10 @@ main: kit: entity: gist: {
           }
           m: "POST"
           o: "/gists"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "gists"
@@ -141,11 +150,9 @@ main: kit: entity: gist: {
           }
           m: "GET"
           o: "/gists"
-          q: {
-            exist: [
-              "page"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

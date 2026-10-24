@@ -143,6 +143,13 @@ main: kit: entity: pull: {
       name: "create"
       points: [
         {
+          bf: [
+            "base"
+            "body"
+            "draft"
+            "head"
+            "title"
+          ]
           co: {
             id: "POST /repos/{owner}/{repo}/pulls"
             source: "openapi3"
@@ -173,6 +180,10 @@ main: kit: entity: pull: {
               "owner"
               "repo"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -268,14 +279,13 @@ main: kit: entity: pull: {
           o: "/repos/{owner}/{repo}/pulls"
           q: {
             exist: [
-              "direction"
               "owner"
-              "page"
-              "per_page"
               "repo"
-              "sort"
-              "state"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -345,6 +355,10 @@ main: kit: entity: pull: {
             param: {
               pull_number: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

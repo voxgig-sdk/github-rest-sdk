@@ -77,16 +77,9 @@ class GistListMatch
 /** Request payload for Gist#create. */
 class GistCreateData
 {
-    public ?string $created_at = null;
     public ?string $description = null;
     public array $files;
-    public ?string $html_url = null;
-    public ?string $id = null;
-    public ?string $node_id = null;
-    public ?array $owner = null;
     public ?bool $public = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
 }
 
 /** Issue entity data model. */
@@ -137,23 +130,11 @@ class IssueCreateData
 {
     public string $owner;
     public string $repo;
-    public mixed $assignee = null;
     public ?array $assignees = null;
     public ?string $body = null;
-    public ?string $closed_at = null;
-    public ?int $comments = null;
-    public ?string $created_at = null;
-    public ?string $html_url = null;
-    public ?int $id = null;
     public ?array $labels = null;
     public ?array $milestone = null;
-    public ?string $node_id = null;
-    public ?int $number = null;
-    public ?string $state = null;
-    public ?string $title = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
-    public ?array $user = null;
+    public string $title;
 }
 
 /** Request payload for Issue#update. */
@@ -162,22 +143,11 @@ class IssueUpdateData
     public int $id;
     public string $owner;
     public string $repo;
-    public mixed $assignee = null;
     public ?array $assignees = null;
     public ?string $body = null;
-    public ?string $closed_at = null;
-    public ?int $comments = null;
-    public ?string $created_at = null;
-    public ?string $html_url = null;
     public ?array $labels = null;
-    public ?array $milestone = null;
-    public ?string $node_id = null;
-    public ?int $number = null;
     public ?string $state = null;
     public ?string $title = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
-    public ?array $user = null;
 }
 
 /** Notification entity data model. */
@@ -276,22 +246,11 @@ class PullCreateData
 {
     public string $owner;
     public string $repo;
-    public ?array $base = null;
+    public array $base;
     public ?string $body = null;
-    public ?string $closed_at = null;
-    public ?string $created_at = null;
     public ?bool $draft = null;
-    public ?array $head = null;
-    public ?string $html_url = null;
-    public ?int $id = null;
-    public ?string $merged_at = null;
-    public ?string $node_id = null;
-    public ?int $number = null;
-    public ?string $state = null;
-    public ?string $title = null;
-    public ?string $updated_at = null;
-    public ?string $url = null;
-    public ?array $user = null;
+    public array $head;
+    public string $title;
 }
 
 /** RateLimit entity data model. */
@@ -344,11 +303,9 @@ class RepoLoadMatch
 /** Request payload for Repo#list. */
 class RepoListMatch
 {
-    public string $username;
-    public ?string $direction = null;
+    public string $org_id;
     public ?int $page = null;
     public ?int $per_page = null;
-    public ?string $sort = null;
     public ?string $type = null;
 }
 

@@ -24,8 +24,8 @@
         "url": "sef",
         "visibility": "sf0",
         "watchers_count": 241,
-        "username": "USERNAME01",
         "org_id": "ORG01",
+        "username": "USERNAME01",
         "repo": "REPO01"
       },
       "REPO01": {
@@ -51,8 +51,8 @@
         "url": "s1cb",
         "visibility": "s1cc",
         "watchers_count": 461,
-        "username": "USERNAME01",
         "org_id": "ORG01",
+        "username": "USERNAME01",
         "repo": "REPO01"
       },
       "REPO02": {
@@ -78,8 +78,8 @@
         "url": "s2a7",
         "visibility": "s2a8",
         "watchers_count": 681,
-        "username": "USERNAME01",
         "org_id": "ORG01",
+        "username": "USERNAME01",
         "repo": "REPO01"
       }
     }
@@ -112,12 +112,12 @@
     }
   },
   "requests": {
-    "GET /users/{username}/repos": {
+    "GET /orgs/{org}/repos": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
     },
-    "GET /orgs/{org}/repos": {
+    "GET /users/{username}/repos": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

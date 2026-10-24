@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/github-rest-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -43,7 +43,7 @@ $client = new GithubRestSDK([
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $branchs = $client->Branch()->list();
+    $branchs = $client->Branch()->list(["owner" => "example", "repo" => "example"]);
     foreach ($branchs as $record) {
         $item = $record->data_get();
         echo $item["commit"] . "\n";
@@ -147,13 +147,13 @@ data via the `entity` option so offline calls resolve without a live server:
 
 ```php
 $client = GithubRestSDK::test([
-    "entity" => ["pull" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["org" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// list() returns entity instances (throws on error);
+// Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$pull = $client->Pull()->list();
-print_r(array_map(fn($item) => $item->data_get(), $pull));
+$org = $client->Org()->load(["id" => "test01"]);
+print_r($org->data_get());
 ```
 
 ### Use a custom fetch function
@@ -252,10 +252,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
+| `create` | `($reqdata, $ctrl): mixed` | Create a new entity, and return it. |
+| `update` | `($reqdata, $ctrl): mixed` | Update an existing entity, and return it. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -265,9 +265,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -464,7 +464,7 @@ API path: `/rate_limit`
 
 Operations: List, Load.
 
-API path: `/users/{username}/repos`
+API path: `/orgs/{org}/repos`
 
 #### Search
 
@@ -529,8 +529,8 @@ Create an instance: `$branch = $client->Branch();`
 #### Example: List
 
 ```php
-// list() returns an array of Branch records (throws on error).
-$branchs = $client->Branch()->list();
+// list() returns an array of Branch entities, one per record (throws on error).
+$branchs = $client->Branch()->list(["owner" => "example", "repo" => "example"]);
 ```
 
 
@@ -559,8 +559,8 @@ Create an instance: `$commit = $client->Commit();`
 #### Example: List
 
 ```php
-// list() returns an array of Commit records (throws on error).
-$commits = $client->Commit()->list();
+// list() returns an array of Commit entities, one per record (throws on error).
+$commits = $client->Commit()->list(["owner" => "example", "repo" => "example"]);
 ```
 
 
@@ -593,7 +593,7 @@ Create an instance: `$gist = $client->Gist();`
 #### Example: List
 
 ```php
-// list() returns an array of Gist records (throws on error).
+// list() returns an array of Gist entities, one per record (throws on error).
 $gists = $client->Gist()->list();
 ```
 
@@ -651,8 +651,8 @@ $issue = $client->Issue()->load(["id" => 1, "owner" => "owner", "repo" => "repo"
 #### Example: List
 
 ```php
-// list() returns an array of Issue records (throws on error).
-$issues = $client->Issue()->list();
+// list() returns an array of Issue entities, one per record (throws on error).
+$issues = $client->Issue()->list(["owner" => "example", "repo" => "example"]);
 ```
 
 #### Example: Create
@@ -661,6 +661,7 @@ $issues = $client->Issue()->list();
 $issue = $client->Issue()->create([
     "owner" => null, // string
     "repo" => null, // string
+    "title" => null, // string
 ]);
 ```
 
@@ -691,7 +692,7 @@ Create an instance: `$notification = $client->Notification();`
 #### Example: List
 
 ```php
-// list() returns an array of Notification records (throws on error).
+// list() returns an array of Notification entities, one per record (throws on error).
 $notifications = $client->Notification()->list();
 ```
 
@@ -779,8 +780,8 @@ $pull = $client->Pull()->load(["id" => 1, "owner" => "owner", "repo" => "repo"])
 #### Example: List
 
 ```php
-// list() returns an array of Pull records (throws on error).
-$pulls = $client->Pull()->list();
+// list() returns an array of Pull entities, one per record (throws on error).
+$pulls = $client->Pull()->list(["owner" => "example", "repo" => "example"]);
 ```
 
 #### Example: Create
@@ -789,6 +790,9 @@ $pulls = $client->Pull()->list();
 $pull = $client->Pull()->create([
     "owner" => null, // string
     "repo" => null, // string
+    "base" => null, // array
+    "head" => null, // array
+    "title" => null, // string
 ]);
 ```
 
@@ -866,8 +870,8 @@ $repo = $client->Repo()->load(["owner" => "owner", "repo" => "repo"]);
 #### Example: List
 
 ```php
-// list() returns an array of Repo records (throws on error).
-$repos = $client->Repo()->list();
+// list() returns an array of Repo entities, one per record (throws on error).
+$repos = $client->Repo()->list(["org_id" => "example"]);
 ```
 
 
@@ -880,13 +884,6 @@ Create an instance: `$search = $client->Search();`
 | Method | Description |
 | --- | --- |
 | `list(match)` | List entities matching the criteria. |
-
-#### Example: List
-
-```php
-// list() returns an array of Search records (throws on error).
-$searchs = $client->Search()->list();
-```
 
 
 ### User

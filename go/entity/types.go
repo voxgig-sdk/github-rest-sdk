@@ -50,16 +50,9 @@ type GistListMatch struct {
 
 // GistCreateData is the typed request payload for Gist.CreateTyped.
 type GistCreateData struct {
-	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
 	Files map[string]any `json:"files"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *string `json:"id,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Owner *map[string]any `json:"owner,omitempty"`
 	Public *bool `json:"public,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
 }
 
 // Issue is the typed data model for the issue entity.
@@ -89,23 +82,11 @@ type IssueListMatch struct {
 type IssueCreateData struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
-	Assignee *any `json:"assignee,omitempty"`
 	Assignees *[]any `json:"assignees,omitempty"`
 	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	Comments *int `json:"comments,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
 	Labels *[]any `json:"labels,omitempty"`
 	Milestone *map[string]any `json:"milestone,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
+	Title string `json:"title"`
 }
 
 // IssueUpdateData is the typed request payload for Issue.UpdateTyped.
@@ -113,22 +94,11 @@ type IssueUpdateData struct {
 	Id int `json:"id"`
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
-	Assignee *any `json:"assignee,omitempty"`
 	Assignees *[]any `json:"assignees,omitempty"`
 	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	Comments *int `json:"comments,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
 	Labels *[]any `json:"labels,omitempty"`
-	Milestone *map[string]any `json:"milestone,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
 	State *string `json:"state,omitempty"`
 	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
 }
 
 // Notification is the typed data model for the notification entity.
@@ -178,22 +148,11 @@ type PullListMatch struct {
 type PullCreateData struct {
 	Owner string `json:"owner"`
 	Repo string `json:"repo"`
-	Base *map[string]any `json:"base,omitempty"`
+	Base map[string]any `json:"base"`
 	Body *string `json:"body,omitempty"`
-	ClosedAt *string `json:"closed_at,omitempty"`
-	CreatedAt *string `json:"created_at,omitempty"`
 	Draft *bool `json:"draft,omitempty"`
-	Head *map[string]any `json:"head,omitempty"`
-	HtmlUrl *string `json:"html_url,omitempty"`
-	Id *int `json:"id,omitempty"`
-	MergedAt *string `json:"merged_at,omitempty"`
-	NodeId *string `json:"node_id,omitempty"`
-	Number *int `json:"number,omitempty"`
-	State *string `json:"state,omitempty"`
-	Title *string `json:"title,omitempty"`
-	UpdatedAt *string `json:"updated_at,omitempty"`
-	Url *string `json:"url,omitempty"`
-	User *map[string]any `json:"user,omitempty"`
+	Head map[string]any `json:"head"`
+	Title string `json:"title"`
 }
 
 // RateLimit is the typed data model for the rate_limit entity.
@@ -218,11 +177,9 @@ type RepoLoadMatch struct {
 
 // RepoListMatch is the typed request payload for Repo.ListTyped.
 type RepoListMatch struct {
-	Username string `json:"username"`
-	Direction *string `json:"direction,omitempty"`
+	OrgId string `json:"org_id"`
 	Page *int `json:"page,omitempty"`
 	PerPage *int `json:"per_page,omitempty"`
-	Sort *string `json:"sort,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
 

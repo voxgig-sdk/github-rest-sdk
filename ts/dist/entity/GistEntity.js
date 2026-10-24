@@ -80,9 +80,12 @@ class GistEntity extends GithubRestEntityBase_1.GithubRestEntityBase {
         catch (err) {
             // What a hook throws here must not escape the cleaning below.
             try {
-                fres = featureHook(ctx, 'PreUnexpected');
-                if (fres instanceof Promise) {
-                    await fres;
+                // Once per operation: makeError fires it for its own error.
+                if (!ctx.unexpectedFired) {
+                    fres = featureHook(ctx, 'PreUnexpected');
+                    if (fres instanceof Promise) {
+                        await fres;
+                    }
                 }
             }
             catch (hookerr) {
@@ -94,7 +97,7 @@ class GistEntity extends GithubRestEntityBase_1.GithubRestEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Gist[]> return stays clean under strict null checks.
+                // Promise<GistEntity[]> return stays clean under strict null checks.
                 return undefined;
             }
         }
@@ -168,9 +171,12 @@ class GistEntity extends GithubRestEntityBase_1.GithubRestEntityBase {
         catch (err) {
             // What a hook throws here must not escape the cleaning below.
             try {
-                fres = featureHook(ctx, 'PreUnexpected');
-                if (fres instanceof Promise) {
-                    await fres;
+                // Once per operation: makeError fires it for its own error.
+                if (!ctx.unexpectedFired) {
+                    fres = featureHook(ctx, 'PreUnexpected');
+                    if (fres instanceof Promise) {
+                        await fres;
+                    }
                 }
             }
             catch (hookerr) {
@@ -182,7 +188,7 @@ class GistEntity extends GithubRestEntityBase_1.GithubRestEntityBase {
             }
             else {
                 // Off-happy-path (throw disabled): typed as any so the method's
-                // Promise<Gist> return stays clean under strict null checks.
+                // Promise<GistEntity> return stays clean under strict null checks.
                 return undefined;
             }
         }

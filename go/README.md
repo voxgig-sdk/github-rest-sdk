@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/github-rest-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/github-rest-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/github-rest-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -35,9 +35,10 @@ loading a specific record.
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -53,13 +54,13 @@ func main() {
         "apikey": os.Getenv("GITHUB_REST_APIKEY"),
     })
 
-    // List branch records — the value is the array of records itself.
-    branchs, err := client.Branch(nil).List(nil, nil)
+    // List branch records — the value is a []any of entities, one per record.
+    branchs, err := client.Branch(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
     if err != nil {
         panic(err)
     }
     for _, item := range branchs.([]any) {
-        fmt.Println(item)
+        fmt.Println(item.(sdk.Entity).Data())
     }
 }
 ```
@@ -140,13 +141,16 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-gist, err := client.Gist(nil).List(
+gists, err := client.Gist(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(gist) // the returned mock data
+// A []any of entities, one per mock record.
+for _, item := range gists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 ### Use a custom fetch function
@@ -243,10 +247,10 @@ All entities implement the `GithubRestEntity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria, and return it. |
+| `List` | `(reqmatch, ctrl map[string]any) (any, error)` | List entities matching the criteria, one per record. |
+| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity, and return it. |
+| `Update` | `(reqdata, ctrl map[string]any) (any, error)` | Update an existing entity, and return it. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -254,21 +258,21 @@ All entities implement the `GithubRestEntity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Update` | the entity record (`map[string]any`) |
-| `List` | a `[]any` of entity records |
+| `Load` / `Create` / `Update` | the entity, whose `Data()` reads its record (`map[string]any`) |
+| `List` | a `[]any` of entities, one per record |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    branch, err := client.Branch(nil).List(map[string]any{/* fields */}, nil)
+    branch, err := client.Branch(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
     if err != nil { /* handle */ }
-    // branch is the returned record
+    // branch is a []any of entities, one per record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -456,7 +460,7 @@ API path: `/rate_limit`
 
 Operations: List, Load.
 
-API path: `/users/{username}/repos`
+API path: `/orgs/{org}/repos`
 
 #### Search
 
@@ -521,11 +525,14 @@ Create an instance: `branch := client.Branch(nil)`
 #### Example: List
 
 ```go
-branchs, err := client.Branch(nil).List(nil, nil)
+branchs, err := client.Branch(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(branchs) // the array of records
+// A []any of entities, one per record.
+for _, item := range branchs.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -554,11 +561,14 @@ Create an instance: `commit := client.Commit(nil)`
 #### Example: List
 
 ```go
-commits, err := client.Commit(nil).List(nil, nil)
+commits, err := client.Commit(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(commits) // the array of records
+// A []any of entities, one per record.
+for _, item := range commits.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -595,7 +605,10 @@ gists, err := client.Gist(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(gists) // the array of records
+// A []any of entities, one per record.
+for _, item := range gists.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -607,7 +620,7 @@ result, err := client.Gist(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -653,17 +666,20 @@ issue, err := client.Issue(nil).Load(map[string]any{"id": 1, "owner": "owner", "
 if err != nil {
     panic(err)
 }
-fmt.Println(issue) // the loaded record
+fmt.Println(issue.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-issues, err := client.Issue(nil).List(nil, nil)
+issues, err := client.Issue(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(issues) // the array of records
+// A []any of entities, one per record.
+for _, item := range issues.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -672,11 +688,12 @@ fmt.Println(issues) // the array of records
 result, err := client.Issue(nil).Create(map[string]any{
     "owner": "example_owner",
     "repo": "example_repo",
+    "title": "example_title",
 }, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -710,7 +727,10 @@ notifications, err := client.Notification(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(notifications) // the array of records
+// A []any of entities, one per record.
+for _, item := range notifications.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
@@ -753,7 +773,7 @@ org, err := client.Org(nil).Load(map[string]any{"id": "org_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(org) // the loaded record
+fmt.Println(org.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -797,17 +817,20 @@ pull, err := client.Pull(nil).Load(map[string]any{"id": 1, "owner": "owner", "re
 if err != nil {
     panic(err)
 }
-fmt.Println(pull) // the loaded record
+fmt.Println(pull.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-pulls, err := client.Pull(nil).List(nil, nil)
+pulls, err := client.Pull(nil).List(map[string]any{"owner": "example", "repo": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(pulls) // the array of records
+// A []any of entities, one per record.
+for _, item := range pulls.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 #### Example: Create
@@ -816,11 +839,14 @@ fmt.Println(pulls) // the array of records
 result, err := client.Pull(nil).Create(map[string]any{
     "owner": "example_owner",
     "repo": "example_repo",
+    "base": map[string]any{},
+    "head": map[string]any{},
+    "title": "example_title",
 }, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 
@@ -848,7 +874,7 @@ rateLimit, err := client.RateLimit(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(rateLimit) // the loaded record
+fmt.Println(rateLimit.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 
@@ -897,39 +923,26 @@ repo, err := client.Repo(nil).Load(map[string]any{"owner": "owner", "repo": "rep
 if err != nil {
     panic(err)
 }
-fmt.Println(repo) // the loaded record
+fmt.Println(repo.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: List
 
 ```go
-repos, err := client.Repo(nil).List(nil, nil)
+repos, err := client.Repo(nil).List(map[string]any{"org_id": "example"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(repos) // the array of records
+// A []any of entities, one per record.
+for _, item := range repos.([]any) {
+    fmt.Println(item.(sdk.Entity).Data())
+}
 ```
 
 
 ### Search
 
 Create an instance: `search := client.Search(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
-
-#### Example: List
-
-```go
-searchs, err := client.Search(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(searchs) // the array of records
-```
 
 
 ### User
@@ -973,7 +986,7 @@ user, err := client.User(nil).Load(map[string]any{"id": "user_id"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(user) // the loaded record
+fmt.Println(user.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 ## Features
@@ -1110,7 +1123,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 

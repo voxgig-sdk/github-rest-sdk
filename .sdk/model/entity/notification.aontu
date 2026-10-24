@@ -112,13 +112,9 @@ main: kit: entity: notification: {
           }
           m: "GET"
           o: "/notifications"
-          q: {
-            exist: [
-              "all"
-              "page"
-              "participating"
-              "per_page"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

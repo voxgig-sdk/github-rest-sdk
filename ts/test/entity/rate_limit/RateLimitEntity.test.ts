@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { GithubRestSDK, BaseFeature, stdutil } from '../../..'
+import { GithubRestSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,8 @@ describe('RateLimitEntity', async () => {
   })
 
 
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.GITHUB_REST_TEST_LIVE
@@ -51,7 +53,7 @@ describe('RateLimitEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"rate":{"a":true,"h":"Rate","n":"rate","r":false,"t":"`$OBJECT`","key$":"rate","index$":0},"resources":{"a":true,"h":"Resources","n":"resources","r":false,"t":"`$OBJECT`","key$":"resources","index$":1}},"name":"rate_limit","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /rate_limit","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/rate_limit","q":{},"r":{},"s":[{"lit":"rate_limit"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"rate_limit","name__orig":"rate_limit","Name":"RateLimit","name_":"rate_limit","name-":"rate-limit","NAME":"RATE_LIMIT","index$":7}, {"active":true,"entity":"rate_limit","key$":"BasicRateLimitFlow","kind":"basic","name":"BasicRateLimitFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"rate_limit_ref01","srcdatavar":"rate_limit_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-rate_limit_ref01"}}],"index$":0}]}, 'RateLimit', {"GET /rate_limit":{"protocol":"http","parameters":[]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"rate":{"a":true,"h":"Rate","n":"rate","r":false,"t":"`$OBJECT`","key$":"rate","index$":0},"resources":{"a":true,"h":"Resources","n":"resources","r":false,"t":"`$OBJECT`","key$":"resources","index$":1}},"name":"rate_limit","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /rate_limit","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/rate_limit","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"rate_limit"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"rate_limit","name__orig":"rate_limit","Name":"RateLimit","name_":"rate_limit","name-":"rate-limit","NAME":"RATE_LIMIT","index$":7}, {"active":true,"entity":"rate_limit","key$":"BasicRateLimitFlow","kind":"basic","name":"BasicRateLimitFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"rate_limit_ref01","srcdatavar":"rate_limit_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-rate_limit_ref01"}}],"index$":0}]}, 'RateLimit', {"GET /rate_limit":{"protocol":"http","parameters":[]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +74,12 @@ describe('RateLimitEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

@@ -138,8 +138,8 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | Pull | `list` | `GET /repos/{owner}/{repo}/pulls` | Required |
 | Pull | `load` | `GET /repos/{owner}/{repo}/pulls/{pull_number}` | Required |
 | RateLimit | `load` | `GET /rate_limit` | Not required |
-| Repo | `list` | `GET /users/{username}/repos` | Required |
 | Repo | `list` | `GET /orgs/{org}/repos` | Required |
+| Repo | `list` | `GET /users/{username}/repos` | Required |
 | Repo | `load` | `GET /repos/{owner}/{repo}` | Required |
 | Search | `list` | `GET /search/issues` | Required |
 | Search | `list` | `GET /search/repositories` | Required |

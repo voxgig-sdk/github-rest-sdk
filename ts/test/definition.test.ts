@@ -27,13 +27,27 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "page": "v1",
-      "per_page": "v1"
+      "page": 1,
+      "per_page": 30
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": [
       [
@@ -76,17 +90,39 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "page": "v1",
+      "page": 1,
       "path": "v1",
-      "per_page": "v1",
+      "per_page": 30,
       "sha": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "sha",
       "path",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "path",
+        "wire": "path"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "sha",
+        "wire": "sha"
+      }
     ],
     "auth": [
       [
@@ -167,7 +203,12 @@ const PLAN: any[] = [
     "args": [],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -220,13 +261,27 @@ const PLAN: any[] = [
     "path": "/gists",
     "args": [],
     "select": {
-      "page": "v1",
-      "per_page": "v1"
+      "page": 1,
+      "per_page": 30
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": [],
     "status": 200,
@@ -286,7 +341,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -303,79 +363,79 @@ const PLAN: any[] = [
       "number": 1,
       "title": "x",
       "user": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "labels": [
         {
+          "id": 1,
+          "node_id": "x",
+          "name": "x",
           "color": "x",
           "default": true,
-          "description": "x",
-          "id": 1,
-          "name": "x",
-          "node_id": "x"
+          "description": "x"
         }
       ],
       "state": "open",
       "assignee": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "assignees": [
         {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         }
       ],
       "milestone": {},
@@ -408,14 +468,18 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "direction": "v1",
+      "direction": "desc",
       "label": "v1",
-      "page": "v1",
-      "per_page": "v1",
-      "sort": "v1",
-      "state": "v1"
+      "page": 1,
+      "per_page": 30,
+      "sort": "created",
+      "state": "open"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "state",
       "labels",
@@ -423,6 +487,32 @@ const PLAN: any[] = [
       "direction",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "direction",
+        "wire": "direction"
+      },
+      {
+        "name": "label",
+        "wire": "labels"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "sort",
+        "wire": "sort"
+      },
+      {
+        "name": "state",
+        "wire": "state"
+      }
     ],
     "auth": [
       [
@@ -441,79 +531,79 @@ const PLAN: any[] = [
         "number": 1,
         "title": "x",
         "user": {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         },
         "labels": [
           {
+            "id": 1,
+            "node_id": "x",
+            "name": "x",
             "color": "x",
             "default": true,
-            "description": "x",
-            "id": 1,
-            "name": "x",
-            "node_id": "x"
+            "description": "x"
           }
         ],
         "state": "open",
         "assignee": {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         },
         "assignees": [
           {
+            "login": "x",
+            "id": 1,
+            "node_id": "x",
             "avatar_url": "x",
-            "bio": "x",
-            "blog": "x",
+            "url": "x",
+            "html_url": "x",
+            "type": "User",
+            "name": "x",
             "company": "x",
-            "created_at": "2026-01-01T00:00:00Z",
+            "blog": "x",
+            "location": "x",
             "email": "x",
+            "bio": "x",
+            "public_repos": 1,
+            "public_gists": 1,
             "followers": 1,
             "following": 1,
-            "html_url": "x",
-            "id": 1,
-            "location": "x",
-            "login": "x",
-            "name": "x",
-            "node_id": "x",
-            "public_gists": 1,
-            "public_repos": 1,
-            "type": "User",
-            "updated_at": "2026-01-01T00:00:00Z",
-            "url": "x"
+            "created_at": "2026-01-01T00:00:00Z",
+            "updated_at": "2026-01-01T00:00:00Z"
           }
         ],
         "milestone": {},
@@ -553,7 +643,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -570,79 +665,79 @@ const PLAN: any[] = [
       "number": 1,
       "title": "x",
       "user": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "labels": [
         {
+          "id": 1,
+          "node_id": "x",
+          "name": "x",
           "color": "x",
           "default": true,
-          "description": "x",
-          "id": 1,
-          "name": "x",
-          "node_id": "x"
+          "description": "x"
         }
       ],
       "state": "open",
       "assignee": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "assignees": [
         {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         }
       ],
       "milestone": {},
@@ -681,7 +776,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -698,79 +798,79 @@ const PLAN: any[] = [
       "number": 1,
       "title": "x",
       "user": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "labels": [
         {
+          "id": 1,
+          "node_id": "x",
+          "name": "x",
           "color": "x",
           "default": true,
-          "description": "x",
-          "id": 1,
-          "name": "x",
-          "node_id": "x"
+          "description": "x"
         }
       ],
       "state": "open",
       "assignee": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "assignees": [
         {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         }
       ],
       "milestone": {},
@@ -793,16 +893,38 @@ const PLAN: any[] = [
     "args": [],
     "select": {
       "all": "v1",
-      "page": "v1",
+      "page": 1,
       "participating": "v1",
-      "per_page": "v1"
+      "per_page": 30
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "all",
       "participating",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "all",
+        "wire": "all"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "participating",
+        "wire": "participating"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      }
     ],
     "auth": [
       [
@@ -832,25 +954,25 @@ const PLAN: any[] = [
           "name": "x",
           "full_name": "x",
           "owner": {
+            "login": "x",
+            "id": 1,
+            "node_id": "x",
             "avatar_url": "x",
-            "bio": "x",
-            "blog": "x",
+            "url": "x",
+            "html_url": "x",
+            "type": "User",
+            "name": "x",
             "company": "x",
-            "created_at": "2026-01-01T00:00:00Z",
+            "blog": "x",
+            "location": "x",
             "email": "x",
+            "bio": "x",
+            "public_repos": 1,
+            "public_gists": 1,
             "followers": 1,
             "following": 1,
-            "html_url": "x",
-            "id": 1,
-            "location": "x",
-            "login": "x",
-            "name": "x",
-            "node_id": "x",
-            "public_gists": 1,
-            "public_repos": 1,
-            "type": "User",
-            "updated_at": "2026-01-01T00:00:00Z",
-            "url": "x"
+            "created_at": "2026-01-01T00:00:00Z",
+            "updated_at": "2026-01-01T00:00:00Z"
           },
           "private": true,
           "html_url": "x",
@@ -889,7 +1011,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -941,7 +1068,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -1017,19 +1149,45 @@ const PLAN: any[] = [
       }
     ],
     "select": {
-      "direction": "v1",
-      "page": "v1",
-      "per_page": "v1",
-      "sort": "v1",
-      "state": "v1"
+      "direction": "desc",
+      "page": 1,
+      "per_page": 30,
+      "sort": "created",
+      "state": "open"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "state",
       "sort",
       "direction",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "direction",
+        "wire": "direction"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "sort",
+        "wire": "sort"
+      },
+      {
+        "name": "state",
+        "wire": "state"
+      }
     ],
     "auth": [
       [
@@ -1114,7 +1272,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -1180,7 +1343,12 @@ const PLAN: any[] = [
     "args": [],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [],
     "status": 200,
     "sample": {
@@ -1191,13 +1359,13 @@ const PLAN: any[] = [
           "reset": 1,
           "used": 1
         },
-        "graphql": {
+        "search": {
           "limit": 1,
           "remaining": 1,
           "reset": 1,
           "used": 1
         },
-        "search": {
+        "graphql": {
           "limit": 1,
           "remaining": 1,
           "reset": 1,
@@ -1218,28 +1386,42 @@ const PLAN: any[] = [
     "accessor": "Repo",
     "op": "list",
     "method": "GET",
-    "path": "/users/{username}/repos",
+    "path": "/orgs/{org}/repos",
     "args": [
       {
-        "name": "username",
-        "wire": "username",
+        "name": "org_id",
+        "wire": "org",
         "value": "p1"
       }
     ],
     "select": {
-      "direction": "v1",
-      "page": "v1",
-      "per_page": "v1",
-      "sort": "v1",
-      "type": "v1"
+      "page": 1,
+      "per_page": 30,
+      "type": "all"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "type",
-      "sort",
-      "direction",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "type",
+        "wire": "type"
+      }
     ],
     "auth": [
       [
@@ -1258,25 +1440,25 @@ const PLAN: any[] = [
         "name": "x",
         "full_name": "x",
         "owner": {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         },
         "private": true,
         "html_url": "x",
@@ -1303,24 +1485,54 @@ const PLAN: any[] = [
     "accessor": "Repo",
     "op": "list",
     "method": "GET",
-    "path": "/orgs/{org}/repos",
+    "path": "/users/{username}/repos",
     "args": [
       {
-        "name": "org_id",
-        "wire": "org",
+        "name": "username",
+        "wire": "username",
         "value": "p1"
       }
     ],
     "select": {
-      "page": "v1",
-      "per_page": "v1",
-      "type": "v1"
+      "direction": "asc",
+      "page": 1,
+      "per_page": 30,
+      "sort": "full_name",
+      "type": "owner"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "type",
+      "sort",
+      "direction",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "direction",
+        "wire": "direction"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "sort",
+        "wire": "sort"
+      },
+      {
+        "name": "type",
+        "wire": "type"
+      }
     ],
     "auth": [
       [
@@ -1339,25 +1551,25 @@ const PLAN: any[] = [
         "name": "x",
         "full_name": "x",
         "owner": {
+          "login": "x",
+          "id": 1,
+          "node_id": "x",
           "avatar_url": "x",
-          "bio": "x",
-          "blog": "x",
+          "url": "x",
+          "html_url": "x",
+          "type": "User",
+          "name": "x",
           "company": "x",
-          "created_at": "2026-01-01T00:00:00Z",
+          "blog": "x",
+          "location": "x",
           "email": "x",
+          "bio": "x",
+          "public_repos": 1,
+          "public_gists": 1,
           "followers": 1,
           "following": 1,
-          "html_url": "x",
-          "id": 1,
-          "location": "x",
-          "login": "x",
-          "name": "x",
-          "node_id": "x",
-          "public_gists": 1,
-          "public_repos": 1,
-          "type": "User",
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x"
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z"
         },
         "private": true,
         "html_url": "x",
@@ -1399,7 +1611,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -1416,25 +1633,25 @@ const PLAN: any[] = [
       "name": "x",
       "full_name": "x",
       "owner": {
+        "login": "x",
+        "id": 1,
+        "node_id": "x",
         "avatar_url": "x",
-        "bio": "x",
-        "blog": "x",
+        "url": "x",
+        "html_url": "x",
+        "type": "User",
+        "name": "x",
         "company": "x",
-        "created_at": "2026-01-01T00:00:00Z",
+        "blog": "x",
+        "location": "x",
         "email": "x",
+        "bio": "x",
+        "public_repos": 1,
+        "public_gists": 1,
         "followers": 1,
         "following": 1,
-        "html_url": "x",
-        "id": 1,
-        "location": "x",
-        "login": "x",
-        "name": "x",
-        "node_id": "x",
-        "public_gists": 1,
-        "public_repos": 1,
-        "type": "User",
-        "updated_at": "2026-01-01T00:00:00Z",
-        "url": "x"
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-01T00:00:00Z"
       },
       "private": true,
       "html_url": "x",
@@ -1464,19 +1681,45 @@ const PLAN: any[] = [
     "action": "issue",
     "args": [],
     "select": {
-      "order": "v1",
-      "page": "v1",
-      "per_page": "v1",
       "q": "v1",
+      "order": "desc",
+      "page": 1,
+      "per_page": 30,
       "sort": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "q",
       "sort",
       "order",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "order",
+        "wire": "order"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "q",
+        "wire": "q"
+      },
+      {
+        "name": "sort",
+        "wire": "sort"
+      }
     ],
     "auth": [
       [
@@ -1493,94 +1736,94 @@ const PLAN: any[] = [
       "incomplete_results": true,
       "items": [
         {
-          "assignee": {
+          "id": 1,
+          "node_id": "x",
+          "number": 1,
+          "title": "x",
+          "user": {
+            "login": "x",
+            "id": 1,
+            "node_id": "x",
             "avatar_url": "x",
-            "bio": "x",
-            "blog": "x",
+            "url": "x",
+            "html_url": "x",
+            "type": "User",
+            "name": "x",
             "company": "x",
-            "created_at": "2026-01-01T00:00:00Z",
+            "blog": "x",
+            "location": "x",
             "email": "x",
+            "bio": "x",
+            "public_repos": 1,
+            "public_gists": 1,
             "followers": 1,
             "following": 1,
-            "html_url": "x",
-            "id": 1,
-            "location": "x",
+            "created_at": "2026-01-01T00:00:00Z",
+            "updated_at": "2026-01-01T00:00:00Z"
+          },
+          "labels": [
+            {
+              "id": 1,
+              "node_id": "x",
+              "name": "x",
+              "color": "x",
+              "default": true,
+              "description": "x"
+            }
+          ],
+          "state": "open",
+          "assignee": {
             "login": "x",
-            "name": "x",
+            "id": 1,
             "node_id": "x",
-            "public_gists": 1,
-            "public_repos": 1,
+            "avatar_url": "x",
+            "url": "x",
+            "html_url": "x",
             "type": "User",
-            "updated_at": "2026-01-01T00:00:00Z",
-            "url": "x"
+            "name": "x",
+            "company": "x",
+            "blog": "x",
+            "location": "x",
+            "email": "x",
+            "bio": "x",
+            "public_repos": 1,
+            "public_gists": 1,
+            "followers": 1,
+            "following": 1,
+            "created_at": "2026-01-01T00:00:00Z",
+            "updated_at": "2026-01-01T00:00:00Z"
           },
           "assignees": [
             {
+              "login": "x",
+              "id": 1,
+              "node_id": "x",
               "avatar_url": "x",
-              "bio": "x",
-              "blog": "x",
+              "url": "x",
+              "html_url": "x",
+              "type": "User",
+              "name": "x",
               "company": "x",
-              "created_at": "2026-01-01T00:00:00Z",
+              "blog": "x",
+              "location": "x",
               "email": "x",
+              "bio": "x",
+              "public_repos": 1,
+              "public_gists": 1,
               "followers": 1,
               "following": 1,
-              "html_url": "x",
-              "id": 1,
-              "location": "x",
-              "login": "x",
-              "name": "x",
-              "node_id": "x",
-              "public_gists": 1,
-              "public_repos": 1,
-              "type": "User",
-              "updated_at": "2026-01-01T00:00:00Z",
-              "url": "x"
-            }
-          ],
-          "body": "x",
-          "closed_at": "2026-01-01T00:00:00Z",
-          "comments": 1,
-          "created_at": "2026-01-01T00:00:00Z",
-          "html_url": "x",
-          "id": 1,
-          "labels": [
-            {
-              "color": "x",
-              "default": true,
-              "description": "x",
-              "id": 1,
-              "name": "x",
-              "node_id": "x"
+              "created_at": "2026-01-01T00:00:00Z",
+              "updated_at": "2026-01-01T00:00:00Z"
             }
           ],
           "milestone": {},
-          "node_id": "x",
-          "number": 1,
-          "state": "open",
-          "title": "x",
+          "comments": 1,
+          "created_at": "2026-01-01T00:00:00Z",
           "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x",
-          "user": {
-            "avatar_url": "x",
-            "bio": "x",
-            "blog": "x",
-            "company": "x",
-            "created_at": "2026-01-01T00:00:00Z",
-            "email": "x",
-            "followers": 1,
-            "following": 1,
-            "html_url": "x",
-            "id": 1,
-            "location": "x",
-            "login": "x",
-            "name": "x",
-            "node_id": "x",
-            "public_gists": 1,
-            "public_repos": 1,
-            "type": "User",
-            "updated_at": "2026-01-01T00:00:00Z",
-            "url": "x"
-          }
+          "closed_at": "2026-01-01T00:00:00Z",
+          "body": "x",
+          "html_url": "x",
+          "url": "x"
         }
       ]
     },
@@ -1595,19 +1838,45 @@ const PLAN: any[] = [
     "action": "repository",
     "args": [],
     "select": {
-      "order": "v1",
-      "page": "v1",
-      "per_page": "v1",
       "q": "v1",
+      "order": "desc",
+      "page": 1,
+      "per_page": 30,
       "sort": "v1"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "q",
       "sort",
       "order",
       "per_page",
       "page"
+    ],
+    "queryArgs": [
+      {
+        "name": "order",
+        "wire": "order"
+      },
+      {
+        "name": "page",
+        "wire": "page"
+      },
+      {
+        "name": "per_page",
+        "wire": "per_page"
+      },
+      {
+        "name": "q",
+        "wire": "q"
+      },
+      {
+        "name": "sort",
+        "wire": "sort"
+      }
     ],
     "auth": [
       [
@@ -1624,47 +1893,47 @@ const PLAN: any[] = [
       "incomplete_results": true,
       "items": [
         {
-          "created_at": "2026-01-01T00:00:00Z",
-          "default_branch": "x",
-          "description": "x",
-          "fork": true,
-          "forks_count": 1,
-          "full_name": "x",
-          "html_url": "x",
           "id": 1,
-          "language": "x",
-          "name": "x",
           "node_id": "x",
-          "open_issues_count": 1,
+          "name": "x",
+          "full_name": "x",
           "owner": {
+            "login": "x",
+            "id": 1,
+            "node_id": "x",
             "avatar_url": "x",
-            "bio": "x",
-            "blog": "x",
+            "url": "x",
+            "html_url": "x",
+            "type": "User",
+            "name": "x",
             "company": "x",
-            "created_at": "2026-01-01T00:00:00Z",
+            "blog": "x",
+            "location": "x",
             "email": "x",
+            "bio": "x",
+            "public_repos": 1,
+            "public_gists": 1,
             "followers": 1,
             "following": 1,
-            "html_url": "x",
-            "id": 1,
-            "location": "x",
-            "login": "x",
-            "name": "x",
-            "node_id": "x",
-            "public_gists": 1,
-            "public_repos": 1,
-            "type": "User",
-            "updated_at": "2026-01-01T00:00:00Z",
-            "url": "x"
+            "created_at": "2026-01-01T00:00:00Z",
+            "updated_at": "2026-01-01T00:00:00Z"
           },
           "private": true,
+          "html_url": "x",
+          "description": "x",
+          "fork": true,
+          "url": "x",
+          "created_at": "2026-01-01T00:00:00Z",
+          "updated_at": "2026-01-01T00:00:00Z",
           "pushed_at": "2026-01-01T00:00:00Z",
           "size": 1,
           "stargazers_count": 1,
-          "updated_at": "2026-01-01T00:00:00Z",
-          "url": "x",
-          "visibility": "public",
-          "watchers_count": 1
+          "watchers_count": 1,
+          "language": "x",
+          "forks_count": 1,
+          "open_issues_count": 1,
+          "default_branch": "x",
+          "visibility": "public"
         }
       ]
     },
@@ -1685,7 +1954,12 @@ const PLAN: any[] = [
     ],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
@@ -1728,7 +2002,12 @@ const PLAN: any[] = [
     "args": [],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": [
       [
         {
